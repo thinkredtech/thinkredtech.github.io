@@ -454,7 +454,8 @@ const QuoteRequestForm: React.FC = () => {
   ];
   
   const budgetRanges = [
-    'Less than $10,000',
+    'Less than $1,000',
+    '$1,000 - $10,000',
     '$10,000 - $25,000',
     '$25,000 - $50,000',
     '$50,000 - $100,000',

@@ -112,7 +112,8 @@ const ContactPage: React.FC = () => {
   ];
   
   const budgetRanges = [
-    'Less than $10,000',
+    'Less than $1,000',
+    '$1,000 - $10,000',
     '$10,000 - $25,000',
     '$25,000 - $50,000',
     '$50,000 - $100,000',
@@ -202,7 +203,7 @@ const ContactPage: React.FC = () => {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-medium">Location</h3>
-                    <p className="text-secondary">C403, SR NO 22 GINIBELLISSIMO NR SAIDHAM<br />Pune City, Maharashtra, India - 411015</p>
+                    <p className="text-secondary">C403, Sr No 22, Laxmi Nagar, Dhanori, Pune, Maharashtra, India - 411015</p>
                   </div>
                 </div>
                 

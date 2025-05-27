@@ -125,7 +125,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-white">
+      {/* <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="heading-1 mb-4">Leadership Team</h2>
@@ -136,7 +136,7 @@ const AboutPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Team member cards would go here - using placeholders */}
-            <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
+            {/* <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
               <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-6">
                 <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-primary text-2xl font-bold">JS</span>
@@ -212,7 +212,7 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-16 md:py-24 bg-primary text-white">
         <div className="container mx-auto px-4">
