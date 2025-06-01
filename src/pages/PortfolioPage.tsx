@@ -18,64 +18,84 @@ const PortfolioPage: React.FC = () => {
   const portfolioItems: PortfolioItem[] = [
     {
       id: 1,
-      title: "ZeoMed Healthcare Platform",
-      description: "A comprehensive healthcare management system for clinics and hospitals, featuring appointment scheduling, patient records, and billing integration.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["React", "Node.js", "MongoDB", "Express"],
+      title: "OfficePro Inc.",
+      description: "A revamped, WordPress-based platform that seamlessly integrates OfficePro Inc's technology training, certification, and AV staffing services.",
+      image: "/assets/images/officepro.png",
+      technologies: ["WordPress", "LearnPress", "HTML", "CSS", "JavaScript", "PHP", "MySQL"],
       category: "Web Application",
-      client: "ZeoMed Services",
-      link: "https://zeomedservices.com"
+      client: "OfficePro Inc.",
+      link: "https://officepro.on.thinkred.tech/"
     },
     {
       id: 2,
-      title: "E-Commerce Platform",
-      description: "A scalable e-commerce solution with inventory management, payment processing, and customer analytics.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["Vue.js", "Firebase", "Stripe", "Tailwind CSS"],
-      category: "Web Application",
-      client: "RetailTech Inc.",
-      link: "#"
+      title: "Epic Learning Sync - WordPress Plugin",
+      description: "A WordPress plugin that seamlessly synchronizes LearnPress courses with data from the Epic Learning Network API. It provides a robust, secure, and user-friendly way to manage course content while ensuring data integrity and performance.",
+      image: "/assets/images/epic-learning-sync.png",
+      technologies: ["WordPress", "LearnPress", "HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+      category: "WordPress Plugin",
+      client: "OfficePro Inc.",
+      link: "https://github.com/thinkredtech/epic-learning-sync"
     },
     {
       id: 3,
-      title: "Internal Developer Platform",
-      description: "A custom IDP that streamlines development workflows, CI/CD pipelines, and infrastructure provisioning.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["Kubernetes", "Docker", "Jenkins", "Go"],
-      category: "DevOps",
-      client: "Enterprise Solutions Ltd.",
-      link: "#"
-    },
-    {
-      id: 4,
-      title: "Mobile Banking Application",
-      description: "A secure mobile banking application with biometric authentication, transaction history, and financial insights.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["React Native", "Spring Boot", "PostgreSQL", "AWS"],
-      category: "Mobile Application",
-      client: "FinTech Innovations",
-      link: "#"
-    },
-    {
-      id: 5,
-      title: "Content Management System",
-      description: "A custom CMS for managing digital content, user permissions, and publishing workflows.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["Next.js", "GraphQL", "MongoDB", "AWS"],
+      title: "Zeomed Services",
+      description: "A WordPress based comprehensive healthcare management system portfolio site for managing digital content, business enquiries and selling course and training programs.",
+      image: "/assets/images/zeomed-services.png",
+      technologies: ["WordPress", "HTML", "CSS", "JavaScript", "PHP", "MySQL"],
       category: "Web Application",
-      client: "Media Publishing Group",
-      link: "#"
+      client: "Zeomed Services",
+      link: "https://zeomedservices.com"
     },
-    {
-      id: 6,
-      title: "IoT Dashboard",
-      description: "A real-time dashboard for monitoring and controlling IoT devices with data visualization and alerts.",
-      image: "/assets/images/thinkRED-square.png",
-      technologies: ["React", "Node.js", "Socket.io", "D3.js"],
-      category: "IoT",
-      client: "Smart Solutions Inc.",
-      link: "#"
-    }
+    // {
+    //   id: 4,
+    //   title: "E-Commerce Platform",
+    //   description: "A scalable e-commerce solution with inventory management, payment processing, and customer analytics.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Vue.js", "Firebase", "Stripe", "Tailwind CSS"],
+    //   category: "Web Application",
+    //   client: "RetailTech Inc.",
+    //   link: "#"
+    // },
+    // {
+    //   id: 5,
+    //   title: "Internal Developer Platform",
+    //   description: "A custom IDP that streamlines development workflows, CI/CD pipelines, and infrastructure provisioning.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Kubernetes", "Docker", "Jenkins", "Go"],
+    //   category: "DevOps",
+    //   client: "Enterprise Solutions Ltd.",
+    //   link: "#"
+    // },
+    // {
+    //   id: 6,
+    //   title: "Mobile Banking Application",
+    //   description: "A secure mobile banking application with biometric authentication, transaction history, and financial insights.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["React Native", "Spring Boot", "PostgreSQL", "AWS"],
+    //   category: "Mobile Application",
+    //   client: "FinTech Innovations",
+    //   link: "#"
+    // },
+    // {
+    //   id: 7,
+    //   title: "Content Management System",
+    //   description: "A custom CMS for managing digital content, user permissions, and publishing workflows.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Next.js", "GraphQL", "MongoDB", "AWS"],
+    //   category: "Web Application",
+    //   client: "Media Publishing Group",
+    //   link: "#"
+    // },
+    // {
+    //   id: 8,
+    //   title: "IoT Dashboard",
+    //   description: "A real-time dashboard for monitoring and controlling IoT devices with data visualization and alerts.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["React", "Node.js", "Socket.io", "D3.js"],
+    //   category: "IoT",
+    //   client: "Smart Solutions Inc.",
+    //   link: "#"
+    // }
   ];
 
   // State for filters and search
