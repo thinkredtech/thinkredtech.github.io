@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { blogPosts } from '../data/blogPosts';
+
 // Define blog post type
 interface BlogPost {
   id: number;
@@ -16,74 +18,74 @@ interface BlogPost {
 
 const BlogPage: React.FC = () => {
   // Sample blog data
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "The Future of Internal Developer Platforms",
-      excerpt: "How IDPs are revolutionizing development workflows and improving team productivity.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Rahul Sharma",
-      date: "May 15, 2025",
-      categories: ["Development", "DevOps"],
-      tags: ["IDP", "Developer Experience", "Automation"]
-    },
-    {
-      id: 2,
-      title: "Optimizing React Applications for Performance",
-      excerpt: "Best practices and techniques for building lightning-fast React applications.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Priya Patel",
-      date: "May 10, 2025",
-      categories: ["Development", "Frontend"],
-      tags: ["React", "Performance", "JavaScript"]
-    },
-    {
-      id: 3,
-      title: "Kubernetes vs. Docker Swarm: Which is Right for Your Project?",
-      excerpt: "A comprehensive comparison of two popular container orchestration platforms.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Vikram Singh",
-      date: "May 5, 2025",
-      categories: ["DevOps", "Infrastructure"],
-      tags: ["Kubernetes", "Docker", "Containers"]
-    },
-    {
-      id: 4,
-      title: "Building Accessible Web Applications",
-      excerpt: "Why accessibility matters and how to implement it in your web projects.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Neha Gupta",
-      date: "April 28, 2025",
-      categories: ["Development", "UX/UI"],
-      tags: ["Accessibility", "Web Standards", "Inclusive Design"]
-    },
-    {
-      id: 5,
-      title: "The Rise of AI in Software Development",
-      excerpt: "How artificial intelligence is changing the way we build and maintain software.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Arjun Reddy",
-      date: "April 20, 2025",
-      categories: ["AI", "Development"],
-      tags: ["Artificial Intelligence", "Machine Learning", "Future Tech"]
-    },
-    {
-      id: 6,
-      title: "Securing Your Web Applications: A Comprehensive Guide",
-      excerpt: "Essential security practices every developer should implement.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      image: "/assets/images/thinkRED-square.png",
-      author: "Sanjay Kumar",
-      date: "April 15, 2025",
-      categories: ["Security", "Development"],
-      tags: ["Cybersecurity", "Web Security", "Best Practices"]
-    }
-  ];
+  // const blogPosts: BlogPost[] = [
+  //   {
+  //     id: 1,
+  //     title: "The Future of Internal Developer Platforms",
+  //     excerpt: "How IDPs are revolutionizing development workflows and improving team productivity.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "May 15, 2025",
+  //     categories: ["Development", "DevOps"],
+  //     tags: ["IDP", "Developer Experience", "Automation"]
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Optimizing React Applications for Performance",
+  //     excerpt: "Best practices and techniques for building lightning-fast React applications.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "May 10, 2025",
+  //     categories: ["Development", "Frontend"],
+  //     tags: ["React", "Performance", "JavaScript"]
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Kubernetes vs. Docker Swarm: Which is Right for Your Project?",
+  //     excerpt: "A comprehensive comparison of two popular container orchestration platforms.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "May 5, 2025",
+  //     categories: ["DevOps", "Infrastructure"],
+  //     tags: ["Kubernetes", "Docker", "Containers"]
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Building Accessible Web Applications",
+  //     excerpt: "Why accessibility matters and how to implement it in your web projects.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "April 28, 2025",
+  //     categories: ["Development", "UX/UI"],
+  //     tags: ["Accessibility", "Web Standards", "Inclusive Design"]
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "The Rise of AI in Software Development",
+  //     excerpt: "How artificial intelligence is changing the way we build and maintain software.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "April 20, 2025",
+  //     categories: ["AI", "Development"],
+  //     tags: ["Artificial Intelligence", "Machine Learning", "Future Tech"]
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Securing Your Web Applications: A Comprehensive Guide",
+  //     excerpt: "Essential security practices every developer should implement.",
+  //     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  //     image: "/assets/images/thinkRED-square.png",
+  //     author: "Sayak Sarkar",
+  //     date: "April 15, 2025",
+  //     categories: ["Security", "Development"],
+  //     tags: ["Cybersecurity", "Web Security", "Best Practices"]
+  //   }
+  // ];
 
   // State for filters and search
   const [searchTerm, setSearchTerm] = useState('');
@@ -201,7 +203,7 @@ const BlogPage: React.FC = () => {
                   <img 
                     src={post.image} 
                     alt={post.title} 
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-60 md:h-48 lg:h-60"
                   />
                 </div>
                 <div className="p-6">

@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         { name: 'Case Studies', path: '/portfolio' },
         { name: 'Blog', path: '/blog' },
         { name: 'Documentation', path: '/blog' },
-        { name: 'FAQ', path: '/about' },
+        { name: 'FAQ', path: '/faq' },
         { name: 'Support', path: '/contact' }
       ]
     }

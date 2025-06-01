@@ -7,8 +7,9 @@ import ServicesPage from './pages/ServicesPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
+import FAQPage from './pages/FAQPage';
 import AvatarAssistant from './components/AvatarAssistant';
-
 function App() {
   return (
     <Router>
@@ -19,7 +20,9 @@ function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/faq" element={<FAQPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:postId" element={<BlogPostPage />} />
         </Routes>
         <AvatarAssistant />
       </Layout>
