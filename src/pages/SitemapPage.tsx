@@ -9,6 +9,8 @@ const mainRoutes = [
     { name: 'Blog', path: '/blog' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Privacy Policy', path: '/privacy-policy' },
+    { name: 'Terms of Service', path: '/terms-of-service' },
 ];
 
 const docsCategories = [

@@ -13,6 +13,8 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const AvatarAssistant = lazy(() => import('./components/AvatarAssistant'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             <Route path="/blog/:postId" element={<BlogPostPage />} />
             <Route path="/docs/:docPath/*" element={<DocsPage />} />
             <Route path="/sitemap" element={<SitemapPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           </Routes>
           <AvatarAssistant />
         </Suspense>
