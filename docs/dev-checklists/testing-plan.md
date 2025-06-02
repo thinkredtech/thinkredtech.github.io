@@ -1,6 +1,7 @@
 # ThinkRED Website Testing Plan
 
 ## Responsive Design Testing
+
 - [ ] Test on mobile devices (320px - 480px width)
 - [ ] Test on tablet devices (481px - 768px width)
 - [ ] Test on small laptops (769px - 1024px width)
@@ -12,6 +13,7 @@
 - [ ] Verify spacing and padding adjusts appropriately
 
 ## Navigation and Routing Testing
+
 - [ ] Verify all navigation links work correctly
 - [ ] Test mobile menu open/close functionality
 - [ ] Verify active page is highlighted in navigation
@@ -21,6 +23,7 @@
 - [ ] Test logo link returns to home page
 
 ## Interactive Elements Testing
+
 - [ ] Test all buttons and hover states
 - [ ] Verify form validation on Contact page
 - [ ] Test form submission process
@@ -30,6 +33,7 @@
 - [ ] Test all external links open in new tabs
 
 ## 3D Avatar Assistant Testing
+
 - [ ] Verify avatar appears correctly on all pages
 - [ ] Test avatar animations and interactions
 - [ ] Verify avatar messages change periodically
@@ -38,6 +42,7 @@
 - [ ] Test avatar click interactions
 
 ## Accessibility Testing
+
 - [ ] Test keyboard navigation
 - [ ] Verify proper heading hierarchy
 - [ ] Check color contrast ratios
@@ -47,6 +52,7 @@
 - [ ] Check focus states on interactive elements
 
 ## Cross-Browser Testing
+
 - [ ] Test on Chrome
 - [ ] Test on Firefox
 - [ ] Test on Safari
@@ -55,6 +61,7 @@
 - [ ] Verify consistent functionality across browsers
 
 ## Performance Testing
+
 - [ ] Check page load times
 - [ ] Verify image optimization
 - [ ] Test JavaScript performance
@@ -63,6 +70,7 @@
 - [ ] Test site under slow network conditions
 
 ## Content Review
+
 - [ ] Verify all text content for spelling and grammar
 - [ ] Check all links point to correct destinations
 - [ ] Verify all images display correctly
@@ -71,6 +79,7 @@
 - [ ] Check for broken layouts or overflow issues
 
 ## Final Validation
+
 - [ ] Run Lighthouse audit
 - [ ] Validate HTML
 - [ ] Test with ad blockers enabled
