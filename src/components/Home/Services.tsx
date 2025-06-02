@@ -70,8 +70,8 @@ const Services: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesList.map((service, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="bg-backgroundAlt p-8 rounded-lg shadow-regular hover:shadow-lg transition-all duration-300"
             >
               <div className="mb-6">

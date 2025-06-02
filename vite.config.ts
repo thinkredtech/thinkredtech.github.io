@@ -18,11 +18,31 @@ export default defineConfig({
   preview: {
     port: 4173,
     host: '0.0.0.0',
-    allowedHosts: 'all'
+    allowedHosts: true,
   },
   build: {
     outDir: 'build',
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendors': [
+            'react',
+            'react-dom',
+            'react-router-dom',
+            'react-markdown',
+            'remark-gfm',
+            'rehype-raw',
+            'rehype-sanitize',
+          ],
+          'three-vendors': [
+            'three',
+            '@react-three/fiber',
+            '@react-three/drei',
+          ],
+        },
+      },
+    },
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'three'],

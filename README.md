@@ -38,22 +38,22 @@ A modern, responsive website for ThinkRED Technologies LLP built with React, Typ
 
 1. Clone the repository
 
-```bash
-git clone https://github.com/thinkredtech/thinkred-website.git
-cd thinkred-website
-```
+   ```bash
+   git clone https://github.com/thinkredtech/thinkred.github.io.git
+   cd thinkred-website
+   ```
 
 2. Install dependencies
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Start the development server
 
-```bash
-npm start
-```
+   ```bash
+   npm start
+   ```
 
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -63,39 +63,39 @@ npm start
 
 1. Update the `homepage` field in `package.json`:
 
-```json
-"homepage": "https://thinkredtech.github.io/thinkred-website"
-```
+   ```json
+   "homepage": "https://thinkredtech.github.io"
+   ```
 
 2. Install GitHub Pages package:
 
-```bash
-npm install --save-dev gh-pages
-```
+   ```bash
+   npm install --save-dev gh-pages
+   ```
 
 3. Add deployment scripts to `package.json`:
 
-```json
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  ...
-}
-```
+   ```json
+   "scripts": {
+     "predeploy": "npm run build",
+     "deploy": "gh-pages -d build",
+     ...
+   }
+   ```
 
 4. Deploy the website:
 
-```bash
-npm run deploy
-```
+   ```bash
+   npm run deploy
+   ```
 
 ### Hostinger Deployment
 
 1. Build the project:
 
-```bash
-npm run build
-```
+   ```bash
+   npm run build
+   ```
 
 2. Upload the contents of the `build` folder to your Hostinger hosting:
    - Log in to your Hostinger account
@@ -105,7 +105,7 @@ npm run build
 3. Configure redirects:
    - Create a `.htaccess` file in the root directory with the following content:
 
-   ```
+   ```sh
    <IfModule mod_rewrite.c>
      RewriteEngine On
      RewriteBase /
@@ -119,7 +119,7 @@ npm run build
 
 ## Project Structure
 
-```
+```sh
 thinkred-website/
 ├── public/
 │   ├── assets/
