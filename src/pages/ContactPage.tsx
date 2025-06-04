@@ -202,7 +202,7 @@ const ContactPage: React.FC = () => {
                     </svg>
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium">Location</h3>
+                    <h3 className="text-lg font-medium">Registered Address</h3>
                     <p className="text-secondary">C403, Sr No 22, Laxmi Nagar, Dhanori, Pune, Maharashtra, India - 411015</p>
                   </div>
                 </div>
