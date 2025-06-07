@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import './styles/LoadingScreen.css';
 
 const DocsPage = lazy(() => import ('./pages/DocsPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -20,7 +21,15 @@ function App() {
   return (
     <Router>
       <Layout>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="loading-screen">
+              <div className="loading-logo">
+                <img src="/assets/images/thinkRED-optimized-min.svg" alt="ThinkRED Logo" />
+              </div>
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
