@@ -1,0 +1,21 @@
+{
+  "rules": {
+    "meta-refresh": "error",
+    "no-deprecated-attr": "error",
+    "no-missing-references": "error",
+    "no-redundant-for": "error",
+    "no-redundant-role": "error"
+  },
+  "extends": ["html-validate:recommended"],
+  "parser": {
+    "ignoreCase": false
+  },
+  "plugins": [],
+  "transform": {},
+  "rules": {
+    "compat-api/html": {
+      "severity": "off",
+      "exclude": ["meta[name=theme-color]"]
+    }
+  }
+}

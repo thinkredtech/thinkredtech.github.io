@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    id="svg702754"
-   viewBox="0 0 890.73553 132.13152"
-   height="132.13152"
-   width="890.73553"
+   viewBox="0 0 1024 768"
+   height="768px"
+   width="1024px"
    version="1.1"
-   sodipodi:docname="thinkRED-np.svg"
+   sodipodi:docname="thinkRED-white.svg"
    inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -21,7 +21,7 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.5"
      inkscape:cx="595"
@@ -47,10 +47,10 @@
      id="defs702758" />
   <linearGradient
      spreadMethod="pad"
-     y2="0.30000001"
-     x2="-0.1"
-     y1="1.2"
-     x1="0.30000001"
+     y2="30%"
+     x2="-10%"
+     y1="120%"
+     x1="30%"
      id="3d_gradient2-logo-a0d3d7c7-9e89-40f7-a995-16720d76b814">
     <stop
        id="stop702735"
@@ -66,10 +66,10 @@
   <linearGradient
      gradientTransform="rotate(-30)"
      spreadMethod="pad"
-     y2="0.30000001"
-     x2="-0.1"
-     y1="1.2"
-     x1="0.30000001"
+     y2="30%"
+     x2="-10%"
+     y1="120%"
+     x1="30%"
      id="3d_gradient3-logo-a0d3d7c7-9e89-40f7-a995-16720d76b814">
     <stop
        id="stop702740"
@@ -88,14 +88,15 @@
        offset="100%" />
   </linearGradient>
   <g
-     id="logo-group"
-     transform="translate(-66.632227,-317.93424)">
+     id="logo-group">
     <g
-       id="logo-center">
+       id="logo-center"
+       transform="translate(0 0)">
       <g
          id="title"
          style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle"
-         inkscape:label="wordmark">
+         inkscape:label="wordmark"
+         transform="translate(0 0)">
         <g
            id="g2"
            inkscape:label="RED"
@@ -109,7 +110,7 @@
              stroke-miterlimit="2"
              fill="#ad0000"
              stroke="#ad0000"
-             transform="matrix(2.46,0,0,2.46,-733.33517,449.35728)"
+             transform="translate(0 345.93328) translate(581.3493926 -20.559999999999995) scale(2.46) translate(-534.42462 50.4)"
              inkscape:label="R" />
           <path
              id="path702775"
@@ -120,7 +121,7 @@
              stroke-miterlimit="2"
              fill="#d60000"
              stroke="#d60000"
-             transform="matrix(2.46,0,0,2.46,-725.95517,449.35728)"
+             transform="translate(0 345.93328) translate(716.3803424 -20.559999999999995) scale(2.46) translate(-586.31525 50.4)"
              inkscape:label="E" />
           <path
              id="path702777"
@@ -131,67 +132,67 @@
              stroke-miterlimit="2"
              fill="#ff0000"
              stroke="#ff0000"
-             transform="matrix(2.46,0,0,2.46,-718.57517,449.35728)"
+             transform="translate(0 345.93328) translate(842.4168926000001 -20.559999999999995) scale(2.46) translate(-634.54962 50.4)"
              inkscape:label="D" />
         </g>
         <g
            id="g1"
            inkscape:label="think"
-           style="fill:#2a2a2a;fill-opacity:1">
+           style="fill:#ffffff;fill-opacity:1">
           <path
              id="path702763"
-             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#2a2a2a;fill-opacity:1"
+             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
              d="m 365.03,-2.376 -1.512,-2.52 c -1.584,1.44 -3.528,2.088 -5.832,2.088 -2.304,0 -4.104,-0.576 -5.256,-1.872 -1.152,-1.296 -1.728,-3.168 -1.728,-5.616 v -24.192 h 11.952 v -3.096 h -11.952 v -8.208 h -3.6 v 8.208 h -6.912 v 3.096 h 6.912 v 24.552 c 0,3.24 0.864,5.76 2.664,7.56 1.728,1.8 4.248,2.664 7.56,2.664 1.44,0 2.88,-0.216 4.248,-0.648 1.368,-0.432 2.52,-1.152 3.456,-2.016 z"
              stroke-width="0"
              stroke-linejoin="miter"
              stroke-miterlimit="2"
              fill="#000000"
              stroke="#000000"
-             transform="matrix(2.46,0,0,2.46,-770.23517,449.35728)"
+             transform="translate(0 345.93328) translate(66.63222739999992 -9.224319999999999) scale(2.46) translate(-340.19 45.792)"
              inkscape:label="t" />
           <path
              id="path702765"
-             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#2a2a2a;fill-opacity:1"
+             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
              d="m 404.5895,-33.768 c -2.736,-2.736 -6.48,-4.104 -11.16,-4.104 -3.456,0 -6.48,0.72 -9,2.16 -2.592,1.44 -4.464,3.384 -5.76,5.976 v -23.688 h -3.6 V 0 h 3.6 v -20.016 c 0,-4.464 1.224,-7.992 3.816,-10.656 2.52,-2.592 5.976,-3.96 10.44,-3.96 3.816,0 6.768,1.152 8.928,3.312 2.16,2.232 3.24,5.472 3.24,9.648 V 0 h 3.6 v -21.96 c 0,-5.112 -1.368,-9.072 -4.104,-11.808 z"
              stroke-width="0"
              stroke-linejoin="miter"
              stroke-miterlimit="2"
              fill="#1b0000"
              stroke="#1b0000"
-             transform="matrix(2.46,0,0,2.46,-762.85517,449.35728)"
+             transform="translate(0 345.93328) translate(159.8157974 -27.999039999999987) scale(2.46) translate(-375.0695 53.424)"
              inkscape:label="h" />
           <path
              id="path702767"
-             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#2a2a2a;fill-opacity:1"
+             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
              d="M 423.58512,-37.584 V 0 h 3.6 v -37.584 z m -0.288,-9.936 c 0.57601,0.576 1.224,0.792 2.08801,0.792 0.79199,0 1.512,-0.288 2.08799,-0.864 0.576,-0.576 0.86401,-1.224 0.86401,-2.088 0,-0.792 -0.28801,-1.44 -0.86401,-2.016 -0.57599,-0.576 -1.296,-0.864 -2.08799,-0.864 -0.86401,0 -1.512,0.288 -2.08801,0.864 -0.576,0.576 -0.86399,1.296 -0.86399,2.088 0,0.864 0.28799,1.512 0.86399,2.088 z"
              stroke-width="0"
              stroke-linejoin="miter"
              stroke-miterlimit="2"
              fill="#380000"
              stroke="#380000"
-             transform="matrix(2.46,0,0,2.46,-755.47517,449.35728)"
+             transform="translate(0 345.93328) translate(283.71032719999994 -25.873600000000017) scale(2.46) translate(-422.43313 52.56)"
              inkscape:label="i" />
           <path
              id="path702769"
-             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#2a2a2a;fill-opacity:1"
+             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
              d="m 471.94887,-33.768 c -2.736,-2.736 -6.47999,-4.104 -11.15999,-4.104 -3.52801,0 -6.55201,0.792 -9.144,2.232 -2.59201,1.512 -4.464,3.6 -5.76,6.192 v -8.136 h -3.45601 V 0 h 3.6 v -20.016 c 0,-4.464 1.22401,-7.992 3.816,-10.656 2.52,-2.592 5.976,-3.96 10.44,-3.96 3.816,0 6.768,1.152 8.928,3.312 2.16001,2.232 3.24,5.472 3.24,9.648 V 0 h 3.60001 v -21.96 c 0,-5.112 -1.368,-9.072 -4.10401,-11.808 z"
              stroke-width="0"
              stroke-linejoin="miter"
              stroke-miterlimit="2"
              fill="#5c0000"
              stroke="#5c0000"
-             transform="matrix(2.46,0,0,2.46,-748.09517,449.35728)"
+             transform="translate(0 345.93328) translate(340.2798476 10.258879999999998) scale(2.46) translate(-442.42887 37.872)"
              inkscape:label="n" />
           <path
              id="path702771"
-             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#2a2a2a;fill-opacity:1"
+             style="font-style:normal;font-weight:300;font-size:72px;line-height:1;font-family:'Montserrat Light Alt1';font-variant-ligatures:none;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
              d="M 504.3365,-20.088 520.3205,0 h 4.464 l -17.784,-22.392 16.2,-15.192 h -4.608 l -24.048,21.96 v -37.8 h -3.6 V 0 h 3.6 v -11.16 z"
              stroke-width="0"
              stroke-linejoin="miter"
              stroke-miterlimit="2"
              fill="#830000"
              stroke="#830000"
-             transform="matrix(2.46,0,0,2.46,-740.71517,449.35728)"
+             transform="translate(0 345.93328) translate(467.00829739999995 -27.999039999999987) scale(2.46) translate(-490.9445 53.424)"
              inkscape:label="k" />
         </g>
       </g>

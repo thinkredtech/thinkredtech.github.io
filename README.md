@@ -19,6 +19,33 @@ A modern, responsive website for ThinkRED Technologies LLP built with React, Typ
 - Contact - Including the "Talk to Us" form with requirements field
 - Blog - For technology articles and thought leadership
 
+## Browser Compatibility
+
+### Theme Color Support
+
+This website uses `meta[name="theme-color"]` tags to provide browser chrome theming. These tags are supported by the majority of modern browsers:
+
+**✅ Supported Browsers (70%+ of users):**
+
+- Chrome (Desktop & Mobile)
+- Edge (Desktop & Mobile)
+- Safari (iOS)
+- Android browsers (Chrome, Samsung Internet, etc.)
+
+**❌ Limited/No Support:**
+
+- Firefox (Desktop & Mobile)
+- Opera (Desktop & Mobile)
+
+**Why we keep theme-color meta tags despite warnings:**
+
+1. They provide valuable visual integration for the majority of users
+2. They gracefully degrade in unsupported browsers (no negative impact)
+3. CSS fallbacks provide alternative theming where possible
+4. Removing them would eliminate theming for 70%+ of users to satisfy 30%
+
+The compatibility warnings in development tools are expected and can be safely ignored.
+
 ## Tech Stack
 
 - React 19

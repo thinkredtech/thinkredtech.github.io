@@ -1,29 +1,30 @@
 export interface BlogPost {
-    id: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    author: string;
-    authorImage?: string;
-    authorBio?: string;
-    authorFacebook?: string;
-    authorGitHub?: string;
-    authorWebsite?: string;
-    authorLinkedIn?: string;
-    authorTwitter?: string;
-    date: string;
-    readTime?: string;
-    image: string;
-    categories: string[];
-    tags: string[];
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  authorImage?: string;
+  authorBio?: string;
+  authorFacebook?: string;
+  authorGitHub?: string;
+  authorWebsite?: string;
+  authorLinkedIn?: string;
+  authorTwitter?: string;
+  date: string;
+  readTime?: string;
+  image: string;
+  categories: string[];
+  tags: string[];
 }
 
 export const blogPosts: BlogPost[] = [
-    {
-        id: "ai-revolution-in-tech",
-        title: "The AI Revolution in Modern Technology",
-        excerpt: "Exploring how artificial intelligence is transforming industries and creating new opportunities for innovation.",
-        content: `
+  {
+    id: 'ai-revolution-in-tech',
+    title: 'The AI Revolution in Modern Technology',
+    excerpt:
+      'Exploring how artificial intelligence is transforming industries and creating new opportunities for innovation.',
+    content: `
 # The AI Revolution in Modern Technology
 
 Artificial intelligence has become one of the most transformative technologies of the 21st century. From healthcare to finance, transportation to entertainment, AI is reshaping how we live and work.
@@ -49,8 +50,8 @@ AI is no longer confined to research labs and theoretical discussions. It's bein
 4. **Customer Service**: Chatbots, recommendation systems
 
 <div class="info-box bg-blue-100 p-4 rounded-lg my-6">
-    <h4 class="font-bold text-lg">Did You Know?</h4>
-    <p>According to recent studies, the global AI market is expected to reach $190 billion by 2025, with a compound annual growth rate (CAGR) of 37%.</p>
+        <h4 class="font-bold text-lg">Did You Know?</h4>
+        <p>According to recent studies, the global AI market is expected to reach $190 billion by 2025, with a compound annual growth rate (CAGR) of 37%.</p>
 </div>
 
 ## Ethical Considerations
@@ -73,14 +74,14 @@ The integration of AI into our daily lives will continue to accelerate. We're se
 import tensorflow as tf
 
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dense(10, activation='softmax')
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(10, activation='softmax')
 ])
 \`\`\`
 
 <div class="video-container my-6">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ### Emerging Trends
@@ -97,30 +98,32 @@ Several trends are shaping the future of AI:
 The AI revolution is just beginning. As these technologies mature and become more integrated into our society, we'll continue to see transformative changes across industries and in our daily lives.
 
 <div class="cta-box bg-primary-100 p-6 rounded-lg my-6 text-center">
-    <h4 class="font-bold text-xl mb-2">Want to Learn More?</h4>
-    <p class="mb-4">Join our upcoming webinar on "The Future of AI in Business" to discover how your organization can leverage these technologies.</p>
-    <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Register Now</button>
+        <h4 class="font-bold text-xl mb-2">Want to Learn More?</h4>
+        <p class="mb-4">Join our upcoming webinar on "The Future of AI in Business" to discover how your organization can leverage these technologies.</p>
+        <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Register Now</button>
 </div>
         `,
-        author: "Sayak Sarkar",
-        authorImage: "/assets/images/authors/sayak.png",
-        authorBio: "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
-        authorFacebook: "https://www.facebook.com/16.sayak",
-        authorGitHub: "https://github.com/sayak-sarkar",
-        authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
-        authorTwitter: "https://twitter.com/sayak_sarkar",
-        authorWebsite: "https://sayak.in",
-        date: "May 28, 2025",
-        readTime: "8 min read",
-        image: "https://images.unsplash.com/photo-1716436329836-208bea5a55e6",
-        categories: ["Technology", "Artificial Intelligence"],
-        tags: ["AI", "Machine Learning", "Innovation", "Future Tech"]
-    },
-    {
-        id: "cybersecurity-best-practices",
-        title: "Essential Cybersecurity Best Practices for 2025",
-        excerpt: "Learn the most important cybersecurity measures to protect your business and personal data in an increasingly connected world.",
-        content: `
+    author: 'Sayak Sarkar',
+    authorImage: '/assets/images/authors/sayak.png',
+    authorBio:
+      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
+    authorFacebook: 'https://www.facebook.com/16.sayak',
+    authorGitHub: 'https://github.com/sayak-sarkar',
+    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
+    authorTwitter: 'https://twitter.com/sayak_sarkar',
+    authorWebsite: 'https://sayak.in',
+    date: 'May 28, 2025',
+    readTime: '8 min read',
+    image: 'https://images.unsplash.com/photo-1716436329836-208bea5a55e6',
+    categories: ['Technology', 'Artificial Intelligence'],
+    tags: ['AI', 'Machine Learning', 'Innovation', 'Future Tech'],
+  },
+  {
+    id: 'cybersecurity-best-practices',
+    title: 'Essential Cybersecurity Best Practices for 2025',
+    excerpt:
+      'Learn the most important cybersecurity measures to protect your business and personal data in an increasingly connected world.',
+    content: `
 # Essential Cybersecurity Best Practices for 2025
 
 In today's hyperconnected world, cybersecurity has never been more critical. As technology evolves, so do the threats we face online. This guide covers essential practices to protect your digital assets.
@@ -135,8 +138,8 @@ The cybersecurity threat landscape continues to evolve at a rapid pace:
 * State-sponsored attacks target critical infrastructure
 
 <div class="alert alert-danger p-4 rounded-lg my-6">
-    <h4 class="font-bold">Warning!</h4>
-    <p>60% of small businesses that suffer a major cyber attack go out of business within six months.</p>
+        <h4 class="font-bold">Warning!</h4>
+        <p>60% of small businesses that suffer a major cyber attack go out of business within six months.</p>
 </div>
 
 ## Essential Security Measures
@@ -160,14 +163,14 @@ Human error remains the leading cause of security breaches. Regular training sho
 \`\`\`html
 <!-- Example phishing email template -->
 <div class="email-template">
-    <div class="header">
-        <img src="fake-bank-logo.png" alt="Bank Logo">
-        <h3>URGENT: Your account has been compromised</h3>
-    </div>
-    <div class="body">
-        <p>Dear Customer,</p>
-        <p>We have detected suspicious activity on your account. Please <a href="http://malicious-site.com">click here</a> to verify your identity.</p>
-    </div>
+        <div class="header">
+                <img src="fake-bank-logo.png" alt="Bank Logo">
+                <h3>URGENT: Your account has been compromised</h3>
+        </div>
+        <div class="body">
+                <p>Dear Customer,</p>
+                <p>We have detected suspicious activity on your account. Please <a href="http://malicious-site.com">click here</a> to verify your identity.</p>
+        </div>
 </div>
 \`\`\`
 
@@ -181,12 +184,12 @@ Human error remains the leading cause of security breaches. Regular training sho
 The zero trust model operates on the principle of "never trust, always verify." Key components include:
 
 <div class="info-box bg-green-100 p-4 rounded-lg my-6">
-    <h4 class="font-bold">Zero Trust Principles</h4>
-    <ul>
-        <li>Verify explicitly</li>
-        <li>Use least privilege access</li>
-        <li>Assume breach</li>
-    </ul>
+        <h4 class="font-bold">Zero Trust Principles</h4>
+        <ul>
+                <li>Verify explicitly</li>
+                <li>Use least privilege access</li>
+                <li>Assume breach</li>
+        </ul>
 </div>
 
 ## Emerging Security Technologies
@@ -200,19 +203,19 @@ Artificial intelligence is revolutionizing cybersecurity through:
 3. **Automated Response**: Containing threats without human intervention
 
 <div class="code-example my-6">
-    <pre><code class="language-python">
-        # Example of anomaly detection with Python
+        <pre><code class="language-python">
+                # Example of anomaly detection with Python
                 import numpy as np
                 from sklearn.ensemble import IsolationForest
-        # Load network traffic data
+                # Load network traffic data
                 X = np.array([[0.1, 0.3, 0.2], [0.2, 0.7, 0.3], [0.3, 0.2, 0.1], [9.0, 8.0, 7.0]])
-        # Train isolation forest model
+                # Train isolation forest model
                 model = IsolationForest(contamination=0.1)
                 model.fit(X)
-        # Predict anomalies
+                # Predict anomalies
                 predictions = model.predict(X)
                 print("Anomalies detected:", list(predictions).count(-1))
-    </code></pre>
+        </code></pre>
 </div>
 
 ## Conclusion
@@ -220,30 +223,32 @@ Artificial intelligence is revolutionizing cybersecurity through:
 Cybersecurity is not a one-time effort but an ongoing process. By implementing these best practices and staying informed about emerging threats, you can significantly reduce your risk exposure in 2025 and beyond.
 
 <div class="cta-box bg-blue-100 p-6 rounded-lg my-6 text-center">
-    <h4 class="font-bold text-xl mb-2">Need Expert Security Guidance?</h4>
-    <p class="mb-4">ThinkRED Technologies offers comprehensive security assessments and implementation services.</p>
-    <a href="/contact" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Contact Our Security Team</a>
+        <h4 class="font-bold text-xl mb-2">Need Expert Security Guidance?</h4>
+        <p class="mb-4">ThinkRED Technologies offers comprehensive security assessments and implementation services.</p>
+        <a href="/contact" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Contact Our Security Team</a>
 </div>
         `,
-        author: "Sayak Sarkar",
-        authorImage: "/assets/images/authors/sayak.png",
-        authorBio: "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
-        authorFacebook: "https://www.facebook.com/16.sayak",
-        authorGitHub: "https://github.com/sayak-sarkar",
-        authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
-        authorTwitter: "https://twitter.com/sayak_sarkar",
-        authorWebsite: "https://sayak.in",
-        date: "May 15, 2025",
-        readTime: "10 min read",
-        image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7",
-        categories: ["Technology", "Cybersecurity"],
-        tags: ["Security", "Data Protection", "Zero Trust", "MFA"]
-    },
-    {
-        id: "web-development-trends",
-        title: "Web Development Trends to Watch in 2025",
-        excerpt: "Discover the latest trends and technologies shaping the future of web development and design.",
-        content: `
+    author: 'Sayak Sarkar',
+    authorImage: '/assets/images/authors/sayak.png',
+    authorBio:
+      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
+    authorFacebook: 'https://www.facebook.com/16.sayak',
+    authorGitHub: 'https://github.com/sayak-sarkar',
+    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
+    authorTwitter: 'https://twitter.com/sayak_sarkar',
+    authorWebsite: 'https://sayak.in',
+    date: 'May 15, 2025',
+    readTime: '10 min read',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7',
+    categories: ['Technology', 'Cybersecurity'],
+    tags: ['Security', 'Data Protection', 'Zero Trust', 'MFA'],
+  },
+  {
+    id: 'web-development-trends',
+    title: 'Web Development Trends to Watch in 2025',
+    excerpt:
+      'Discover the latest trends and technologies shaping the future of web development and design.',
+    content: `
 # Web Development Trends to Watch in 2025
 
 The web development landscape continues to evolve at a rapid pace. Staying current with emerging trends is essential for developers, designers, and businesses looking to create cutting-edge digital experiences.
@@ -253,32 +258,32 @@ The web development landscape continues to evolve at a rapid pace. Staying curre
 Progressive Web Apps continue to gain momentum as they bridge the gap between web and native applications:
 
 <div class="comparison-table my-6">
-    <table class="w-full border-collapse">
-        <thead>
-            <tr>
-                <th class="border p-2">Feature</th>
-                <th class="border p-2">Traditional Web App</th>
-                <th class="border p-2">Progressive Web App</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="border p-2">Offline Access</td>
-                <td class="border p-2">Limited/None</td>
-                <td class="border p-2">Full Support</td>
-            </tr>
-            <tr>
-                <td class="border p-2">Installation</td>
-                <td class="border p-2">Not Available</td>
-                <td class="border p-2">Add to Home Screen</td>
-            </tr>
-            <tr>
-                <td class="border p-2">Push Notifications</td>
-                <td class="border p-2">Limited Support</td>
-                <td class="border p-2">Full Support</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="w-full border-collapse">
+                <thead>
+                        <tr>
+                                <th class="border p-2">Feature</th>
+                                <th class="border p-2">Traditional Web App</th>
+                                <th class="border p-2">Progressive Web App</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <td class="border p-2">Offline Access</td>
+                                <td class="border p-2">Limited/None</td>
+                                <td class="border p-2">Full Support</td>
+                        </tr>
+                        <tr>
+                                <td class="border p-2">Installation</td>
+                                <td class="border p-2">Not Available</td>
+                                <td class="border p-2">Add to Home Screen</td>
+                        </tr>
+                        <tr>
+                                <td class="border p-2">Push Notifications</td>
+                                <td class="border p-2">Limited Support</td>
+                                <td class="border p-2">Full Support</td>
+                        </tr>
+                </tbody>
+        </table>
 </div>
 
 Benefits of PWAs include:
@@ -297,20 +302,20 @@ Artificial intelligence is transforming how we build and maintain web applicatio
 import { createCompletion } from 'ai-code-assistant';
 
 async function generateComponentCode(description) {
-    const prompt = \\\`Create a React component that: \\\${description}\\\`;
-    
-    const completion = await createCompletion({
-        model: "code-davinci-002",
-        prompt,
-        max_tokens: 500
-    });
-    
-    return completion.code;
+        const prompt = \\\`Create a React component that: \\\${description}\\\`;
+        
+        const completion = await createCompletion({
+                model: "code-davinci-002",
+                prompt,
+                max_tokens: 500
+        });
+        
+        return completion.code;
 }
 
 // Generate a carousel component
 const carouselCode = await generateComponentCode(
-    "displays images in a responsive carousel with navigation arrows and dots"
+        "displays images in a responsive carousel with navigation arrows and dots"
 );
 \`\`\`
 
@@ -321,13 +326,13 @@ const carouselCode = await generateComponentCode(
 WebAssembly continues to expand the capabilities of web applications by allowing code written in languages like C, C++, and Rust to run in the browser at near-native speed.
 
 <div class="info-box bg-purple-100 p-4 rounded-lg my-6">
-    <h4 class="font-bold">WebAssembly Use Cases</h4>
-    <ul>
-        <li>Browser-based gaming</li>
-        <li>Video and audio processing</li>
-        <li>CAD applications</li>
-        <li>Scientific simulations</li>
-    </ul>
+        <h4 class="font-bold">WebAssembly Use Cases</h4>
+        <ul>
+                <li>Browser-based gaming</li>
+                <li>Video and audio processing</li>
+                <li>CAD applications</li>
+                <li>Scientific simulations</li>
+        </ul>
 </div>
 
 ## Micro-Frontends Architecture
@@ -339,18 +344,18 @@ The micro-frontends approach extends microservices principles to frontend develo
 <!DOCTYPE html>
 <html>
 <head>
-    <title>E-commerce Platform</title>
+        <title>E-commerce Platform</title>
 </head>
 <body>
-    <!-- Independently developed and deployed micro-frontends -->
-    <header-component></header-component>
-    <product-catalog></product-catalog>
-    <shopping-cart></shopping-cart>
-    <user-recommendations></user-recommendations>
-    <footer-component></footer-component>
-    
-    <!-- Micro-frontend orchestration -->
-    <script src="micro-frontend-loader.js"></script>
+        <!-- Independently developed and deployed micro-frontends -->
+        <header-component></header-component>
+        <product-catalog></product-catalog>
+        <shopping-cart></shopping-cart>
+        <user-recommendations></user-recommendations>
+        <footer-component></footer-component>
+        
+        <!-- Micro-frontend orchestration -->
+        <script src="micro-frontend-loader.js"></script>
 </body>
 </html>
 \`\`\`
@@ -367,8 +372,8 @@ Benefits include:
 Serverless continues to gain adoption for web applications:
 
 <div class="diagram my-6 text-center">
-    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31" alt="Serverless architecture diagram" class="max-w-full rounded-lg" />
-    <p class="text-sm text-gray-600 mt-2">Typical serverless architecture for web applications</p>
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31" alt="Serverless architecture diagram" class="max-w-full rounded-lg" />
+        <p class="text-sm text-gray-600 mt-2">Typical serverless architecture for web applications</p>
 </div>
 
 ## Conclusion
@@ -376,23 +381,24 @@ Serverless continues to gain adoption for web applications:
 The web development landscape of 2025 is characterized by technologies that prioritize performance, user experience, and developer productivity. By embracing these trends, organizations can create more engaging, efficient, and maintainable web applications.
 
 <div class="cta-box bg-yellow-100 p-6 rounded-lg my-6">
-    <h4 class="font-bold text-xl mb-2">Need Help Implementing These Technologies?</h4>
-    <p>ThinkRED Technologies specializes in cutting-edge web development. Contact us to discuss how we can help modernize your web presence.</p>
-    <a href="/contact" class="inline-block mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Get in Touch</a>
+        <h4 class="font-bold text-xl mb-2">Need Help Implementing These Technologies?</h4>
+        <p>ThinkRED Technologies specializes in cutting-edge web development. Contact us to discuss how we can help modernize your web presence.</p>
+        <a href="/contact" class="inline-block mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Get in Touch</a>
 </div>
         `,
-        author: "Sayak Sarkar",
-        authorImage: "/assets/images/authors/sayak.png",
-        authorBio: "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
-        authorFacebook: "https://www.facebook.com/16.sayak",
-        authorGitHub: "https://github.com/sayak-sarkar",
-        authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
-        authorTwitter: "https://twitter.com/sayak_sarkar",
-        authorWebsite: "https://sayak.in",
-        date: "April 22, 2025",
-        readTime: "7 min read",
-        image: "https://images.unsplash.com/photo-1547658719-da2b51169166",
-        categories: ["Technology", "Web Development"],
-        tags: ["Frontend", "JavaScript", "PWA", "WebAssembly"]
-    }
+    author: 'Sayak Sarkar',
+    authorImage: '/assets/images/authors/sayak.png',
+    authorBio:
+      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
+    authorFacebook: 'https://www.facebook.com/16.sayak',
+    authorGitHub: 'https://github.com/sayak-sarkar',
+    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
+    authorTwitter: 'https://twitter.com/sayak_sarkar',
+    authorWebsite: 'https://sayak.in',
+    date: 'April 22, 2025',
+    readTime: '7 min read',
+    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166',
+    categories: ['Technology', 'Web Development'],
+    tags: ['Frontend', 'JavaScript', 'PWA', 'WebAssembly'],
+  },
 ];

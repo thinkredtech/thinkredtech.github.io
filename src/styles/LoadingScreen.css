@@ -1,24 +1,25 @@
 .loading-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #FEFEFE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fefefe;
 }
 
 .loading-logo {
-    animation: pulse 1.5s ease-in-out infinite;
-    width: 300px;
-    height: auto;
+  animation: pulse 1.5s ease-in-out infinite;
+  width: 300px;
+  height: auto;
 }
 
 @keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }

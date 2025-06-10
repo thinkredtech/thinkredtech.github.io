@@ -79,7 +79,7 @@
 }
 
 .prose ol > li::before {
-  content: counter(list-counter) ".";
+  content: counter(list-counter) '.';
   position: absolute;
   font-weight: 400;
   color: #6b7280;
@@ -192,7 +192,12 @@
 }
 
 /* Custom elements styling */
-.info-box, .alert, .cta-box, .code-example, .comparison-table, .diagram {
+.info-box,
+.alert,
+.cta-box,
+.code-example,
+.comparison-table,
+.diagram {
   margin-top: 2em;
   margin-bottom: 2em;
   border-radius: 0.5rem;
@@ -241,15 +246,15 @@
   .prose {
     font-size: 0.875rem;
   }
-  
+
   .prose h1 {
     font-size: 1.875rem;
   }
-  
+
   .prose h2 {
     font-size: 1.25rem;
   }
-  
+
   .prose h3 {
     font-size: 1.125rem;
   }

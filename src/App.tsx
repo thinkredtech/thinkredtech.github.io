@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import './styles/LoadingScreen.css';
 
-const DocsPage = lazy(() => import ('./pages/DocsPage'));
+const DocsPage = lazy(() => import('./pages/DocsPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
@@ -25,7 +25,7 @@ function App() {
           fallback={
             <div className="loading-screen">
               <div className="loading-logo">
-                <img src="/assets/images/thinkRED-optimized-min.svg" alt="ThinkRED Logo" />
+                <img src="/assets/images/thinkRED-np.svg" alt="ThinkRED Logo" />
               </div>
             </div>
           }

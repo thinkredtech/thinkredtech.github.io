@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import React from 'react';
 
 // Mock for THREE.js and WebGL
 jest.mock('three', () => {
@@ -50,17 +51,22 @@ jest.mock('three', () => {
 
 // Mock for react-three-fiber
 jest.mock('@react-three/fiber', () => ({
-  Canvas: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="canvas-mock">{children}</div>
-  ),
-  useFrame: (callback: any) => {
+  Canvas: ({ children }: { children: React.ReactNode }) => {
+    return React.createElement(
+      'div',
+      { 'data-testid': 'canvas-mock' },
+      children
+    );
+  },
+  useFrame: () => {
     // Don't actually run the animation frame in tests
   },
 }));
 
 // Mock for react-three/drei
 jest.mock('@react-three/drei', () => ({
-  OrbitControls: () => <div data-testid="orbit-controls-mock" />,
+  OrbitControls: () =>
+    React.createElement('div', { 'data-testid': 'orbit-controls-mock' }),
   useGLTF: jest.fn().mockImplementation(() => ({
     scene: {
       clone: jest.fn().mockReturnValue({
@@ -87,13 +93,13 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock for IntersectionObserver
 class MockIntersectionObserver {
-  constructor(callback: any) {
+  constructor(callback: IntersectionObserverCallback) {
     this.callback = callback;
   }
   observe = jest.fn();
   unobserve = jest.fn();
   disconnect = jest.fn();
-  callback: any;
+  callback: IntersectionObserverCallback;
 }
 
 Object.defineProperty(window, 'IntersectionObserver', {

@@ -6,19 +6,63 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #E4093E;
-  --color-accent1: #518CEA;
-  --color-accent2: #AE6CFC;
-  --color-dark: #2A2A2A;
-  --color-light: #FFFFFF;
-  --color-background: #F8F9FA;
-  --color-background-alt: #F0F2F5;
+  --color-primary: #e4093e;
+  --color-accent1: #518cea;
+  --color-accent2: #ae6cfc;
+  --color-dark: #2a2a2a;
+  --color-light: #ffffff;
+  --color-background: #f8f9fa;
+  --color-background-alt: #f0f2f5;
+}
+
+/* 
+  CSS-based theme color fallback for browsers that don't support meta[name="theme-color"]
+  This provides visual theming cues for Firefox, Opera, and other browsers
+*/
+@media (prefers-color-scheme: light) {
+  :root {
+    --browser-theme-color: #e4093e;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --browser-theme-color: #e4093e;
+  }
+}
+
+/* Apply theme color to scrollbars and other browser chrome elements where possible */
+::-webkit-scrollbar-thumb {
+  background-color: var(--browser-theme-color, #e4093e);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--browser-theme-color, #e4093e) 80%,
+    black
+  );
+}
+
+/* Firefox scrollbar theming */
+* {
+  scrollbar-color: var(--browser-theme-color, #e4093e) transparent;
 }
 
 body {
   margin: 0;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family:
+    'Montserrat',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -26,14 +70,19 @@ body {
   background-color: var(--color-background);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 /* Custom utility classes */
@@ -41,25 +90,30 @@ code {
   .container {
     @apply px-4 mx-auto max-w-7xl;
   }
-  
+
   .btn {
     @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
-  
+
   .btn-primary {
     @apply bg-primary text-white hover:bg-primary/90 focus:ring-primary;
   }
-  
+
   .btn-secondary {
     @apply bg-white text-primary border border-primary hover:bg-primary/5 focus:ring-primary;
   }
-  
+
   .btn-accent1 {
     @apply bg-accent1 text-white hover:bg-accent1/90 focus:ring-accent1;
   }
-  
+
   .btn-accent2 {
     @apply bg-accent2 text-white hover:bg-accent2/90 focus:ring-accent2;
+  }
+
+  /* Hero background utility class to avoid inline styles */
+  .hero-background {
+    background-image: var(--hero-bg-image);
   }
 }
 

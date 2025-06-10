@@ -8,7 +8,8 @@ const AboutPage: React.FC = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="heading-1 mb-6">About ThinkRED Technologies</h1>
             <p className="text-lg text-secondary">
-              We are an engineering-focused, innovation-led technology company with roots in open source communities and enterprise solutions.
+              We are an engineering-focused, innovation-led technology company
+              with roots in open source communities and enterprise solutions.
             </p>
           </div>
         </div>
@@ -20,13 +21,22 @@ const AboutPage: React.FC = () => {
             <div>
               <h2 className="heading-2 mb-6">Our Journey</h2>
               <p className="text-lg text-secondary mb-6">
-                ThinkRED Technologies was founded by engineers with a passion for simplifying technology and creating exceptional user experiences. Our journey began in open source communities like Mozilla and Fedora, where we learned the value of collaboration and innovation.
+                ThinkRED Technologies was founded by engineers with a passion
+                for simplifying technology and creating exceptional user
+                experiences. Our journey began in open source communities like
+                Mozilla and Fedora, where we learned the value of collaboration
+                and innovation.
               </p>
               <p className="text-lg text-secondary mb-6">
-                After years of experience at Red Hat and working with global clients through platforms like Upwork, we established ThinkRED Technologies to bring enterprise-grade solutions to businesses of all sizes.
+                After years of experience at Red Hat and working with global
+                clients through platforms like Upwork, we established ThinkRED
+                Technologies to bring enterprise-grade solutions to businesses
+                of all sizes.
               </p>
               <p className="text-lg text-secondary">
-                Today, we help organizations transform their digital presence and operations through custom web development, platform engineering, and infrastructure automation.
+                Today, we help organizations transform their digital presence
+                and operations through custom web development, platform
+                engineering, and infrastructure automation.
               </p>
             </div>
             <div className="relative">
@@ -38,8 +48,12 @@ const AboutPage: React.FC = () => {
                       <span className="text-primary font-bold">1</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-dark">Open Source Roots</h3>
-                      <p className="text-secondary">Mozilla and Fedora community contributions</p>
+                      <h3 className="font-medium text-dark">
+                        Open Source Roots
+                      </h3>
+                      <p className="text-secondary">
+                        Mozilla and Fedora community contributions
+                      </p>
                     </div>
                   </div>
                   <div className="flex">
@@ -47,8 +61,12 @@ const AboutPage: React.FC = () => {
                       <span className="text-primary font-bold">2</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-dark">Enterprise Experience</h3>
-                      <p className="text-secondary">Red Hat and global enterprise clients</p>
+                      <h3 className="font-medium text-dark">
+                        Enterprise Experience
+                      </h3>
+                      <p className="text-secondary">
+                        Red Hat and global enterprise clients
+                      </p>
                     </div>
                   </div>
                   <div className="flex">
@@ -56,8 +74,12 @@ const AboutPage: React.FC = () => {
                       <span className="text-primary font-bold">3</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-dark">Freelance Excellence</h3>
-                      <p className="text-secondary">Top-rated Upwork professionals</p>
+                      <h3 className="font-medium text-dark">
+                        Freelance Excellence
+                      </h3>
+                      <p className="text-secondary">
+                        Top-rated Upwork professionals
+                      </p>
                     </div>
                   </div>
                   <div className="flex">
@@ -65,8 +87,12 @@ const AboutPage: React.FC = () => {
                       <span className="text-white font-bold">4</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-dark">ThinkRED Founded</h3>
-                      <p className="text-secondary">Established to deliver innovation at scale</p>
+                      <h3 className="font-medium text-dark">
+                        ThinkRED Founded
+                      </h3>
+                      <p className="text-secondary">
+                        Established to deliver innovation at scale
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -81,44 +107,78 @@ const AboutPage: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="heading-1 mb-4">Our Philosophy</h2>
             <p className="text-lg text-secondary max-w-3xl mx-auto">
-              At ThinkRED, we believe in simplifying technology to create exceptional experiences.
+              At ThinkRED, we believe in simplifying technology to create
+              exceptional experiences.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-lg shadow-regular">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
                 </svg>
               </div>
               <h3 className="heading-3 mb-4">Innovation-Led</h3>
               <p className="text-secondary">
-                We constantly explore new technologies and approaches to solve complex problems in elegant ways.
+                We constantly explore new technologies and approaches to solve
+                complex problems in elegant ways.
               </p>
             </div>
 
             <div className="bg-white p-8 rounded-lg shadow-regular">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
                 </svg>
               </div>
               <h3 className="heading-3 mb-4">Engineering Excellence</h3>
               <p className="text-secondary">
-                We prioritize code quality, performance, and maintainability in everything we build.
+                We prioritize code quality, performance, and maintainability in
+                everything we build.
               </p>
             </div>
 
             <div className="bg-white p-8 rounded-lg shadow-regular">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
                 </svg>
               </div>
               <h3 className="heading-3 mb-4">Client Partnership</h3>
               <p className="text-secondary">
-                We work closely with our clients to understand their needs and deliver solutions that exceed expectations.
+                We work closely with our clients to understand their needs and
+                deliver solutions that exceed expectations.
               </p>
             </div>
           </div>
@@ -136,7 +196,7 @@ const AboutPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Team member cards would go here - using placeholders */}
-            {/* <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
+      {/* <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
               <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-6">
                 <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-primary text-2xl font-bold">JS</span>
@@ -221,9 +281,13 @@ const AboutPage: React.FC = () => {
               Join Our Team
             </h2>
             <p className="text-lg md:text-xl mb-8 opacity-90">
-              We're always looking for talented individuals who are passionate about technology and innovation.
+              We're always looking for talented individuals who are passionate
+              about technology and innovation.
             </p>
-            <a href="/careers" className="btn bg-white text-primary hover:bg-opacity-90">
+            <a
+              href="/careers"
+              className="btn bg-white text-primary hover:bg-opacity-90"
+            >
               View Open Positions
             </a>
           </div>

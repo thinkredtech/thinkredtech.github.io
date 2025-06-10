@@ -18,38 +18,39 @@ const AvatarAssistant: React.FC = () => {
   useEffect(() => {
     try {
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const gl =
+        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
       setWebGLSupported(!!gl);
-    } catch (e) {
+    } catch {
       setWebGLSupported(false);
-      console.log("WebGL not supported:", e);
+      // WebGL not supported - using fallback
     }
   }, []);
-
-  // Messages that the avatar can display
-  const messages = [
-    "Hello! I'm ThinkRED's assistant. How can I help you?",
-    "Explore our services to see how we can help your business.",
-    "Check out our portfolio to see our previous work.",
-    "Need a custom solution? Contact us today!",
-    "We specialize in web development, DevOps, and platform engineering."
-  ];
 
   // Change message periodically
   useEffect(() => {
     if (isDisabled) return;
-    
+
+    // Messages that the avatar can display
+    const messages = [
+      "Hello! I'm ThinkRED's assistant. How can I help you?",
+      'Explore our services to see how we can help your business.',
+      'Check out our portfolio to see our previous work.',
+      'Need a custom solution? Contact us today!',
+      'We specialize in web development, DevOps, and platform engineering.',
+    ];
+
     const interval = setInterval(() => {
       if (!mountedRef.current) return;
-      
+
       const randomIndex = Math.floor(Math.random() * messages.length);
       setMessage(messages[randomIndex]);
       setIsAnimating(true);
-      
+
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      
+
       timeoutRef.current = setTimeout(() => {
         if (mountedRef.current) {
           setIsAnimating(false);
@@ -71,10 +72,10 @@ const AvatarAssistant: React.FC = () => {
   // Handle scroll events to show/hide avatar
   useEffect(() => {
     if (isDisabled) return;
-    
+
     const handleScroll = () => {
       if (!mountedRef.current) return;
-      
+
       const scrollPosition = window.scrollY;
       // Hide avatar when scrolled past a certain point
       if (scrollPosition > 1000) {
@@ -92,7 +93,7 @@ const AvatarAssistant: React.FC = () => {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (!canvasRef.current || !mountedRef.current) return;
-      
+
       if (document.hidden) {
         // Pause rendering when tab is not visible
         canvasRef.current.style.display = 'none';
@@ -123,13 +124,13 @@ const AvatarAssistant: React.FC = () => {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     // Listen for form submissions
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
       form.addEventListener('submit', handleFormSubmit);
     });
-    
+
     return () => {
       mountedRef.current = false;
       document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -156,11 +157,11 @@ const AvatarAssistant: React.FC = () => {
     if (isDisabled) return;
     setIsExpanded(!isExpanded);
     setIsAnimating(true);
-    
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
+
     timeoutRef.current = setTimeout(() => {
       if (mountedRef.current) {
         setIsAnimating(false);
@@ -171,12 +172,12 @@ const AvatarAssistant: React.FC = () => {
   // Scene component with proper cleanup
   const Scene = () => {
     const { gl, scene } = useThree();
-    
+
     // Cleanup on unmount
     useEffect(() => {
       return () => {
         // Dispose of all scene objects
-        scene.traverse((object) => {
+        scene.traverse(object => {
           if (object instanceof THREE.Mesh) {
             if (object.geometry) object.geometry.dispose();
             if (object.material) {
@@ -188,12 +189,12 @@ const AvatarAssistant: React.FC = () => {
             }
           }
         });
-        
+
         // Force renderer to dispose
         gl.dispose();
       };
     }, [gl, scene]);
-    
+
     return null;
   };
 
@@ -201,23 +202,47 @@ const AvatarAssistant: React.FC = () => {
   const Model = () => {
     // Use a simple geometry as placeholder
     const mesh = React.useRef<THREE.Mesh>(null!);
-    
+
     useFrame((state, delta) => {
       try {
         if (mesh.current && mountedRef.current) {
           mesh.current.rotation.y += delta * 0.5;
           if (isAnimating) {
-            mesh.current.scale.x = THREE.MathUtils.lerp(mesh.current.scale.x, 1.2, 0.1);
-            mesh.current.scale.y = THREE.MathUtils.lerp(mesh.current.scale.y, 1.2, 0.1);
-            mesh.current.scale.z = THREE.MathUtils.lerp(mesh.current.scale.z, 1.2, 0.1);
+            mesh.current.scale.x = THREE.MathUtils.lerp(
+              mesh.current.scale.x,
+              1.2,
+              0.1
+            );
+            mesh.current.scale.y = THREE.MathUtils.lerp(
+              mesh.current.scale.y,
+              1.2,
+              0.1
+            );
+            mesh.current.scale.z = THREE.MathUtils.lerp(
+              mesh.current.scale.z,
+              1.2,
+              0.1
+            );
           } else {
-            mesh.current.scale.x = THREE.MathUtils.lerp(mesh.current.scale.x, 1, 0.1);
-            mesh.current.scale.y = THREE.MathUtils.lerp(mesh.current.scale.y, 1, 0.1);
-            mesh.current.scale.z = THREE.MathUtils.lerp(mesh.current.scale.z, 1, 0.1);
+            mesh.current.scale.x = THREE.MathUtils.lerp(
+              mesh.current.scale.x,
+              1,
+              0.1
+            );
+            mesh.current.scale.y = THREE.MathUtils.lerp(
+              mesh.current.scale.y,
+              1,
+              0.1
+            );
+            mesh.current.scale.z = THREE.MathUtils.lerp(
+              mesh.current.scale.z,
+              1,
+              0.1
+            );
           }
         }
-      } catch (error) {
-        console.log("Animation frame error handled gracefully");
+      } catch {
+        // Animation frame error handled gracefully
       }
     });
 
@@ -226,15 +251,23 @@ const AvatarAssistant: React.FC = () => {
         {/* Base shape - more assistant-like with a body */}
         <mesh ref={mesh} position={[0, -0.2, 0]}>
           <sphereGeometry args={[0.6, 32, 32]} />
-          <meshStandardMaterial color="#E4093E" metalness={0.4} roughness={0.2} />
+          <meshStandardMaterial
+            color="#E4093E"
+            metalness={0.4}
+            roughness={0.2}
+          />
         </mesh>
-        
+
         {/* Head */}
         <mesh position={[0, 0.5, 0]}>
           <sphereGeometry args={[0.4, 32, 32]} />
-          <meshStandardMaterial color="#E4093E" metalness={0.4} roughness={0.2} />
+          <meshStandardMaterial
+            color="#E4093E"
+            metalness={0.4}
+            roughness={0.2}
+          />
         </mesh>
-        
+
         {/* Eyes */}
         <mesh position={[-0.15, 0.6, 0.3]}>
           <sphereGeometry args={[0.08, 16, 16]} />
@@ -244,7 +277,7 @@ const AvatarAssistant: React.FC = () => {
           <sphereGeometry args={[0.08, 16, 16]} />
           <meshStandardMaterial color="#FFFFFF" />
         </mesh>
-        
+
         {/* Pupils */}
         <mesh position={[-0.15, 0.6, 0.38]}>
           <sphereGeometry args={[0.04, 16, 16]} />
@@ -254,21 +287,29 @@ const AvatarAssistant: React.FC = () => {
           <sphereGeometry args={[0.04, 16, 16]} />
           <meshStandardMaterial color="#2A2A2A" />
         </mesh>
-        
+
         {/* Smile */}
         <mesh position={[0, 0.4, 0.3]} rotation={[0, 0, Math.PI]}>
           <torusGeometry args={[0.2, 0.04, 16, 32, Math.PI]} />
           <meshStandardMaterial color="#2A2A2A" />
         </mesh>
-        
+
         {/* Arms */}
         <mesh position={[-0.7, -0.2, 0]} rotation={[0, 0, Math.PI / 4]}>
           <capsuleGeometry args={[0.1, 0.5, 8, 8]} />
-          <meshStandardMaterial color="#E4093E" metalness={0.4} roughness={0.2} />
+          <meshStandardMaterial
+            color="#E4093E"
+            metalness={0.4}
+            roughness={0.2}
+          />
         </mesh>
         <mesh position={[0.7, -0.2, 0]} rotation={[0, 0, -Math.PI / 4]}>
           <capsuleGeometry args={[0.1, 0.5, 8, 8]} />
-          <meshStandardMaterial color="#E4093E" metalness={0.4} roughness={0.2} />
+          <meshStandardMaterial
+            color="#E4093E"
+            metalness={0.4}
+            roughness={0.2}
+          />
         </mesh>
       </group>
     );
@@ -286,30 +327,39 @@ const AvatarAssistant: React.FC = () => {
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
       {/* Settings button */}
-      <button 
+      <button
         onClick={toggleDisable}
         className="mb-4 bg-white p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-        aria-label={isDisabled ? "Enable assistant" : "Disable assistant"}
+        aria-label={isDisabled ? 'Enable assistant' : 'Disable assistant'}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-dark" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 text-dark"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+            clipRule="evenodd"
+          />
         </svg>
       </button>
-      
+
       {!isDisabled && (
         <>
           {isExpanded && message && (
             <div className="bg-white p-4 rounded-lg shadow-lg mb-4 max-w-xs animate-fadeIn">
               <p className="text-dark">{message}</p>
               <div className="mt-3 flex justify-between">
-                <button 
+                <button
                   className="text-sm text-primary hover:underline"
                   onClick={() => setIsExpanded(false)}
                 >
                   Close
                 </button>
-                <a 
-                  href="/contact" 
+                <a
+                  href="/contact"
                   className="text-sm text-primary hover:underline"
                 >
                   Contact Us
@@ -317,8 +367,8 @@ const AvatarAssistant: React.FC = () => {
               </div>
             </div>
           )}
-          
-          <div 
+
+          <div
             className="w-16 h-16 bg-white rounded-full shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 flex items-center justify-center"
             onClick={toggleExpanded}
           >
@@ -328,13 +378,13 @@ const AvatarAssistant: React.FC = () => {
                   <ErrorBoundary fallback={<FallbackAvatar />}>
                     <Canvas
                       dpr={[1, 1.5]} // Lower resolution to improve performance
-                      gl={{ 
-                        powerPreference: "default", 
+                      gl={{
+                        powerPreference: 'default',
                         antialias: false,
                         preserveDrawingBuffer: false,
                         alpha: true,
                         // Remove this flag to allow WebGL to work in more environments
-                        failIfMajorPerformanceCaveat: false
+                        failIfMajorPerformanceCaveat: false,
                       }}
                       style={{ touchAction: 'none' }}
                       onCreated={({ gl }) => {
@@ -343,12 +393,16 @@ const AvatarAssistant: React.FC = () => {
                     >
                       <Scene />
                       <ambientLight intensity={0.5} />
-                      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                      <spotLight
+                        position={[10, 10, 10]}
+                        angle={0.15}
+                        penumbra={1}
+                      />
                       <Model />
-                      <OrbitControls 
-                        enableZoom={false} 
-                        enablePan={false} 
-                        minPolarAngle={Math.PI / 2 - 0.5} 
+                      <OrbitControls
+                        enableZoom={false}
+                        enablePan={false}
+                        minPolarAngle={Math.PI / 2 - 0.5}
                         maxPolarAngle={Math.PI / 2 + 0.5}
                       />
                     </Canvas>
@@ -366,22 +420,25 @@ const AvatarAssistant: React.FC = () => {
 };
 
 // Error boundary component to catch WebGL errors
-class ErrorBoundary extends React.Component<{fallback: React.ReactNode, children: React.ReactNode}> {
+class ErrorBoundary extends React.Component<{
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}> {
   state = { hasError: false };
-  
+
   static getDerivedStateFromError() {
     return { hasError: true };
   }
-  
-  componentDidCatch(error: any, errorInfo: any) {
-    console.log("WebGL error caught:", error, errorInfo);
+
+  componentDidCatch() {
+    // WebGL error caught and handled
   }
-  
+
   render() {
     if (this.state.hasError) {
       return this.props.fallback;
     }
-    
+
     return this.props.children;
   }
 }
