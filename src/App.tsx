@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import AvatarAssistant from './components/AvatarAssistant';
 import './styles/LoadingScreen.css';
 
 const DocsPage = lazy(() => import('./pages/DocsPage'));
@@ -12,7 +13,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
-const AvatarAssistant = lazy(() => import('./components/AvatarAssistant'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
@@ -44,8 +44,8 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           </Routes>
-          <AvatarAssistant />
         </Suspense>
+        <AvatarAssistant />
       </Layout>
     </Router>
   );

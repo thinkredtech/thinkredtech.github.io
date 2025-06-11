@@ -1,48 +1,58 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 
 const AvatarAssistant: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [webGLSupported, setWebGLSupported] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const mountedRef = useRef(true);
+  const messageRef = useRef<HTMLDivElement>(null);
 
-  // Check WebGL support on mount
-  useEffect(() => {
-    try {
-      const canvas = document.createElement('canvas');
-      const gl =
-        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      setWebGLSupported(!!gl);
-    } catch {
-      setWebGLSupported(false);
-      // WebGL not supported - using fallback
+  // Calculate optimal bubble width based on message length and screen size
+  const calculateBubbleWidth = (text: string, isExpandedContent: boolean = false) => {
+    if (isExpandedContent) {
+      // For expanded menu, use compact responsive sizes to minimize whitespace
+      return 'w-56 sm:w-64 lg:w-72';
     }
-  }, []);
+    
+    const baseCharWidth = 7.5; // More accurate character width in pixels
+    const padding = 32; // Padding (p-4 = 16px * 2)
+    const minWidth = 160; // Reduced minimum width for very short messages
+    const estimatedWidth = text.length * baseCharWidth + padding;
+    
+    // More granular width calculation to minimize whitespace
+    if (estimatedWidth <= 180) {
+      return 'w-44 sm:w-48 lg:w-52'; // Very short messages (176px - 208px)
+    } else if (estimatedWidth <= 220) {
+      return 'w-52 sm:w-56 lg:w-60'; // Short messages (208px - 240px)
+    } else if (estimatedWidth <= 260) {
+      return 'w-60 sm:w-64 lg:w-72'; // Medium-short messages (240px - 288px)
+    } else if (estimatedWidth <= 320) {
+      return 'w-70 sm:w-80 lg:w-88'; // Medium messages (280px - 352px)
+    } else if (estimatedWidth <= 400) {
+      return 'w-80 sm:w-88 lg:w-96'; // Medium-long messages (320px - 384px)
+    } else if (estimatedWidth <= 480) {
+      return 'w-88 sm:w-96 lg:w-[28rem]'; // Long messages (352px - 448px)
+    } else {
+      return 'w-96 sm:w-[28rem] lg:w-[32rem]'; // Very long messages (384px - 512px)
+    }
+  };
+
+  // Messages that the avatar can display
+  const messages = [
+    "Hello! I'm RED, your friendly ThinkRED assistant! 🤖",
+    'I love helping visitors explore our amazing services! ✨',
+    'Want to see our cool projects? Check out our portfolio! 🚀',
+    'Need a custom solution? I can connect you with our team! 💡',
+    'We make technology simple and delightful! 🎯',
+    'Psst... Click on me for more options! 😊',
+    'DevOps, web development, platforms - we do it all! 🛠️',
+    "I'm powered by magical SVG and lots of creativity! 🎨",
+  ];
 
   // Change message periodically
   useEffect(() => {
-    if (isDisabled) return;
-
-    // Messages that the avatar can display
-    const messages = [
-      "Hello! I'm ThinkRED's assistant. How can I help you?",
-      'Explore our services to see how we can help your business.',
-      'Check out our portfolio to see our previous work.',
-      'Need a custom solution? Contact us today!',
-      'We specialize in web development, DevOps, and platform engineering.',
-    ];
-
     const interval = setInterval(() => {
-      if (!mountedRef.current) return;
-
       const randomIndex = Math.floor(Math.random() * messages.length);
       setMessage(messages[randomIndex]);
       setIsAnimating(true);
@@ -52,11 +62,9 @@ const AvatarAssistant: React.FC = () => {
       }
 
       timeoutRef.current = setTimeout(() => {
-        if (mountedRef.current) {
-          setIsAnimating(false);
-        }
+        setIsAnimating(false);
       }, 500);
-    }, 10000);
+    }, 8000);
 
     // Set initial message
     setMessage(messages[0]);
@@ -67,17 +75,12 @@ const AvatarAssistant: React.FC = () => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [isDisabled]);
+  }, []);
 
   // Handle scroll events to show/hide avatar
   useEffect(() => {
-    if (isDisabled) return;
-
     const handleScroll = () => {
-      if (!mountedRef.current) return;
-
       const scrollPosition = window.scrollY;
-      // Hide avatar when scrolled past a certain point
       if (scrollPosition > 1000) {
         setIsVisible(false);
       } else {
@@ -87,74 +90,10 @@ const AvatarAssistant: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDisabled]);
-
-  // Handle visibility change to prevent WebGL context loss
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (!canvasRef.current || !mountedRef.current) return;
-
-      if (document.hidden) {
-        // Pause rendering when tab is not visible
-        canvasRef.current.style.display = 'none';
-      } else {
-        canvasRef.current.style.display = 'block';
-      }
-    };
-
-    // Handle form submission or page navigation
-    const handleBeforeUnload = () => {
-      if (canvasRef.current) {
-        canvasRef.current.style.display = 'none';
-      }
-    };
-
-    // Handle form submission
-    const handleFormSubmit = () => {
-      if (canvasRef.current) {
-        // Temporarily hide canvas during form submission
-        canvasRef.current.style.display = 'none';
-        setTimeout(() => {
-          if (canvasRef.current && mountedRef.current) {
-            canvasRef.current.style.display = 'block';
-          }
-        }, 500);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // Listen for form submissions
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-      form.addEventListener('submit', handleFormSubmit);
-    });
-
-    return () => {
-      mountedRef.current = false;
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      forms.forEach(form => {
-        form.removeEventListener('submit', handleFormSubmit);
-      });
-    };
   }, []);
-
-  // Toggle disable state
-  const toggleDisable = () => {
-    setIsDisabled(!isDisabled);
-    if (!isDisabled) {
-      setIsVisible(false);
-      setIsExpanded(false);
-    } else {
-      setIsVisible(true);
-    }
-  };
 
   // Toggle expanded state
   const toggleExpanded = () => {
-    if (isDisabled) return;
     setIsExpanded(!isExpanded);
     setIsAnimating(true);
 
@@ -163,254 +102,128 @@ const AvatarAssistant: React.FC = () => {
     }
 
     timeoutRef.current = setTimeout(() => {
-      if (mountedRef.current) {
-        setIsAnimating(false);
-      }
+      setIsAnimating(false);
     }, 500);
   };
 
-  // Scene component with proper cleanup
-  const Scene = () => {
-    const { gl, scene } = useThree();
-
-    // Cleanup on unmount
-    useEffect(() => {
-      return () => {
-        // Dispose of all scene objects
-        scene.traverse(object => {
-          if (object instanceof THREE.Mesh) {
-            if (object.geometry) object.geometry.dispose();
-            if (object.material) {
-              if (Array.isArray(object.material)) {
-                object.material.forEach(material => material.dispose());
-              } else {
-                object.material.dispose();
-              }
-            }
-          }
-        });
-
-        // Force renderer to dispose
-        gl.dispose();
-      };
-    }, [gl, scene]);
-
-    return null;
-  };
-
-  // 3D model component with error handling
-  const Model = () => {
-    // Use a simple geometry as placeholder
-    const mesh = React.useRef<THREE.Mesh>(null!);
-
-    useFrame((state, delta) => {
-      try {
-        if (mesh.current && mountedRef.current) {
-          mesh.current.rotation.y += delta * 0.5;
-          if (isAnimating) {
-            mesh.current.scale.x = THREE.MathUtils.lerp(
-              mesh.current.scale.x,
-              1.2,
-              0.1
-            );
-            mesh.current.scale.y = THREE.MathUtils.lerp(
-              mesh.current.scale.y,
-              1.2,
-              0.1
-            );
-            mesh.current.scale.z = THREE.MathUtils.lerp(
-              mesh.current.scale.z,
-              1.2,
-              0.1
-            );
-          } else {
-            mesh.current.scale.x = THREE.MathUtils.lerp(
-              mesh.current.scale.x,
-              1,
-              0.1
-            );
-            mesh.current.scale.y = THREE.MathUtils.lerp(
-              mesh.current.scale.y,
-              1,
-              0.1
-            );
-            mesh.current.scale.z = THREE.MathUtils.lerp(
-              mesh.current.scale.z,
-              1,
-              0.1
-            );
-          }
-        }
-      } catch {
-        // Animation frame error handled gracefully
-      }
-    });
-
+  // Simplified Genie Avatar component
+  const GenieAvatar = () => {
+    const [isHovered, setIsHovered] = useState(false);
+    
     return (
-      <group>
-        {/* Base shape - more assistant-like with a body */}
-        <mesh ref={mesh} position={[0, -0.2, 0]}>
-          <sphereGeometry args={[0.6, 32, 32]} />
-          <meshStandardMaterial
-            color="#E4093E"
-            metalness={0.4}
-            roughness={0.2}
-          />
-        </mesh>
-
-        {/* Head */}
-        <mesh position={[0, 0.5, 0]}>
-          <sphereGeometry args={[0.4, 32, 32]} />
-          <meshStandardMaterial
-            color="#E4093E"
-            metalness={0.4}
-            roughness={0.2}
-          />
-        </mesh>
-
-        {/* Eyes */}
-        <mesh position={[-0.15, 0.6, 0.3]}>
-          <sphereGeometry args={[0.08, 16, 16]} />
-          <meshStandardMaterial color="#FFFFFF" />
-        </mesh>
-        <mesh position={[0.15, 0.6, 0.3]}>
-          <sphereGeometry args={[0.08, 16, 16]} />
-          <meshStandardMaterial color="#FFFFFF" />
-        </mesh>
-
-        {/* Pupils */}
-        <mesh position={[-0.15, 0.6, 0.38]}>
-          <sphereGeometry args={[0.04, 16, 16]} />
-          <meshStandardMaterial color="#2A2A2A" />
-        </mesh>
-        <mesh position={[0.15, 0.6, 0.38]}>
-          <sphereGeometry args={[0.04, 16, 16]} />
-          <meshStandardMaterial color="#2A2A2A" />
-        </mesh>
-
-        {/* Smile */}
-        <mesh position={[0, 0.4, 0.3]} rotation={[0, 0, Math.PI]}>
-          <torusGeometry args={[0.2, 0.04, 16, 32, Math.PI]} />
-          <meshStandardMaterial color="#2A2A2A" />
-        </mesh>
-
-        {/* Arms */}
-        <mesh position={[-0.7, -0.2, 0]} rotation={[0, 0, Math.PI / 4]}>
-          <capsuleGeometry args={[0.1, 0.5, 8, 8]} />
-          <meshStandardMaterial
-            color="#E4093E"
-            metalness={0.4}
-            roughness={0.2}
-          />
-        </mesh>
-        <mesh position={[0.7, -0.2, 0]} rotation={[0, 0, -Math.PI / 4]}>
-          <capsuleGeometry args={[0.1, 0.5, 8, 8]} />
-          <meshStandardMaterial
-            color="#E4093E"
-            metalness={0.4}
-            roughness={0.2}
-          />
-        </mesh>
-      </group>
+      <div 
+        className={`w-full h-full relative overflow-hidden genie-container ${isAnimating ? 'excited' : ''} ${isHovered ? 'hovered' : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Magical smoke effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="smoke-particle absolute w-2 h-2 bg-blue-300 rounded-full opacity-60 animate-pulse"></div>
+          <div className="smoke-particle absolute w-1 h-1 bg-purple-300 rounded-full opacity-40 animate-bounce"></div>
+          <div className="smoke-particle absolute w-1.5 h-1.5 bg-pink-300 rounded-full opacity-50"></div>
+        </div>
+        
+        {/* Main Avatar SVG */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 80 80"
+            className="avatar-svg"
+          >
+            {/* Main body - simplified version */}
+            <circle cx="40" cy="45" r="25" fill="#1cc9fc" className="avatar-body" />
+            
+            {/* Head */}
+            <circle cx="40" cy="25" r="15" fill="#ffd700" className="avatar-head" />
+            
+            {/* Eyes */}
+            <circle cx="35" cy="22" r="3" fill="#333" className="avatar-eye left-eye" />
+            <circle cx="45" cy="22" r="3" fill="#333" className="avatar-eye right-eye" />
+            <circle cx="35" cy="21" r="1" fill="#fff" className="avatar-pupil" />
+            <circle cx="45" cy="21" r="1" fill="#fff" className="avatar-pupil" />
+            
+            {/* Mouth */}
+            <path d="M 32 28 Q 40 32 48 28" stroke="#333" strokeWidth="2" fill="none" className="avatar-mouth" />
+            
+            {/* Magic antenna/wand */}
+            <line x1="40" y1="10" x2="40" y2="5" stroke="#E4093E" strokeWidth="3" className="magic-wand" />
+            <circle cx="40" cy="3" r="3" fill="#ffd700" className="magic-star">
+              <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite" />
+            </circle>
+            
+            {/* Arms */}
+            <circle cx="25" cy="40" r="5" fill="#ffd700" className="avatar-arm left-arm" />
+            <circle cx="55" cy="40" r="5" fill="#ffd700" className="avatar-arm right-arm" />
+            
+            {/* Sparkles around the avatar */}
+            {isHovered && (
+              <g className="sparkles">
+                <circle cx="15" cy="20" r="1" fill="#ffd700" opacity="0.8">
+                  <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="65" cy="30" r="1" fill="#ff69b4" opacity="0.8">
+                  <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="20" cy="55" r="1" fill="#00ffff" opacity="0.8">
+                  <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="60" cy="60" r="1" fill="#ffd700" opacity="0.8">
+                  <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" />
+                </circle>
+              </g>
+            )}
+          </svg>
+        </div>
+      </div>
     );
   };
 
-  // Fallback component when WebGL is not available or has issues
-  const FallbackAvatar = () => (
-    <div className="w-full h-full bg-primary rounded-full flex items-center justify-center">
-      <span className="text-white text-xl font-bold">TR</span>
-    </div>
-  );
-
-  if (!isVisible && !isDisabled) return null;
-
   return (
-    <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
-      {/* Settings button */}
-      <button
-        onClick={toggleDisable}
-        className="mb-4 bg-white p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-        aria-label={isDisabled ? 'Enable assistant' : 'Disable assistant'}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-dark"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-
-      {!isDisabled && (
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-none">
+      {isVisible && (
         <>
-          {isExpanded && message && (
-            <div className="bg-white p-4 rounded-lg shadow-lg mb-4 max-w-xs animate-fadeIn">
-              <p className="text-dark">{message}</p>
-              <div className="mt-3 flex justify-between">
-                <button
-                  className="text-sm text-primary hover:underline"
-                  onClick={() => setIsExpanded(false)}
-                >
-                  Close
-                </button>
-                <a
-                  href="/contact"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Contact Us
-                </a>
+          {/* Message bubble */}
+          {(message || isExpanded) && (
+            <div 
+              ref={messageRef}
+              className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/75 backdrop-blur-md shadow-xl rounded-2xl p-4 border-2 border-[#E4093E]/60 transition-all duration-300 pointer-events-auto ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : message, isExpanded)} max-w-[calc(100vw-7rem)] ${isAnimating ? 'animate-pulse' : ''}`}
+            >
+              <div className="text-sm text-gray-800 font-medium">
+                {isExpanded ? (
+                  <div className="space-y-2">
+                    <p className="font-semibold text-[#E4093E]">Quick Actions:</p>
+                    <div className="grid grid-cols-1 gap-2">
+                      <button className="text-left p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={() => window.location.href = '/contact'}>
+                        📧 Contact Us
+                      </button>
+                      <button className="text-left p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={() => window.location.href = '/portfolio'}>
+                        🚀 View Portfolio
+                      </button>
+                      <button className="text-left p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={() => window.location.href = '/services'}>
+                        🛠️ Our Services
+                      </button>
+                      <button className="text-left p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={() => setIsVisible(false)}>
+                        👋 Hide Assistant
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  message
+                )}
               </div>
+              {/* Arrow pointing to avatar */}
+              <div className="absolute -bottom-2 right-4 sm:right-6 w-4 h-4 bg-white/75 border-r-2 border-b-2 border-[#E4093E]/60 transform rotate-45 backdrop-blur-md"></div>
             </div>
           )}
 
+          {/* Avatar - Fixed position */}
           <div
-            className="w-16 h-16 bg-white rounded-full shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+            className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-white to-gray-100 rounded-full shadow-lg overflow-hidden cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${isAnimating ? 'animate-bounce' : 'genie-float-animation'}`}
             onClick={toggleExpanded}
           >
-            <div className="w-full h-full" ref={canvasRef}>
-              {webGLSupported ? (
-                <React.Suspense fallback={<FallbackAvatar />}>
-                  <ErrorBoundary fallback={<FallbackAvatar />}>
-                    <Canvas
-                      dpr={[1, 1.5]} // Lower resolution to improve performance
-                      gl={{
-                        powerPreference: 'default',
-                        antialias: false,
-                        preserveDrawingBuffer: false,
-                        alpha: true,
-                        // Remove this flag to allow WebGL to work in more environments
-                        failIfMajorPerformanceCaveat: false,
-                      }}
-                      style={{ touchAction: 'none' }}
-                      onCreated={({ gl }) => {
-                        gl.setClearColor(0xffffff, 0);
-                      }}
-                    >
-                      <Scene />
-                      <ambientLight intensity={0.5} />
-                      <spotLight
-                        position={[10, 10, 10]}
-                        angle={0.15}
-                        penumbra={1}
-                      />
-                      <Model />
-                      <OrbitControls
-                        enableZoom={false}
-                        enablePan={false}
-                        minPolarAngle={Math.PI / 2 - 0.5}
-                        maxPolarAngle={Math.PI / 2 + 0.5}
-                      />
-                    </Canvas>
-                  </ErrorBoundary>
-                </React.Suspense>
-              ) : (
-                <FallbackAvatar />
-              )}
+            <div className="w-full h-full">
+              <GenieAvatar />
             </div>
           </div>
         </>
@@ -418,29 +231,5 @@ const AvatarAssistant: React.FC = () => {
     </div>
   );
 };
-
-// Error boundary component to catch WebGL errors
-class ErrorBoundary extends React.Component<{
-  fallback: React.ReactNode;
-  children: React.ReactNode;
-}> {
-  state = { hasError: false };
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch() {
-    // WebGL error caught and handled
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-
-    return this.props.children;
-  }
-}
 
 export default AvatarAssistant;
