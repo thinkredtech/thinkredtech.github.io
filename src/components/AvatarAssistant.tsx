@@ -123,58 +123,24 @@ const AvatarAssistant: React.FC = () => {
           <div className="smoke-particle absolute w-1.5 h-1.5 bg-pink-300 rounded-full opacity-50"></div>
         </div>
         
-        {/* Main Avatar SVG */}
+        {/* Main Avatar PNG */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 80 80"
-            className="avatar-svg"
-          >
-            {/* Main body - simplified version */}
-            <circle cx="40" cy="45" r="25" fill="#1cc9fc" className="avatar-body" />
-            
-            {/* Head */}
-            <circle cx="40" cy="25" r="15" fill="#ffd700" className="avatar-head" />
-            
-            {/* Eyes */}
-            <circle cx="35" cy="22" r="3" fill="#333" className="avatar-eye left-eye" />
-            <circle cx="45" cy="22" r="3" fill="#333" className="avatar-eye right-eye" />
-            <circle cx="35" cy="21" r="1" fill="#fff" className="avatar-pupil" />
-            <circle cx="45" cy="21" r="1" fill="#fff" className="avatar-pupil" />
-            
-            {/* Mouth */}
-            <path d="M 32 28 Q 40 32 48 28" stroke="#333" strokeWidth="2" fill="none" className="avatar-mouth" />
-            
-            {/* Magic antenna/wand */}
-            <line x1="40" y1="10" x2="40" y2="5" stroke="#E4093E" strokeWidth="3" className="magic-wand" />
-            <circle cx="40" cy="3" r="3" fill="#ffd700" className="magic-star">
-              <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite" />
-            </circle>
-            
-            {/* Arms */}
-            <circle cx="25" cy="40" r="5" fill="#ffd700" className="avatar-arm left-arm" />
-            <circle cx="55" cy="40" r="5" fill="#ffd700" className="avatar-arm right-arm" />
-            
-            {/* Sparkles around the avatar */}
-            {isHovered && (
-              <g className="sparkles">
-                <circle cx="15" cy="20" r="1" fill="#ffd700" opacity="0.8">
-                  <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="65" cy="30" r="1" fill="#ff69b4" opacity="0.8">
-                  <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="20" cy="55" r="1" fill="#00ffff" opacity="0.8">
-                  <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="60" cy="60" r="1" fill="#ffd700" opacity="0.8">
-                  <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" />
-                </circle>
-              </g>
-            )}
-          </svg>
+          <img
+            src="/assets/images/assistant-reddy.png"
+            alt="RED Assistant"
+            className="w-full h-full object-contain avatar-image"
+          />
         </div>
+        
+        {/* Sparkles around the avatar */}
+        {isHovered && (
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="sparkle absolute top-2 left-2 w-1 h-1 bg-yellow-400 rounded-full opacity-80 animate-pulse"></div>
+            <div className="sparkle absolute top-4 right-3 w-1 h-1 bg-pink-400 rounded-full opacity-80 animate-bounce"></div>
+            <div className="sparkle absolute bottom-3 left-3 w-1 h-1 bg-cyan-400 rounded-full opacity-80 animate-ping"></div>
+            <div className="sparkle absolute bottom-2 right-2 w-1 h-1 bg-yellow-400 rounded-full opacity-80 animate-pulse"></div>
+          </div>
+        )}
       </div>
     );
   };
@@ -219,7 +185,7 @@ const AvatarAssistant: React.FC = () => {
 
           {/* Avatar - Fixed position */}
           <div
-            className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-white to-gray-100 rounded-full shadow-lg overflow-hidden cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${isAnimating ? 'animate-bounce' : 'genie-float-animation'}`}
+            className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${isAnimating ? 'animate-bounce' : 'genie-float-animation'}`}
             onClick={toggleExpanded}
           >
             <div className="w-full h-full">
