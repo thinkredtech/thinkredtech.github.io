@@ -65,6 +65,56 @@ const PortfolioPage: React.FC = () => {
       client: 'Zeomed Services',
       link: 'https://zeomedservices.com',
     },
+    // {
+    //   id: 4,
+    //   title: "E-Commerce Platform",
+    //   description: "A scalable e-commerce solution with inventory management, payment processing, and customer analytics.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Vue.js", "Firebase", "Stripe", "Tailwind CSS"],
+    //   category: "Web Application",
+    //   client: "RetailTech Inc.",
+    //   link: "#"
+    // },
+    // {
+    //   id: 5,
+    //   title: "Internal Developer Platform",
+    //   description: "A custom IDP that streamlines development workflows, CI/CD pipelines, and infrastructure provisioning.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Kubernetes", "Docker", "Jenkins", "Go"],
+    //   category: "DevOps",
+    //   client: "Enterprise Solutions Ltd.",
+    //   link: "#"
+    // },
+    // {
+    //   id: 6,
+    //   title: "Mobile Banking Application",
+    //   description: "A secure mobile banking application with biometric authentication, transaction history, and financial insights.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["React Native", "Spring Boot", "PostgreSQL", "AWS"],
+    //   category: "Mobile Application",
+    //   client: "FinTech Innovations",
+    //   link: "#"
+    // },
+    // {
+    //   id: 7,
+    //   title: "Content Management System",
+    //   description: "A custom CMS for managing digital content, user permissions, and publishing workflows.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["Next.js", "GraphQL", "MongoDB", "AWS"],
+    //   category: "Web Application",
+    //   client: "Media Publishing Group",
+    //   link: "#"
+    // },
+    // {
+    //   id: 8,
+    //   title: "IoT Dashboard",
+    //   description: "A real-time dashboard for monitoring and controlling IoT devices with data visualization and alerts.",
+    //   image: "/assets/images/thinkRED-square.png",
+    //   technologies: ["React", "Node.js", "Socket.io", "D3.js"],
+    //   category: "IoT",
+    //   client: "Smart Solutions Inc.",
+    //   link: "#"
+    // }
   ];
 
   // State for filters and search
@@ -104,194 +154,200 @@ const PortfolioPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Portfolio</h1>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
-            Explore our recent projects and see how we've helped businesses
-            transform their digital presence and operations.
-          </p>
-        </div>
-
-        {/* Search and Filters */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Search Input */}
-            <div className="col-span-1 md:col-span-2">
-              <label
-                htmlFor="search"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Search
-              </label>
-              <input
-                type="text"
-                id="search"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-            </div>
-
-            {/* Technology Filter */}
-            <div>
-              <label
-                htmlFor="tech-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Technology
-              </label>
-              <select
-                id="tech-filter"
-                value={selectedTech}
-                onChange={e => setSelectedTech(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="">All Technologies</option>
-                {technologies.map((tech, index) => (
-                  <option key={index} value={tech}>
-                    {tech}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Category Filter */}
-            <div>
-              <label
-                htmlFor="category-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Category
-              </label>
-              <select
-                id="category-filter"
-                value={selectedCategory}
-                onChange={e => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="">All Categories</option>
-                {categories.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Reset Filters Button */}
-          <div className="mt-4 flex justify-end">
-            <button
-              onClick={resetFilters}
-              className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
-            >
-              Reset Filters
-            </button>
-          </div>
-        </div>
-
-        {/* Results Count */}
-        <div className="mb-8">
-          <p className="text-secondary">
-            Showing {filteredItems.length} of {portfolioItems.length} projects
-          </p>
-        </div>
-
-        {/* Portfolio Grid */}
-        {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map(item => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
-              >
-                <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-secondary mb-4">{item.description}</p>
-
-                  <div className="mb-4">
-                    <p className="text-sm text-gray-500 mb-1">
-                      Client: {item.client}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Category: {item.category}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {item.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline font-medium inline-flex items-center"
-                  >
-                    View Project
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-xl text-secondary mb-4">
-              No projects match your search criteria.
+    <div>
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
+        <div className="container mx-auto px-4">
+          {/* Page Header */}
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="heading-1 mb-6">Our Portfolio</h1>
+            <p className="text-lg text-secondary">
+              Explore our recent projects and see how we've helped businesses
+              transform their digital presence and operations.
             </p>
-            <button onClick={resetFilters} className="btn btn-primary">
-              Reset Filters
-            </button>
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Call to Action */}
-        <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Ready to Start Your Project?
-          </h2>
-          <p className="text-lg text-secondary mb-6 max-w-2xl mx-auto">
-            Let's discuss how ThinkRED can help bring your vision to life with
-            our expertise in web development, platform engineering, and more.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/contact" className="btn btn-primary">
-              Contact Us
-            </Link>
-            <Link to="/services" className="btn btn-secondary">
-              Explore Our Services
-            </Link>
+      <div className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Search and Filters */}
+          <div className="bg-white rounded-lg shadow-md p-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {/* Search Input */}
+              <div className="col-span-1 md:col-span-2">
+                <label
+                  htmlFor="search"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Search
+                </label>
+                <input
+                  type="text"
+                  id="search"
+                  placeholder="Search projects..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+              </div>
+
+              {/* Technology Filter */}
+              <div>
+                <label
+                  htmlFor="tech-filter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Technology
+                </label>
+                <select
+                  id="tech-filter"
+                  value={selectedTech}
+                  onChange={e => setSelectedTech(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                >
+                  <option value="">All Technologies</option>
+                  {technologies.map((tech, index) => (
+                    <option key={index} value={tech}>
+                      {tech}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Category Filter */}
+              <div>
+                <label
+                  htmlFor="category-filter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Category
+                </label>
+                <select
+                  id="category-filter"
+                  value={selectedCategory}
+                  onChange={e => setSelectedCategory(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Reset Filters Button */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={resetFilters}
+                className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
+              >
+                Reset Filters
+              </button>
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="mb-8">
+            <p className="text-secondary">
+              Showing {filteredItems.length} of {portfolioItems.length} projects
+            </p>
+          </div>
+
+          {/* Portfolio Grid */}
+          {filteredItems.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredItems.map(item => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
+                >
+                  <div className="aspect-w-16 aspect-h-9 bg-gray-100">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-secondary mb-4">{item.description}</p>
+
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-500 mb-1">
+                        Client: {item.client}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Category: {item.category}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {item.technologies.map((tech, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline font-medium inline-flex items-center"
+                    >
+                      View Project
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-xl text-secondary mb-4">
+                No projects match your search criteria.
+              </p>
+              <button onClick={resetFilters} className="btn btn-primary">
+                Reset Filters
+              </button>
+            </div>
+          )}
+
+          {/* Call to Action */}
+          <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-lg text-secondary mb-6 max-w-2xl mx-auto">
+              Let's discuss how ThinkRED can help bring your vision to life with
+              our expertise in web development, platform engineering, and more.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link to="/contact" className="btn btn-primary">
+                Contact Us
+              </Link>
+              <Link to="/services" className="btn btn-secondary">
+                Explore Our Services
+              </Link>
+            </div>
           </div>
         </div>
       </div>

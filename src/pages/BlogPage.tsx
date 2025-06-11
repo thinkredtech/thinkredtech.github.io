@@ -108,209 +108,213 @@ const BlogPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Blog & Insights
-          </h1>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
-            Explore our latest articles, thought leadership, and engineering
-            insights on technology trends and best practices.
-          </p>
-        </div>
-
-        {/* Search and Filters */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Search Input */}
-            <div className="col-span-1 md:col-span-2">
-              <label
-                htmlFor="search"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Search
-              </label>
-              <input
-                type="text"
-                id="search"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div>
-              <label
-                htmlFor="category-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Category
-              </label>
-              <select
-                id="category-filter"
-                value={selectedCategory}
-                onChange={e => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="">All Categories</option>
-                {categories.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Tag Filter */}
-            <div>
-              <label
-                htmlFor="tag-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Tag
-              </label>
-              <select
-                id="tag-filter"
-                value={selectedTag}
-                onChange={e => setSelectedTag(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="">All Tags</option>
-                {tags.map((tag, index) => (
-                  <option key={index} value={tag}>
-                    {tag}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Reset Filters Button */}
-          <div className="mt-4 flex justify-end">
-            <button
-              onClick={resetFilters}
-              className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
-            >
-              Reset Filters
-            </button>
-          </div>
-        </div>
-
-        {/* Results Count */}
-        <div className="mb-8">
-          <p className="text-secondary">
-            Showing {filteredPosts.length} of {blogPosts.length} articles
-          </p>
-        </div>
-
-        {/* Blog Posts Grid */}
-        {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map(post => (
-              <div
-                key={post.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
-              >
-                <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="object-cover w-full h-60 md:h-48 lg:h-60"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center mb-3">
-                    <span className="text-sm text-gray-500">{post.date}</span>
-                    <span className="mx-2 text-gray-300">•</span>
-                    <span className="text-sm text-gray-500">{post.author}</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                  <p className="text-secondary mb-4">{post.excerpt}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.categories.map((category, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
-                      >
-                        {category}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link
-                    to={`/blog/${post.id}`}
-                    className="text-primary hover:underline font-medium inline-flex items-center"
-                  >
-                    Read More
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-xl text-secondary mb-4">
-              No articles match your search criteria.
+    <div>
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
+        <div className="container mx-auto px-4">
+          {/* Page Header */}
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="heading-1 mb-6">Blog & Insights</h1>
+            <p className="text-lg text-secondary">
+              Explore our latest articles, thought leadership, and engineering
+              insights on technology trends and best practices.
             </p>
-            <button onClick={resetFilters} className="btn btn-primary">
-              Reset Filters
-            </button>
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Newsletter Signup */}
-        <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Stay Updated with Our Newsletter
-          </h2>
-          <p className="text-lg text-secondary mb-6 max-w-2xl mx-auto">
-            Subscribe to receive the latest insights, articles, and resources
-            directly to your inbox.
-          </p>
-          <div className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-              <button className="btn btn-primary whitespace-nowrap">
-                Subscribe
+      <div className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Search and Filters */}
+          <div className="bg-white rounded-lg shadow-md p-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {/* Search Input */}
+              <div className="col-span-1 md:col-span-2">
+                <label
+                  htmlFor="search"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Search
+                </label>
+                <input
+                  type="text"
+                  id="search"
+                  placeholder="Search articles..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+              </div>
+
+              {/* Category Filter */}
+              <div>
+                <label
+                  htmlFor="category-filter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Category
+                </label>
+                <select
+                  id="category-filter"
+                  value={selectedCategory}
+                  onChange={e => setSelectedCategory(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Tag Filter */}
+              <div>
+                <label
+                  htmlFor="tag-filter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Tag
+                </label>
+                <select
+                  id="tag-filter"
+                  value={selectedTag}
+                  onChange={e => setSelectedTag(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                >
+                  <option value="">All Tags</option>
+                  {tags.map((tag, index) => (
+                    <option key={index} value={tag}>
+                      {tag}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Reset Filters Button */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={resetFilters}
+                className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
+              >
+                Reset Filters
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-3">
-              We respect your privacy. Unsubscribe at any time.
+          </div>
+
+          {/* Results Count */}
+          <div className="mb-8">
+            <p className="text-secondary">
+              Showing {filteredPosts.length} of {blogPosts.length} articles
             </p>
+          </div>
+
+          {/* Blog Posts Grid */}
+          {filteredPosts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPosts.map(post => (
+                <div
+                  key={post.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
+                >
+                  <div className="aspect-w-16 aspect-h-9 bg-gray-100">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="object-cover w-full h-60 md:h-48 lg:h-60"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-sm text-gray-500">{post.date}</span>
+                      <span className="mx-2 text-gray-300">•</span>
+                      <span className="text-sm text-gray-500">{post.author}</span>
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                    <p className="text-secondary mb-4">{post.excerpt}</p>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {post.categories.map((category, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
+                        >
+                          {category}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {post.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      to={`/blog/${post.id}`}
+                      className="text-primary hover:underline font-medium inline-flex items-center"
+                    >
+                      Read More
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-xl text-secondary mb-4">
+                No articles match your search criteria.
+              </p>
+              <button onClick={resetFilters} className="btn btn-primary">
+                Reset Filters
+              </button>
+            </div>
+          )}
+
+          {/* Newsletter Signup */}
+          <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Stay Updated with Our Newsletter
+            </h2>
+            <p className="text-lg text-secondary mb-6 max-w-2xl mx-auto">
+              Subscribe to receive the latest insights, articles, and resources
+              directly to your inbox.
+            </p>
+            <div className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <button className="btn btn-primary whitespace-nowrap">
+                  Subscribe
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-3">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            </div>
           </div>
         </div>
       </div>

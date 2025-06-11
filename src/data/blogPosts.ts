@@ -74,9 +74,9 @@ The integration of AI into our daily lives will continue to accelerate. We're se
 import tensorflow as tf
 
 model = tf.keras.Sequential([
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dense(64, activation='relu'),
-        tf.keras.layers.Dense(10, activation='softmax')
+                tf.keras.layers.Dense(128, activation='relu'),
+                tf.keras.layers.Dense(64, activation='relu'),
+                tf.keras.layers.Dense(10, activation='softmax')
 ])
 \`\`\`
 
@@ -102,7 +102,7 @@ The AI revolution is just beginning. As these technologies mature and become mor
         <p class="mb-4">Join our upcoming webinar on "The Future of AI in Business" to discover how your organization can leverage these technologies.</p>
         <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Register Now</button>
 </div>
-        `,
+                `,
     author: 'Sayak Sarkar',
     authorImage: '/assets/images/authors/sayak.png',
     authorBio:
@@ -227,7 +227,7 @@ Cybersecurity is not a one-time effort but an ongoing process. By implementing t
         <p class="mb-4">ThinkRED Technologies offers comprehensive security assessments and implementation services.</p>
         <a href="/contact" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Contact Our Security Team</a>
 </div>
-        `,
+                `,
     author: 'Sayak Sarkar',
     authorImage: '/assets/images/authors/sayak.png',
     authorBio:
@@ -385,7 +385,7 @@ The web development landscape of 2025 is characterized by technologies that prio
         <p>ThinkRED Technologies specializes in cutting-edge web development. Contact us to discuss how we can help modernize your web presence.</p>
         <a href="/contact" class="inline-block mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Get in Touch</a>
 </div>
-        `,
+                `,
     author: 'Sayak Sarkar',
     authorImage: '/assets/images/authors/sayak.png',
     authorBio:
