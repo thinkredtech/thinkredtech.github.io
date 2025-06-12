@@ -10,6 +10,7 @@ A modern, high-performance website for ThinkRED Technologies LLP built with Reac
 
 - **Responsive Design** - Optimized for all device sizes and screen resolutions
 - **Interactive AI Avatar Assistant** - Smart sleep/wake behavior and contextual navigation
+- **Interactive Technology Stack** - Tabbed interface showcasing comprehensive tech capabilities
 - **Modern UI/UX** - Smooth animations, transitions, and micro-interactions
 - **SEO Optimized** - Meta tags, structured data, and performance optimization
 - **Fast Performance** - Code splitting, lazy loading, and optimized assets

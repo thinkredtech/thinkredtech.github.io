@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaReact,
@@ -30,6 +30,8 @@ import {
 } from 'react-icons/si';
 
 const TechStack: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState(0);
+
   const technologies = [
     {
       category: 'Frontend',
@@ -170,9 +172,9 @@ const TechStack: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-backgroundAlt">
+    <section className="py-12 md:py-16 bg-backgroundAlt">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="heading-1 mb-4">Our Technology Stack</h2>
           <p className="text-lg text-secondary max-w-3xl mx-auto">
             We leverage modern technologies and frameworks to build robust,
@@ -180,29 +182,107 @@ const TechStack: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-16">
+        {/* Interactive Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           {technologies.map((category, index) => (
-            <div key={index}>
-              <h3 className="heading-2 mb-8 text-center">
-                {category.category}
-              </h3>
-              <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-                {category.techs.map((tech, techIndex) => (
-                  <div key={techIndex} className="flex flex-col items-center">
-                    <div className="w-16 h-16 mb-3 flex items-center justify-center bg-white rounded-full shadow-regular p-2 transition-transform hover:scale-110">
-                      {tech.icon}
-                    </div>
-                    <span className="text-dark font-medium">{tech.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <button
+              key={index}
+              onClick={() => setActiveCategory(index)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === index
+                  ? 'bg-primary text-white shadow-lg scale-105'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 hover:scale-102'
+              }`}
+            >
+              {category.category}
+            </button>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <Link to="/services" className="btn btn-secondary">
+        {/* Active Category Technologies */}
+        <div className="mb-8">
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
+            <h3 className="text-xl font-bold text-center mb-6 text-primary">
+              {technologies[activeCategory].category}
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              {technologies[activeCategory].techs.map((tech, techIndex) => (
+                <div
+                  key={techIndex}
+                  className="flex flex-col items-center group cursor-pointer"
+                >
+                  <div className="w-14 h-14 mb-3 flex items-center justify-center bg-gray-50 rounded-xl shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-white">
+                    {tech.icon}
+                  </div>
+                  <span className="text-sm font-medium text-center text-gray-700 group-hover:text-primary transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Overview Grid - Show all categories at once in compact form */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-center mb-6 text-dark">
+            Complete Technology Overview
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {technologies.map((category, index) => (
+              <div
+                key={index}
+                className={`bg-white rounded-xl p-4 shadow-sm transition-all duration-300 cursor-pointer hover:shadow-md ${
+                  activeCategory === index ? 'ring-2 ring-primary' : ''
+                }`}
+                onClick={() => setActiveCategory(index)}
+              >
+                <h4 className="font-semibold text-sm text-gray-800 mb-3 text-center">
+                  {category.category}
+                </h4>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {category.techs.slice(0, 6).map((tech, techIndex) => (
+                    <div
+                      key={techIndex}
+                      className="w-8 h-8 flex items-center justify-center bg-gray-50 rounded-lg transition-transform hover:scale-110"
+                      title={tech.name}
+                    >
+                      <div className="w-5 h-5 [&>svg]:w-5 [&>svg]:h-5 [&>div]:w-5 [&>div]:h-5 [&>div]:text-xs">
+                        {tech.icon}
+                      </div>
+                    </div>
+                  ))}
+                  {category.techs.length > 6 && (
+                    <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg text-xs font-medium text-gray-600">
+                      +{category.techs.length - 6}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <Link
+            to="/services"
+            className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
+          >
             Learn About Our Technical Expertise
+            <svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
           </Link>
         </div>
       </div>
