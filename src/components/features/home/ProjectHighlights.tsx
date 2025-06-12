@@ -1,6 +1,38 @@
 import { Link } from 'react-router-dom';
 
 const ProjectHighlights = () => {
+  // SVG Icons as React components
+  const GraduationCapIcon = () => (
+    <svg
+      className="w-8 h-8 text-primary"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
+    </svg>
+  );
+
+  const SyncIcon = () => (
+    <svg
+      className="w-8 h-8 text-primary"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
+    </svg>
+  );
+
+  const HealthcareIcon = () => (
+    <svg
+      className="w-8 h-8 text-primary"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3V8zM4 6h5v2h2V6h1V4H4v2zm0 5h3v2h2v-2h3V9H4v2zm0 5h5v2h2v-2h1v-2H4v2z" />
+      <path d="M12.5 2c-5.33 0-9.67 4.34-9.67 9.67 0 5.33 4.34 9.67 9.67 9.67s9.67-4.34 9.67-9.67S17.83 2 12.5 2zm0 17.33c-4.24 0-7.67-3.43-7.67-7.67S8.26 4 12.5 4s7.67 3.43 7.67 7.67-3.43 7.66-7.67 7.66z" />
+    </svg>
+  );
+
   const projectHighlights = [
     {
       title: 'Enterprise Learning Platform',
@@ -9,8 +41,8 @@ const ProjectHighlights = () => {
       client: 'OfficePro Inc.',
       technologies: ['WordPress', 'LearnPress', 'PHP', 'MySQL', 'Custom API'],
       outcome: 'Streamlined operations and enhanced user experience',
-      icon: '🎓',
-      link: '/portfolio',
+      icon: <GraduationCapIcon />,
+      link: 'https://officepro.on.thinkred.tech',
     },
     {
       title: 'Epic Learning Sync Plugin',
@@ -19,11 +51,11 @@ const ProjectHighlights = () => {
       client: 'OfficePro Inc.',
       technologies: ['WordPress Plugin', 'API Integration', 'Data Sync', 'PHP'],
       outcome: 'Automated course management and improved efficiency',
-      icon: '🔄',
+      icon: <SyncIcon />,
       link: 'https://github.com/thinkredtech/epic-learning-sync',
     },
     {
-      title: 'Healthcare Management Platform',
+      title: 'Healthcare Portfolio Platform',
       description:
         'Built a comprehensive WordPress-based platform for digital content management, course delivery, and healthcare services portfolio showcase.',
       client: 'Zeomed Services',
@@ -34,7 +66,7 @@ const ProjectHighlights = () => {
         'Responsive Design',
       ],
       outcome: 'Enhanced content management and training capabilities',
-      icon: '🏥',
+      icon: <HealthcareIcon />,
       link: 'https://zeomedservices.com',
     },
   ];
@@ -60,7 +92,9 @@ const ProjectHighlights = () => {
               {/* Header with icon and client */}
               <div className="bg-gradient-to-r from-primary/5 to-accent1/5 p-6 border-b border-gray-100">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-3xl">{project.icon}</span>
+                  <div className="flex items-center justify-center">
+                    {project.icon}
+                  </div>
                   <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {project.client}
                   </span>
