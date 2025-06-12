@@ -65,56 +65,6 @@ const PortfolioPage: React.FC = () => {
       client: 'Zeomed Services',
       link: 'https://zeomedservices.com',
     },
-    // {
-    //   id: 4,
-    //   title: "E-Commerce Platform",
-    //   description: "A scalable e-commerce solution with inventory management, payment processing, and customer analytics.",
-    //   image: "/assets/images/thinkRED-square.png",
-    //   technologies: ["Vue.js", "Firebase", "Stripe", "Tailwind CSS"],
-    //   category: "Web Application",
-    //   client: "RetailTech Inc.",
-    //   link: "#"
-    // },
-    // {
-    //   id: 5,
-    //   title: "Internal Developer Platform",
-    //   description: "A custom IDP that streamlines development workflows, CI/CD pipelines, and infrastructure provisioning.",
-    //   image: "/assets/images/thinkRED-square.png",
-    //   technologies: ["Kubernetes", "Docker", "Jenkins", "Go"],
-    //   category: "DevOps",
-    //   client: "Enterprise Solutions Ltd.",
-    //   link: "#"
-    // },
-    // {
-    //   id: 6,
-    //   title: "Mobile Banking Application",
-    //   description: "A secure mobile banking application with biometric authentication, transaction history, and financial insights.",
-    //   image: "/assets/images/thinkRED-square.png",
-    //   technologies: ["React Native", "Spring Boot", "PostgreSQL", "AWS"],
-    //   category: "Mobile Application",
-    //   client: "FinTech Innovations",
-    //   link: "#"
-    // },
-    // {
-    //   id: 7,
-    //   title: "Content Management System",
-    //   description: "A custom CMS for managing digital content, user permissions, and publishing workflows.",
-    //   image: "/assets/images/thinkRED-square.png",
-    //   technologies: ["Next.js", "GraphQL", "MongoDB", "AWS"],
-    //   category: "Web Application",
-    //   client: "Media Publishing Group",
-    //   link: "#"
-    // },
-    // {
-    //   id: 8,
-    //   title: "IoT Dashboard",
-    //   description: "A real-time dashboard for monitoring and controlling IoT devices with data visualization and alerts.",
-    //   image: "/assets/images/thinkRED-square.png",
-    //   technologies: ["React", "Node.js", "Socket.io", "D3.js"],
-    //   category: "IoT",
-    //   client: "Smart Solutions Inc.",
-    //   link: "#"
-    // }
   ];
 
   // State for filters and search

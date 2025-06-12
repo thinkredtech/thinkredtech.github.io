@@ -10,12 +10,12 @@ export default [
   {
     files: ['src/**/*.{js,jsx,ts,tsx}'],
     ignores: [
-      'build/**', 
-      'node_modules/**', 
-      '**/*.test.{ts,tsx}', 
+      'build/**',
+      'node_modules/**',
+      '**/*.test.{ts,tsx}',
       '**/*.test.{js,jsx}',
       'src/setupTests.ts',
-      'src/**/*.test.{ts,tsx}'
+      'src/**/*.test.{ts,tsx}',
     ],
     languageOptions: {
       parser: tsparser,
@@ -59,7 +59,10 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       'no-console': 'warn',
       'prefer-const': 'error',
       'no-var': 'error',

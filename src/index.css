@@ -227,7 +227,11 @@ code {
 }
 
 @keyframes smoothBounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -240,9 +244,10 @@ code {
 
 /* Message bubble lively but stable transition styles */
 .message-bubble-stable {
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition:
+    opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-origin: bottom right;
 }
 
@@ -260,7 +265,9 @@ code {
 
 .message-bubble-stable:hover {
   transform: scale(1.03) translateY(-3px) rotate(0.5deg);
-  box-shadow: 0 25px 50px rgba(228, 9, 62, 0.2), 0 10px 20px rgba(228, 9, 62, 0.1);
+  box-shadow:
+    0 25px 50px rgba(228, 9, 62, 0.2),
+    0 10px 20px rgba(228, 9, 62, 0.1);
 }
 
 @keyframes bubbleAppearOrganic {
@@ -288,7 +295,8 @@ code {
 }
 
 @keyframes organicFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0) rotate(0deg);
   }
   25% {
@@ -308,14 +316,16 @@ code {
 }
 
 @keyframes organicFloatEnhanced {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0) rotate(0deg) translateX(0);
   }
   15% {
     transform: scale(1.005) translateY(-1px) rotate(0.2deg) translateX(0.5px);
   }
   30% {
-    transform: scale(1.012) translateY(-2.5px) rotate(-0.1deg) translateX(-0.3px);
+    transform: scale(1.012) translateY(-2.5px) rotate(-0.1deg)
+      translateX(-0.3px);
   }
   45% {
     transform: scale(1.008) translateY(-1.8px) rotate(0.4deg) translateX(0.8px);
@@ -327,7 +337,8 @@ code {
     transform: scale(1.007) translateY(-1.2px) rotate(0.25deg) translateX(0.4px);
   }
   90% {
-    transform: scale(1.003) translateY(-0.5px) rotate(-0.1deg) translateX(-0.1px);
+    transform: scale(1.003) translateY(-0.5px) rotate(-0.1deg)
+      translateX(-0.1px);
   }
 }
 
@@ -361,13 +372,27 @@ code {
 }
 
 @keyframes playfulWiggle {
-  0% { transform: rotate(0deg) scale(1); }
-  15% { transform: rotate(-1deg) scale(1.02); }
-  30% { transform: rotate(1.5deg) scale(0.98); }
-  45% { transform: rotate(-0.8deg) scale(1.01); }
-  60% { transform: rotate(0.6deg) scale(0.99); }
-  75% { transform: rotate(-0.3deg) scale(1.005); }
-  100% { transform: rotate(0deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  15% {
+    transform: rotate(-1deg) scale(1.02);
+  }
+  30% {
+    transform: rotate(1.5deg) scale(0.98);
+  }
+  45% {
+    transform: rotate(-0.8deg) scale(1.01);
+  }
+  60% {
+    transform: rotate(0.6deg) scale(0.99);
+  }
+  75% {
+    transform: rotate(-0.3deg) scale(1.005);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 /* Enhanced wiggle with more organic movement */
@@ -376,14 +401,32 @@ code {
 }
 
 @keyframes playfulWiggleEnhanced {
-  0% { transform: rotate(0deg) scale(1) translateX(0) translateY(0); }
-  10% { transform: rotate(-0.8deg) scale(1.015) translateX(-1px) translateY(-0.5px); }
-  25% { transform: rotate(1.2deg) scale(0.985) translateX(1.5px) translateY(1px); }
-  40% { transform: rotate(-1.5deg) scale(1.025) translateX(-1.2px) translateY(-1.5px); }
-  55% { transform: rotate(0.9deg) scale(0.995) translateX(0.8px) translateY(0.8px); }
-  70% { transform: rotate(-0.6deg) scale(1.008) translateX(-0.4px) translateY(-0.3px); }
-  85% { transform: rotate(0.3deg) scale(1.002) translateX(0.2px) translateY(0.1px); }
-  100% { transform: rotate(0deg) scale(1) translateX(0) translateY(0); }
+  0% {
+    transform: rotate(0deg) scale(1) translateX(0) translateY(0);
+  }
+  10% {
+    transform: rotate(-0.8deg) scale(1.015) translateX(-1px) translateY(-0.5px);
+  }
+  25% {
+    transform: rotate(1.2deg) scale(0.985) translateX(1.5px) translateY(1px);
+  }
+  40% {
+    transform: rotate(-1.5deg) scale(1.025) translateX(-1.2px)
+      translateY(-1.5px);
+  }
+  55% {
+    transform: rotate(0.9deg) scale(0.995) translateX(0.8px) translateY(0.8px);
+  }
+  70% {
+    transform: rotate(-0.6deg) scale(1.008) translateX(-0.4px)
+      translateY(-0.3px);
+  }
+  85% {
+    transform: rotate(0.3deg) scale(1.002) translateX(0.2px) translateY(0.1px);
+  }
+  100% {
+    transform: rotate(0deg) scale(1) translateX(0) translateY(0);
+  }
 }
 
 /* Attention-seeking animation */
@@ -392,11 +435,22 @@ code {
 }
 
 @keyframes attentionSeeker {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  20% { transform: scale(1.05) rotate(1deg); }
-  40% { transform: scale(0.95) rotate(-0.5deg); }
-  60% { transform: scale(1.03) rotate(0.8deg); }
-  80% { transform: scale(0.98) rotate(-0.3deg); }
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  20% {
+    transform: scale(1.05) rotate(1deg);
+  }
+  40% {
+    transform: scale(0.95) rotate(-0.5deg);
+  }
+  60% {
+    transform: scale(1.03) rotate(0.8deg);
+  }
+  80% {
+    transform: scale(0.98) rotate(-0.3deg);
+  }
 }
 
 /* Subtle bounce for initial appearance */
@@ -465,11 +519,22 @@ code {
 }
 
 @keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.02); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.02); }
-  56% { transform: scale(1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.02);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.02);
+  }
+  56% {
+    transform: scale(1);
+  }
 }
 
 /* Synchronized breathing animations that match avatar movements */
@@ -478,7 +543,8 @@ code {
 }
 
 @keyframes bubbleSyncGenieFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0) rotate(0deg);
   }
   50% {
@@ -491,7 +557,8 @@ code {
 }
 
 @keyframes bubbleSyncAttention {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translateY(0) rotate(0deg);
   }
   50% {
@@ -505,7 +572,8 @@ code {
 }
 
 @keyframes bubbleSyncWiggle {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) rotate(0deg) translateX(0);
   }
   25% {
@@ -663,7 +731,8 @@ code {
 }
 
 @keyframes gentleBounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {

@@ -26,21 +26,26 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendors': [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            'react-markdown',
-            'remark-gfm',
-            'rehype-raw',
-            'rehype-sanitize',
-          ],
-          'three-vendors': [
-            'three',
-            '@react-three/fiber',
-            '@react-three/drei',
-          ],
+        manualChunks: id => {
+          if (id.includes('node_modules')) {
+            if (
+              id.includes('react') ||
+              id.includes('react-dom') ||
+              id.includes('react-router')
+            ) {
+              return 'react-vendors';
+            }
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'three-vendors';
+            }
+            if (
+              id.includes('markdown') ||
+              id.includes('remark') ||
+              id.includes('rehype')
+            ) {
+              return 'markdown-vendors';
+            }
+          }
         },
       },
     },
