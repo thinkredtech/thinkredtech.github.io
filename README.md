@@ -103,7 +103,7 @@ A modern, high-performance website for ThinkRED Technologies LLP built with Reac
 
 ## 🏗 Project Structure
 
-```
+```markdown
 thinkred-website-react19-vite/
 ├── public/                     # Static assets
 │   ├── assets/
@@ -452,4 +452,4 @@ For technical issues or questions about this project:
 
 ---
 
-**Built with ❤️ by ThinkRED Technologies**
+### Built with ❤️ by ThinkRED Technologies
