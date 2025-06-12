@@ -452,7 +452,7 @@ const AvatarAssistant: React.FC = () => {
       {isSleeping ? (
         /* Sleeping Avatar - show when assistant is put to sleep by user */
         <div
-          className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer hover:scale-110 transition-all duration-300 pointer-events-auto opacity-60 hover:opacity-80"
+          className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer hover:scale-110 transition-all duration-300 pointer-events-auto"
           onClick={wakeUpAssistant}
           title="Click to wake up your assistant"
         >
