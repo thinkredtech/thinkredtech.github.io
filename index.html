@@ -1,116 +1,89 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- Theme and appearance -->
-    <meta name="theme-color" content="#E4093E" />
-    <meta name="msapplication-navbutton-color" content="#E4093E" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta name="msapplication-TileColor" content="#E4093E" />
+        <!-- Theme and appearance -->
+        <meta name="theme-color" content="#E4093E" />
+        <meta name="msapplication-navbutton-color" content="#E4093E" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="msapplication-TileColor" content="#E4093E" />
 
-    <!-- SEO Meta Tags -->
-    <title>ThinkRED Technologies | Simplify Technology & Experience</title>
-    <meta
-      name="description"
-      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
-    />
-    <meta
-      name="keywords"
-      content="ThinkRED, Technology, Web Applications, Platforms, Infrastructure Solutions, DevOps, Cloud Computing, React, TypeScript"
-    />
-    <meta name="author" content="ThinkRED Technologies" />
-    <meta name="robots" content="index, follow" />
+        <!-- SEO Meta Tags -->
+        <title>ThinkRED Technologies | Simplify Technology & Experience</title>
+        <meta name="description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
+        <meta name="keywords" content="ThinkRED, Technology, Web Applications, Platforms, Infrastructure Solutions, DevOps, Cloud Computing, React, TypeScript" />
+        <meta name="author" content="ThinkRED Technologies" />
+        <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph / Facebook -->
-    <meta
-      property="og:title"
-      content="ThinkRED Technologies | Simplify Technology & Experience"
-    />
-    <meta
-      property="og:description"
-      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
-    />
-    <meta property="og:image" content="/assets/images/thinkRED-np.svg" />
-    <meta property="og:url" content="https://thinkredtech.github.io" />
-    <meta property="og:type" content="website" />
+        <!-- Open Graph / Facebook -->
+        <meta property="og:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
+        <meta property="og:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
+        <meta property="og:image" content="/assets/images/thinkRED-np.svg" />
+        <meta property="og:url" content="https://thinkredtech.github.io" />
+        <meta property="og:type" content="website" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="ThinkRED Technologies | Simplify Technology & Experience"
-    />
-    <meta
-      name="twitter:description"
-      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
-    />
-    <meta name="twitter:image" content="/assets/images/thinkRED-np.svg" />
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
+        <meta name="twitter:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
+        <meta name="twitter:image" content="/assets/images/thinkRED-np.svg" />
 
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      href="/assets/images/thinkred/apple-touch-icon.png"
-    />
-    <link rel="manifest" href="/manifest.json" />
+        <!-- Icons -->
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/assets/images/thinkred/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
 
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- GitHub Pages SPA redirect handling -->
-    <script type="text/javascript">
-      // Handle GitHub Pages SPA routing
-      (function (l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search
-            .slice(1)
-            .split('&')
-            .map(function (s) {
-              return s.replace(/~and~/g, '&');
-            })
-            .join('?');
-          window.history.replaceState(
-            null,
-            null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      })(window.location);
-    </script>
-  </head>
-  <body>
-    <noscript>
-      <div
-        style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          text-align: center;
-          font-family: Arial, sans-serif;
-          background-color: #f5f5f5;
-          color: #333;
-        "
-      >
-        <h1>JavaScript Required</h1>
-        <p>
-          This website requires JavaScript to function properly. Please enable
-          JavaScript in your browser and refresh the page.
-        </p>
-      </div>
-    </noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
-  </body>
+        <!-- GitHub Pages SPA redirect handling -->
+        <script type="text/javascript">
+            // Handle GitHub Pages SPA routing
+            (function (l) {
+                if (l.search[1] === '/') {
+                    var decoded = l.search
+                        .slice(1)
+                        .split('&')
+                        .map(function (s) {
+                            return s.replace(/~and~/g, '&');
+                        })
+                        .join('?');
+                    window.history.replaceState(
+                        null,
+                        null,
+                        l.pathname.slice(0, -1) + decoded + l.hash
+                    );
+                }
+            })(window.location);
+        </script>
+    </head>
+    <body>
+        <noscript>
+            <div
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    text-align: center;
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                    color: #333;
+                "
+            >
+                <h1>JavaScript Required</h1>
+                <p>
+                    This website requires JavaScript to function properly. Please enable
+                    JavaScript in your browser and refresh the page.
+                </p>
+            </div>
+        </noscript>
+        <div id="root"></div>
+        <script type="module" src="/src/index.tsx"></script>
+    </body>
 </html>
