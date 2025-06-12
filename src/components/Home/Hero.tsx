@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const scrollToServices = () => {
@@ -26,12 +27,12 @@ const Hero: React.FC = () => {
               users.
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12 md:mb-0">
-              <a href="/services" className="btn btn-primary">
+              <Link to="/services" className="btn btn-primary">
                 Explore Our Services
-              </a>
-              <a href="/contact" className="btn btn-secondary">
+              </Link>
+              <Link to="/contact" className="btn btn-secondary">
                 Start a Project
-              </a>
+              </Link>
             </div>
           </div>
           <div className="relative mt-8 lg:mt-0 mb-16 sm:mb-8 lg:mb-0">

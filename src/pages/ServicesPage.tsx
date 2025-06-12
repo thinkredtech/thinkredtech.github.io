@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ServicesPage: React.FC = () => {
   const services = [
@@ -309,14 +310,14 @@ const ServicesPage: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="/contact"
+                <Link
+                  to="/contact"
                   className={`btn w-full text-center ${
                     tier.highlighted ? 'btn-primary' : 'btn-secondary'
                   }`}
                 >
                   Get Started
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -438,12 +439,12 @@ const ServicesPage: React.FC = () => {
               Contact us today to discuss your project requirements and how we
               can help you achieve your business goals.
             </p>
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="btn bg-white text-primary hover:bg-opacity-90"
             >
               Get in Touch
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -34,6 +34,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b gh-pages",
     "deploy:github": "npm run build && gh-pages -d build -b gh-pages",
+    "deploy:github-actions": "echo '⚠️  For thinkredtech.github.io (user/org site), use GitHub Actions deployment instead of gh-pages branch. Check repository Settings > Pages and set source to GitHub Actions.'",
     "deploy:hostinger": "./deploy-hostinger.sh",
     "debug:github-pages": "./debug-github-pages.sh",
     "lint": "eslint src/ --ext .ts,.tsx",

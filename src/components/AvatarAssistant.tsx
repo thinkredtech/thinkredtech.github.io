@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AvatarAssistant: React.FC = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
   const [isSleeping, setIsSleeping] = useState(false); // Track if user manually hid the assistant
   const [message, setMessage] = useState('');
@@ -226,17 +228,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'View All Services',
-          action: () => (window.location.href = '/services'),
+          action: () => navigate('/services'),
           icon: '🛠️',
         },
         {
           label: 'DevOps Solutions',
-          action: () => (window.location.href = '/services#devops'),
+          action: () => navigate('/services#devops'),
           icon: '⚙️',
         },
         {
           label: 'Web Development',
-          action: () => (window.location.href = '/services#web'),
+          action: () => navigate('/services#web'),
           icon: '💻',
         },
       ];
@@ -247,17 +249,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'View Portfolio',
-          action: () => (window.location.href = '/portfolio'),
+          action: () => navigate('/portfolio'),
           icon: '🚀',
         },
         {
           label: 'Case Studies',
-          action: () => (window.location.href = '/portfolio#case-studies'),
+          action: () => navigate('/portfolio#case-studies'),
           icon: '📊',
         },
         {
           label: 'Client Reviews',
-          action: () => (window.location.href = '/portfolio#reviews'),
+          action: () => navigate('/portfolio#reviews'),
           icon: '⭐',
         },
       ];
@@ -268,17 +270,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'Contact Us',
-          action: () => (window.location.href = '/contact'),
+          action: () => navigate('/contact'),
           icon: '📧',
         },
         {
           label: 'Schedule Call',
-          action: () => (window.location.href = '/contact#schedule'),
+          action: () => navigate('/contact#schedule'),
           icon: '📞',
         },
         {
           label: 'About Our Team',
-          action: () => (window.location.href = '/about'),
+          action: () => navigate('/about'),
           icon: '👥',
         },
       ];
@@ -289,17 +291,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'Our Approach',
-          action: () => (window.location.href = '/about#approach'),
+          action: () => navigate('/about#approach'),
           icon: '🎯',
         },
         {
           label: 'Technologies',
-          action: () => (window.location.href = '/services#tech-stack'),
+          action: () => navigate('/services#tech-stack'),
           icon: '⚡',
         },
         {
           label: 'Learn More',
-          action: () => (window.location.href = '/about'),
+          action: () => navigate('/about'),
           icon: '📚',
         },
       ];
@@ -310,17 +312,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'DevOps Services',
-          action: () => (window.location.href = '/services#devops'),
+          action: () => navigate('/services#devops'),
           icon: '🛠️',
         },
         {
           label: 'Platform Solutions',
-          action: () => (window.location.href = '/services#platforms'),
+          action: () => navigate('/services#platforms'),
           icon: '🏗️',
         },
         {
           label: 'Get Quote',
-          action: () => (window.location.href = '/contact#quote'),
+          action: () => navigate('/contact#quote'),
           icon: '💰',
         },
       ];
@@ -350,17 +352,17 @@ const AvatarAssistant: React.FC = () => {
       return [
         {
           label: 'View Services',
-          action: () => (window.location.href = '/services'),
+          action: () => navigate('/services'),
           icon: '🛠️',
         },
         {
           label: 'See Portfolio',
-          action: () => (window.location.href = '/portfolio'),
+          action: () => navigate('/portfolio'),
           icon: '🚀',
         },
         {
           label: 'Contact Us',
-          action: () => (window.location.href = '/contact'),
+          action: () => navigate('/contact'),
           icon: '📧',
         },
       ];
@@ -498,7 +500,7 @@ const AvatarAssistant: React.FC = () => {
                       <div className="grid grid-cols-1 gap-3">
                         <button
                           className="group relative overflow-hidden p-4 bg-gradient-to-br from-red-50 to-red-100/50 hover:from-red-100 hover:to-red-200/60 rounded-xl border border-red-200/60 hover:border-red-300/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                          onClick={() => (window.location.href = '/contact')}
+                          onClick={() => navigate('/contact')}
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
@@ -532,7 +534,7 @@ const AvatarAssistant: React.FC = () => {
 
                         <button
                           className="group relative overflow-hidden p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 hover:from-blue-100 hover:to-blue-200/60 rounded-xl border border-blue-200/60 hover:border-blue-300/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                          onClick={() => (window.location.href = '/portfolio')}
+                          onClick={() => navigate('/portfolio')}
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
@@ -566,7 +568,7 @@ const AvatarAssistant: React.FC = () => {
 
                         <button
                           className="group relative overflow-hidden p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 hover:from-purple-100 hover:to-purple-200/60 rounded-xl border border-purple-200/60 hover:border-purple-300/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                          onClick={() => (window.location.href = '/services')}
+                          onClick={() => navigate('/services')}
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ThinkRED Technologies</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect script
+      // This script takes the current URL and redirects to the root with the path as a query parameter
+      // which can be handled by the React app for client-side routing
+      
+      var pathSegmentsToKeep = 0;
+      var l = window.location;
+      
+      // For user/org sites (like thinkredtech.github.io), we keep 0 path segments
+      // For project sites (like username.github.io/project), we would keep 1 segment
+      
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
+        '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body>
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+      <h1>Redirecting...</h1>
+      <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+    </div>
+  </body>
+</html>

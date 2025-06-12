@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CallToAction: React.FC = () => {
   return (
@@ -13,18 +14,18 @@ const CallToAction: React.FC = () => {
             expertise and innovative solutions.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="btn bg-white text-primary hover:bg-opacity-90"
             >
               Talk to Us
-            </a>
-            <a
-              href="/services"
+            </Link>
+            <Link
+              to="/services"
               className="btn border-2 border-white text-white hover:bg-white hover:bg-opacity-10"
             >
               Explore Services
-            </a>
+            </Link>
           </div>
         </div>
       </div>

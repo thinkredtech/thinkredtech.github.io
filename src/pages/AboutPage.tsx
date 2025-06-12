@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AboutPage: React.FC = () => {
   return (
@@ -284,12 +285,12 @@ const AboutPage: React.FC = () => {
               We're always looking for talented individuals who are passionate
               about technology and innovation.
             </p>
-            <a
-              href="/careers"
+            <Link
+              to="/careers"
               className="btn bg-white text-primary hover:bg-opacity-90"
             >
               View Open Positions
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Testimonials: React.FC = () => {
   const testimonials = [
@@ -76,9 +77,9 @@ const Testimonials: React.FC = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <a href="/portfolio" className="btn btn-secondary">
+          <Link to="/portfolio" className="btn btn-secondary">
             View Our Case Studies
-          </a>
+          </Link>
         </div>
       </div>
     </section>

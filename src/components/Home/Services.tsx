@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Services: React.FC = () => {
   const servicesList = [
@@ -155,9 +156,9 @@ const Services: React.FC = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <a href="/services" className="btn btn-primary">
+          <Link to="/services" className="btn btn-primary">
             Explore All Services
-          </a>
+          </Link>
         </div>
       </div>
     </section>

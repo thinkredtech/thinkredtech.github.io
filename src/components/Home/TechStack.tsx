@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   FaReact,
   FaVuejs,
@@ -129,9 +130,9 @@ const TechStack: React.FC = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <a href="/services" className="btn btn-secondary">
+          <Link to="/services" className="btn btn-secondary">
             Learn About Our Technical Expertise
-          </a>
+          </Link>
         </div>
       </div>
     </section>
