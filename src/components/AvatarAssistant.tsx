@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AvatarAssistant: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
   const [isSleeping, setIsSleeping] = useState(false); // Track if user manually hid the assistant
   const [message, setMessage] = useState('');
@@ -114,25 +115,34 @@ const AvatarAssistant: React.FC = () => {
     };
   }, [messages]);
 
-  // Handle scroll events to show/hide avatar
+  // Handle scroll events to put avatar to sleep/wake up
   useEffect(() => {
     const handleScroll = () => {
-      if (isSleeping) {
-        // Don't auto-show/hide when user has put assistant to sleep
-        return;
-      }
-
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 1000) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
+      
+      if (scrollPosition > 1000 && !isSleeping && isVisible) {
+        // Put assistant to sleep when scrolled past 1000px
+        setIsSleeping(true);
+        setIsExpanded(false);
+        setShowContextualOptions(false);
+        // Show a brief goodbye message before sleeping
+        setMessage('💤 Going to sleep... Click me to wake up!');
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+      } else if (scrollPosition <= 1000 && isSleeping) {
+        // Wake up assistant when scrolled back up
+        wakeUpAssistant();
+        setMessage('👋 I\'m back! How can I help?');
+        setTimeout(() => {
+          setMessage('');
+        }, 3000);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isSleeping]);
+  }, [isSleeping, isVisible]);
 
   // Add attention-seeking behavior
   useEffect(() => {
@@ -222,10 +232,14 @@ const AvatarAssistant: React.FC = () => {
     }
   };
 
-  // Function to get contextual options based on current message
+  // Function to get contextual options based on current message and filter out current page
   const getContextualOptions = (currentMessage: string) => {
+    const currentPath = location.pathname;
+    
+    let options: { label: string; action: () => void; icon: string }[] = [];
+    
     if (currentMessage.includes('services')) {
-      return [
+      options = [
         {
           label: 'View All Services',
           action: () => navigate('/services'),
@@ -246,7 +260,7 @@ const AvatarAssistant: React.FC = () => {
       currentMessage.includes('portfolio') ||
       currentMessage.includes('projects')
     ) {
-      return [
+      options = [
         {
           label: 'View Portfolio',
           action: () => navigate('/portfolio'),
@@ -267,7 +281,7 @@ const AvatarAssistant: React.FC = () => {
       currentMessage.includes('team') ||
       currentMessage.includes('custom solution')
     ) {
-      return [
+      options = [
         {
           label: 'Contact Us',
           action: () => navigate('/contact'),
@@ -288,7 +302,7 @@ const AvatarAssistant: React.FC = () => {
       currentMessage.includes('technology') ||
       currentMessage.includes('delightful')
     ) {
-      return [
+      options = [
         {
           label: 'Our Approach',
           action: () => navigate('/about#approach'),
@@ -309,7 +323,7 @@ const AvatarAssistant: React.FC = () => {
       currentMessage.includes('DevOps') ||
       currentMessage.includes('platforms')
     ) {
-      return [
+      options = [
         {
           label: 'DevOps Services',
           action: () => navigate('/services#devops'),
@@ -330,7 +344,7 @@ const AvatarAssistant: React.FC = () => {
       currentMessage.includes('animations') ||
       currentMessage.includes('interactions')
     ) {
-      return [
+      options = [
         {
           label: 'See More Animations',
           action: () => setIsAnimating(true),
@@ -349,7 +363,7 @@ const AvatarAssistant: React.FC = () => {
       ];
     } else {
       // Default options for greeting and general messages
-      return [
+      options = [
         {
           label: 'View Services',
           action: () => navigate('/services'),
@@ -365,8 +379,23 @@ const AvatarAssistant: React.FC = () => {
           action: () => navigate('/contact'),
           icon: '📧',
         },
+        {
+          label: 'About Us',
+          action: () => navigate('/about'),
+          icon: '👥',
+        },
       ];
     }
+
+    // Filter out options that lead to the current page or section
+    return options.filter(option => {
+      const targetPath = option.action.toString().match(/navigate\('([^']+)'\)/)?.[1];
+      if (!targetPath) return true; // Keep non-navigation actions
+      
+      // Extract base path (before #) for comparison
+      const basePath = targetPath.split('#')[0];
+      return basePath !== currentPath;
+    });
   };
 
   // Handle message bubble click
