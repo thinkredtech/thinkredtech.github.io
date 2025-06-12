@@ -58,7 +58,7 @@ const AvatarAssistant: React.FC = () => {
       'We make technology simple and delightful! 🎯',
       'Psst... Click on me for more options! 😊',
       'DevOps, web development, platforms - we do it all! 🛠️',
-      "I'm powered by magical SVG and lots of creativity! 🎨",
+      'I respond to your interactions with my lively emotions! ✨',
     ],
     []
   );
