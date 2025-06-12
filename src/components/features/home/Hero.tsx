@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Hero: React.FC = () => {
+const Hero = () => {
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
@@ -42,7 +41,7 @@ const Hero: React.FC = () => {
               {/* This would be replaced with the actual 3D animation in production */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-accent1/5">
                 <img
-                  src="/assets/images/thinkRED-np.svg"
+                  src="/assets/logos/thinkRED-np.svg"
                   alt="ThinkRED Logo"
                   className="w-3/4 h-auto animate-float"
                 />

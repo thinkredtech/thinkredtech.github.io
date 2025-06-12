@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './Header';
@@ -14,14 +14,12 @@ jest.mock('react-router-dom', () => ({
     className,
   }: {
     to: string;
-    children: React.ReactNode;
+    children: ReactNode;
     className?: string;
   }) =>
-    React.createElement(
-      'a',
-      { href: to, className, 'data-testid': `link-${to}` },
-      children
-    ),
+    <a href={to} className={className} data-testid={`link-${to}`}>
+      {children}
+    </a>,
 }));
 
 describe('Header Component', () => {

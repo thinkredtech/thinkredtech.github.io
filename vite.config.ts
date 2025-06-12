@@ -28,30 +28,44 @@ export default defineConfig({
       output: {
         manualChunks: id => {
           if (id.includes('node_modules')) {
-            if (
-              id.includes('react') ||
-              id.includes('react-dom') ||
-              id.includes('react-router')
-            ) {
-              return 'react-vendors';
+            // React core
+            if (id.includes('react/') || id.includes('react-dom/')) {
+              return 'react-core';
             }
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'three-vendors';
+            // React Router
+            if (id.includes('react-router')) {
+              return 'react-router';
             }
+            // Markdown processing
             if (
               id.includes('markdown') ||
               id.includes('remark') ||
-              id.includes('rehype')
+              id.includes('rehype') ||
+              id.includes('unified') ||
+              id.includes('micromark') ||
+              id.includes('mdast') ||
+              id.includes('hast')
             ) {
               return 'markdown-vendors';
             }
+            // Large UI/utility libraries
+            if (
+              id.includes('framer-motion') ||
+              id.includes('gsap') ||
+              id.includes('lodash')
+            ) {
+              return 'ui-vendors';
+            }
+            // All other vendor libraries
+            return 'vendors';
           }
         },
       },
     },
+    chunkSizeWarningLimit: 600,
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'three'],
+    include: ['react', 'react-dom', 'react-router-dom'],
   },
   publicDir: 'public',
 });

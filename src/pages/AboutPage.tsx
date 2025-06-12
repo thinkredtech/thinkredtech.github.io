@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AboutPage: React.FC = () => {
+const AboutPage = () => {
   return (
     <div>
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">

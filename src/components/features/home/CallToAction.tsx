@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CallToAction: React.FC = () => {
+const CallToAction = () => {
   return (
     <section className="py-16 md:py-24 bg-primary text-white">
       <div className="container mx-auto px-4">

@@ -1,8 +1,8 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout/Layout';
-import AvatarAssistant from './components/AvatarAssistant';
-import './styles/LoadingScreen.css';
+import Layout from './components/features/layout/Layout';
+import AvatarAssistant from './components/ui/AvatarAssistant';
+import './styles/components/LoadingScreen.css';
 
 const DocsPage = lazy(() => import('./pages/DocsPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -25,7 +25,7 @@ function App() {
           fallback={
             <div className="loading-screen">
               <div className="loading-logo">
-                <img src="/assets/images/thinkRED-np.svg" alt="ThinkRED Logo" />
+                <img src="/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" />
               </div>
             </div>
           }

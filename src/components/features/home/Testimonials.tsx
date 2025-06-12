@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Testimonials: React.FC = () => {
+const Testimonials = () => {
   const testimonials = [
     {
       quote:
@@ -9,7 +8,7 @@ const Testimonials: React.FC = () => {
       author: 'Sarah Johnson',
       position: 'CTO, ZeoMed Services',
       company: 'ZeoMed Services',
-      image: '/assets/images/testimonials/client1.jpg',
+      image: '/assets/avatars/default-avatar.png',
     },
     {
       quote:
@@ -17,7 +16,7 @@ const Testimonials: React.FC = () => {
       author: 'Michael Chen',
       position: 'Lead Developer',
       company: 'TechNova Solutions',
-      image: '/assets/images/testimonials/client2.jpg',
+      image: '/assets/avatars/default-avatar.png',
     },
     {
       quote:
@@ -25,7 +24,7 @@ const Testimonials: React.FC = () => {
       author: 'Priya Sharma',
       position: 'Product Manager',
       company: 'Innovate Digital',
-      image: '/assets/images/testimonials/client3.jpg',
+      image: '/assets/avatars/default-avatar.png',
     },
   ];
 

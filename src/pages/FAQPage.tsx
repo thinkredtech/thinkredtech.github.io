@@ -1,7 +1,6 @@
-import React from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
 
-const FAQPage: React.FC = () => {
+const FAQPage = () => {
   return (
     <div>
       <section className="py-8 md:py-16">

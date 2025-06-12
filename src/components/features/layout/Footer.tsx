@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
@@ -34,7 +33,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
               <img
-                src="/assets/images/thinkRED-white-np.svg"
+                src="/assets/logos/thinkRED-white-np.svg"
                 alt="ThinkRED Logo"
                 className="mt-1 h-4"
               />

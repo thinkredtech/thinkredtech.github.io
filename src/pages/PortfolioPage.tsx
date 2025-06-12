@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Define portfolio item type
@@ -13,7 +13,7 @@ interface PortfolioItem {
   link: string;
 }
 
-const PortfolioPage: React.FC = () => {
+const PortfolioPage = () => {
   // Sample portfolio data
   const portfolioItems: PortfolioItem[] = [
     {
@@ -21,7 +21,7 @@ const PortfolioPage: React.FC = () => {
       title: 'OfficePro Inc.',
       description:
         "A revamped, WordPress-based platform that seamlessly integrates OfficePro Inc's technology training, certification, and AV staffing services.",
-      image: '/assets/images/portfolio/officepro.png',
+      image: '/assets/portfolio/projects/officepro.png',
       technologies: [
         'WordPress',
         'LearnPress',
@@ -40,7 +40,7 @@ const PortfolioPage: React.FC = () => {
       title: 'Epic Learning Sync - WordPress Plugin',
       description:
         'A WordPress plugin that seamlessly synchronizes LearnPress courses with data from the Epic Learning Network API. It provides a robust, secure, and user-friendly way to manage course content while ensuring data integrity and performance.',
-      image: '/assets/images/portfolio/epic-learning-sync.png',
+      image: '/assets/portfolio/projects/epic-learning-sync.png',
       technologies: [
         'WordPress',
         'LearnPress',
@@ -59,7 +59,7 @@ const PortfolioPage: React.FC = () => {
       title: 'Zeomed Services',
       description:
         'A WordPress based comprehensive healthcare management system portfolio site for managing digital content, business enquiries and selling course and training programs.',
-      image: '/assets/images/portfolio/zeomed-services.png',
+      image: '/assets/portfolio/projects/zeomed-services.png',
       technologies: ['WordPress', 'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
       category: 'Web Application',
       client: 'Zeomed Services',

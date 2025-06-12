@@ -1,7 +1,6 @@
-import React from 'react';
 import { FaUserShield } from 'react-icons/fa';
 
-const PrivacyPolicyPage: React.FC = () => (
+const PrivacyPolicyPage = () => (
   <div>
     <section className="py-8 md:py-16">
       <div className="container mx-auto text-center mt-16">

@@ -1,6 +1,6 @@
 # ThinkRED Technologies Website
 
-![ThinkRED Logo](public/assets/images/thinkRED-np.svg)
+![ThinkRED Logo](public/assets/logos/thinkRED-np.svg)
 
 > **Simplify Technology & Experience!**
 

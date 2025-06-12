@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
-              src="/assets/images/thinkRED-np.svg"
+              src="/assets/logos/thinkRED-np.svg"
               alt="ThinkRED Logo"
               className="h-4 md:h-6"
             />

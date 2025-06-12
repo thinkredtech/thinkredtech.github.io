@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Vision: React.FC = () => {
+const Vision = () => {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">

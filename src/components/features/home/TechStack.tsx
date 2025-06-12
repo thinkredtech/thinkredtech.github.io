@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaReact,
@@ -29,7 +29,7 @@ import {
   SiPytorch,
 } from 'react-icons/si';
 
-const TechStack: React.FC = () => {
+const TechStack = () => {
   const [activeCategory, setActiveCategory] = useState(0);
 
   const technologies = [

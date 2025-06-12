@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Footer from './Footer';
@@ -12,14 +12,12 @@ jest.mock('react-router-dom', () => ({
     className,
   }: {
     to: string;
-    children: React.ReactNode;
+    children: ReactNode;
     className?: string;
   }) =>
-    React.createElement(
-      'a',
-      { href: to, className, 'data-testid': `link-${to}` },
-      children
-    ),
+    <a href={to} className={className} data-testid={`link-${to}`}>
+      {children}
+    </a>,
 }));
 
 describe('Footer Component', () => {

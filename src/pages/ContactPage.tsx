@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   DiscoveryCallScheduler,
   QuoteRequestForm,
-} from '../components/ContactForms';
+} from '../components/forms/ContactForms';
 
-const ContactPage: React.FC = () => {
+const ContactPage = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<'contact' | 'discovery' | 'quote'>(
     'contact'

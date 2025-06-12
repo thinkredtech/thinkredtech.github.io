@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const mainRoutes = [
@@ -49,7 +48,7 @@ const docsCategories = [
   },
 ];
 
-const SitemapPage: React.FC = () => {
+const SitemapPage = () => {
   return (
     <div className="container mx-auto px-4 py-16">
       {/* SEO meta tags should be set at the document level, not here */}

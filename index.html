@@ -22,7 +22,7 @@
         <!-- Open Graph / Facebook -->
         <meta property="og:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
         <meta property="og:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
-        <meta property="og:image" content="/assets/images/thinkRED-np.svg" />
+        <meta property="og:image" content="/assets/logos/thinkRED-np.svg" />
         <meta property="og:url" content="https://thinkredtech.github.io" />
         <meta property="og:type" content="website" />
 
@@ -30,15 +30,16 @@
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
         <meta name="twitter:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
-        <meta name="twitter:image" content="/assets/images/thinkRED-np.svg" />
+        <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
 
         <!-- Icons -->
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/assets/images/thinkred/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/assets/icons/thinkred/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <!-- Preload critical fonts -->
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" /></noscript>
 
         <!-- GitHub Pages SPA redirect handling -->
         <script type="text/javascript">
@@ -71,13 +72,14 @@
                     justify-content: center;
                     height: 100vh;
                     text-align: center;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                     background-color: #f5f5f5;
                     color: #333;
+                    padding: 20px;
                 "
             >
-                <h1>JavaScript Required</h1>
-                <p>
+                <h1 style="margin-bottom: 20px;">JavaScript Required</h1>
+                <p style="max-width: 600px; line-height: 1.6;">
                     This website requires JavaScript to function properly. Please enable
                     JavaScript in your browser and refresh the page.
                 </p>

@@ -1,7 +1,6 @@
-import React from 'react';
 import { FaGavel } from 'react-icons/fa';
 
-const TermsOfServicePage: React.FC = () => (
+const TermsOfServicePage = () => (
   <div>
     <section className="py-8 md:py-16">
       <div className="container mx-auto text-center mt-16">

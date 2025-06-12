@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -6,14 +6,14 @@ import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
 // Import sample blog posts data (this would typically come from an API)
-import { blogPosts, BlogPost } from '../data/blogPosts';
+import { blogPosts, BlogPost } from '../data/blog/blogPosts';
 
 interface BlogPostParams {
   postId: string;
   [key: string]: string;
 }
 
-const BlogPostPage: React.FC = () => {
+const BlogPostPage = () => {
   const { postId } = useParams<BlogPostParams>();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -102,7 +102,7 @@ const BlogPostPage: React.FC = () => {
                 <div className="flex items-center">
                   <img
                     src={
-                      post.authorImage || '/assets/images/default-avatar.png'
+                      post.authorImage || '/assets/avatars/default-avatar.png'
                     }
                     alt={post.author}
                     className="w-10 h-10 rounded-full mr-3 object-cover"
@@ -242,7 +242,7 @@ const BlogPostPage: React.FC = () => {
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 mt-8">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <img
-                src={post.authorImage || '/assets/images/default-avatar.png'}
+                src={post.authorImage || '/assets/avatars/default-avatar.png'}
                 alt={post.author}
                 className="w-24 h-24 rounded-full object-cover"
               />

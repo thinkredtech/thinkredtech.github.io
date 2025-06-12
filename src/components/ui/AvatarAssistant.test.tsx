@@ -1,23 +1,5 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import AvatarAssistant from './AvatarAssistant';
-
-// Mock the Three.js components
-jest.mock('@react-three/fiber', () => ({
-  Canvas: ({ children }: { children: React.ReactNode }) =>
-    React.createElement('div', { 'data-testid': 'canvas-mock' }, children),
-  useFrame: () => {},
-  useThree: () => ({
-    gl: { dispose: jest.fn() },
-    scene: { traverse: jest.fn() },
-    camera: {},
-  }),
-}));
-
-jest.mock('@react-three/drei', () => ({
-  OrbitControls: () =>
-    React.createElement('div', { 'data-testid': 'orbit-controls-mock' }),
-}));
 
 describe('AvatarAssistant Component', () => {
   test('renders with disable button', () => {

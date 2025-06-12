@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -11,7 +11,7 @@ interface DocParams {
   [key: string]: string | undefined;
 }
 
-const DocsPage: React.FC = () => {
+const DocsPage = () => {
   // Get both docPath and wildcard for nested docs
   const params = useParams<DocParams>();
   const { docPath = '', '*': wildcard = '' } = params;

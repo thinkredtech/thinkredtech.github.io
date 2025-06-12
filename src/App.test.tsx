@@ -1,56 +1,56 @@
 // Simplified test setup to avoid compatibility issues
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
 // Mock all components to avoid complex rendering issues
-jest.mock('./components/Layout/Layout', () => {
+jest.mock('./components/features/layout/Layout', () => {
   return function MockLayout({ children }: { children?: ReactNode }) {
-    return React.createElement(
-      'div',
-      { 'data-testid': 'mock-layout' },
-      children
+    return (
+      <div data-testid="mock-layout">
+        {children}
+      </div>
     );
   };
 });
 
 jest.mock(
   './pages/HomePage',
-  () => () => React.createElement('div', null, 'Home Page')
+  () => () => <div>Home Page</div>
 );
 jest.mock(
   './pages/AboutPage',
-  () => () => React.createElement('div', null, 'About Page')
+  () => () => <div>About Page</div>
 );
 jest.mock(
   './pages/ServicesPage',
-  () => () => React.createElement('div', null, 'Services Page')
+  () => () => <div>Services Page</div>
 );
 jest.mock(
   './pages/PortfolioPage',
-  () => () => React.createElement('div', null, 'Portfolio Page')
+  () => () => <div>Portfolio Page</div>
 );
 jest.mock(
   './pages/ContactPage',
-  () => () => React.createElement('div', null, 'Contact Page')
+  () => () => <div>Contact Page</div>
 );
 jest.mock(
   './pages/BlogPage',
-  () => () => React.createElement('div', null, 'Blog Page')
+  () => () => <div>Blog Page</div>
 );
 jest.mock(
-  './components/AvatarAssistant',
-  () => () => React.createElement('div', null, 'Avatar Assistant')
+  './components/ui/AvatarAssistant',
+  () => () => <div>Avatar Assistant</div>
 );
 
 // Mock react-router-dom
 jest.mock('react-router-dom', () => ({
   BrowserRouter: ({ children }: { children?: ReactNode }) =>
-    React.createElement('div', null, children),
+    <div>{children}</div>,
   Routes: ({ children }: { children?: ReactNode }) =>
-    React.createElement('div', null, children),
+    <div>{children}</div>,
   Route: ({ path, element }: { path: string; element: ReactNode }) =>
-    React.createElement('div', { 'data-testid': `route-${path}` }, element),
+    <div data-testid={`route-${path}`}>{element}</div>,
 }));
 
 describe('App', () => {

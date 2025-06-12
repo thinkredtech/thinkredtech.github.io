@@ -1,12 +1,11 @@
-import React from 'react';
-import Hero from '../components/Home/Hero';
-import Services from '../components/Home/Services';
-import TechStack from '../components/Home/TechStack';
-import Vision from '../components/Home/Vision';
-import Testimonials from '../components/Home/Testimonials';
-import CallToAction from '../components/Home/CallToAction';
+import Hero from '../components/features/home/Hero';
+import Services from '../components/features/home/Services';
+import TechStack from '../components/features/home/TechStack';
+import Vision from '../components/features/home/Vision';
+import Testimonials from '../components/features/home/Testimonials';
+import CallToAction from '../components/features/home/CallToAction';
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   return (
     <div>
       <Hero />

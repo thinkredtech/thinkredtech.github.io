@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ServicesPage: React.FC = () => {
+const ServicesPage = () => {
   const services = [
     {
       title: 'Web & Mobile Application Development',

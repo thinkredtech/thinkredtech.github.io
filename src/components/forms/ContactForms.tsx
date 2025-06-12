@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Discovery Call component
-const DiscoveryCallScheduler: React.FC = () => {
+const DiscoveryCallScheduler = () => {
   // Form state
   const [formData, setFormData] = useState({
     name: '',
@@ -431,7 +431,7 @@ const DiscoveryCallScheduler: React.FC = () => {
 };
 
 // Quote Request component
-const QuoteRequestForm: React.FC = () => {
+const QuoteRequestForm = () => {
   // Form state
   const [formData, setFormData] = useState({
     name: '',

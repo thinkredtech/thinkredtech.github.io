@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const AvatarAssistant: React.FC = () => {
+const AvatarAssistant = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
@@ -119,7 +119,7 @@ const AvatarAssistant: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      
+
       if (scrollPosition > 1000 && !isSleeping && isVisible) {
         // Put assistant to sleep when scrolled past 1000px
         setIsSleeping(true);
@@ -133,7 +133,7 @@ const AvatarAssistant: React.FC = () => {
       } else if (scrollPosition <= 1000 && isSleeping) {
         // Wake up assistant when scrolled back up
         wakeUpAssistant();
-        setMessage('👋 I\'m back! How can I help?');
+        setMessage("👋 I'm back! How can I help?");
         setTimeout(() => {
           setMessage('');
         }, 3000);
@@ -235,9 +235,9 @@ const AvatarAssistant: React.FC = () => {
   // Function to get contextual options based on current message and filter out current page
   const getContextualOptions = (currentMessage: string) => {
     const currentPath = location.pathname;
-    
+
     let options: { label: string; action: () => void; icon: string }[] = [];
-    
+
     if (currentMessage.includes('services')) {
       options = [
         {
@@ -389,9 +389,11 @@ const AvatarAssistant: React.FC = () => {
 
     // Filter out options that lead to the current page or section
     return options.filter(option => {
-      const targetPath = option.action.toString().match(/navigate\('([^']+)'\)/)?.[1];
+      const targetPath = option.action
+        .toString()
+        .match(/navigate\('([^']+)'\)/)?.[1];
       if (!targetPath) return true; // Keep non-navigation actions
-      
+
       // Extract base path (before #) for comparison
       const basePath = targetPath.split('#')[0];
       return basePath !== currentPath;
@@ -459,7 +461,7 @@ const AvatarAssistant: React.FC = () => {
         {/* Main Avatar PNG */}
         <div className="absolute inset-0 flex items-center justify-center">
           <img
-            src="/assets/images/assistant-reddy.png"
+            src="/assets/avatars/assistant-reddy.png"
             alt="RED Assistant"
             className="w-full h-full object-contain avatar-image"
           />
@@ -488,7 +490,7 @@ const AvatarAssistant: React.FC = () => {
           title="Click to wake up your assistant"
         >
           <img
-            src="/assets/images/assistant-reddy-sleeping.png"
+            src="/assets/avatars/assistant-reddy-sleeping.png"
             alt="Sleeping Assistant"
             className="w-full h-full object-contain animate-pulse"
           />
