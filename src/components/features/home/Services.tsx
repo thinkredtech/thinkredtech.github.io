@@ -131,32 +131,93 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-white">
+    <section
+      id="services"
+      className="py-16 md:py-24 bg-gradient-to-b from-white to-backgroundAlt"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="heading-1 mb-4">Our Services</h2>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
-            We offer a comprehensive range of technology services to help
-            businesses transform their digital presence and operations.
+          <p className="text-lg text-secondary max-w-2xl mx-auto">
+            Comprehensive technology solutions designed to accelerate your
+            digital transformation.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Featured Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {servicesList.map((service, index) => (
             <div
               key={index}
-              className="bg-backgroundAlt p-8 rounded-lg shadow-regular hover:shadow-lg transition-all duration-300"
+              className="group bg-white p-6 lg:p-8 rounded-xl shadow-regular hover:shadow-lg transition-all duration-300 border border-gray-50 hover:border-primary/20"
             >
-              <div className="mb-6">{service.icon}</div>
-              <h3 className="heading-3 mb-4">{service.title}</h3>
-              <p className="text-secondary">{service.description}</p>
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                  {service.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-lg text-dark mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-secondary text-sm leading-relaxed line-clamp-3">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <Link to="/services" className="btn btn-primary">
-            Explore All Services
+        {/* Services Summary Stats */}
+        <div className="bg-white rounded-xl shadow-regular p-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                6
+              </div>
+              <div className="text-sm text-secondary">Core Services</div>
+            </div>
+            <div>
+              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                15+
+              </div>
+              <div className="text-sm text-secondary">Technologies</div>
+            </div>
+            <div>
+              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                100+
+              </div>
+              <div className="text-sm text-secondary">Projects</div>
+            </div>
+            <div>
+              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                24hr
+              </div>
+              <div className="text-sm text-secondary">Avg Response</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center">
+          <Link
+            to="/services"
+            className="btn btn-primary px-8 py-3 text-lg font-semibold inline-flex items-center space-x-2 hover:transform hover:scale-105 transition-all duration-300"
+          >
+            <span>Explore All Services</span>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
           </Link>
         </div>
       </div>

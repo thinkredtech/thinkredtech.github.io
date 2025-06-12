@@ -340,11 +340,9 @@ const ProcessMethodology = () => {
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">
-                      24/7
+                      12hr
                     </div>
-                    <div className="text-xs text-secondary">
-                      Support Available
-                    </div>
+                    <div className="text-xs text-secondary">Response Time</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">

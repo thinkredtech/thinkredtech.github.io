@@ -220,7 +220,7 @@ const TeamExpertise = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary mb-1">
-                    1000+
+                    100+
                   </div>
                   <div className="text-sm text-secondary">
                     Projects Delivered
