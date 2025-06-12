@@ -229,7 +229,9 @@ const BlogPage: React.FC = () => {
                     <div className="flex items-center mb-3">
                       <span className="text-sm text-gray-500">{post.date}</span>
                       <span className="mx-2 text-gray-300">•</span>
-                      <span className="text-sm text-gray-500">{post.author}</span>
+                      <span className="text-sm text-gray-500">
+                        {post.author}
+                      </span>
                     </div>
 
                     <h3 className="text-xl font-bold mb-2">{post.title}</h3>

@@ -101,7 +101,9 @@ const BlogPostPage: React.FC = () => {
               <div className="flex items-center text-white">
                 <div className="flex items-center">
                   <img
-                    src={post.authorImage || '/assets/images/default-avatar.png'}
+                    src={
+                      post.authorImage || '/assets/images/default-avatar.png'
+                    }
                     alt={post.author}
                     className="w-10 h-10 rounded-full mr-3 object-cover"
                   />
@@ -122,7 +124,7 @@ const BlogPostPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-10">
             {/* Markdown Content with HTML support */}
-            <div className="prose prose-lg max-w-none">
+            <div className="prose prose-lg max-w-none overflow-hidden">
               <ReactMarkdown
                 rehypePlugins={[rehypeRaw, rehypeSanitize]}
                 remarkPlugins={[remarkGfm]}

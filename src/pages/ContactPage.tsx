@@ -232,7 +232,9 @@ const ContactPage: React.FC = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-medium">Registered Address</h3>
+                      <h3 className="text-lg font-medium">
+                        Registered Address
+                      </h3>
                       <p className="text-secondary">
                         C403, Sr No 22, Laxmi Nagar, Dhanori, Pune, Maharashtra,
                         India - 411015
@@ -390,8 +392,9 @@ const ContactPage: React.FC = () => {
                         </h3>
                       </div>
                       <p className="mb-4">
-                        Thank you for reaching out to ThinkRED Technologies. We've
-                        received your message and will get back to you shortly.
+                        Thank you for reaching out to ThinkRED Technologies.
+                        We've received your message and will get back to you
+                        shortly.
                       </p>
                       <button
                         onClick={() => setSubmitSuccess(false)}
