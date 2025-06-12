@@ -4,26 +4,26 @@ const Testimonials = () => {
   const testimonials = [
     {
       quote:
-        'ThinkRED Technologies transformed our digital infrastructure, delivering a solution that exceeded our expectations in both functionality and user experience.',
-      author: 'Sarah Johnson',
-      position: 'CTO, ZeoMed Services',
-      company: 'ZeoMed Services',
+        'ThinkRED Technologies delivered an exceptional WordPress platform that perfectly integrates our technology training, certification, and AV staffing services. Their expertise in LearnPress integration and custom development exceeded our expectations.',
+      author: 'Curtis Campbell',
+      position: 'Marketing Consultant',
+      company: 'OfficePro Inc.',
       image: '/assets/avatars/default-avatar.png',
     },
     {
       quote:
-        'Working with ThinkRED has been a game-changer for our development workflow. Their expertise in DevOps and infrastructure automation has significantly improved our deployment process.',
-      author: 'Michael Chen',
-      position: 'Lead Developer',
-      company: 'TechNova Solutions',
+        'The Epic Learning Sync plugin developed by ThinkRED has revolutionized our course management process. The seamless API integration and robust data synchronization capabilities have significantly improved our workflow efficiency.',
+      author: 'Curtis Campbell',
+      position: 'Marketing Consultant',
+      company: 'OfficePro Inc.',
       image: '/assets/avatars/default-avatar.png',
     },
     {
       quote:
-        'The team at ThinkRED brought both technical excellence and creative thinking to our project. They truly understand how to simplify complex technology challenges.',
-      author: 'Priya Sharma',
-      position: 'Product Manager',
-      company: 'Innovate Digital',
+        'ThinkRED transformed our healthcare services platform with a comprehensive WordPress solution. Their understanding of our business needs and technical execution for content management and course delivery was outstanding.',
+      author: 'Salman Sidhiq Basha',
+      position: 'Founder & CEO',
+      company: 'Zeomed Services',
       image: '/assets/avatars/default-avatar.png',
     },
   ];
