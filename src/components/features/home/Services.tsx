@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from '../../../hooks/useScrollAnimation';
 
 const Services = () => {
+  const { elementRef: headerRef, isInView: headerVisible } =
+    useScrollAnimation();
+  const {
+    elementRef: servicesRef,
+    visibleItems: visibleServices,
+    isInView: servicesVisible,
+  } = useStaggeredAnimation(6, 150);
+  const { elementRef: statsRef, isInView: statsVisible } = useScrollAnimation();
+  const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
   const servicesList = [
     {
       title: 'Web & Mobile Application Development',
@@ -131,12 +144,16 @@ const Services = () => {
   ];
 
   return (
-    <section
-      id="services"
-      className="py-16 md:py-24 bg-gradient-to-b from-white to-backgroundAlt"
-    >
+    <section id="services" className="py-16 md:py-24 bg-backgroundAlt">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            headerVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="heading-1 mb-4">Our Services</h2>
           <p className="text-lg text-secondary max-w-2xl mx-auto">
             Comprehensive technology solutions designed to accelerate your
@@ -145,11 +162,21 @@ const Services = () => {
         </div>
 
         {/* Featured Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+        <div
+          ref={servicesRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12"
+        >
           {servicesList.map((service, index) => (
             <div
               key={index}
-              className="group bg-white p-6 lg:p-8 rounded-xl shadow-regular hover:shadow-lg transition-all duration-300 border border-gray-50 hover:border-primary/20"
+              className={`group bg-white p-6 lg:p-8 rounded-xl shadow-regular hover:shadow-lg transition-all duration-700 border border-gray-50 hover:border-primary/20 ${
+                visibleServices.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: `${index * 150}ms`,
+              }}
             >
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0 p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
@@ -169,37 +196,51 @@ const Services = () => {
         </div>
 
         {/* Services Summary Stats */}
-        <div className="bg-white rounded-xl shadow-regular p-8 mb-12">
+        <div
+          ref={statsRef}
+          className={`bg-white rounded-xl shadow-regular p-8 mb-12 transition-all duration-1000 ease-out ${
+            statsVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 translate-y-8 scale-95'
+          }`}
+        >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
               <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
                 6
               </div>
-              <div className="text-sm text-secondary">Core Services</div>
+              <div className="text-sm text-secondary">Service Areas</div>
+            </div>
+            <div>
+              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                50+
+              </div>
+              <div className="text-sm text-secondary">
+                Technologies Mastered
+              </div>
             </div>
             <div>
               <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
                 15+
               </div>
-              <div className="text-sm text-secondary">Technologies</div>
+              <div className="text-sm text-secondary">Projects Delivered</div>
             </div>
             <div>
               <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                100+
+                12hr
               </div>
-              <div className="text-sm text-secondary">Projects</div>
-            </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                24hr
-              </div>
-              <div className="text-sm text-secondary">Avg Response</div>
+              <div className="text-sm text-secondary">Response Time</div>
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className="text-center">
+        <div
+          ref={ctaRef}
+          className={`text-center transition-all duration-1000 ease-out ${
+            ctaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <Link
             to="/services"
             className="btn btn-primary px-8 py-3 text-lg font-semibold inline-flex items-center space-x-2 hover:transform hover:scale-105 transition-all duration-300"

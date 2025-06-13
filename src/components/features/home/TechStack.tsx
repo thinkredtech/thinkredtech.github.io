@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from '../../../hooks/useScrollAnimation';
 import {
   FaReact,
   FaVuejs,
@@ -31,6 +35,22 @@ import {
 
 const TechStack = () => {
   const [activeCategory, setActiveCategory] = useState(0);
+
+  const { elementRef: headerRef, isInView: headerVisible } =
+    useScrollAnimation();
+  const {
+    elementRef: tabsRef,
+    visibleItems: visibleTabs,
+    isInView: tabsVisible,
+  } = useStaggeredAnimation(6, 100);
+  const { elementRef: activeRef, isInView: activeVisible } =
+    useScrollAnimation();
+  const {
+    elementRef: overviewRef,
+    visibleItems: visibleOverview,
+    isInView: overviewVisible,
+  } = useStaggeredAnimation(6, 150);
+  const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
 
   const technologies = [
     {
@@ -136,7 +156,7 @@ const TechStack = () => {
         {
           name: 'LLM Integration',
           icon: (
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
               AI
             </div>
           ),
@@ -144,7 +164,7 @@ const TechStack = () => {
         {
           name: 'MCP Servers',
           icon: (
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
               MCP
             </div>
           ),
@@ -174,7 +194,14 @@ const TechStack = () => {
   return (
     <section className="py-12 md:py-16 bg-backgroundAlt">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div
+          ref={headerRef as React.RefObject<HTMLDivElement>}
+          className={`text-center mb-12 transition-all duration-1000 ease-out ${
+            headerVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="heading-1 mb-4">Our Technology Stack</h2>
           <p className="text-lg text-secondary max-w-3xl mx-auto">
             We leverage modern technologies and frameworks to build robust,
@@ -183,16 +210,26 @@ const TechStack = () => {
         </div>
 
         {/* Interactive Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div
+          ref={tabsRef as React.RefObject<HTMLDivElement>}
+          className="flex flex-wrap justify-center gap-2 mb-8"
+        >
           {technologies.map((category, index) => (
             <button
               key={index}
               onClick={() => setActiveCategory(index)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-500 ${
                 activeCategory === index
                   ? 'bg-primary text-white shadow-lg scale-105'
                   : 'bg-white text-gray-700 hover:bg-gray-50 hover:scale-102'
+              } ${
+                visibleTabs.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-4'
               }`}
+              style={{
+                transitionDelay: `${index * 100}ms`,
+              }}
             >
               {category.category}
             </button>
@@ -200,7 +237,14 @@ const TechStack = () => {
         </div>
 
         {/* Active Category Technologies */}
-        <div className="mb-8">
+        <div
+          ref={activeRef as React.RefObject<HTMLDivElement>}
+          className={`mb-8 transition-all duration-1000 ease-out ${
+            activeVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 translate-y-8 scale-95'
+          }`}
+        >
           <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
             <h3 className="text-xl font-bold text-center mb-6 text-primary">
               {technologies[activeCategory].category}
@@ -224,7 +268,10 @@ const TechStack = () => {
         </div>
 
         {/* Quick Overview Grid - Show all categories at once in compact form */}
-        <div className="mb-8">
+        <div
+          ref={overviewRef as React.RefObject<HTMLDivElement>}
+          className="mb-8"
+        >
           <h3 className="text-lg font-semibold text-center mb-6 text-dark">
             Complete Technology Overview
           </h3>
@@ -232,9 +279,16 @@ const TechStack = () => {
             {technologies.map((category, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-xl p-4 shadow-sm transition-all duration-300 cursor-pointer hover:shadow-md ${
+                className={`bg-white rounded-xl p-4 shadow-sm transition-all duration-700 cursor-pointer hover:shadow-md ${
                   activeCategory === index ? 'ring-2 ring-primary' : ''
+                } ${
+                  visibleOverview.includes(index)
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-8'
                 }`}
+                style={{
+                  transitionDelay: `${index * 150}ms`,
+                }}
                 onClick={() => setActiveCategory(index)}
               >
                 <h4 className="font-semibold text-sm text-gray-800 mb-3 text-center">
@@ -264,7 +318,12 @@ const TechStack = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center">
+        <div
+          ref={ctaRef as React.RefObject<HTMLDivElement>}
+          className={`text-center transition-all duration-1000 ease-out ${
+            ctaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <Link
             to="/services"
             className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"

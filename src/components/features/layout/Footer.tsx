@@ -18,7 +18,7 @@ const Footer = () => {
       title: 'Resources',
       links: [
         { name: 'Case Studies', path: '/portfolio' },
-        { name: 'Documentation', path: '/docs/website-overview' },
+        { name: 'Documentation', path: '/docs' },
         { name: 'FAQ', path: '/faq' },
         { name: 'Support', path: '/contact' },
       ],

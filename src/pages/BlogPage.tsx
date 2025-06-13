@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { blogPosts } from '../data/blog/blogPosts';
@@ -8,6 +8,12 @@ const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedTag, setSelectedTag] = useState<string>('');
+  const [animateInView, setAnimateInView] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  useEffect(() => {
+    setAnimateInView(true);
+  }, []);
 
   // Extract unique categories and tags for filter options
   const categories = Array.from(
@@ -39,12 +45,25 @@ const BlogPage = () => {
 
   return (
     <div>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
-        <div className="container mx-auto px-4">
+      {/* Enhanced Hero Section */}
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 bg-backgroundAlt"></div>
+        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
+        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           {/* Page Header */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-1 mb-6">Blog & Insights</h1>
-            <p className="text-lg text-secondary">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1
+              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              Blog & Insights
+            </h1>
+            <p
+              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
               Explore our latest articles, thought leadership, and engineering
               insights on technology trends and best practices.
             </p>
@@ -52,42 +71,84 @@ const BlogPage = () => {
         </div>
       </section>
 
+      {/* Enhanced Search and Content Section */}
       <div className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
-          {/* Search and Filters */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {/* Search Input */}
-              <div className="col-span-1 md:col-span-2">
+          {/* Enhanced Search and Filters */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-12 border border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+              {/* Enhanced Search Input */}
+              <div className="col-span-1 md:col-span-3">
                 <label
                   htmlFor="search"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                  Search
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                  Search Articles
                 </label>
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="Search articles..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="search"
+                    placeholder="Search by title, content, or author..."
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"
+                  />
+                  <svg
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
               </div>
 
-              {/* Category Filter */}
-              <div>
+              {/* Enhanced Category Filter */}
+              <div className="col-span-1 md:col-span-1">
                 <label
                   htmlFor="category-filter"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
+                  <svg
+                    className="w-5 h-5 mr-2 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0"
+                    />
+                  </svg>
                   Category
                 </label>
                 <select
                   id="category-filter"
                   value={selectedCategory}
                   onChange={e => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"
                 >
                   <option value="">All Categories</option>
                   {categories.map((category, index) => (
@@ -98,19 +159,32 @@ const BlogPage = () => {
                 </select>
               </div>
 
-              {/* Tag Filter */}
-              <div>
+              {/* Enhanced Tag Filter */}
+              <div className="col-span-1 md:col-span-1">
                 <label
                   htmlFor="tag-filter"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                  Tag
+                  <svg
+                    className="w-5 h-5 mr-2 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    />
+                  </svg>
+                  Tags
                 </label>
                 <select
                   id="tag-filter"
                   value={selectedTag}
                   onChange={e => setSelectedTag(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"
                 >
                   <option value="">All Tags</option>
                   {tags.map((tag, index) => (
@@ -120,16 +194,114 @@ const BlogPage = () => {
                   ))}
                 </select>
               </div>
+
+              {/* View Mode Toggle and Reset */}
+              <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <svg
+                    className="w-5 h-5 mr-2 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  Actions
+                </label>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      setViewMode(viewMode === 'grid' ? 'list' : 'grid')
+                    }
+                    className="flex-1 px-4 py-3 bg-primary/10 text-primary rounded-xl hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
+                  >
+                    {viewMode === 'grid' ? (
+                      <svg
+                        className="w-5 h-5 mx-auto"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5 mx-auto"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    onClick={resetFilters}
+                    className="flex-1 px-4 py-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-red-100 hover:text-red-600 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <svg
+                      className="w-5 h-5 mx-auto"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Reset Filters Button */}
-            <div className="mt-4 flex justify-end">
-              <button
-                onClick={resetFilters}
-                className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
-              >
-                Reset Filters
-              </button>
+            {/* Quick Stats */}
+            <div className="mt-6 flex flex-wrap justify-between items-center gap-4">
+              <p className="text-secondary">
+                Showing{' '}
+                <span className="font-bold text-primary">
+                  {filteredPosts.length}
+                </span>{' '}
+                of <span className="font-bold">{blogPosts.length}</span>{' '}
+                articles
+              </p>
+
+              {/* Popular tags */}
+              <div className="flex flex-wrap gap-2">
+                <span className="text-sm text-gray-500">Popular:</span>
+                {['React', 'DevOps', 'Cloud'].map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(tag)}
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary hover:text-white transition-all duration-300"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 

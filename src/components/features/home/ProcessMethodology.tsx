@@ -1,4 +1,21 @@
+import { useRef } from 'react';
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from '../../../hooks/useScrollAnimation';
+
 const ProcessMethodology = () => {
+  const { elementRef: headerRef, isInView: headerVisible } =
+    useScrollAnimation();
+  const { elementRef: timelineRef, isInView: timelineVisible } =
+    useScrollAnimation();
+  const {
+    elementRef: desktopStepsRef,
+    visibleItems: visibleSteps,
+    isInView: stepsVisible,
+  } = useStaggeredAnimation(4, 300);
+  const { elementRef: principlesRef, isInView: principlesVisible } =
+    useScrollAnimation();
   const methodologies = [
     {
       phase: '01',
@@ -90,7 +107,14 @@ const ProcessMethodology = () => {
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={headerRef as React.RefObject<HTMLDivElement>}
+          className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            headerVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="heading-1 mb-4">Our Process & Methodology</h2>
           <p className="text-lg text-secondary max-w-4xl mx-auto">
             We follow a proven, iterative methodology that combines enterprise
@@ -101,7 +125,14 @@ const ProcessMethodology = () => {
         </div>
 
         {/* Process Timeline */}
-        <div className="relative mb-16">
+        <div
+          ref={timelineRef as React.RefObject<HTMLDivElement>}
+          className={`relative mb-16 transition-all duration-1000 ease-out ${
+            timelineVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           {/* Desktop Timeline */}
           <div className="hidden lg:block">
             <div className="flex justify-between items-center mb-12">
@@ -125,9 +156,22 @@ const ProcessMethodology = () => {
             </div>
 
             {/* Phase Details */}
-            <div className="grid grid-cols-4 gap-8">
+            <div
+              ref={desktopStepsRef as React.RefObject<HTMLDivElement>}
+              className="grid grid-cols-4 gap-8"
+            >
               {methodologies.map((methodology, index) => (
-                <div key={index} className="text-center">
+                <div
+                  key={index}
+                  className={`text-center transition-all duration-700 ease-out ${
+                    visibleSteps.includes(index)
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{
+                    transitionDelay: `${index * 300}ms`,
+                  }}
+                >
                   <div className="bg-backgroundAlt rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
                     <div className="flex justify-center mb-4">
                       {methodology.icon}
@@ -210,7 +254,14 @@ const ProcessMethodology = () => {
         </div>
 
         {/* Methodology Principles */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent1/5 rounded-lg p-8 md:p-12">
+        <div
+          ref={principlesRef as React.RefObject<HTMLDivElement>}
+          className={`bg-primary/5 rounded-lg p-8 md:p-12 transition-all duration-1000 ease-out ${
+            principlesVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 translate-y-8 scale-95'
+          }`}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold text-dark mb-6">
@@ -332,7 +383,7 @@ const ProcessMethodology = () => {
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">
-                      100%
+                      95%
                     </div>
                     <div className="text-xs text-secondary">
                       Client Satisfaction

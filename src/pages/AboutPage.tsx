@@ -1,13 +1,33 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const AboutPage = () => {
+  const [animateInView, setAnimateInView] = useState(false);
+
+  useEffect(() => {
+    setAnimateInView(true);
+  }, []);
+
   return (
     <div>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-1 mb-6">About ThinkRED Technologies</h1>
-            <p className="text-lg text-secondary">
+      {/* Enhanced Hero Section */}
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 bg-backgroundAlt"></div>
+        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
+        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1
+              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              About ThinkRED Technologies
+            </h1>
+            <p
+              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
               We are an engineering-focused, innovation-led technology company
               with roots in open source communities and enterprise solutions.
             </p>
@@ -15,131 +35,188 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* Enhanced Journey Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="heading-2 mb-6">Our Journey</h2>
-              <p className="text-lg text-secondary mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-dark">
+                Our Journey
+              </h2>
+              <p className="text-lg text-secondary mb-6 leading-relaxed">
                 ThinkRED Technologies was founded by engineers with a passion
                 for simplifying technology and creating exceptional user
                 experiences. Our journey began in open source communities like
                 Mozilla and Fedora, where we learned the value of collaboration
                 and innovation.
               </p>
-              <p className="text-lg text-secondary mb-6">
+              <p className="text-lg text-secondary mb-6 leading-relaxed">
                 After years of experience at Red Hat and working with global
                 clients through platforms like Upwork, we established ThinkRED
                 Technologies to bring enterprise-grade solutions to businesses
                 of all sizes.
               </p>
-              <p className="text-lg text-secondary">
+              <p className="text-lg text-secondary leading-relaxed">
                 Today, we help organizations transform their digital presence
                 and operations through custom web development, platform
                 engineering, and infrastructure automation.
               </p>
-            </div>
-            <div className="relative">
-              {/* Timeline visualization placeholder */}
-              <div className="bg-backgroundAlt p-8 rounded-lg shadow-regular">
-                <div className="space-y-8">
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <span className="text-primary font-bold">1</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-dark">
-                        Open Source Roots
-                      </h3>
-                      <p className="text-secondary">
-                        Mozilla and Fedora community contributions
-                      </p>
-                    </div>
+
+              {/* Interactive stats */}
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <div className="group">
+                  <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                    500+
                   </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <span className="text-primary font-bold">2</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-dark">
-                        Enterprise Experience
-                      </h3>
-                      <p className="text-secondary">
-                        Red Hat and global enterprise clients
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <span className="text-primary font-bold">3</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-dark">
-                        Freelance Excellence
-                      </h3>
-                      <p className="text-secondary">
-                        Top-rated Upwork professionals
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center mr-4">
-                      <span className="text-white font-bold">4</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-dark">
-                        ThinkRED Founded
-                      </h3>
-                      <p className="text-secondary">
-                        Established to deliver innovation at scale
-                      </p>
-                    </div>
+                  <div className="text-sm text-secondary">
+                    Open Source Contributions
                   </div>
                 </div>
+                <div className="group">
+                  <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                    95%
+                  </div>
+                  <div className="text-sm text-secondary">
+                    Client Satisfaction
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              {/* Enhanced timeline visualization */}
+              <div className="relative bg-backgroundAlt p-8 rounded-2xl shadow-xl">
+                <div className="space-y-8">
+                  {[
+                    {
+                      step: '1',
+                      title: 'Open Source Roots',
+                      description: 'Mozilla and Fedora community contributions',
+                      year: '2009',
+                      active: false,
+                    },
+                    {
+                      step: '2',
+                      title: 'Enterprise Experience',
+                      description: 'Red Hat and global enterprise clients',
+                      year: '2012',
+                      active: false,
+                    },
+                    {
+                      step: '3',
+                      title: 'Freelance Excellence',
+                      description: 'Top-rated Upwork professionals',
+                      year: '2018',
+                      active: false,
+                    },
+                    {
+                      step: '4',
+                      title: 'ThinkRED Founded',
+                      description: 'Established to deliver innovation at scale',
+                      year: '2021',
+                      active: true,
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className={`group flex items-start transition-all duration-300 hover:scale-105 ${
+                        item.active ? 'transform scale-105' : ''
+                      }`}
+                    >
+                      <div
+                        className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center mr-6 transition-all duration-300 ${
+                          item.active
+                            ? 'bg-primary shadow-lg'
+                            : 'bg-primary/10 group-hover:bg-primary/20'
+                        }`}
+                      >
+                        <span
+                          className={`font-bold text-lg ${
+                            item.active ? 'text-white' : 'text-primary'
+                          }`}
+                        >
+                          {item.step}
+                        </span>
+                      </div>
+                      <div className="flex-grow">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3
+                            className={`font-bold text-lg transition-colors duration-300 ${
+                              item.active
+                                ? 'text-primary'
+                                : 'text-dark group-hover:text-primary'
+                            }`}
+                          >
+                            {item.title}
+                          </h3>
+                          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                            {item.year}
+                          </span>
+                        </div>
+                        <p className="text-secondary text-sm leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Connecting line */}
+                <div className="absolute left-8 top-12 bottom-12 w-0.5 bg-primary/40"></div>
+
+                {/* Floating decoration */}
+                <div className="absolute -top-4 -right-4 w-16 h-16 bg-accent1/20 rounded-full blur-xl animate-pulse"></div>
+                <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-accent2/20 rounded-full blur-xl animate-pulse animate-delay-1000"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      {/* Enhanced Philosophy Section */}
       <section className="py-16 md:py-24 bg-backgroundAlt">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="heading-1 mb-4">Our Philosophy</h2>
-            <p className="text-lg text-secondary max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-dark">
+              Our Philosophy
+            </h2>
+            <p className="text-lg text-secondary max-w-3xl mx-auto leading-relaxed">
               At ThinkRED, we believe in simplifying technology to create
-              exceptional experiences.
+              exceptional experiences that drive meaningful business outcomes.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-regular">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                  />
-                </svg>
+            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-primary/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg>
+                </div>
               </div>
-              <h3 className="heading-3 mb-4">Innovation-Led</h3>
-              <p className="text-secondary">
+              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+                Innovation-Led
+              </h3>
+              <p className="text-secondary leading-relaxed">
                 We constantly explore new technologies and approaches to solve
-                complex problems in elegant ways.
+                complex problems in elegant ways, staying ahead of industry
+                trends.
               </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-regular">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span>Learn More</span>
                 <svg
-                  className="w-8 h-8 text-primary"
+                  className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -148,21 +225,42 @@ const AboutPage = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
               </div>
-              <h3 className="heading-3 mb-4">Engineering Excellence</h3>
-              <p className="text-secondary">
+            </div>
+
+            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-accent1/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative w-16 h-16 rounded-xl bg-accent1/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+                Engineering Excellence
+              </h3>
+              <p className="text-secondary leading-relaxed">
                 We prioritize code quality, performance, and maintainability in
-                everything we build.
+                everything we build, ensuring long-term success.
               </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-regular">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span>Learn More</span>
                 <svg
-                  className="w-8 h-8 text-primary"
+                  className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -171,15 +269,54 @@ const AboutPage = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
               </div>
-              <h3 className="heading-3 mb-4">Client Partnership</h3>
-              <p className="text-secondary">
+            </div>
+
+            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-accent2/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative w-16 h-16 rounded-xl bg-accent2/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+                Client Partnership
+              </h3>
+              <p className="text-secondary leading-relaxed">
                 We work closely with our clients to understand their needs and
-                deliver solutions that exceed expectations.
+                deliver solutions that exceed expectations and drive growth.
               </p>
+              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span>Learn More</span>
+                <svg
+                  className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -274,22 +411,104 @@ const AboutPage = () => {
         </div>
       </section> */}
 
-      <section className="py-16 md:py-24 bg-primary text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+      {/* Enhanced CTA Section */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 bg-primary"></div>
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float animate-delay-1000"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="font-comfortaa text-3xl md:text-4xl font-bold mb-6">
               Join Our Team
             </h2>
-            <p className="text-lg md:text-xl mb-8 opacity-90">
+            <p className="text-xl md:text-2xl mb-8 opacity-90">
               We're always looking for talented individuals who are passionate
-              about technology and innovation.
+              about technology and innovation. Be part of our journey to
+              transform the digital landscape.
             </p>
-            <Link
-              to="/careers"
-              className="btn bg-white text-primary hover:bg-opacity-90"
-            >
-              View Open Positions
-            </Link>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link
+                to="/careers"
+                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                View Open Positions
+              </Link>
+              <Link
+                to="/contact"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300"
+              >
+                Get In Touch
+              </Link>
+            </div>
+
+            {/* Values showcase */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white/90">
+              <div className="text-center">
+                <div className="flex justify-center mb-3">
+                  <svg
+                    className="w-12 h-12 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <div className="font-semibold mb-1">Innovation First</div>
+                <div className="text-sm">Cutting-edge technology solutions</div>
+              </div>
+              <div className="text-center">
+                <div className="flex justify-center mb-3">
+                  <svg
+                    className="w-12 h-12 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+                <div className="font-semibold mb-1">Collaborative Culture</div>
+                <div className="text-sm">
+                  Remote-first, inclusive environment
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="flex justify-center mb-3">
+                  <svg
+                    className="w-12 h-12 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    />
+                  </svg>
+                </div>
+                <div className="font-semibold mb-1">Growth Opportunities</div>
+                <div className="text-sm">
+                  Continuous learning and development
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

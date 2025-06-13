@@ -1,4 +1,24 @@
+import { useRef } from 'react';
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from '../../../hooks/useScrollAnimation';
+
 const TeamExpertise = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const expertiseRef = useRef<HTMLDivElement>(null);
+  const valuePropRef = useRef<HTMLDivElement>(null);
+
+  const { elementRef: headerElement, isInView: headerVisible } =
+    useScrollAnimation();
+  const {
+    elementRef: expertiseElement,
+    visibleItems: visibleExpertise,
+    isInView: expertiseGridVisible,
+  } = useStaggeredAnimation(6, 200);
+  const { elementRef: valuePropElement, isInView: valuePropVisible } =
+    useScrollAnimation();
+
   // SVG Icons for expertise areas
   const LeadershipIcon = () => (
     <svg
@@ -140,7 +160,14 @@ const TeamExpertise = () => {
     <section className="py-16 md:py-24 bg-backgroundAlt">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={headerElement as React.RefObject<HTMLDivElement>}
+          className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            headerVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="heading-1 mb-4">Team Expertise & Value Proposition</h2>
           <p className="text-lg text-secondary max-w-4xl mx-auto">
             Our leadership team brings together decades of enterprise
@@ -152,11 +179,21 @@ const TeamExpertise = () => {
         </div>
 
         {/* Expertise Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div
+          ref={expertiseElement as React.RefObject<HTMLDivElement>}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+        >
           {expertiseAreas.map((area, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-regular hover:shadow-lg transition-all duration-300 p-6 group"
+              className={`bg-white rounded-lg shadow-regular hover:shadow-lg transition-all duration-700 p-6 group ${
+                visibleExpertise.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: `${index * 200}ms`,
+              }}
             >
               {/* Icon and Title */}
               <div className="flex items-center mb-4">
@@ -189,7 +226,14 @@ const TeamExpertise = () => {
         </div>
 
         {/* Value Proposition Summary */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent1/5 rounded-lg p-8 md:p-12">
+        <div
+          ref={valuePropElement as React.RefObject<HTMLDivElement>}
+          className={`bg-primary/5 rounded-lg p-8 md:p-12 transition-all duration-1000 ease-out ${
+            valuePropVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 translate-y-8 scale-95'
+          }`}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold text-dark mb-4">
@@ -220,7 +264,7 @@ const TeamExpertise = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary mb-1">
-                    100+
+                    15+
                   </div>
                   <div className="text-sm text-secondary">
                     Projects Delivered

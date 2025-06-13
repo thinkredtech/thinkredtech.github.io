@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from '../../../hooks/useScrollAnimation';
 
 const ProjectHighlights = () => {
+  // Scroll-triggered animations
+  const { elementRef: headerRef, isInView: headerInView } =
+    useScrollAnimation();
+  const { elementRef: cardsRef, visibleItems: animatedCards } =
+    useStaggeredAnimation(3, 200);
   // SVG Icons as React components
   const GraduationCapIcon = () => (
     <svg
@@ -74,7 +83,14 @@ const ProjectHighlights = () => {
   return (
     <section className="py-16 md:py-24 bg-backgroundAlt">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ${
+            headerInView
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+          ref={headerRef as React.RefObject<HTMLDivElement>}
+        >
           <h2 className="heading-1 mb-4">Recent Project Highlights</h2>
           <p className="text-lg text-secondary max-w-3xl mx-auto">
             Discover how we've helped businesses transform their digital
@@ -83,11 +99,19 @@ const ProjectHighlights = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          ref={cardsRef as React.RefObject<HTMLDivElement>}
+        >
           {projectHighlights.map((project, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-regular hover:shadow-lg transition-all duration-300 overflow-hidden group"
+              className={`bg-white rounded-lg shadow-regular hover:shadow-lg transition-all duration-500 overflow-hidden group ${
+                animatedCards.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
               {/* Header with icon and client */}
               <div className="bg-gradient-to-r from-primary/5 to-accent1/5 p-6 border-b border-gray-100">

@@ -210,7 +210,7 @@ const ProcessMethodology = () => {
         </div>
 
         {/* Methodology Principles */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent1/5 rounded-lg p-8 md:p-12">
+        <div className="bg-primary/5 rounded-lg p-8 md:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold text-dark mb-6">
@@ -332,7 +332,7 @@ const ProcessMethodology = () => {
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">
-                      100%
+                      95%
                     </div>
                     <div className="text-xs text-secondary">
                       Client Satisfaction
@@ -340,11 +340,9 @@ const ProcessMethodology = () => {
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">
-                      24/7
+                      12hr
                     </div>
-                    <div className="text-xs text-secondary">
-                      Support Available
-                    </div>
+                    <div className="text-xs text-secondary">Response Time</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-primary mb-1">

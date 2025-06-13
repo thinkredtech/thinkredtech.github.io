@@ -16,6 +16,7 @@ const FAQPage = lazy(() => import('./pages/FAQPage'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
+const CareerPage = lazy(() => import('./pages/CareerPage'));
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/careers" element={<CareerPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:postId" element={<BlogPostPage />} />

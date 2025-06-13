@@ -1,5 +1,29 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  ContactIcon,
+  PortfolioIcon,
+  BlogIcon,
+  CareerIcon,
+  AboutIcon,
+  WebDevIcon,
+  AIIcon,
+  PlatformIcon,
+  DevOpsIcon,
+  TechIcon,
+  StarIcon,
+  ChartIcon,
+  RocketIcon,
+  ArticleIcon,
+  InsightIcon,
+  QuoteIcon,
+  TargetIcon,
+  LearnIcon,
+  BuildIcon,
+  SparkleIcon,
+  TheaterIcon,
+  SleepIcon,
+} from './SvgIcons';
 
 const AvatarAssistant = () => {
   const navigate = useNavigate();
@@ -56,14 +80,16 @@ const AvatarAssistant = () => {
   // Messages that the avatar can display
   const messages = useMemo(
     () => [
-      "Hello! I'm RED, your friendly ThinkRED assistant! 🤖",
-      'I love helping visitors explore our amazing services! ✨',
-      'Want to see our cool projects? Check out our portfolio! 🚀',
-      'Need a custom solution? I can connect you with our team! 💡',
-      'We make technology simple and delightful! 🎯',
-      'Psst... Click on me for more options! 😊',
-      'DevOps, web development, platforms - we do it all! 🛠️',
-      'I respond to your interactions with my lively emotions! ✨',
+      "Hello! I'm RED, your friendly ThinkRED assistant!",
+      'Welcome to ThinkRED Technologies - where innovation meets excellence!',
+      'Explore our comprehensive services from web development to AI solutions.',
+      'Check out our latest blog articles for tech insights and best practices.',
+      'Ready to transform your digital presence? Our team is here to help!',
+      'From DevOps to platform engineering - we build scalable solutions.',
+      'Visit our Career page to join our innovative team!',
+      'Need a custom solution? Contact us for a personalized consultation.',
+      "Professional. Innovative. Reliable. That's the ThinkRED way!",
+      'Click on me to explore quick navigation options!',
     ],
     []
   );
@@ -161,6 +187,70 @@ const AvatarAssistant = () => {
     return () => clearInterval(attentionInterval);
   }, [isVisible, isExpanded, isAnimating]);
 
+  // Page-specific welcome messages
+  useEffect(() => {
+    const showPageWelcome = () => {
+      const currentPath = location.pathname;
+      let welcomeMessage = '';
+
+      switch (currentPath) {
+        case '/':
+          welcomeMessage =
+            'Welcome to ThinkRED Technologies! Ready to explore our innovative solutions?';
+          break;
+        case '/services':
+          welcomeMessage =
+            'Discover our comprehensive technology services - from web development to AI solutions!';
+          break;
+        case '/portfolio':
+          welcomeMessage =
+            'Check out our amazing portfolio of successful projects and satisfied clients!';
+          break;
+        case '/blog':
+          welcomeMessage =
+            'Explore our latest tech insights, best practices, and thought leadership articles!';
+          break;
+        case '/careers':
+          welcomeMessage =
+            'Interested in joining our innovative team? Explore exciting career opportunities!';
+          break;
+        case '/contact':
+          welcomeMessage =
+            "Ready to start your project? Let's discuss how we can help you succeed!";
+          break;
+        case '/about':
+          welcomeMessage =
+            'Learn about our journey from open source roots to enterprise solutions!';
+          break;
+        default:
+          return; // Don't show welcome for other pages
+      }
+
+      // Show welcome message after a brief delay
+      setTimeout(() => {
+        if (isVisible && !isSleeping) {
+          setMessage(welcomeMessage);
+          setIsAnimating(true);
+          setAnimationType('enhanced');
+          setAvatarAnimationState('excited');
+
+          setTimeout(() => {
+            setIsAnimating(false);
+            setAnimationType('pulse');
+            setAvatarAnimationState('floating');
+          }, 1000);
+
+          // Clear welcome message after showing it
+          setTimeout(() => {
+            setMessage('');
+          }, 6000);
+        }
+      }, 2000);
+    };
+
+    showPageWelcome();
+  }, [location.pathname, isVisible, isSleeping]);
+
   // Toggle expanded state
   const toggleExpanded = () => {
     if (showContextualOptions) {
@@ -236,24 +326,36 @@ const AvatarAssistant = () => {
   const getContextualOptions = (currentMessage: string) => {
     const currentPath = location.pathname;
 
-    let options: { label: string; action: () => void; icon: string }[] = [];
+    let options: {
+      label: string;
+      action: () => void;
+      icon: React.ReactNode;
+    }[] = [];
 
-    if (currentMessage.includes('services')) {
+    if (
+      currentMessage.includes('services') ||
+      currentMessage.includes('comprehensive')
+    ) {
       options = [
         {
           label: 'View All Services',
           action: () => navigate('/services'),
-          icon: '🛠️',
+          icon: <TechIcon size="sm" className="text-current" />,
         },
         {
-          label: 'DevOps Solutions',
-          action: () => navigate('/services#devops'),
-          icon: '⚙️',
+          label: 'Platform Engineering',
+          action: () => navigate('/services#platform'),
+          icon: <PlatformIcon size="sm" className="text-current" />,
         },
         {
           label: 'Web Development',
           action: () => navigate('/services#web'),
-          icon: '💻',
+          icon: <WebDevIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'AI Solutions',
+          action: () => navigate('/services#ai'),
+          icon: <AIIcon size="sm" className="text-current" />,
         },
       ];
     } else if (
@@ -264,38 +366,82 @@ const AvatarAssistant = () => {
         {
           label: 'View Portfolio',
           action: () => navigate('/portfolio'),
-          icon: '🚀',
+          icon: <PortfolioIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Featured Projects',
+          action: () => navigate('/portfolio#featured'),
+          icon: <StarIcon size="sm" className="text-current" />,
         },
         {
           label: 'Case Studies',
           action: () => navigate('/portfolio#case-studies'),
-          icon: '📊',
-        },
-        {
-          label: 'Client Reviews',
-          action: () => navigate('/portfolio#reviews'),
-          icon: '⭐',
+          icon: <ChartIcon size="sm" className="text-current" />,
         },
       ];
     } else if (
       currentMessage.includes('team') ||
-      currentMessage.includes('custom solution')
+      currentMessage.includes('join') ||
+      currentMessage.includes('career')
+    ) {
+      options = [
+        {
+          label: 'Join Our Team',
+          action: () => navigate('/careers'),
+          icon: <CareerIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Open Positions',
+          action: () => navigate('/careers#positions'),
+          icon: <RocketIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'About Our Team',
+          action: () => navigate('/about'),
+          icon: <AboutIcon size="sm" className="text-current" />,
+        },
+      ];
+    } else if (
+      currentMessage.includes('blog') ||
+      currentMessage.includes('insights') ||
+      currentMessage.includes('articles')
+    ) {
+      options = [
+        {
+          label: 'Read Blog',
+          action: () => navigate('/blog'),
+          icon: <BlogIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Latest Articles',
+          action: () => navigate('/blog#latest'),
+          icon: <ArticleIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Tech Insights',
+          action: () => navigate('/blog#technology'),
+          icon: <InsightIcon size="sm" className="text-current" />,
+        },
+      ];
+    } else if (
+      currentMessage.includes('contact') ||
+      currentMessage.includes('consultation')
     ) {
       options = [
         {
           label: 'Contact Us',
           action: () => navigate('/contact'),
-          icon: '📧',
+          icon: <ContactIcon size="sm" className="text-current" />,
         },
         {
-          label: 'Schedule Call',
-          action: () => navigate('/contact#schedule'),
-          icon: '📞',
+          label: 'Get Quote',
+          action: () => navigate('/contact#quote'),
+          icon: <QuoteIcon size="sm" className="text-current" />,
         },
         {
           label: 'About Our Team',
           action: () => navigate('/about'),
-          icon: '👥',
+          icon: <AboutIcon size="sm" className="text-current" />,
         },
       ];
     } else if (
@@ -306,17 +452,17 @@ const AvatarAssistant = () => {
         {
           label: 'Our Approach',
           action: () => navigate('/about#approach'),
-          icon: '🎯',
+          icon: <TargetIcon size="sm" className="text-current" />,
         },
         {
           label: 'Technologies',
           action: () => navigate('/services#tech-stack'),
-          icon: '⚡',
+          icon: <TechIcon size="sm" className="text-current" />,
         },
         {
           label: 'Learn More',
           action: () => navigate('/about'),
-          icon: '📚',
+          icon: <LearnIcon size="sm" className="text-current" />,
         },
       ];
     } else if (
@@ -327,17 +473,17 @@ const AvatarAssistant = () => {
         {
           label: 'DevOps Services',
           action: () => navigate('/services#devops'),
-          icon: '🛠️',
+          icon: <DevOpsIcon size="sm" className="text-current" />,
         },
         {
           label: 'Platform Solutions',
           action: () => navigate('/services#platforms'),
-          icon: '🏗️',
+          icon: <BuildIcon size="sm" className="text-current" />,
         },
         {
           label: 'Get Quote',
           action: () => navigate('/contact#quote'),
-          icon: '💰',
+          icon: <QuoteIcon size="sm" className="text-current" />,
         },
       ];
     } else if (
@@ -347,18 +493,48 @@ const AvatarAssistant = () => {
       options = [
         {
           label: 'See More Animations',
-          action: () => setIsAnimating(true),
-          icon: '✨',
+          action: () => {
+            setIsAnimating(true);
+            setAnimationType('enhanced');
+            setAvatarAnimationState('excited');
+            setIsBreathingEnhanced(true);
+
+            // Create a sequence of impressive animations
+            setTimeout(() => {
+              setAnimationType('bounce');
+              setAvatarAnimationState('bouncing');
+            }, 500);
+
+            setTimeout(() => {
+              setAnimationType('wiggle');
+              setAvatarAnimationState('attention');
+            }, 1000);
+
+            setTimeout(() => {
+              setAnimationType('heartbeat');
+              setAvatarAnimationState('excited');
+            }, 1500);
+
+            setTimeout(() => {
+              setIsAnimating(false);
+              setAnimationType('pulse');
+              setAvatarAnimationState('floating');
+              setIsBreathingEnhanced(false);
+              setMessage('✨ Amazing animations, right? I love showing off!');
+              setTimeout(() => setMessage(''), 3000);
+            }, 2500);
+          },
+          icon: <SparkleIcon size="sm" className="text-current" />,
         },
         {
           label: 'Toggle Enhanced Mode',
           action: () => setIsBreathingEnhanced(!isBreathingEnhanced),
-          icon: '🎭',
+          icon: <TheaterIcon size="sm" className="text-current" />,
         },
         {
           label: 'Put Assistant to Sleep',
           action: putAssistantToSleep,
-          icon: '😴',
+          icon: <SleepIcon size="sm" className="text-current" />,
         },
       ];
     } else {
@@ -367,22 +543,32 @@ const AvatarAssistant = () => {
         {
           label: 'View Services',
           action: () => navigate('/services'),
-          icon: '🛠️',
+          icon: <TechIcon size="sm" className="text-current" />,
         },
         {
           label: 'See Portfolio',
           action: () => navigate('/portfolio'),
-          icon: '🚀',
+          icon: <PortfolioIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Read Blog',
+          action: () => navigate('/blog'),
+          icon: <ArticleIcon size="sm" className="text-current" />,
+        },
+        {
+          label: 'Join Our Team',
+          action: () => navigate('/careers'),
+          icon: <CareerIcon size="sm" className="text-current" />,
         },
         {
           label: 'Contact Us',
           action: () => navigate('/contact'),
-          icon: '📧',
+          icon: <ContactIcon size="sm" className="text-current" />,
         },
         {
           label: 'About Us',
           action: () => navigate('/about'),
-          icon: '👥',
+          icon: <AboutIcon size="sm" className="text-current" />,
         },
       ];
     }
@@ -515,7 +701,7 @@ const AvatarAssistant = () => {
                       {/* Header with icon and title */}
                       <div className="flex items-center gap-3 pb-3 border-b border-gray-200/60">
                         <div className="w-8 h-8 bg-gradient-to-br from-[#E4093E] to-[#B8072E] rounded-full flex items-center justify-center animate-pulse">
-                          <span className="text-white text-lg">⚡</span>
+                          <TechIcon size="sm" className="text-white" />
                         </div>
                         <div>
                           <p className="font-bold text-[#E4093E] text-base">
@@ -535,7 +721,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
-                              📧
+                              <ContactIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-red-700 group-hover:text-red-800">
@@ -569,7 +755,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
-                              🚀
+                              <RocketIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-blue-700 group-hover:text-blue-800">
@@ -603,7 +789,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
-                              🛠️
+                              <DevOpsIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-semibold text-purple-700 group-hover:text-purple-800">
@@ -637,7 +823,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform duration-200">
-                              😴
+                              <SleepIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
                               <p className="font-medium text-gray-600 group-hover:text-gray-700 text-sm">
@@ -668,7 +854,7 @@ const AvatarAssistant = () => {
                       {/* Header for contextual options */}
                       <div className="flex items-center gap-3 pb-3 border-b border-gray-200/60">
                         <div className="w-7 h-7 bg-gradient-to-br from-[#E4093E] to-[#B8072E] rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm">💡</span>
+                          <InsightIcon size="sm" className="text-white" />
                         </div>
                         <div>
                           <p className="font-bold text-[#E4093E] text-base">

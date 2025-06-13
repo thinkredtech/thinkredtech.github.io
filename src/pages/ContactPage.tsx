@@ -10,6 +10,12 @@ const ContactPage = () => {
   const [activeTab, setActiveTab] = useState<'contact' | 'discovery' | 'quote'>(
     'contact'
   );
+  const [animateInView, setAnimateInView] = useState(false);
+
+  // Animation trigger
+  useEffect(() => {
+    setAnimateInView(true);
+  }, []);
 
   // Check URL parameters for direct access to specific forms
   useEffect(() => {
@@ -124,12 +130,25 @@ const ContactPage = () => {
 
   return (
     <div>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
-        <div className="container mx-auto px-4">
+      {/* Enhanced Hero Section */}
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 bg-backgroundAlt"></div>
+        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
+        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           {/* Page Header */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-1 mb-6">Contact Us</h1>
-            <p className="text-lg text-secondary">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1
+              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              Contact Us
+            </h1>
+            <p
+              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
               Ready to start your project or have questions? We're here to help.
               Choose an option below to get started.
             </p>
@@ -137,53 +156,56 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <div className="py-4 md:py-6 bg-white">
+      {/* Enhanced Tab Navigation and Content */}
+      <div className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
-          <div className="flex flex-wrap justify-center mb-8">
-            <div className="bg-white rounded-lg shadow-md p-1 inline-flex">
+          <div className="flex flex-wrap justify-center mb-12">
+            <div className="bg-white rounded-2xl shadow-xl p-2 inline-flex border border-gray-100">
               <button
                 onClick={() => setActiveTab('contact')}
-                className={`px-6 py-3 rounded-md font-medium transition-colors ${
+                className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'contact'
-                    ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-primary text-white shadow-lg scale-105'
+                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
                 }`}
               >
                 Contact Us
               </button>
               <button
                 onClick={() => setActiveTab('discovery')}
-                className={`px-6 py-3 rounded-md font-medium transition-colors ${
+                className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'discovery'
-                    ? 'bg-accent1 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-accent1 text-white shadow-lg scale-105'
+                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
                 }`}
               >
-                Schedule Discovery Call
+                Discovery Call
               </button>
               <button
                 onClick={() => setActiveTab('quote')}
-                className={`px-6 py-3 rounded-md font-medium transition-colors ${
+                className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'quote'
-                    ? 'bg-accent2 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-accent2 text-white shadow-lg scale-105'
+                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
                 }`}
               >
-                Request a Quote
+                Request Quote
               </button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Information */}
+            {/* Enhanced Contact Information */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-md p-8">
-                <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
+              <div className="bg-white rounded-2xl shadow-xl p-8 sticky top-24">
+                <h2 className="text-2xl font-bold mb-6 text-dark">
+                  Get in Touch
+                </h2>
 
                 <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                  <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
+                    <div className="flex-shrink-0 bg-primary/10 p-4 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"
@@ -199,18 +221,20 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-medium">Email</h3>
+                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
+                        Email
+                      </h3>
                       <a
                         href="mailto:hello@thinkred.tech"
-                        className="text-primary hover:underline"
+                        className="text-primary hover:text-accent1 transition-colors duration-300 font-medium"
                       >
                         hello@thinkred.tech
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                  <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
+                    <div className="flex-shrink-0 bg-accent1/10 p-4 rounded-xl group-hover:bg-accent1/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"
@@ -232,18 +256,18 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-medium">
+                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
                         Registered Address
                       </h3>
-                      <p className="text-secondary">
-                        C403, Sr No 22, Laxmi Nagar, Dhanori, Pune, Maharashtra,
-                        India - 411015
+                      <p className="text-secondary leading-relaxed">
+                        Sr No 22, Laxmi Nagar, Dhanori, Pune, Maharashtra, India
+                        - 411015
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                  <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
+                    <div className="flex-shrink-0 bg-accent2/10 p-4 rounded-xl group-hover:bg-accent2/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"
@@ -259,15 +283,17 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-medium">Working Hours</h3>
+                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
+                        Working Hours
+                      </h3>
                       <p className="text-secondary">
                         Monday - Friday: 9AM - 6PM IST
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                  <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
+                    <div className="flex-shrink-0 bg-primary/10 p-4 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"

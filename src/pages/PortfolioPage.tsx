@@ -109,7 +109,9 @@ const PortfolioPage = () => {
         <div className="container mx-auto px-4">
           {/* Page Header */}
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-1 mb-6">Our Portfolio</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
+              Our Portfolio
+            </h1>
             <p className="text-lg text-secondary">
               Explore our recent projects and see how we've helped businesses
               transform their digital presence and operations.

@@ -1,17 +1,23 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const ServicesPage = () => {
+  const [animateInView, setAnimateInView] = useState(false);
+
+  useEffect(() => {
+    setAnimateInView(true);
+  }, []);
+
   const services = [
     {
       title: 'Web & Mobile Application Development',
       description:
         'Custom web and mobile solutions tailored to your business needs with modern technologies and responsive design.',
       features: [
-        'Custom web application development',
-        'Progressive web apps (PWAs)',
-        'Mobile app development (iOS & Android)',
-        'E-commerce solutions',
-        'Content management systems',
+        'React & React Native',
+        'Vue.js & Nuxt.js',
+        'Progressive Web Apps',
+        'Responsive Design',
       ],
       icon: (
         <svg
@@ -19,7 +25,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -35,11 +40,10 @@ const ServicesPage = () => {
       description:
         'End-to-end product development and platform engineering services to build scalable and robust digital products.',
       features: [
-        'Internal developer platforms (IDPs)',
-        'Custom software product development',
-        'API design and development',
-        'Microservices architecture',
-        'Platform modernization',
+        'Full-Stack Development',
+        'Microservices Architecture',
+        'API Development',
+        'Database Design',
       ],
       icon: (
         <svg
@@ -47,7 +51,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -63,11 +66,10 @@ const ServicesPage = () => {
       description:
         'Streamline your development and operations with our DevOps expertise and infrastructure automation solutions.',
       features: [
-        'CI/CD pipeline implementation',
-        'Infrastructure as Code (IaC)',
-        'Container orchestration (Kubernetes)',
-        'Cloud migration and optimization',
-        'Monitoring and observability',
+        'CI/CD Pipelines',
+        'Container Orchestration',
+        'Cloud Infrastructure',
+        'Monitoring & Logging',
       ],
       icon: (
         <svg
@@ -75,7 +77,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -91,11 +92,10 @@ const ServicesPage = () => {
       description:
         'Expert guidance on technology strategy, architecture, and implementation to drive your business forward.',
       features: [
-        'Technology strategy development',
-        'Architecture design and review',
-        'Technical due diligence',
-        'Legacy system modernization',
-        'Technology stack selection',
+        'Technology Strategy',
+        'Architecture Review',
+        'Performance Optimization',
+        'Security Assessment',
       ],
       icon: (
         <svg
@@ -103,7 +103,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -119,11 +118,10 @@ const ServicesPage = () => {
       description:
         'Create compelling visual identities and user experiences that resonate with your audience and strengthen your brand.',
       features: [
-        'UI/UX design',
-        'Brand identity development',
-        'Design systems',
-        'Prototyping and wireframing',
-        'User research and testing',
+        'UI/UX Design',
+        'Brand Identity',
+        'Design Systems',
+        'User Research',
       ],
       icon: (
         <svg
@@ -131,7 +129,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -147,11 +144,10 @@ const ServicesPage = () => {
       description:
         'Harness the power of data and artificial intelligence to gain insights and create intelligent solutions for your business.',
       features: [
-        'Data analytics and visualization',
-        'Machine learning implementation',
-        'AI-powered automation',
-        'Natural language processing',
-        'Predictive analytics',
+        'Machine Learning',
+        'Data Analytics',
+        'AI Integration',
+        'Data Visualization',
       ],
       icon: (
         <svg
@@ -159,7 +155,6 @@ const ServicesPage = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             strokeLinecap="round"
@@ -172,278 +167,136 @@ const ServicesPage = () => {
     },
   ];
 
-  const serviceTiers = [
-    {
-      name: 'Basic',
-      description: 'Essential services for small businesses and startups',
-      features: [
-        'Initial consultation',
-        'Basic implementation',
-        'Standard support',
-        '1 revision round',
-        '30-day warranty',
-      ],
-    },
-    {
-      name: 'Standard',
-      description: 'Comprehensive solutions for growing businesses',
-      features: [
-        'Detailed consultation',
-        'Custom implementation',
-        'Priority support',
-        '3 revision rounds',
-        '90-day warranty',
-        'Performance optimization',
-        'Basic training',
-      ],
-      highlighted: true,
-    },
-    {
-      name: 'Premium',
-      description: 'Enterprise-grade services for established organizations',
-      features: [
-        'Strategic consultation',
-        'Enterprise implementation',
-        '24/7 dedicated support',
-        'Unlimited revisions',
-        '1-year warranty',
-        'Advanced optimization',
-        'Comprehensive training',
-        'Ongoing maintenance',
-        'Quarterly reviews',
-      ],
-    },
-  ];
-
   return (
     <div>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-1 mb-6">Our Services</h1>
-            <p className="text-lg text-secondary">
-              We offer a comprehensive range of technology services to help
-              businesses transform their digital presence and operations.
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        <div className="absolute inset-0 bg-backgroundAlt"></div>
+        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1
+              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              Our Services
+            </h1>
+            <p
+              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
+              Comprehensive technology solutions designed to accelerate your
+              digital transformation and drive business growth.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Services Grid */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-backgroundAlt p-8 rounded-lg shadow-regular hover:shadow-lg transition-all duration-300"
+                className="group bg-white p-8 rounded-xl shadow-regular hover:shadow-2xl transition-all duration-700 border border-gray-50 hover:border-primary/20 transform hover:-translate-y-2"
               >
-                <div className="mb-6">{service.icon}</div>
-                <h3 className="heading-3 mb-4">{service.title}</h3>
-                <p className="text-secondary mb-6">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <svg
-                        className="w-5 h-5 text-primary mt-0.5 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="flex-shrink-0 p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                    {service.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl text-dark mb-3 group-hover:text-primary transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    <p className="text-secondary leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-dark text-sm uppercase tracking-wide">
+                    Key Features:
+                  </h4>
+                  <ul className="space-y-1">
+                    {service.features.map((feature, featureIndex) => (
+                      <li
+                        key={featureIndex}
+                        className="flex items-center text-sm text-secondary"
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2 flex-shrink-0"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Stats Section */}
       <section className="py-16 md:py-24 bg-backgroundAlt">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="heading-1 mb-4">Service Tiers</h2>
-            <p className="text-lg text-secondary max-w-3xl mx-auto">
-              Choose the service level that best fits your business needs and
-              budget.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {serviceTiers.map((tier, index) => (
-              <div
-                key={index}
-                className={`bg-white p-8 rounded-lg ${
-                  tier.highlighted
-                    ? 'ring-2 ring-primary shadow-lg relative'
-                    : 'shadow-regular'
-                }`}
-              >
-                {tier.highlighted && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Recommended
-                  </div>
-                )}
-                <h3 className="heading-2 mb-2">{tier.name}</h3>
-                <p className="text-secondary mb-6">{tier.description}</p>
-                <ul className="space-y-3 mb-8">
-                  {tier.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <svg
-                        className="w-5 h-5 text-primary mt-0.5 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/contact"
-                  className={`btn w-full text-center ${
-                    tier.highlighted ? 'btn-primary' : 'btn-secondary'
-                  }`}
-                >
-                  Get Started
-                </Link>
+          <div className="bg-white rounded-xl shadow-regular p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                  6
+                </div>
+                <div className="text-sm text-secondary">Service Areas</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="heading-1 mb-6">Our Approach</h2>
-              <p className="text-lg text-secondary mb-6">
-                At ThinkRED, we follow a collaborative and transparent approach
-                to ensure that we deliver solutions that meet your specific
-                needs and exceed your expectations.
-              </p>
-              <div className="space-y-6">
-                <div className="flex">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                    <span className="text-primary font-bold">1</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-dark mb-2">
-                      Discovery & Planning
-                    </h3>
-                    <p className="text-secondary">
-                      We start by understanding your business goals,
-                      requirements, and challenges to create a tailored plan.
-                    </p>
-                  </div>
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                  50+
                 </div>
-                <div className="flex">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                    <span className="text-primary font-bold">2</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-dark mb-2">
-                      Design & Development
-                    </h3>
-                    <p className="text-secondary">
-                      Our team designs and develops solutions using modern
-                      technologies and best practices.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                    <span className="text-primary font-bold">3</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-dark mb-2">
-                      Testing & Refinement
-                    </h3>
-                    <p className="text-secondary">
-                      We rigorously test and refine our solutions to ensure
-                      quality, performance, and security.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                    <span className="text-primary font-bold">4</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-dark mb-2">
-                      Deployment & Support
-                    </h3>
-                    <p className="text-secondary">
-                      We deploy your solution and provide ongoing support and
-                      maintenance to ensure long-term success.
-                    </p>
-                  </div>
+                <div className="text-sm text-secondary">
+                  Technologies Mastered
                 </div>
               </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-w-4 aspect-h-3 bg-backgroundAlt rounded-lg shadow-regular overflow-hidden">
-                <div className="inset-0 flex items-center justify-center">
-                  <div className="p-8 text-center">
-                    <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                      <svg
-                        className="w-12 h-12 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="heading-3 mb-2">Quality Assurance</h3>
-                    <p className="text-secondary">
-                      Our rigorous quality assurance process ensures that we
-                      deliver reliable and high-performing solutions.
-                    </p>
-                  </div>
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                  15+
                 </div>
+                <div className="text-sm text-secondary">Projects Delivered</div>
               </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-accent1/10 -z-10"></div>
-              <div className="absolute -bottom-6 -left-6 w-16 h-16 rounded-full bg-accent2/10 -z-10"></div>
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
+                  12hr
+                </div>
+                <div className="text-sm text-secondary">Response Time</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-primary text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-primary">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto text-white">
             <h2 className="font-comfortaa text-3xl md:text-4xl font-bold mb-6">
-              Ready to transform your digital experience?
+              Ready to Get Started?
             </h2>
-            <p className="text-lg md:text-xl mb-8 opacity-90">
-              Contact us today to discuss your project requirements and how we
-              can help you achieve your business goals.
+            <p className="text-xl mb-8 opacity-90">
+              Let's discuss your project and how we can help you achieve your
+              goals.
             </p>
-            <Link
-              to="/contact"
-              className="btn bg-white text-primary hover:bg-opacity-90"
-            >
-              Get in Touch
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contact"
+                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                Start Your Project
+              </Link>
+              <Link
+                to="/portfolio"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300"
+              >
+                View Our Work
+              </Link>
+            </div>
           </div>
         </div>
       </section>
