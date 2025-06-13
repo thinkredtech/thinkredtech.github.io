@@ -1,39 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import PageHero from '../components/ui/PageHero';
 
 const AboutPage = () => {
-  const [animateInView, setAnimateInView] = useState(false);
-
-  useEffect(() => {
-    setAnimateInView(true);
-  }, []);
-
   return (
     <div>
       {/* Enhanced Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 bg-backgroundAlt"></div>
-        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
-        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              About ThinkRED Technologies
-            </h1>
-            <p
-              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              We are an engineering-focused, innovation-led technology company
-              with roots in open source communities and enterprise solutions.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="About ThinkRED Technologies"
+        subtitle="We are an engineering-focused, innovation-led technology company with roots in open source communities and enterprise solutions."
+      />
 
       {/* Enhanced Journey Section */}
       <section className="py-16 md:py-24 bg-white">

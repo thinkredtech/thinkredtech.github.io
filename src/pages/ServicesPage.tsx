@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/ui/PageHero';
 
 const ServicesPage = () => {
-  const [animateInView, setAnimateInView] = useState(false);
-
-  useEffect(() => {
-    setAnimateInView(true);
-  }, []);
-
   const services = [
     {
       title: 'Web & Mobile Application Development',
@@ -170,26 +164,10 @@ const ServicesPage = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-backgroundAlt"></div>
-        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Our Services
-            </h1>
-            <p
-              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Comprehensive technology solutions designed to accelerate your
-              digital transformation and drive business growth.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Our Services"
+        subtitle="Comprehensive technology solutions designed to accelerate your digital transformation and drive business growth."
+      />
 
       {/* Services Grid */}
       <section className="py-16 md:py-24 bg-white">

@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { blogPosts } from '../data/blog/blogPosts';
+import PageHero from '../components/ui/PageHero';
 
 const BlogPage = () => {
   // State for filters and search
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedTag, setSelectedTag] = useState<string>('');
-  const [animateInView, setAnimateInView] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-
-  useEffect(() => {
-    setAnimateInView(true);
-  }, []);
 
   // Extract unique categories and tags for filter options
   const categories = Array.from(
@@ -45,31 +41,11 @@ const BlogPage = () => {
 
   return (
     <div>
-      {/* Enhanced Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 bg-backgroundAlt"></div>
-        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
-        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Page Header */}
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Blog & Insights
-            </h1>
-            <p
-              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Explore our latest articles, thought leadership, and engineering
-              insights on technology trends and best practices.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Hero Section using PageHero component */}
+      <PageHero
+        title="Blog & Insights"
+        subtitle="Explore our latest articles, thought leadership, and engineering insights on technology trends and best practices."
+      />
 
       {/* Enhanced Search and Content Section */}
       <div className="py-16 md:py-24 bg-white">
@@ -258,6 +234,7 @@ const BlogPage = () => {
                   </button>
                   <button
                     onClick={resetFilters}
+                    title="Reset all filters"
                     className="flex-1 px-4 py-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-red-100 hover:text-red-600 transition-all duration-300 transform hover:scale-105"
                   >
                     <svg

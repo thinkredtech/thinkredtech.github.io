@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import PageHero from '../components/ui/PageHero';
 import {
   DiscoveryCallScheduler,
   QuoteRequestForm,
@@ -10,12 +11,6 @@ const ContactPage = () => {
   const [activeTab, setActiveTab] = useState<'contact' | 'discovery' | 'quote'>(
     'contact'
   );
-  const [animateInView, setAnimateInView] = useState(false);
-
-  // Animation trigger
-  useEffect(() => {
-    setAnimateInView(true);
-  }, []);
 
   // Check URL parameters for direct access to specific forms
   useEffect(() => {
@@ -131,30 +126,10 @@ const ContactPage = () => {
   return (
     <div>
       {/* Enhanced Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 bg-backgroundAlt"></div>
-        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
-        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Page Header */}
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Contact Us
-            </h1>
-            <p
-              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Ready to start your project or have questions? We're here to help.
-              Choose an option below to get started.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Contact Us"
+        subtitle="Ready to start your project or have questions? We're here to help. Choose an option below to get started."
+      />
 
       {/* Enhanced Tab Navigation and Content */}
       <div className="py-16 md:py-24 bg-white">

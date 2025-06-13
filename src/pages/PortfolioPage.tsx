@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/ui/PageHero';
 
 // Define portfolio item type
 interface PortfolioItem {
@@ -105,20 +106,10 @@ const PortfolioPage = () => {
 
   return (
     <div>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-backgroundAlt">
-        <div className="container mx-auto px-4">
-          {/* Page Header */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
-              Our Portfolio
-            </h1>
-            <p className="text-lg text-secondary">
-              Explore our recent projects and see how we've helped businesses
-              transform their digital presence and operations.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Our Portfolio"
+        subtitle="Explore our recent projects and see how we've helped businesses transform their digital presence and operations."
+      />
 
       <div className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">

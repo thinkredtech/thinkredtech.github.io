@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/ui/PageHero';
 
 const CareerPage = () => {
-  const [animateInView, setAnimateInView] = useState(false);
-
-  useEffect(() => {
-    setAnimateInView(true);
-  }, []);
-
   const openPositions = [
     {
       id: 1,
@@ -158,46 +152,26 @@ const CareerPage = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-backgroundAlt"></div>
-        <div className="absolute inset-0 hero-grid-bg opacity-5"></div>
-        <div className="absolute top-20 left-10 w-40 h-40 bg-primary/15 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-56 h-56 bg-accent2/15 rounded-full blur-3xl animate-float animate-delay-1000"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className={`font-comfortaa text-3xl md:text-4xl font-bold mb-6 text-primary transition-all duration-1000 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Join Our Team
-            </h1>
-            <p
-              className={`text-xl md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              Build the future of technology with us. We're looking for
-              passionate individuals who want to make a meaningful impact.
-            </p>
-
-            <div
-              className={`grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 transition-all duration-1000 delay-500 ${animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              {[
-                { number: `${openPositions.length}`, label: 'Open Positions' },
-                { number: '100%', label: 'Remote Friendly' },
-                { number: '15+', label: 'Team Members' },
-                { number: '12hr', label: 'Response Time' },
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-primary">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-secondary">{stat.label}</div>
-                </div>
-              ))}
+      <PageHero
+        title="Join Our Team"
+        subtitle="Build the future of technology with us. We're looking for passionate individuals who want to make a meaningful impact."
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+          {[
+            { number: `${openPositions.length}`, label: 'Open Positions' },
+            { number: '100%', label: 'Remote Friendly' },
+            { number: '15+', label: 'Team Members' },
+            { number: '12hr', label: 'Response Time' },
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary">
+                {stat.number}
+              </div>
+              <div className="text-sm text-secondary">{stat.label}</div>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </PageHero>
 
       {/* Open Positions Section */}
       <section className="py-16 md:py-24 bg-white">
