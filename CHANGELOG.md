@@ -4,6 +4,47 @@ All notable changes to the ThinkRED website are documented in this file. The for
 
 ---
 
+## [0.2.0] - 2025-06-15
+
+### 🔧 Documentation System Overhaul & Link Fixes
+
+#### Added
+- **Smart Link Navigation**: Enhanced docs page with React Router integration
+  - Internal docs links now use React Router (no page reload)
+  - External links open in new tabs with proper security attributes
+  - URL normalization supports both hyphen and underscore conventions
+- **Intelligent URL Routing**: Pure code solution for underscore/hyphen filename compatibility
+  - Enhanced DocsPage component with smart path resolution
+  - Automatically tries multiple filename variants (underscore, hyphen, original)
+  - Zero file duplication, no symlinks, no build scripts required
+  - Single source of truth: edit only underscore files (`landing_page.md`)
+  - Supports both URL patterns: `/docs/page-specs/landing-page` and `/docs/page-specs/landing_page`
+  - No maintenance overhead - works automatically for any new files
+  - Seamless navigation between documentation pages
+
+#### Fixed
+- **Docs Link Resolution**: Comprehensive fix for all broken documentation links
+  - Fixed `/docs/brand_guidelines` → `/docs/brand-guidelines`
+  - Fixed `/docs/design_system` → `/docs/design-system`
+  - Fixed all page-specs links to use consistent naming
+  - Added intelligent fallback system for filename variations
+- **URL Path Normalization**: Smart handling of mixed naming conventions
+  - Supports both `/docs/page-specs/landing-page` and `/docs/page-specs/landing_page`
+  - Only normalizes filenames, preserves directory structure
+  - Robust error handling for missing documents
+- **Markdown Content Loading**: Resolved HTML vs markdown content issues
+  - Improved error detection for failed document loads
+  - Better fallback logic for alternative file paths
+  - Eliminated "Received HTML instead of markdown content" errors
+
+#### Enhanced
+- **Documentation Experience**: Fully functional docs navigation system
+  - All internal links work correctly in both development and production
+  - Consistent behavior across different URL naming conventions
+  - Clean error messages for missing documents
+
+---
+
 ## [Unreleased] - 2025-06-14
 
 ### 🧹 Repository Cleanup & Build Optimization
@@ -13,6 +54,11 @@ All notable changes to the ThinkRED website are documented in this file. The for
   - Fixed `RefObject<HTMLElement>` vs `RefObject<HTMLDivElement>` type conflicts
   - Updated `useScrollAnimation` hooks to use correct div element types
   - GitHub Pages deployment now builds successfully
+- **Docs Page Routing**: Fixed `/docs` route not loading documents
+  - Added missing base `/docs` route to handle default document loading
+  - Fixed component logic to properly default to 'website-overview' document
+  - Configured docs folder copying for both development and production builds
+  - All documentation routes now work correctly: `/docs`, `/docs/company-info`, `/docs/page-specs/about_page`, etc.
 - **Code Quality**: Comprehensive ESLint cleanup
   - Removed 23 lint violations including unused variables and imports
   - Fixed unused refs and animation state variables across components

@@ -1,7 +1,7 @@
 {
   "name": "thinkred-app",
   "homepage": "https://thinkredtech.github.io",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -25,12 +25,11 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build && cp -r docs build/docs",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b gh-pages",
     "deploy:github": "npm run build && gh-pages -d build -b gh-pages",
-    "deploy:github-actions": "echo '⚠️  For thinkredtech.github.io (user/org site), use GitHub Actions deployment instead of gh-pages branch. Check repository Settings > Pages and set source to GitHub Actions.'",
     "deploy:hostinger": "./deploy-hostinger.sh",
     "debug:github-pages": "./debug-github-pages.sh",
     "lint": "eslint src/ --ext .ts,.tsx",

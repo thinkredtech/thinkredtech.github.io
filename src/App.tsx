@@ -41,6 +41,7 @@ function App() {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:postId" element={<BlogPostPage />} />
+            <Route path="/docs" element={<DocsPage />} />
             <Route path="/docs/:docPath/*" element={<DocsPage />} />
             <Route path="/sitemap" element={<SitemapPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

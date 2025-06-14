@@ -15,6 +15,11 @@ export default defineConfig({
     port: 3000,
     open: true,
     host: '0.0.0.0',
+    middlewareMode: false,
+    proxy: {},
+    fs: {
+      strict: false
+    }
   },
   preview: {
     port: 4173,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -14,29 +14,110 @@ interface DocParams {
 const DocsPage = () => {
   // Get both docPath and wildcard for nested docs
   const params = useParams<DocParams>();
-  const { docPath = '', '*': wildcard = '' } = params;
+  const { docPath, '*': wildcard } = params;
   const [content, setContent] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  // Reconstruct the full path
-  const fullDocPath = wildcard ? `${docPath}/${wildcard}` : docPath;
+  // Reconstruct the full path - default to 'website-overview' if no path specified
+  const fullDocPath = wildcard
+    ? `${docPath}/${wildcard}`
+    : docPath || 'website-overview';
+
+  // Custom link component to handle internal docs links
+  const LinkRenderer = (
+    props: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+      children?: React.ReactNode;
+    }
+  ) => {
+    const { href, children, ...otherProps } = props;
+
+    // Check if it's an internal docs link
+    if (href && href.startsWith('/docs/')) {
+      // Normalize the path (convert underscores to hyphens for consistency)
+      const normalizedHref = href.replace(
+        /\/docs\/(.+)/,
+        (_match: string, path: string) => {
+          return `/docs/${path.replace(/_/g, '-')}`;
+        }
+      );
+
+      return (
+        <Link to={normalizedHref} {...otherProps}>
+          {children}
+        </Link>
+      );
+    }
+
+    // For external links or non-docs internal links
+    return (
+      <a
+        href={href}
+        {...otherProps}
+        target={href?.startsWith('http') ? '_blank' : undefined}
+        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    );
+  };
 
   useEffect(() => {
-    if (!fullDocPath) {
-      setError('No document specified.');
-      setContent('');
-      return;
-    }
-    // Construct the path to the markdown file
-    const mdPath = `/docs/${fullDocPath}.md`;
-    fetch(mdPath)
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to load document.');
-        return res.text();
+    setContent('');
+    setError(null);
+
+    // Smart path resolution: Try multiple filename patterns
+    const tryMultiplePaths = async (basePath: string): Promise<string> => {
+      // Extract directory and filename parts
+      const pathParts = basePath.split('/');
+      const filename = pathParts[pathParts.length - 1];
+      const directory = pathParts.slice(0, -1).join('/');
+
+      // Generate all possible filename variants
+      const variants = [
+        filename, // Original (e.g., "landing-page")
+        filename.replace(/-/g, '_'), // Underscores (e.g., "landing_page")
+        filename.replace(/_/g, '-'), // Hyphens (e.g., "landing-page")
+      ];
+
+      // Remove duplicates using filter
+      const uniqueVariants = variants.filter(
+        (variant, index, arr) => arr.indexOf(variant) === index
+      );
+
+      // Try each variant
+      for (const variant of uniqueVariants) {
+        const fullPath = directory ? `${directory}/${variant}` : variant;
+        const mdPath = `/docs/${fullPath}.md`;
+
+        try {
+          const res = await fetch(mdPath);
+          if (res.ok) {
+            const text = await res.text();
+
+            // Verify it's actually markdown content
+            if (!text.includes('<!DOCTYPE html>') && !text.includes('<html')) {
+              return text;
+            }
+          }
+        } catch {
+          // Continue to next variant
+          continue;
+        }
+      }
+
+      throw new Error(
+        `Document not found: ${basePath} (tried variants: ${uniqueVariants.join(', ')})`
+      );
+    };
+
+    tryMultiplePaths(fullDocPath)
+      .then(text => {
+        setContent(text);
       })
-      .then(setContent)
-      .catch(() => setError('Failed to load document.'));
-  }, [fullDocPath]);
+      .catch(err => {
+        setError(`Failed to load document: ${err.message}`);
+      });
+  }, [fullDocPath, docPath, wildcard]);
 
   if (error) {
     return (
@@ -58,6 +139,9 @@ const DocsPage = () => {
         children={content}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSanitize]}
+        components={{
+          a: LinkRenderer,
+        }}
       />
     </div>
   );

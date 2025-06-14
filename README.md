@@ -368,6 +368,17 @@ npm run format:check  # Check code formatting
 - [Testing Plan](docs/dev-checklists/testing-plan.md) - QA guidelines
 - [Bug Fixes & Enhancements](docs/dev-checklists/bugfix-and-enhancements.md) - Issue tracking
 
+### Documentation System
+
+The docs system uses intelligent URL routing to support both underscore and hyphen conventions:
+
+- **Source files**: Use underscores (e.g., `landing_page.md`) - edit these files only
+- **URL support**: Both `/docs/page-specs/landing-page` and `/docs/page-specs/landing_page` work automatically
+- **Implementation**: Smart component logic tries multiple filename patterns
+- **No maintenance**: Zero file duplication, no symlinks, no manual sync required
+
+The `DocsPage` component automatically handles URL normalization and tries multiple filename variants to find the correct markdown file.
+
 ## 🏢 Company Information
 
 ### ThinkRED Technologies LLP
