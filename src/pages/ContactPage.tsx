@@ -132,7 +132,7 @@ const ContactPage = () => {
       />
 
       {/* Enhanced Tab Navigation and Content */}
-      <div className="py-16 md:py-24 bg-white">
+      <div className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center mb-12">

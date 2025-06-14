@@ -134,7 +134,7 @@ const DocsPage = () => {
   }
 
   return (
-    <div className="container mx-auto mb-16 mt-24 px-12 py-12 prose prose-lg max-w-3xl ">
+    <div className="container mx-auto mb-16 mt-12 px-12 py-12 prose prose-lg max-w-3xl ">
       <ReactMarkdown
         children={content}
         remarkPlugins={[remarkGfm]}

@@ -141,7 +141,10 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-backgroundAlt">
+    <section
+      id="services"
+      className="pt-8 pb-16 md:pt-12 md:pb-24 bg-backgroundAlt"
+    >
       <div className="container mx-auto px-4">
         <div
           ref={headerRef}

@@ -111,7 +111,7 @@ const PortfolioPage = () => {
         subtitle="Explore our recent projects and see how we've helped businesses transform their digital presence and operations."
       />
 
-      <div className="py-16 md:py-24 bg-white">
+      <div className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
         <div className="container mx-auto px-4">
           {/* Search and Filters */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-12">

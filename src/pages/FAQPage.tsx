@@ -17,7 +17,7 @@ const FAQPage = () => {
           </p>
         </div>
       </section>
-      <section className="py-16 md:py-24 bg-backgroundAlt">
+      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-backgroundAlt">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-regular">

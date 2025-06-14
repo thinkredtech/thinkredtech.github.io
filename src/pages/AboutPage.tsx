@@ -11,7 +11,7 @@ const AboutPage = () => {
       />
 
       {/* Enhanced Journey Section */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>

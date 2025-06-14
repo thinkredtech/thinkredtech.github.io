@@ -48,7 +48,7 @@ const BlogPage = () => {
       />
 
       {/* Enhanced Search and Content Section */}
-      <div className="py-16 md:py-24 bg-white">
+      <div className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
         <div className="container mx-auto px-4">
           {/* Enhanced Search and Filters */}
           <div className="bg-white rounded-2xl shadow-xl p-8 mb-12 border border-gray-100">

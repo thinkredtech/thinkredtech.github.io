@@ -64,7 +64,7 @@ const PageHero: React.FC<PageHeroProps> = ({
 
   return (
     <section
-      className={`relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden ${className}`}
+      className={`relative pt-32 pb-8 md:pt-40 md:pb-12 overflow-hidden ${className}`}
     >
       {/* Animated background elements */}
       {getBackgroundElements()}
