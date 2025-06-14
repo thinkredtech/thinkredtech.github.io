@@ -42,8 +42,97 @@ const AvatarAssistant = () => {
     'floating' | 'attention' | 'excited' | 'bouncing'
   >('floating');
   const [showContextualOptions, setShowContextualOptions] = useState(false);
+  const [isMessageHovered, setIsMessageHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [userInteractionCount, setUserInteractionCount] = useState(0);
+  const [lastInteractionTime, setLastInteractionTime] = useState<number>(0);
+  const [pageVisitCount, setPageVisitCount] = useState(0);
+  const [hasShownSpecialMessage, setHasShownSpecialMessage] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const messageRef = useRef<HTMLDivElement>(null);
+
+  // Track user engagement and show special messages
+  useEffect(() => {
+    // Only increment page visit count once when component mounts
+    setPageVisitCount(prev => prev + 1);
+  }, []); // Empty dependency array to run only once
+
+  // Separate effect for engagement messages
+  useEffect(() => {
+    // Show special messages based on interaction patterns
+    const showEngagementMessage = () => {
+      if (userInteractionCount >= 3 && !hasShownSpecialMessage) {
+        setHasShownSpecialMessage(true);
+        setMessage(
+          "🎉 You're really exploring! I love the enthusiasm. Need a direct line to our team?"
+        );
+        setIsAnimating(true);
+        setAnimationType('enhanced');
+        setAvatarAnimationState('excited');
+
+        setTimeout(() => {
+          setIsAnimating(false);
+          setAvatarAnimationState('floating');
+        }, 2000);
+
+        setTimeout(() => {
+          setMessage('');
+        }, 8000);
+      } else if (pageVisitCount >= 5 && userInteractionCount === 0) {
+        setMessage(
+          "👋 Hey there! I'm here if you need any guidance navigating our site."
+        );
+        setTimeout(() => {
+          setMessage('');
+        }, 6000);
+      }
+    };
+
+    // Only show engagement message if we have page visits and no current message
+    if (pageVisitCount > 0) {
+      showEngagementMessage();
+    }
+  }, [userInteractionCount, pageVisitCount, hasShownSpecialMessage]);
+
+  // Add seasonal and special occasion messages
+  const getSpecialOccasionMessage = () => {
+    const now = new Date();
+    const month = now.getMonth() + 1; // 1-based month
+    const day = now.getDate();
+
+    // New Year
+    if (month === 1 && day <= 7) {
+      return '🎊 Happy New Year! Ready to make this year your most innovative yet?';
+    }
+
+    // Valentine's Day
+    if (month === 2 && day === 14) {
+      return "💝 Happy Valentine's Day! We love building amazing tech solutions.";
+    }
+
+    // Tech appreciation days
+    if (month === 10 && day >= 8 && day <= 14) {
+      return "👩‍💻👨‍💻 It's Ada Lovelace Day! Celebrating the pioneers of programming.";
+    }
+
+    // World Programmer Day (256th day of year, usually Sept 13)
+    if (month === 9 && day === 13) {
+      return "🚀 Happy World Programmer Day! Let's code the future together.";
+    }
+
+    // Friday motivation
+    if (now.getDay() === 5) {
+      return "🎉 It's Friday! Perfect time to start planning your next big project.";
+    }
+
+    // Monday motivation
+    if (now.getDay() === 1) {
+      return '☕ Monday motivation: Every great project starts with a single line of code.';
+    }
+
+    return null;
+  };
 
   // Calculate optimal bubble width based on message length and screen size
   const calculateBubbleWidth = (
@@ -77,69 +166,211 @@ const AvatarAssistant = () => {
     }
   };
 
-  // Messages that the avatar can display
-  const messages = useMemo(
-    () => [
+  // Dynamic messages based on time, context, and user behavior
+  const messages = useMemo(() => {
+    const currentPath = location.pathname;
+
+    // Time-based greetings (cached by hour to prevent constant recreation)
+    const getTimeBasedGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12)
+        return '🌅 Good morning! Ready to build something amazing today?';
+      if (hour >= 12 && hour < 17)
+        return "☀️ Good afternoon! Let's explore what ThinkRED can do for you.";
+      if (hour >= 17 && hour < 22)
+        return '🌆 Good evening! Discover our innovative tech solutions.';
+      return '🌙 Working late? Our team is passionate about what we do too!';
+    };
+
+    // Context-aware messages based on current page
+    const getContextMessages = () => {
+      switch (currentPath) {
+        case '/':
+          return [
+            'Welcome to ThinkRED Technologies - where innovation meets execution!',
+            'From startups to enterprises - we scale with your ambitions.',
+            "Ready to transform your digital presence? Let's start the conversation.",
+          ];
+        case '/services':
+          return [
+            "Platform engineering, web development, AI solutions - we've got you covered!",
+            'Modern tech stack, proven methodologies, scalable architectures.',
+            'Custom solutions tailored to your unique business challenges.',
+          ];
+        case '/portfolio':
+          return [
+            'Every project tells a story of innovation and client success.',
+            "See how we've helped businesses achieve their digital goals.",
+            'From concept to deployment - witness our development excellence.',
+          ];
+        case '/blog':
+          return [
+            'Stay ahead with the latest in tech trends and best practices.',
+            'Deep insights from our engineering team and industry experts.',
+            'Knowledge sharing is at the heart of the open source community.',
+          ];
+        case '/about':
+          return [
+            'From open source roots to enterprise excellence - our journey.',
+            "Meet the passionate team behind ThinkRED's innovative solutions.",
+            'Values-driven development with a focus on client success.',
+          ];
+        case '/contact':
+          return [
+            "Ready to discuss your next big idea? We're all ears!",
+            'Your project deserves a team that cares about your success.',
+            "Let's explore how we can bring your vision to life.",
+          ];
+        case '/careers':
+          return [
+            'Join a team that values innovation, growth, and collaboration.',
+            'Build the future of technology with passionate professionals.',
+            'Your next career adventure starts with ThinkRED.',
+          ];
+        default:
+          return [];
+      }
+    };
+
+    // Core universal messages with special occasion integration
+    const coreMessages = [
       "Hello! I'm RED, your friendly ThinkRED assistant!",
-      'Welcome to ThinkRED Technologies - where innovation meets excellence!',
-      'Explore our comprehensive services from web development to AI solutions.',
-      'Check out our latest blog articles for tech insights and best practices.',
-      'Ready to transform your digital presence? Our team is here to help!',
-      'From DevOps to platform engineering - we build scalable solutions.',
-      'Visit our Career page to join our innovative team!',
-      'Need a custom solution? Contact us for a personalized consultation.',
-      "Professional. Innovative. Reliable. That's the ThinkRED way!",
-      'Click on me to explore quick navigation options!',
-    ],
-    []
-  );
+      getTimeBasedGreeting(),
+      'Need help navigating? Click on me for quick actions!',
+      'Professional. Innovative. Reliable. Experience the ThinkRED difference!',
+      'From React 19 and TypeScript to AI and DevOps - we build scalable solutions.',
+      'Looking for custom solutions? Our team specializes in tailored development.',
+      'Click my message bubble for contextual options, or click me for quick links!',
+    ];
 
-  // Change message periodically with enhanced animations
+    // Add special occasion message if available (only check once per hour to avoid constant recreation)
+    try {
+      const specialMessage = getSpecialOccasionMessage();
+      if (specialMessage) {
+        coreMessages.splice(1, 0, specialMessage); // Insert after greeting
+      }
+    } catch {
+      // Silently handle any date/time related errors
+    }
+
+    // Combine context-aware and core messages
+    return [...coreMessages, ...getContextMessages()];
+  }, [location.pathname]);
+
+  // Improved message changing logic with hover pause
   useEffect(() => {
-    const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      setMessage(messages[randomIndex]);
-      setIsAnimating(true);
-
-      // Enhanced animation variety with more options
-      const animations: (
-        | 'pulse'
-        | 'wiggle'
-        | 'bounce'
-        | 'enhanced'
-        | 'heartbeat'
-      )[] = ['pulse', 'wiggle', 'bounce', 'enhanced', 'heartbeat'];
-      const randomAnimation =
-        animations[Math.floor(Math.random() * animations.length)];
-      setAnimationType(randomAnimation);
-
-      // Set avatar state to excited during message changes
-      setAvatarAnimationState('excited');
-
-      // Randomly toggle enhanced breathing for more variety
-      setIsBreathingEnhanced(Math.random() > 0.6);
-
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+    const startMessageInterval = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
 
-      timeoutRef.current = setTimeout(() => {
-        setIsAnimating(false);
-        setAnimationType('pulse'); // Return to default after animation
-        setAvatarAnimationState('floating'); // Return avatar to floating
-      }, 800);
-    }, 8000);
+      intervalRef.current = setInterval(() => {
+        // Don't change message if paused, expanded, or animating
+        if (isPaused || isExpanded || isAnimating || isSleeping) {
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        setMessage(messages[randomIndex]);
+        setIsAnimating(true);
+
+        // Enhanced animation variety with more options
+        const animations: (
+          | 'pulse'
+          | 'wiggle'
+          | 'bounce'
+          | 'enhanced'
+          | 'heartbeat'
+        )[] = ['pulse', 'wiggle', 'bounce', 'enhanced', 'heartbeat'];
+        const randomAnimation =
+          animations[Math.floor(Math.random() * animations.length)];
+        setAnimationType(randomAnimation);
+
+        // Set avatar state to excited during message changes
+        setAvatarAnimationState('excited');
+
+        // Randomly toggle enhanced breathing for more variety
+        setIsBreathingEnhanced(Math.random() > 0.6);
+
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
+        timeoutRef.current = setTimeout(() => {
+          setIsAnimating(false);
+          setAnimationType('pulse');
+          setAvatarAnimationState('floating');
+        }, 1200); // Increased duration for smoother transitions
+      }, 10000); // Increased interval for less aggressive changes
+    };
 
     // Set initial message
     setMessage(messages[0]);
+    startMessageInterval();
 
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [messages]);
+  }, [messages, isPaused, isExpanded, isAnimating, isSleeping]);
+
+  // Handle hover pause functionality with UI updates
+  const handleMessageHover = () => {
+    setIsMessageHovered(true);
+    setIsPaused(true);
+  };
+
+  const handleMessageUnhover = () => {
+    setIsMessageHovered(false);
+    // Wait 1 second after unhover before resuming message changes
+    setTimeout(() => {
+      setIsPaused(false);
+    }, 1000);
+  };
+
+  // Idle detection for proactive assistance
+  useEffect(() => {
+    const checkIdleTime = () => {
+      if (lastInteractionTime === 0) return;
+
+      const idleTime = Date.now() - lastInteractionTime;
+      const thirtySeconds = 30000;
+      const twoMinutes = 120000;
+
+      if (idleTime > twoMinutes && !isSleeping && isVisible) {
+        // Show encouragement after 2 minutes of no interaction
+        setMessage(
+          "💡 Still browsing? I can help you find exactly what you're looking for!"
+        );
+        setIsAnimating(true);
+        setAnimationType('heartbeat');
+        setAvatarAnimationState('attention');
+
+        setTimeout(() => {
+          setIsAnimating(false);
+          setAvatarAnimationState('floating');
+          setMessage('');
+        }, 6000);
+      } else if (
+        idleTime > thirtySeconds &&
+        userInteractionCount === 0 &&
+        isVisible
+      ) {
+        // Show gentle nudge for new users after 30 seconds
+        setMessage('👋 New here? Click on me for quick navigation!');
+        setTimeout(() => {
+          setMessage('');
+        }, 5000);
+      }
+    };
+
+    const idleInterval = setInterval(checkIdleTime, 10000); // Check every 10 seconds
+    return () => clearInterval(idleInterval);
+  }, [lastInteractionTime, userInteractionCount, isSleeping, isVisible]);
 
   // Handle scroll events to put avatar to sleep/wake up
   useEffect(() => {
@@ -253,6 +484,10 @@ const AvatarAssistant = () => {
 
   // Toggle expanded state
   const toggleExpanded = () => {
+    // Track user interaction
+    setUserInteractionCount(prev => prev + 1);
+    setLastInteractionTime(Date.now());
+
     if (showContextualOptions) {
       // If contextual options are showing, close them first
       setShowContextualOptions(false);
@@ -588,6 +823,10 @@ const AvatarAssistant = () => {
 
   // Handle message bubble click
   const handleMessageBubbleClick = () => {
+    // Track user interaction
+    setUserInteractionCount(prev => prev + 1);
+    setLastInteractionTime(Date.now());
+
     if (!isExpanded) {
       setShowContextualOptions(true);
       setIsAnimating(true);
@@ -612,6 +851,10 @@ const AvatarAssistant = () => {
 
   // Wake up assistant (user-initiated show)
   const wakeUpAssistant = () => {
+    // Track user interaction
+    setUserInteractionCount(prev => prev + 1);
+    setLastInteractionTime(Date.now());
+
     setIsSleeping(false);
     setIsVisible(true);
     setIsAnimating(true);
@@ -688,7 +931,7 @@ const AvatarAssistant = () => {
             {(message || isExpanded || showContextualOptions) && (
               <div
                 ref={messageRef}
-                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/75 backdrop-blur-md shadow-xl rounded-2xl p-4 border-2 border-[#E4093E]/60 pointer-events-auto message-bubble-stable ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'hidden' : 'visible'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-105' : ''}`}
+                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-2xl p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
                 onClick={
                   !isExpanded && !showContextualOptions
                     ? handleMessageBubbleClick
@@ -936,12 +1179,24 @@ const AvatarAssistant = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative">
+                    <div
+                      className={`relative transition-all duration-200 ${
+                        isMessageHovered ? 'scale-[1.02]' : ''
+                      }`}
+                      onMouseEnter={handleMessageHover}
+                      onMouseLeave={handleMessageUnhover}
+                    >
                       <p className="text-gray-800 leading-relaxed font-medium text-sm mb-2">
                         {message}
                       </p>
                       <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-200/50">
-                        <div className="flex items-center gap-1 text-xs text-[#E4093E]/80 font-medium">
+                        <div
+                          className={`flex items-center gap-1 text-xs font-medium transition-colors duration-200 ${
+                            isMessageHovered
+                              ? 'text-[#E4093E]'
+                              : 'text-[#E4093E]/80'
+                          }`}
+                        >
                           <svg
                             className="w-3 h-3"
                             fill="none"
@@ -952,12 +1207,27 @@ const AvatarAssistant = () => {
                               strokeLinecap="round"
                               strokeLinejoin="round"
                               strokeWidth={2}
-                              d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                             />
                           </svg>
-                          <span>Click for options</span>
+                          <span>Click here for quick help</span>
                         </div>
-                        <div className="w-1 h-1 bg-[#E4093E]/60 rounded-full animate-pulse"></div>
+                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                          <svg
+                            className="w-3 h-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M13 10V3L4 14h7v7l9-11h-7z"
+                            />
+                          </svg>
+                          <span>Click RED for menu</span>
+                        </div>
                       </div>
                     </div>
                   )}

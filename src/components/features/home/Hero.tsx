@@ -7,6 +7,7 @@ import {
 
 const Hero = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   // Scroll-triggered animations
   const { elementRef: heroRef, isInView: heroInView } = useScrollAnimation();
@@ -26,6 +27,24 @@ const Hero = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, [taglines.length]);
+
+  // Handle scroll to show/hide scroll indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Hide scroll indicator when user scrolls down more than 50px
+      // Show it again when they're back at the top
+      if (scrollPosition > 50) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services');
@@ -193,7 +212,13 @@ const Hero = () => {
       </div>
 
       {/* Enhanced scroll indicator */}
-      <div className="relative z-10 pb-8 flex justify-center">
+      <div
+        className={`relative z-10 pb-8 flex justify-center transition-all duration-500 ${
+          showScrollIndicator
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+      >
         <button
           onClick={scrollToServices}
           className="group flex flex-col items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-4 hover:bg-white/50 transition-all duration-300"
