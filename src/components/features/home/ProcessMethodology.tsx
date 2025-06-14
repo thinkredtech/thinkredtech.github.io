@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import {
   useScrollAnimation,
   useStaggeredAnimation,
@@ -9,11 +8,8 @@ const ProcessMethodology = () => {
     useScrollAnimation();
   const { elementRef: timelineRef, isInView: timelineVisible } =
     useScrollAnimation();
-  const {
-    elementRef: desktopStepsRef,
-    visibleItems: visibleSteps,
-    isInView: stepsVisible,
-  } = useStaggeredAnimation(4, 300);
+  const { elementRef: desktopStepsRef, visibleItems: visibleSteps } =
+    useStaggeredAnimation(4, 300);
   const { elementRef: principlesRef, isInView: principlesVisible } =
     useScrollAnimation();
   const methodologies = [

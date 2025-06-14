@@ -218,7 +218,7 @@ code {
     transform: translateY(-30px) translateX(3px) scale(2.4);
   }
   15% {
-    transform: translateY(-90px) translateX(-8px) scale(3.0);
+    transform: translateY(-90px) translateX(-8px) scale(3);
     opacity: 1;
   }
   30% {
@@ -250,7 +250,7 @@ code {
 
 @keyframes bubbleLeft {
   0% {
-    transform: translateY(0) translateX(0) scale(1.0);
+    transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
   }
   6% {
@@ -270,7 +270,7 @@ code {
     opacity: 1;
   }
   75% {
-    transform: translateY(-450px) translateX(-5px) scale(2.0);
+    transform: translateY(-450px) translateX(-5px) scale(2);
     opacity: 0.9;
   }
   90% {
@@ -289,7 +289,7 @@ code {
 
 @keyframes bubbleRight {
   0% {
-    transform: translateY(0) translateX(0) scale(1.0);
+    transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
   }
   4% {
@@ -309,7 +309,7 @@ code {
     opacity: 1;
   }
   65% {
-    transform: translateY(-390px) translateX(15px) scale(2.0);
+    transform: translateY(-390px) translateX(15px) scale(2);
     opacity: 1;
   }
   80% {
@@ -337,7 +337,7 @@ code {
     transform: translateY(-40px) scale(1.6);
   }
   20% {
-    transform: translateY(-100px) translateX(-6px) scale(2.0);
+    transform: translateY(-100px) translateX(-6px) scale(2);
     opacity: 1;
   }
   35% {
@@ -357,7 +357,7 @@ code {
     opacity: 0.5;
   }
   100% {
-    transform: translateY(-420px) scale(1.0);
+    transform: translateY(-420px) scale(1);
     opacity: 0;
   }
 }
@@ -368,7 +368,7 @@ code {
 
 @keyframes bubblePopMid {
   0% {
-    transform: translateY(0) scale(1.0);
+    transform: translateY(0) scale(1);
     opacity: 0;
   }
   6% {
@@ -388,7 +388,7 @@ code {
     opacity: 1;
   }
   58% {
-    transform: translateY(-340px) translateX(-7px) scale(2.0);
+    transform: translateY(-340px) translateX(-7px) scale(2);
     opacity: 1;
   }
   75% {
@@ -396,7 +396,7 @@ code {
     opacity: 0.7;
   }
   90% {
-    transform: translateY(-510px) translateX(-2px) scale(1.0);
+    transform: translateY(-510px) translateX(-2px) scale(1);
     opacity: 0.4;
   }
   100% {
@@ -424,7 +424,7 @@ code {
     opacity: 0.8;
   }
   20% {
-    transform: translateY(-120px) translateX(5px) scale(2.0);
+    transform: translateY(-120px) translateX(5px) scale(2);
     opacity: 0.9;
   }
   35% {
@@ -444,7 +444,7 @@ code {
     opacity: 0.7;
   }
   95% {
-    transform: translateY(-570px) translateX(-1px) scale(1.0);
+    transform: translateY(-570px) translateX(-1px) scale(1);
     opacity: 0.3;
   }
   100% {
@@ -961,7 +961,8 @@ code {
 
 /* Enhanced floating animation */
 @keyframes floatEnhanced {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
   25% {
@@ -980,14 +981,30 @@ code {
 }
 
 /* Animation delay utilities */
-.animate-delay-0 { animation-delay: 0s; }
-.animate-delay-100 { animation-delay: 0.1s; }
-.animate-delay-200 { animation-delay: 0.2s; }
-.animate-delay-300 { animation-delay: 0.3s; }
-.animate-delay-400 { animation-delay: 0.4s; }
-.animate-delay-500 { animation-delay: 0.5s; }
-.animate-delay-1000 { animation-delay: 1s; }
-.animate-delay-1500 { animation-delay: 1.5s; }
+.animate-delay-0 {
+  animation-delay: 0s;
+}
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+.animate-delay-1000 {
+  animation-delay: 1s;
+}
+.animate-delay-1500 {
+  animation-delay: 1.5s;
+}
 
 /* Additional animation delay utilities */
 .animation-delay-100 {
@@ -1011,11 +1028,21 @@ code {
 }
 
 /* Utility classes for dynamic delays */
-.delay-0 { animation-delay: 0ms; }
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
+.delay-0 {
+  animation-delay: 0ms;
+}
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
 
 /* Enhanced loading animations */
 .animate-pulse-slow {
@@ -1076,20 +1103,50 @@ code {
 }
 
 /* Bubble animation delay utilities */
-.bubble-delay-0 { animation-delay: 0s; }
-.bubble-delay-800 { animation-delay: 0.8s; }
-.bubble-delay-1100 { animation-delay: 1.1s; }
-.bubble-delay-1500 { animation-delay: 1.5s; }
-.bubble-delay-2000 { animation-delay: 2s; }
-.bubble-delay-2300 { animation-delay: 2.3s; }
-.bubble-delay-2700 { animation-delay: 2.7s; }
-.bubble-delay-3500 { animation-delay: 3.5s; }
-.bubble-delay-3800 { animation-delay: 3.8s; }
-.bubble-delay-4200 { animation-delay: 4.2s; }
+.bubble-delay-0 {
+  animation-delay: 0s;
+}
+.bubble-delay-800 {
+  animation-delay: 0.8s;
+}
+.bubble-delay-1100 {
+  animation-delay: 1.1s;
+}
+.bubble-delay-1500 {
+  animation-delay: 1.5s;
+}
+.bubble-delay-2000 {
+  animation-delay: 2s;
+}
+.bubble-delay-2300 {
+  animation-delay: 2.3s;
+}
+.bubble-delay-2700 {
+  animation-delay: 2.7s;
+}
+.bubble-delay-3500 {
+  animation-delay: 3.5s;
+}
+.bubble-delay-3800 {
+  animation-delay: 3.8s;
+}
+.bubble-delay-4200 {
+  animation-delay: 4.2s;
+}
 
 /* Negative bubble delays for natural startup behavior */
-.bubble-delay-neg-1000 { animation-delay: -1s; }
-.bubble-delay-neg-2000 { animation-delay: -2s; }
-.bubble-delay-neg-3000 { animation-delay: -3s; }
-.bubble-delay-neg-4000 { animation-delay: -4s; }
-.bubble-delay-neg-5000 { animation-delay: -5s; }
+.bubble-delay-neg-1000 {
+  animation-delay: -1s;
+}
+.bubble-delay-neg-2000 {
+  animation-delay: -2s;
+}
+.bubble-delay-neg-3000 {
+  animation-delay: -3s;
+}
+.bubble-delay-neg-4000 {
+  animation-delay: -4s;
+}
+.bubble-delay-neg-5000 {
+  animation-delay: -5s;
+}

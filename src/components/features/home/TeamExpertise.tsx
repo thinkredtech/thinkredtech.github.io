@@ -1,21 +1,13 @@
-import { useRef } from 'react';
 import {
   useScrollAnimation,
   useStaggeredAnimation,
 } from '../../../hooks/useScrollAnimation';
 
 const TeamExpertise = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const expertiseRef = useRef<HTMLDivElement>(null);
-  const valuePropRef = useRef<HTMLDivElement>(null);
-
   const { elementRef: headerElement, isInView: headerVisible } =
     useScrollAnimation();
-  const {
-    elementRef: expertiseElement,
-    visibleItems: visibleExpertise,
-    isInView: expertiseGridVisible,
-  } = useStaggeredAnimation(6, 200);
+  const { elementRef: expertiseElement, visibleItems: visibleExpertise } =
+    useStaggeredAnimation(6, 200);
   const { elementRef: valuePropElement, isInView: valuePropVisible } =
     useScrollAnimation();
 

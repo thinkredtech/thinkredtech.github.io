@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   useScrollAnimation,
@@ -38,18 +38,12 @@ const TechStack = () => {
 
   const { elementRef: headerRef, isInView: headerVisible } =
     useScrollAnimation();
-  const {
-    elementRef: tabsRef,
-    visibleItems: visibleTabs,
-    isInView: tabsVisible,
-  } = useStaggeredAnimation(6, 100);
+  const { elementRef: tabsRef, visibleItems: visibleTabs } =
+    useStaggeredAnimation(6, 100);
   const { elementRef: activeRef, isInView: activeVisible } =
     useScrollAnimation();
-  const {
-    elementRef: overviewRef,
-    visibleItems: visibleOverview,
-    isInView: overviewVisible,
-  } = useStaggeredAnimation(6, 150);
+  const { elementRef: overviewRef, visibleItems: visibleOverview } =
+    useStaggeredAnimation(6, 150);
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
 
   const technologies = [

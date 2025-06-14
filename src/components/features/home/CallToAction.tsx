@@ -6,11 +6,8 @@ import {
 
 const CallToAction = () => {
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
-  const {
-    elementRef: buttonsRef,
-    visibleItems: visibleButtons,
-    isInView: buttonsVisible,
-  } = useStaggeredAnimation(2, 200);
+  const { elementRef: buttonsRef, visibleItems: visibleButtons } =
+    useStaggeredAnimation(2, 200);
 
   return (
     <section className="py-16 md:py-24 bg-primary text-white relative overflow-hidden">

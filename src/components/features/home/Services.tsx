@@ -7,11 +7,8 @@ import {
 const Services = () => {
   const { elementRef: headerRef, isInView: headerVisible } =
     useScrollAnimation();
-  const {
-    elementRef: servicesRef,
-    visibleItems: visibleServices,
-    isInView: servicesVisible,
-  } = useStaggeredAnimation(6, 150);
+  const { elementRef: servicesRef, visibleItems: visibleServices } =
+    useStaggeredAnimation(6, 150);
   const { elementRef: statsRef, isInView: statsVisible } = useScrollAnimation();
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
   const servicesList = [

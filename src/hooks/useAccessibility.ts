@@ -14,11 +14,14 @@ export const usePerformanceMonitor = () => {
     // Monitor memory usage if available
     const updateMemoryUsage = () => {
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        setMetrics(prev => ({
-          ...prev,
-          memoryUsage: memory.usedJSHeapSize / 1048576, // Convert to MB
-        }));
+        const memory = (performance as { memory?: { usedJSHeapSize: number } })
+          .memory;
+        if (memory) {
+          setMetrics(prev => ({
+            ...prev,
+            memoryUsage: memory.usedJSHeapSize / 1048576, // Convert to MB
+          }));
+        }
       }
     };
 

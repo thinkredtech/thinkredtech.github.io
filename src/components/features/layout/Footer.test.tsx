@@ -14,10 +14,11 @@ jest.mock('react-router-dom', () => ({
     to: string;
     children: ReactNode;
     className?: string;
-  }) =>
+  }) => (
     <a href={to} className={className} data-testid={`link-${to}`}>
       {children}
-    </a>,
+    </a>
+  ),
 }));
 
 describe('Footer Component', () => {

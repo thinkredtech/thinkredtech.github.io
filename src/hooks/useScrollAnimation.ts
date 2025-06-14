@@ -15,7 +15,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
 
   const [isInView, setIsInView] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const elementRef = useRef<HTMLElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -77,7 +77,7 @@ export const useStaggeredAnimation = (
 
 export const useParallaxEffect = (speed: number = 0.5) => {
   const [offset, setOffset] = useState(0);
-  const elementRef = useRef<HTMLElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,7 +96,7 @@ export const useParallaxEffect = (speed: number = 0.5) => {
 };
 
 export const useMagneticEffect = () => {
-  const elementRef = useRef<HTMLElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = elementRef.current;
