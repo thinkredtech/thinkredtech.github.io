@@ -1,18 +1,58 @@
+/**
+ * PageHero Component
+ *
+ * A reusable hero section component that provides consistent styling and animation
+ * across all pages of the ThinkRED website. Features customizable backgrounds,
+ * smooth entrance animations, and flexible content support.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <PageHero
+ *   title="About ThinkRED"
+ *   subtitle="Learn about our journey and mission"
+ *   variant="gradient"
+ * >
+ *   <Button>Get Started</Button>
+ * </PageHero>
+ * ```
+ */
+
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Props interface for the PageHero component
+ *
+ * @interface PageHeroProps
+ */
 interface PageHeroProps {
   /** The main title/heading for the page */
   title: string;
-  /** The subtitle/tagline description */
+  /** The subtitle/tagline description that appears below the title */
   subtitle: string;
-  /** Optional custom background variant */
+  /**
+   * Optional background variant that determines the visual style
+   * - 'default': Standard background with subtle animations
+   * - 'gradient': Rich gradient background with enhanced visual effects
+   * - 'minimal': Clean, minimal background with reduced visual elements
+   */
   variant?: 'default' | 'gradient' | 'minimal';
-  /** Optional additional CSS classes */
+  /** Optional additional CSS classes for custom styling */
   className?: string;
-  /** Optional children for custom content */
+  /** Optional children components for custom content below the subtitle */
   children?: React.ReactNode;
 }
 
+/**
+ * PageHero Component Implementation
+ *
+ * Renders a hero section with configurable styling and smooth animations.
+ * The component automatically triggers entrance animations on mount and
+ * provides three distinct visual variants for different page contexts.
+ *
+ * @param props - The component props
+ * @returns JSX element representing the hero section
+ */
 const PageHero: React.FC<PageHeroProps> = ({
   title,
   subtitle,
@@ -20,18 +60,30 @@ const PageHero: React.FC<PageHeroProps> = ({
   className = '',
   children,
 }) => {
+  // State for controlling entrance animations
   const [animateInView, setAnimateInView] = useState(false);
 
+  /**
+   * Effect hook to trigger animations after component mount
+   * Uses a small delay to ensure smooth animation timing
+   */
   useEffect(() => {
-    // Trigger animation on mount
+    // Trigger animation on mount with a slight delay for better UX
     const timer = setTimeout(() => {
       setAnimateInView(true);
     }, 100);
 
+    // Cleanup timer on unmount
     return () => clearTimeout(timer);
   }, []);
 
-  // Background variant styles
+  /**
+   * Generates background elements based on the selected variant
+   * Each variant provides a different visual aesthetic while maintaining
+   * brand consistency and accessibility standards.
+   *
+   * @returns JSX elements for the background styling
+   */
   const getBackgroundElements = () => {
     switch (variant) {
       case 'gradient':

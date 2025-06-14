@@ -1,53 +1,502 @@
-# ThinkRED Technologies Website
+# ThinkRED Technologies - Corporate Website
+
+<div align="center">
 
 ![ThinkRED Logo](public/assets/logos/thinkRED-np.svg)
 
-> **Simplify Technology & Experience!**
+**Simplify Technology & Experience!**
 
-A modern, high-performance website for ThinkRED Technologies LLP built with React 19, TypeScript, and TailwindCSS. This website showcases our technology services, company vision, and engineering expertise to international clients.
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.thinkred.tech)](https://www.thinkred.tech)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19.0+-61dafb.svg)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.4+-646cff.svg)](https://vitejs.dev/)
 
-## 🌟 Features
+*A modern, high-performance corporate website showcasing engineering excellence and innovation-led technology solutions.*
 
-- **Responsive Design** - Optimized for all device sizes and screen resolutions
-- **Interactive AI Avatar Assistant** - Smart sleep/wake behavior and contextual navigation
-- **Interactive Technology Stack** - Tabbed interface showcasing comprehensive tech capabilities
-- **Modern UI/UX** - Smooth animations, transitions, and micro-interactions
-- **SEO Optimized** - Meta tags, structured data, and performance optimization
-- **Fast Performance** - Code splitting, lazy loading, and optimized assets
-- **Accessibility** - WCAG compliant with keyboard navigation and screen reader support
-- **Smart Navigation** - Avatar assistant prevents cyclic navigation based on current page
+[🌐 Live Website](https://www.thinkred.tech) • [📚 Documentation](./docs/) • [🚀 Getting Started](#-getting-started) • [🛠️ Tech Stack](#%EF%B8%8F-technology-stack)
 
-## 🎯 Website Goals
+</div>
 
-- Attract and onboard international clients for custom development services
-- Showcase ThinkRED's engineering expertise and innovation-led approach
-- Tell our company story and vision through compelling content
-- Encourage user engagement through strategic CTAs and conversational UX
+---
 
-## 📱 Pages Overview
+## 🎯 About ThinkRED
 
-| Page | Purpose | Key Features |
-|------|---------|--------------|
-| **Home** | Brand introduction & service overview | Hero section, scroll-based storytelling, service highlights |
-| **About** | Company story & team | Timeline narrative, company philosophy, team showcase |
-| **Services** | Service offerings & capabilities | Service categories, comparison tables, technology stack |
-| **Portfolio** | Case studies & projects | Technology-based filtering, project showcases |
-| **Contact** | Lead generation & inquiries | "Talk to Us" form, requirements field, contact info |
-| **Blog** | Thought leadership | Technology articles, insights, company updates |
+ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges for businesses worldwide. Founded by engineers with deep roots in open-source communities (Mozilla, Fedora, Red Hat), we bring together innovation, collaboration, and technical excellence to deliver transformative digital solutions.
 
-## 🛠 Tech Stack
+### 🌟 Key Features
 
-### Core Technologies
+<table>
+<tr>
+<td width="50%">
 
-- **React 19** - Latest React with concurrent features
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **TailwindCSS** - Utility-first CSS framework
+#### 🎨 **Modern Design System**
+- Responsive, mobile-first design
+- Component-based architecture
+- Consistent brand implementation
+- Accessibility (WCAG 2.1 AA compliant)
 
-### Frontend & UI
+#### ⚡ **Performance Optimized**
+- React 19 with concurrent features
+- Code splitting and lazy loading
+- Optimized asset delivery
+- <2s page load times
 
-- **React Router** - Client-side routing
-- **React Markdown** - Blog content rendering
+</td>
+<td width="50%">
+
+#### 🤖 **Interactive AI Avatar**
+- 3D avatar assistant with contextual behavior
+- Smart sleep/wake functionality
+- Scroll and hover interactions
+- Cross-device responsive design
+
+#### 📱 **Multi-Platform Experience**
+- Progressive Web App (PWA) capabilities
+- Touch-optimized mobile interface
+- Tablet and desktop adaptations
+- Cross-browser compatibility
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🎬 Demo & Screenshots
+
+<div align="center">
+
+### 🏠 Homepage Experience
+*Interactive hero section with dynamic taglines and smooth animations*
+
+![Homepage Screenshot](public/assets/screenshots/homepage-hero.png)
+
+### 📋 Services Portfolio
+*Comprehensive service showcase with technology stack integration*
+
+![Services Screenshot](public/assets/screenshots/services-overview.png)
+
+### 🤝 Client Engagement
+*Multi-modal contact system with discovery calls and quote requests*
+
+![Contact Screenshot](public/assets/screenshots/contact-engagement.png)
+
+</div>
+
+---
+
+## 🛠️ Technology Stack
+
+<div align="center">
+
+### Frontend Foundation
+[![React](https://img.shields.io/badge/React-19.0+-61dafb?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.4+-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4+-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+
+### UI & Interactions
+[![React Router](https://img.shields.io/badge/React_Router-6.26+-ca4245?style=for-the-badge&logo=reactrouter)](https://reactrouter.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.3+-ff0066?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+[![Three.js](https://img.shields.io/badge/Three.js-r168+-000000?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![React Markdown](https://img.shields.io/badge/React_Markdown-9.0+-000000?style=for-the-badge&logo=markdown)](https://remarkjs.github.io/react-markdown/)
+
+### Development & Quality
+[![ESLint](https://img.shields.io/badge/ESLint-9.9+-4b32c3?style=for-the-badge&logo=eslint)](https://eslint.org/)
+[![Prettier](https://img.shields.io/badge/Prettier-3.3+-f7b93e?style=for-the-badge&logo=prettier)](https://prettier.io/)
+[![PostCSS](https://img.shields.io/badge/PostCSS-8.4+-dd3a0a?style=for-the-badge&logo=postcss)](https://postcss.org/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-2088ff?style=for-the-badge&logo=githubactions)](https://github.com/features/actions)
+
+</div>
+
+### 📋 Complete Technology Matrix
+
+<details>
+<summary><strong>Click to expand full technology breakdown</strong></summary>
+
+#### Core Technologies
+- **React 19** - Latest React with concurrent rendering and enhanced performance
+- **TypeScript 5.5+** - Type-safe development with advanced language features
+- **Vite 5.4+** - Lightning-fast build tool and development server
+- **TailwindCSS 3.4+** - Utility-first CSS framework with custom design system
+
+#### Frontend Libraries & UI
+- **React Router 6.26+** - Declarative routing for React applications
+- **React Markdown 9.0+** - Markdown rendering with plugin support
+- **Framer Motion 11.3+** - Production-ready motion library for React
+- **Headless UI 2.1+** - Completely unstyled, accessible UI components
+- **React Icons 5.3+** - Popular icon sets as React components
+
+#### 3D Graphics & Animation
+- **Three.js r168+** - JavaScript 3D graphics library for avatar interactions
+- **React Three Fiber** - React renderer for Three.js with declarative syntax
+- **React Spring** - Physics-based animations for enhanced UX
+
+#### Development Tools
+- **ESLint 9.9+** - Pluggable JavaScript/TypeScript linter
+- **Prettier 3.3+** - Opinionated code formatter
+- **PostCSS 8.4+** - CSS transformations and optimizations
+- **Autoprefixer** - Automatic vendor prefix handling
+
+#### Build & Deployment
+- **Vite Build** - Optimized production builds with tree-shaking
+- **GitHub Actions** - Automated CI/CD pipeline
+- **GitHub Pages** - Static site hosting and deployment
+- **Hostinger** - Alternative deployment platform
+
+</details>
+
+---
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** `v18.0.0` or higher ([Download here](https://nodejs.org/))
+- **npm** `v8.0.0` or higher (comes with Node.js)
+- **Git** for version control ([Download here](https://git-scm.com/))
+
+### ⚡ Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/thinkredtech/thinkred-website-react19-vite.git
+cd thinkred-website-react19-vite
+
+# 2. Install dependencies
+npm install
+
+# 3. Start development server
+npm run dev
+
+# 4. Open your browser
+# Navigate to http://localhost:3000
+```
+
+### 🛠️ Available Scripts
+
+<table>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Usage</th>
+</tr>
+<tr>
+<td><code>npm run dev</code></td>
+<td>Start development server with hot reload</td>
+<td>Daily development work</td>
+</tr>
+<tr>
+<td><code>npm run build</code></td>
+<td>Create optimized production build</td>
+<td>Deployment preparation</td>
+</tr>
+<tr>
+<td><code>npm run preview</code></td>
+<td>Preview production build locally</td>
+<td>Pre-deployment testing</td>
+</tr>
+<tr>
+<td><code>npm run lint</code></td>
+<td>Run ESLint on all source files</td>
+<td>Code quality checks</td>
+</tr>
+<tr>
+<td><code>npm run lint:fix</code></td>
+<td>Automatically fix ESLint issues</td>
+<td>Quick code cleanup</td>
+</tr>
+<tr>
+<td><code>npm run type-check</code></td>
+<td>Run TypeScript type checking</td>
+<td>Type safety validation</td>
+</tr>
+</table>
+
+### 🔧 Development Environment Setup
+
+<details>
+<summary><strong>VS Code Extensions (Recommended)</strong></summary>
+
+Install these extensions for the best development experience:
+
+```json
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode", 
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "unifiedjs.vscode-mdx"
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary><strong>Environment Configuration</strong></summary>
+
+1. **Copy environment template:**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. **Configure environment variables:**
+   ```bash
+   # .env.local
+   VITE_API_BASE_URL=https://api.thinkred.tech
+   VITE_CONTACT_EMAIL=hello@thinkred.tech
+   VITE_GA_TRACKING_ID=G-XXXXXXXXXX
+   ```
+
+3. **Development vs Production:**
+   - Development: Uses local environment with hot reload
+   - Production: Optimized build with CDN assets and analytics
+
+</details>
+
+---
+
+## 📁 Project Structure
+
+<details>
+<summary><strong>Click to expand project structure</strong></summary>
+
+```
+thinkred-website-react19-vite/
+├── 📁 public/                 # Static assets served directly
+│   ├── 📁 assets/            # Images, icons, logos
+│   ├── 📁 docs/              # Documentation files (synced)
+│   ├── 📄 manifest.json      # PWA manifest
+│   ├── 📄 robots.txt         # SEO crawler instructions
+│   └── 📄 index.html         # HTML template
+├── 📁 src/                   # Source code
+│   ├── 📁 components/        # React components
+│   │   ├── 📁 ui/           # Reusable UI components
+│   │   ├── 📁 features/     # Feature-specific components
+│   │   └── 📁 forms/        # Form components
+│   ├── 📁 pages/            # Page components (routes)
+│   ├── 📁 hooks/            # Custom React hooks
+│   ├── 📁 utils/            # Utility functions
+│   ├── 📁 data/             # Static data and constants
+│   ├── 📁 styles/           # Global styles and themes
+│   ├── 📁 types/            # TypeScript type definitions
+│   ├── 📄 App.tsx           # Main app component
+│   ├── 📄 main.tsx          # Application entry point
+│   └── 📄 index.css         # Global styles
+├── 📁 docs/                 # Documentation source
+│   ├── 📄 website-overview.md
+│   ├── 📄 company-info.md
+│   ├── 📄 design-system.md
+│   ├── 📄 brand-guidelines.md
+│   ├── 📁 page-specs/       # Page-specific documentation
+│   └── 📁 dev-checklists/   # Development guides
+├── 📁 build/                # Production build output
+├── 📄 package.json          # Dependencies and scripts
+├── 📄 tsconfig.json         # TypeScript configuration
+├── 📄 vite.config.ts        # Vite build configuration
+├── 📄 tailwind.config.js    # TailwindCSS configuration
+├── 📄 eslint.config.js      # ESLint configuration
+└── 📄 README.md            # This file
+```
+
+</details>
+
+### 🎯 Component Architecture
+
+The project follows a structured component architecture:
+
+- **`/components/ui/`** - Reusable, generic UI components (buttons, modals, forms)
+- **`/components/features/`** - Feature-specific components (hero sections, service cards)
+- **`/pages/`** - Top-level page components corresponding to routes
+- **`/hooks/`** - Custom React hooks for shared logic
+- **`/utils/`** - Pure utility functions and helpers
+
+---
+
+## 📚 Documentation
+
+<div align="center">
+
+### 🔗 Quick Links
+
+| Documentation | Description | Link |
+|---------------|-------------|------|
+| **Website Architecture** | Technical overview and strategic objectives | [📖 View](./docs/website-overview.md) |
+| **Design System** | Complete design tokens and component library | [🎨 View](./docs/design-system.md) |
+| **Brand Guidelines** | Typography, colors, and visual identity | [🏷️ View](./docs/brand-guidelines.md) |
+| **Company Profile** | Mission, services, and team information | [🏢 View](./docs/company-info.md) |
+
+</div>
+
+### 📄 Page Specifications
+
+<details>
+<summary><strong>Detailed page documentation</strong></summary>
+
+| Page | Purpose | Documentation |
+|------|---------|---------------|
+| **Landing** | Brand introduction & service overview | [📋 View](./docs/page-specs/landing_page.md) |
+| **About** | Company story & team showcase | [👥 View](./docs/page-specs/about_page.md) |
+| **Services** | Service offerings & capabilities | [⚙️ View](./docs/page-specs/services_page.md) |
+| **Portfolio** | Case studies & project showcases | [💼 View](./docs/page-specs/portfolio_page.md) |
+| **Contact** | Client engagement & lead generation | [📞 View](./docs/page-specs/contact_page.md) |
+| **Blog** | Thought leadership & insights | [📝 View](./docs/page-specs/blog_page.md) |
+
+</details>
+
+---
+
+## 🚢 Deployment
+
+### 🔄 Automated Deployment (Recommended)
+
+The project includes automated deployment via GitHub Actions:
+
+1. **Push to main branch** triggers automatic deployment
+2. **GitHub Actions** builds the project and optimizes assets  
+3. **GitHub Pages** serves the production site at [thinkred.tech](https://www.thinkred.tech)
+
+### 🛠️ Manual Deployment
+
+<details>
+<summary><strong>Manual deployment steps</strong></summary>
+
+#### GitHub Pages Deployment
+```bash
+# 1. Build the project
+npm run build
+
+# 2. Deploy to GitHub Pages (using gh-pages)
+npm run deploy
+```
+
+#### Alternative Hosting (Hostinger)
+```bash
+# 1. Build the project
+npm run build
+
+# 2. Upload build/ directory to hosting provider
+# 3. Configure custom domain and SSL
+```
+
+</details>
+
+### 🌐 Custom Domain Configuration
+
+The site is configured to work with custom domains:
+- **Primary**: `www.thinkred.tech`
+- **Redirect**: `thinkred.tech` → `www.thinkred.tech`
+- **SSL**: Automatically managed by GitHub Pages
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+### 🐛 Bug Reports
+
+1. **Check existing issues** before creating new ones
+2. **Use the bug report template** with detailed information
+3. **Include screenshots** for visual bugs
+4. **Provide reproduction steps** when possible
+
+### ✨ Feature Requests  
+
+1. **Open an issue** with the feature request template
+2. **Describe the use case** and expected behavior
+3. **Consider the scope** and implementation complexity
+4. **Discuss with maintainers** before starting work
+
+### � Development Process
+
+<details>
+<summary><strong>Contribution workflow</strong></summary>
+
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/thinkred-website-react19-vite.git
+   ```
+
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+3. **Make your changes**
+   - Follow existing code style and patterns
+   - Add tests for new functionality
+   - Update documentation as needed
+
+4. **Test your changes**
+   ```bash
+   npm run lint
+   npm run type-check
+   npm run build
+   ```
+
+5. **Commit with conventional commits**
+   ```bash
+   git commit -m "feat: add amazing new feature"
+   ```
+
+6. **Push and create a Pull Request**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+</details>
+
+### 📝 Code Style Guidelines
+
+- **TypeScript**: Strict mode enabled, proper type definitions required
+- **React**: Functional components with hooks, proper prop interfaces
+- **Styling**: TailwindCSS utilities, follow design system tokens
+- **Naming**: Descriptive names, consistent casing conventions
+- **Testing**: Include tests for new features and bug fixes
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🆘 Support & Contact
+
+<div align="center">
+
+### 💬 Get Help
+
+| Channel | Purpose | Response Time |
+|---------|---------|---------------|
+| **📧 Email** | [hello@thinkred.tech](mailto:hello@thinkred.tech) | 24-48 hours |
+| **🐛 Issues** | [GitHub Issues](https://github.com/thinkredtech/thinkred-website-react19-vite/issues) | 2-5 business days |
+| **💼 Business** | [Contact Form](https://www.thinkred.tech/contact) | 1-2 business days |
+
+### 🌐 Connect With Us
+
+[![Website](https://img.shields.io/badge/Website-thinkred.tech-e4093e?style=for-the-badge)](https://www.thinkred.tech)
+[![GitHub](https://img.shields.io/badge/GitHub-thinkredtech-181717?style=for-the-badge&logo=github)](https://github.com/thinkredtech)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ThinkRED-0077b5?style=for-the-badge&logo=linkedin)](https://linkedin.com/company/thinkred-technologies)
+
+</div>
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the ThinkRED Technologies team**
+
+*Simplifying Technology & Experience, one project at a time.*
+
+</div>
 - **Headless UI** - Accessible UI components
 - **Three.js** - 3D avatar and graphics
 
