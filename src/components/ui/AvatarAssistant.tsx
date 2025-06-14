@@ -647,7 +647,7 @@ const AvatarAssistant = () => {
         {/* Main Avatar PNG */}
         <div className="absolute inset-0 flex items-center justify-center">
           <img
-            src="/assets/avatars/assistant-reddy.png"
+            src="/assets/avatars/assistant-red.png"
             alt="RED Assistant"
             className="w-full h-full object-contain avatar-image"
           />
@@ -676,7 +676,7 @@ const AvatarAssistant = () => {
           title="Click to wake up your assistant"
         >
           <img
-            src="/assets/avatars/assistant-reddy-sleeping.png"
+            src="/assets/avatars/assistant-red-sleeping.png"
             alt="Sleeping Assistant"
             className="w-full h-full object-contain animate-pulse"
           />

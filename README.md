@@ -31,12 +31,14 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 <td width="50%">
 
 #### 🎨 **Modern Design System**
+
 - Responsive, mobile-first design
 - Component-based architecture
 - Consistent brand implementation
 - Accessibility (WCAG 2.1 AA compliant)
 
 #### ⚡ **Performance Optimized**
+
 - React 19 with concurrent features
 - Code splitting and lazy loading
 - Optimized asset delivery
@@ -46,12 +48,14 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 <td width="50%">
 
 #### 🤖 **Interactive AI Avatar**
+
 - 3D avatar assistant with contextual behavior
 - Smart sleep/wake functionality
 - Scroll and hover interactions
 - Cross-device responsive design
 
 #### 📱 **Multi-Platform Experience**
+
 - Progressive Web App (PWA) capabilities
 - Touch-optimized mobile interface
 - Tablet and desktop adaptations
@@ -60,29 +64,6 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 </td>
 </tr>
 </table>
-
----
-
-## 🎬 Demo & Screenshots
-
-<div align="center">
-
-### 🏠 Homepage Experience
-*Interactive hero section with dynamic taglines and smooth animations*
-
-![Homepage Screenshot](public/assets/screenshots/homepage-hero.png)
-
-### 📋 Services Portfolio
-*Comprehensive service showcase with technology stack integration*
-
-![Services Screenshot](public/assets/screenshots/services-overview.png)
-
-### 🤝 Client Engagement
-*Multi-modal contact system with discovery calls and quote requests*
-
-![Contact Screenshot](public/assets/screenshots/contact-engagement.png)
-
-</div>
 
 ---
 
@@ -116,12 +97,14 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 <summary><strong>Click to expand full technology breakdown</strong></summary>
 
 #### Core Technologies
+
 - **React 19** - Latest React with concurrent rendering and enhanced performance
 - **TypeScript 5.5+** - Type-safe development with advanced language features
 - **Vite 5.4+** - Lightning-fast build tool and development server
 - **TailwindCSS 3.4+** - Utility-first CSS framework with custom design system
 
 #### Frontend Libraries & UI
+
 - **React Router 6.26+** - Declarative routing for React applications
 - **React Markdown 9.0+** - Markdown rendering with plugin support
 - **Framer Motion 11.3+** - Production-ready motion library for React
@@ -129,17 +112,20 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 - **React Icons 5.3+** - Popular icon sets as React components
 
 #### 3D Graphics & Animation
+
 - **Three.js r168+** - JavaScript 3D graphics library for avatar interactions
 - **React Three Fiber** - React renderer for Three.js with declarative syntax
 - **React Spring** - Physics-based animations for enhanced UX
 
 #### Development Tools
+
 - **ESLint 9.9+** - Pluggable JavaScript/TypeScript linter
 - **Prettier 3.3+** - Opinionated code formatter
 - **PostCSS 8.4+** - CSS transformations and optimizations
 - **Autoprefixer** - Automatic vendor prefix handling
 
 #### Build & Deployment
+
 - **Vite Build** - Optimized production builds with tree-shaking
 - **GitHub Actions** - Automated CI/CD pipeline
 - **GitHub Pages** - Static site hosting and deployment
@@ -241,11 +227,13 @@ Install these extensions for the best development experience:
 <summary><strong>Environment Configuration</strong></summary>
 
 1. **Copy environment template:**
+
    ```bash
    cp .env.example .env.local
    ```
 
 2. **Configure environment variables:**
+
    ```bash
    # .env.local
    VITE_API_BASE_URL=https://api.thinkred.tech
@@ -266,7 +254,7 @@ Install these extensions for the best development experience:
 <details>
 <summary><strong>Click to expand project structure</strong></summary>
 
-```
+```text
 thinkred-website-react19-vite/
 ├── 📁 public/                 # Static assets served directly
 │   ├── 📁 assets/            # Images, icons, logos
@@ -351,267 +339,6 @@ The project follows a structured component architecture:
 
 ---
 
-## 🚢 Deployment
-
-### 🔄 Automated Deployment (Recommended)
-
-The project includes automated deployment via GitHub Actions:
-
-1. **Push to main branch** triggers automatic deployment
-2. **GitHub Actions** builds the project and optimizes assets  
-3. **GitHub Pages** serves the production site at [thinkred.tech](https://www.thinkred.tech)
-
-### 🛠️ Manual Deployment
-
-<details>
-<summary><strong>Manual deployment steps</strong></summary>
-
-#### GitHub Pages Deployment
-```bash
-# 1. Build the project
-npm run build
-
-# 2. Deploy to GitHub Pages (using gh-pages)
-npm run deploy
-```
-
-#### Alternative Hosting (Hostinger)
-```bash
-# 1. Build the project
-npm run build
-
-# 2. Upload build/ directory to hosting provider
-# 3. Configure custom domain and SSL
-```
-
-</details>
-
-### 🌐 Custom Domain Configuration
-
-The site is configured to work with custom domains:
-- **Primary**: `www.thinkred.tech`
-- **Redirect**: `thinkred.tech` → `www.thinkred.tech`
-- **SSL**: Automatically managed by GitHub Pages
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### 🐛 Bug Reports
-
-1. **Check existing issues** before creating new ones
-2. **Use the bug report template** with detailed information
-3. **Include screenshots** for visual bugs
-4. **Provide reproduction steps** when possible
-
-### ✨ Feature Requests  
-
-1. **Open an issue** with the feature request template
-2. **Describe the use case** and expected behavior
-3. **Consider the scope** and implementation complexity
-4. **Discuss with maintainers** before starting work
-
-### � Development Process
-
-<details>
-<summary><strong>Contribution workflow</strong></summary>
-
-1. **Fork the repository**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/thinkred-website-react19-vite.git
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Make your changes**
-   - Follow existing code style and patterns
-   - Add tests for new functionality
-   - Update documentation as needed
-
-4. **Test your changes**
-   ```bash
-   npm run lint
-   npm run type-check
-   npm run build
-   ```
-
-5. **Commit with conventional commits**
-   ```bash
-   git commit -m "feat: add amazing new feature"
-   ```
-
-6. **Push and create a Pull Request**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-
-</details>
-
-### 📝 Code Style Guidelines
-
-- **TypeScript**: Strict mode enabled, proper type definitions required
-- **React**: Functional components with hooks, proper prop interfaces
-- **Styling**: TailwindCSS utilities, follow design system tokens
-- **Naming**: Descriptive names, consistent casing conventions
-- **Testing**: Include tests for new features and bug fixes
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🆘 Support & Contact
-
-<div align="center">
-
-### 💬 Get Help
-
-| Channel | Purpose | Response Time |
-|---------|---------|---------------|
-| **📧 Email** | [hello@thinkred.tech](mailto:hello@thinkred.tech) | 24-48 hours |
-| **🐛 Issues** | [GitHub Issues](https://github.com/thinkredtech/thinkred-website-react19-vite/issues) | 2-5 business days |
-| **💼 Business** | [Contact Form](https://www.thinkred.tech/contact) | 1-2 business days |
-
-### 🌐 Connect With Us
-
-[![Website](https://img.shields.io/badge/Website-thinkred.tech-e4093e?style=for-the-badge)](https://www.thinkred.tech)
-[![GitHub](https://img.shields.io/badge/GitHub-thinkredtech-181717?style=for-the-badge&logo=github)](https://github.com/thinkredtech)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ThinkRED-0077b5?style=for-the-badge&logo=linkedin)](https://linkedin.com/company/thinkred-technologies)
-
-</div>
-
----
-
-<div align="center">
-
-**Made with ❤️ by the ThinkRED Technologies team**
-
-*Simplifying Technology & Experience, one project at a time.*
-
-</div>
-- **Headless UI** - Accessible UI components
-- **Three.js** - 3D avatar and graphics
-
-### Build & Development
-
-- **ESLint** - Code linting and quality
-- **Prettier** - Code formatting
-- **PostCSS** - CSS processing
-- **Autoprefixer** - CSS vendor prefixes
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** (v18 or higher)
-- **npm** or **yarn** package manager
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/thinkredtech/thinkredtech.github.io.git
-   cd thinkred-website-react19-vite
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Open in browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint issues |
-| `npm run format` | Format code with Prettier |
-| `npm run type-check` | Run TypeScript type checking |
-
-## 🏗 Project Structure
-
-```markdown
-thinkred-website-react19-vite/
-├── public/                     # Static assets
-│   ├── assets/
-│   │   ├── images/            # Images and logos
-│   │   └── icons/             # Icon files
-│   ├── 404.html               # GitHub Pages SPA fallback
-│   ├── index.html             # HTML template
-│   ├── manifest.json          # PWA manifest
-│   └── robots.txt             # SEO robots file
-├── src/
-│   ├── components/            # Reusable React components
-│   │   ├── Layout/           # Header, Footer, Layout
-│   │   ├── Home/             # Homepage components
-│   │   ├── AvatarAssistant.tsx
-│   │   └── ContactForms.tsx
-│   ├── pages/                # Page components
-│   │   ├── HomePage.tsx
-│   │   ├── AboutPage.tsx
-│   │   ├── ServicesPage.tsx
-│   │   ├── PortfolioPage.tsx
-│   │   ├── ContactPage.tsx
-│   │   └── BlogPage.tsx
-│   ├── data/                 # Static data and content
-│   ├── styles/               # CSS and styling
-│   ├── types.ts              # TypeScript type definitions
-│   ├── App.tsx               # Main App component
-│   └── index.tsx             # Application entry point
-├── docs/                     # Development documentation
-├── build/                    # Production build output
-├── package.json              # Dependencies and scripts
-├── vite.config.ts            # Vite configuration
-├── tailwind.config.js        # TailwindCSS configuration
-├── tsconfig.json             # TypeScript configuration
-└── eslint.config.js          # ESLint configuration
-```
-
-## 🎨 Design System
-
-### Color Palette
-
-- **Primary**: `#E4093E` (ThinkRED signature red)
-- **Accent 1**: `#518CEA` (Blue)
-- **Accent 2**: `#AE6CFC` (Purple)  
-- **Dark**: `#2A2A2A` (Charcoal)
-- **Background**: `#FFFFFF` (White)
-
-### Typography
-
-- **Display**: Comfortaa (brand font)
-- **Headings**: Montserrat (sans-serif)
-- **Body**: Montserrat (readable text)
-
-### Design Principles
-
-- **8px Grid System** - Consistent spacing throughout
-- **8px Border Radius** - Subtle rounded corners
-- **Subtle Shadows** - Depth and hierarchy
-- **Responsive First** - Mobile-optimized design
-
 ## 🤖 AI Avatar Assistant
 
 ### Smart Behavior Features
@@ -629,49 +356,54 @@ thinkred-website-react19-vite/
 - **Scroll-Based State Management** - Automatic behavior based on scroll position
 - **Enhanced UX** - Smooth transitions between sleep and wake states
 
-## 🚀 Deployment
+---
 
-### GitHub Pages (Automatic)
+## 🚢 Deployment
 
-The website is configured for automatic deployment to GitHub Pages:
+### 🔄 Automated Deployment (Recommended)
 
-1. **Push to main branch**
+The project includes automated deployment via GitHub Actions:
 
-   ```bash
-   git push origin main
-   ```
+1. **Push to main branch** triggers automatic deployment
+2. **GitHub Actions** builds the project and optimizes assets  
+3. **GitHub Pages** serves the production site at [thinkred.tech](https://www.thinkred.tech)
 
-2. **GitHub Actions will automatically:**
-   - Build the production version
-   - Deploy to `gh-pages` branch
-   - Update <https://thinkredtech.github.io>
+### 🛠️ Manual Deployment
 
-3. **Manual deployment (if needed):**
+<details>
+<summary><strong>Manual deployment steps</strong></summary>
 
-   ```bash
-   npm run deploy:github
-   ```
+#### GitHub Pages Deployment
 
-### Hostinger Deployment
+```bash
+# 1. Build the project
+npm run build
 
-For alternative hosting on Hostinger:
+# 2. Deploy to GitHub Pages (using gh-pages)
+npm run deploy
+```
 
-1. **Run deployment script:**
+#### Alternative Hosting (Hostinger)
 
-   ```bash
-   npm run deploy:hostinger
-   ```
+```bash
+# 1. Build the project
+npm run build
 
-2. **Upload to hosting:**
-   - Upload `thinkred-website.zip` to file manager
-   - Extract in `public_html` directory
-   - Ensure `.htaccess` file is present
+# 2. Upload build/ directory to hosting provider
+# 3. Configure custom domain and SSL
+```
 
-3. **Files created:**
-   - Optimized production build
-   - `.htaccess` for React Router support
-   - `robots.txt` for SEO
-   - Compressed assets
+</details>
+
+### 🌐 Custom Domain Configuration
+
+The site is configured to work with custom domains:
+
+- **Primary**: `www.thinkred.tech`
+- **Redirect**: `thinkred.tech` → `www.thinkred.tech`
+- **SSL**: Automatically managed by GitHub Pages
+
+---
 
 ## ⚙️ Configuration
 
@@ -730,6 +462,26 @@ module.exports = {
 };
 ```
 
+---
+
+## 📈 Performance Optimization
+
+### Build Optimizations
+
+- **Code Splitting** - Vendor chunks for better caching
+- **Tree Shaking** - Remove unused code
+- **Asset Optimization** - Compressed images and fonts
+- **Source Maps** - Development debugging support
+
+### Runtime Performance
+
+- **Lazy Loading** - Components loaded on demand
+- **Image Optimization** - WebP format where supported
+- **Caching Strategy** - Long-term caching for static assets
+- **Bundle Analysis** - Monitor chunk sizes
+
+---
+
 ## 🌐 Browser Compatibility
 
 ### Supported Browsers
@@ -758,21 +510,7 @@ This website uses `meta[name="theme-color"]` for browser theming:
 
 **Note:** Theme color tags gracefully degrade and provide no negative impact in unsupported browsers.
 
-## 📈 Performance Optimization
-
-### Build Optimizations
-
-- **Code Splitting** - Vendor chunks for better caching
-- **Tree Shaking** - Remove unused code
-- **Asset Optimization** - Compressed images and fonts
-- **Source Maps** - Development debugging support
-
-### Runtime Performance
-
-- **Lazy Loading** - Components loaded on demand
-- **Image Optimization** - WebP format where supported
-- **Caching Strategy** - Long-term caching for static assets
-- **Bundle Analysis** - Monitor chunk sizes
+---
 
 ## 🧪 Testing & Quality
 
@@ -793,64 +531,79 @@ npm run format        # Format code with Prettier
 npm run format:check  # Check code formatting
 ```
 
-## 📚 Documentation
+---
 
-### Development Docs
+## 🤝 Contributing
 
-- [Design System](docs/design-system.md) - Complete design guidelines
-- [Brand Guidelines](docs/brand-guidelines.md) - Logo and brand usage
-- [Company Info](docs/company-info.md) - Business information
-- [Website Overview](docs/website-overview.md) - Project specifications
+We welcome contributions from the community! Here's how you can help:
 
-### Page Specifications
+### 🐛 Bug Reports
 
-- [Landing Page](docs/page-specs/landing_page.md) - Homepage specifications
-- [About Page](docs/page-specs/about_page.md) - About page details
-- [Services Page](docs/page-specs/services_page.md) - Services specifications
-- [Portfolio Page](docs/page-specs/portfolio_page.md) - Portfolio guidelines
-- [Contact Page](docs/page-specs/contact_page.md) - Contact form specs
-- [Blog Page](docs/page-specs/blog_page.md) - Blog functionality
+1. **Check existing issues** before creating new ones
+2. **Use the bug report template** with detailed information
+3. **Include screenshots** for visual bugs
+4. **Provide reproduction steps** when possible
 
-### Development Checklists
+### ✨ Feature Requests  
 
-- [Development Progress](docs/dev-checklists/dev-progress.md) - Feature tracking
-- [Testing Plan](docs/dev-checklists/testing-plan.md) - QA guidelines
-- [Bug Fixes & Enhancements](docs/dev-checklists/bugfix-and-enhancements.md) - Issue tracking
+1. **Open an issue** with the feature request template
+2. **Describe the use case** and expected behavior
+3. **Consider the scope** and implementation complexity
+4. **Discuss with maintainers** before starting work
 
-### Documentation System
+### 🔧 Development Process
 
-The docs system uses intelligent URL routing to support both underscore and hyphen conventions:
+<details>
+<summary><strong>Contribution workflow</strong></summary>
 
-- **Source files**: Use underscores (e.g., `landing_page.md`) - edit these files only
-- **URL support**: Both `/docs/page-specs/landing-page` and `/docs/page-specs/landing_page` work automatically
-- **Implementation**: Smart component logic tries multiple filename patterns
-- **No maintenance**: Zero file duplication, no symlinks, no manual sync required
+1. **Fork the repository**
 
-The `DocsPage` component automatically handles URL normalization and tries multiple filename variants to find the correct markdown file.
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/thinkred-website-react19-vite.git
+   ```
 
-## 🏢 Company Information
+2. **Create a feature branch**
 
-### ThinkRED Technologies LLP
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
 
-**Mission:** Deliver value through simplified technology and experience
+3. **Make your changes**
+   - Follow existing code style and patterns
+   - Add tests for new functionality
+   - Update documentation as needed
 
-**Services:**
+4. **Test your changes**
 
-- Product, Platform & Application Development
-- Infrastructure Configuration & Management  
-- Application Platform as a Service (APaaS)
-- Technology Consultation
-- Data and AI Services
-- Design and Branding
+   ```bash
+   npm run lint
+   npm run type-check
+   npm run build
+   ```
 
-**Core Technologies:**
+5. **Commit with conventional commits**
 
-- **Frontend:** React, TypeScript, TailwindCSS, Next.js
-- **Backend:** Node.js, Python, Java, Spring Boot
-- **Mobile:** React Native, Flutter
-- **Cloud:** AWS, Google Cloud, Kubernetes, OpenShift
-- **Design:** Figma, Adobe XD, Blender 3D
-- **DevOps:** Docker, Kubernetes, GitHub Actions
+   ```bash
+   git commit -m "feat: add amazing new feature"
+   ```
+
+6. **Push and create a Pull Request**
+
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+</details>
+
+### 📝 Code Style Guidelines
+
+- **TypeScript**: Strict mode enabled, proper type definitions required
+- **React**: Functional components with hooks, proper prop interfaces
+- **Styling**: TailwindCSS utilities, follow design system tokens
+- **Naming**: Descriptive names, consistent casing conventions
+- **Testing**: Include tests for new features and bug fixes
+
+---
 
 ## 🔧 Troubleshooting
 
@@ -889,27 +642,40 @@ npm run preview
 # Visit: https://github.com/thinkredtech/thinkredtech.github.io/actions
 ```
 
+---
+
 ## 📄 License
 
-This project is proprietary and owned by **ThinkRED Technologies LLP**.
-
-All rights reserved. Unauthorized copying, modification, distribution, or use of this software is strictly prohibited.
-
-## 📞 Contact & Support
-
-### Get in Touch
-
-- **Website:** <https://thinkred.tech>
-- **Email:** <hello@thinkred.tech>
-- **GitHub:** <https://github.com/thinkredtech>
-
-### Support
-For technical issues or questions about this project:
-
-1. Check the [troubleshooting section](#-troubleshooting)
-2. Review the [documentation](#-documentation)  
-3. Contact our development team via email
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-### Built with ❤️ by ThinkRED Technologies
+## 🆘 Support & Contact
+
+<div align="center">
+
+### 💬 Get Help
+
+| Channel | Purpose | Response Time |
+|---------|---------|---------------|
+| **📧 Email** | [hello@thinkred.tech](mailto:hello@thinkred.tech) | 24-48 hours |
+| **🐛 Issues** | [GitHub Issues](https://github.com/thinkredtech/thinkred-website-react19-vite/issues) | 2-5 business days |
+| **💼 Business** | [Contact Form](https://www.thinkred.tech/contact) | 1-2 business days |
+
+### 🌐 Connect With Us
+
+[![Website](https://img.shields.io/badge/Website-thinkred.tech-e4093e?style=for-the-badge)](https://www.thinkred.tech)
+[![GitHub](https://img.shields.io/badge/GitHub-thinkredtech-181717?style=for-the-badge&logo=github)](https://github.com/thinkredtech)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ThinkRED-0077b5?style=for-the-badge&logo=linkedin)](https://linkedin.com/company/thinkred-technologies)
+
+</div>
+
+---
+
+<div align="center">
+
+Made with ❤️ by the ThinkRED Technologies team
+
+*Simplifying Technology & Experience, one project at a time.*
+
+</div>

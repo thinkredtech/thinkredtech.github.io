@@ -4,6 +4,44 @@ All notable changes to the ThinkRED website are documented in this file. The for
 
 ---
 
+## [0.3.1] - 2025-06-15
+
+### 📄 Documentation Quality & Consistency Improvements
+
+#### Enhanced
+
+- **Brand Guidelines Complete Overhaul** (`docs/brand-guidelines.md`):
+  - Expanded from basic specifications to comprehensive brand documentation
+  - Added detailed logo usage guidelines with clear space requirements
+  - Enhanced typography system with complete weight specifications and usage contexts
+  - Professional color system documentation with accessibility compliance notes
+  - Added brand voice and tone guidelines for consistent communication
+  - Implementation guidelines and consistency checklist for quality assurance
+  - Improved markdown formatting with proper list spacing and structure
+
+- **README.md Final Polish**:
+  - Removed all duplicate content and screenshots references
+  - Fixed markdown formatting issues (code block spacing, list formatting, emphasis usage)
+  - Streamlined from 903 lines to 681 lines (25% reduction) while maintaining completeness
+  - Ensured single source of truth for all sections
+  - Professional structure suitable for corporate GitHub repository
+
+- **Cross-Document Consistency**:
+  - Verified consistent terminology and branding across all documentation
+  - Standardized markdown formatting and structure patterns
+  - Ensured proper cross-referencing between related documents
+  - Maintained professional tone and technical accuracy throughout
+
+#### Fixed
+
+- **Markdown Formatting Standards**: Resolved all linting issues across documentation
+  - Fixed MD031 (fenced code blocks spacing) violations
+  - Corrected MD032 (lists surrounded by blank lines) issues  
+  - Resolved MD036 (emphasis used as heading) problems
+  - Ensured MD040 (fenced code language specification) compliance
+
+---
+
 ## [0.3.0] - 2025-06-15
 
 ### 📚 Major Documentation Overhaul & Code Quality Improvements
@@ -94,6 +132,58 @@ All notable changes to the ThinkRED website are documented in this file. The for
   - All internal links work correctly in both development and production
   - Consistent behavior across different URL naming conventions
   - Clean error messages for missing documents
+
+---
+
+## [0.2.1] - 2025-06-15
+
+### 🎨 Brand Guidelines Expansion & Documentation Polish
+
+#### Brand Enhancement
+
+- **Brand Guidelines**: Major expansion of `/docs/brand-guidelines.md` with comprehensive usage guidelines
+  - Detailed etymology and meaning of "thinkred" and "ThinkRED" brands
+  - Extensive logo usage guidelines with specific context examples
+  - Comprehensive RED mascot documentation with personality, purpose, and implementation details
+  - Detailed usage do's and don'ts for all brand assets
+  - Technical implementation and accessibility guidelines
+
+#### Brand Consistency Fixes
+
+- **Brand Consistency**: Renamed remaining "assistant-reddy" references to "assistant-red"
+  - Updated SVG docname reference in `assistant-red-sleeping.svg`
+  - Ensured all mascot references use "RED" or "assistant-red" consistently
+
+#### Social Media Updates
+
+- **Social Media Links**: Corrected all social media links in Footer component
+  - GitHub: Updated to `https://github.com/thinkredtech`
+  - LinkedIn: Updated to `https://www.linkedin.com/company/thinkredtech/`
+  - X (Twitter): Updated to `https://x.com/thinkredtech` with new X logo SVG
+
+#### Favicon Resolution
+
+- **Favicon Configuration**: Resolved favicon loading issues
+  - Copied favicon.ico to correct `/public/` root directory
+  - Enhanced favicon configuration in `index.html` with multiple sizes
+  - Added proper icon links for various devices and browsers
+
+#### Repository Cleanup
+
+- **Dependencies**: Removed unused packages for better performance
+  - Removed `@headlessui/react` (unused UI library)
+  - Removed `@heroicons/react` (unused icon library)
+  - Cleaned up repository of obsolete files (.DS_Store removal)
+- **Documentation**: Removed redundant `README_new.md` file
+  - Consolidated to single `README.md` for clarity
+  - Eliminated potential confusion between duplicate documentation
+
+### 📋 Documentation Improvements
+
+- Expanded brand guidelines with 4x more content and detail
+- Added comprehensive RED mascot documentation and usage scenarios
+- Enhanced logo usage guidelines with specific implementation examples
+- Improved technical specifications and accessibility notes
 
 ---
 

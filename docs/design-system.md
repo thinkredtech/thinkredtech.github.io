@@ -77,17 +77,20 @@ Used for all body text, navigation, and interface elements where readability and
 ### Brand Color Palette
 
 #### Primary Brand Color
+
 - **ThinkRED Primary**: `#E4093E`
 - **Usage**: Primary CTAs, brand elements, active states, primary navigation
 - **Accessibility**: Meets WCAG AA contrast requirements against white backgrounds
 
 #### Accent Colors
+
 - **ThinkRED Blue**: `#518CEA`
   - **Usage**: Secondary actions, informational elements, links
 - **ThinkRED Purple**: `#AE6CFC`
   - **Usage**: Tertiary actions, decorative elements, gradients
 
 #### Neutral Colors
+
 - **Dark Primary**: `#2A2A2A`
   - **Usage**: Primary text, headlines, high-emphasis content
 - **Medium Gray**: `#7A7A7A`
@@ -98,6 +101,7 @@ Used for all body text, navigation, and interface elements where readability and
 ### Background Colors
 
 #### Primary Backgrounds
+
 - **Pure White**: `#FEFEFE`
   - **Usage**: Main content areas, cards, modals
 - **Warm White**: `#FEFEF6`
@@ -106,6 +110,7 @@ Used for all body text, navigation, and interface elements where readability and
 ### Extended Color Palette
 
 #### State Colors
+
 - **Success**: `#10B981` (Green)
 - **Warning**: `#F59E0B` (Amber)
 - **Error**: `#EF4444` (Red)
@@ -113,6 +118,7 @@ Used for all body text, navigation, and interface elements where readability and
 
 #### Opacity Variants
 Each brand color includes predefined opacity variants:
+
 - 10%, 20%, 30%, 50%, 70%, 90% opacity levels
 - Used for backgrounds, hover states, and layered elements
 
@@ -135,6 +141,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 | `spacing-16` | 64px | 4rem | Giant spacing, section dividers |
 
 ### Layout Spacing
+
 - **Container Max Width**: 1200px
 - **Container Padding**: 16px (mobile), 24px (tablet), 32px (desktop)
 - **Section Vertical Spacing**: 64px (mobile), 96px (desktop)
@@ -152,6 +159,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 | **Regular** | `0.8px 8px rgba(0,0,0,0.16)` | Cards, modals, prominent elements |
 
 ### Shadow Usage Guidelines
+
 - Use shadows to establish visual hierarchy
 - Maintain consistency across similar components
 - Consider performance impact of complex shadows
@@ -174,6 +182,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ### Button System
 
 #### Primary Button
+
 - **Background**: `#E4093E` (ThinkRED Primary)
 - **Text**: White
 - **Padding**: 12px 24px
@@ -182,6 +191,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 - **States**: Hover (darker), Active (darkest), Disabled (grayed)
 
 #### Secondary Button
+
 - **Border**: 2px solid `#E4093E`
 - **Text**: `#E4093E`
 - **Background**: Transparent
@@ -191,6 +201,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 - **States**: Hover (filled), Active (darker), Disabled (grayed)
 
 #### Tertiary Button
+
 - **Background**: Transparent
 - **Text**: `#E4093E`
 - **Padding**: 12px 24px
@@ -202,6 +213,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ### Card System
 
 #### Standard Card
+
 - **Background**: `#FEFEFE` (Pure White)
 - **Border Radius**: 8px (radius-default)
 - **Shadow**: Regular shadow
@@ -209,6 +221,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 - **Border**: None (shadow provides definition)
 
 #### Feature Card
+
 - **Background**: `#FEFEFE`
 - **Border Radius**: 16px (radius-lg)
 - **Shadow**: Regular shadow
@@ -218,6 +231,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ### Form Elements
 
 #### Input Fields
+
 - **Border**: 1px solid `#E5E7EB`
 - **Border Radius**: 8px (radius-default)
 - **Padding**: 12px 16px
@@ -226,6 +240,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 - **Error State**: 2px border `#EF4444` (Error red)
 
 #### Labels
+
 - **Typography**: Label 1 (14px, SemiBold 600, 1px letter-spacing)
 - **Color**: `#2A2A2A` (Dark Primary)
 - **Spacing**: 8px margin bottom
@@ -233,6 +248,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ### Navigation System
 
 #### Header Navigation
+
 - **Background**: `#FEFEFE` with backdrop blur
 - **Height**: 80px
 - **Logo**: Left-aligned, 32px height
@@ -240,6 +256,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 - **Mobile**: Hamburger menu with slide-out drawer
 
 #### Mobile Navigation
+
 - **Drawer Background**: `#FEFEFE`
 - **Animation**: Slide from right, 300ms ease-out
 - **Link Spacing**: 16px vertical spacing
@@ -248,16 +265,19 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ## Accessibility Standards
 
 ### Color Contrast
+
 - All text meets WCAG AA contrast requirements (4.5:1 minimum)
 - Large text meets AAA requirements (3:1 minimum)
 - Interactive elements have sufficient contrast in all states
 
 ### Focus Management
+
 - Visible focus indicators on all interactive elements
 - Logical tab order throughout the interface
 - Skip links for keyboard navigation
 
 ### Screen Reader Support
+
 - Semantic HTML structure
 - Appropriate ARIA labels and descriptions
 - Alt text for all meaningful images
@@ -274,6 +294,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 | `wide` | 1440px | Large desktop displays |
 
 ### Grid System
+
 - **Mobile**: Single column, full-width components
 - **Tablet**: 2-3 column grid, flexible layouts
 - **Desktop**: 3-4 column grid, optimal content width
@@ -296,6 +317,7 @@ All design tokens are implemented as CSS custom properties for easy theming and 
 ```
 
 ### Component Implementation
+
 - Use TypeScript for type safety
 - Implement proper prop interfaces
 - Include accessibility attributes
@@ -303,6 +325,7 @@ All design tokens are implemented as CSS custom properties for easy theming and 
 - Document component usage and examples
 
 ### Performance Considerations
+
 - Optimize animations for 60fps
 - Use CSS transforms for performant animations
 - Implement lazy loading for images
