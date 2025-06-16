@@ -7,21 +7,19 @@ const FAQPage = () => {
         <div className="container mx-auto text-center mt-16">
           <div className="flex flex-col items-center mb-8">
             <FaQuestionCircle className="w-12 h-12 text-primary mb-4" />
-            <h1 className="text-4xl font-bold mb-2">
-              Frequently Asked Questions
-            </h1>
+            <h1 className="display-2 mb-2">Frequently Asked Questions</h1>
           </div>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
+          <p className="body-1-medium text-secondary max-w-3xl mx-auto">
             Find answers to common questions about working with ThinkRED
             Technologies.
           </p>
         </div>
       </section>
-      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-backgroundAlt">
+      <section className="py-16 md:py-24 bg-backgroundAlt">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-6">
             <div className="bg-white p-6 rounded-lg shadow-regular">
-              <h3 className="font-medium text-dark text-lg mb-2">
+              <h3 className="body-1-medium text-dark mb-2">
                 What is your typical project process?
               </h3>
               <p className="text-secondary">
@@ -32,7 +30,7 @@ const FAQPage = () => {
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-regular">
-              <h3 className="font-medium text-dark text-lg mb-2">
+              <h3 className="body-1-medium text-dark mb-2">
                 How long does a typical project take?
               </h3>
               <p className="text-secondary">
@@ -43,7 +41,7 @@ const FAQPage = () => {
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-regular">
-              <h3 className="font-medium text-dark text-lg mb-2">
+              <h3 className="body-1-medium text-dark mb-2">
                 Do you provide ongoing support after launch?
               </h3>
               <p className="text-secondary">
@@ -54,7 +52,7 @@ const FAQPage = () => {
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-regular">
-              <h3 className="font-medium text-dark text-lg mb-2">
+              <h3 className="body-1-medium text-dark mb-2">
                 What technologies do you specialize in?
               </h3>
               <p className="text-secondary">
@@ -66,7 +64,7 @@ const FAQPage = () => {
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-regular">
-              <h3 className="font-medium text-dark text-lg mb-2">
+              <h3 className="body-1-medium text-dark mb-2">
                 How do you handle project changes or additional requirements?
               </h3>
               <p className="text-secondary">

@@ -381,3 +381,123 @@ export interface AnimationConfig {
   /** Direction of animation (for slide/fade effects) */
   direction?: 'up' | 'down' | 'left' | 'right' | 'fade';
 }
+
+/**
+ * Job position/opening structure for career page
+ *
+ * @interface Position
+ * @example
+ * ```typescript
+ * const position: Position = {
+ *   id: 1,
+ *   slug: 'senior-frontend-developer',
+ *   title: 'Senior Frontend Developer',
+ *   type: 'Full-time',
+ *   location: 'Remote',
+ *   experience: '3+ years',
+ *   description: 'Join our team to build amazing user experiences...',
+ *   requirements: ['React expertise', 'TypeScript knowledge'],
+ *   responsibilities: ['Build frontend applications', 'Mentor junior devs'],
+ *   skills: ['React', 'TypeScript', 'CSS'],
+ *   createdAt: '2024-01-15T10:00:00Z',
+ *   updatedAt: '2024-01-15T10:00:00Z'
+ * };
+ * ```
+ */
+export interface Position {
+  /** Unique identifier for the position */
+  id: number;
+  /** URL-friendly unique identifier for the position */
+  slug: string;
+  /** Job title or position name */
+  title: string;
+  /** Employment type (e.g., Full-time, Part-time, Contract) */
+  type: string;
+  /** Work location (e.g., Remote, On-site, Hybrid) */
+  location: string;
+  /** Required experience level */
+  experience: string;
+  /** Detailed description of the role */
+  description: string;
+  /** Array of job requirements */
+  requirements: string[];
+  /** Array of key responsibilities */
+  responsibilities: string[];
+  /** Array of required/preferred skills */
+  skills: string[];
+  /** ISO timestamp when the position was created */
+  createdAt: string;
+  /** ISO timestamp when the position was last updated */
+  updatedAt: string;
+}
+
+/**
+ * Job application data structure
+ *
+ * @interface JobApplication
+ * @example
+ * ```typescript
+ * const application: JobApplication = {
+ *   applicationId: 'APP-1234567890-abc123def',
+ *   jobId: 1,
+ *   jobSlug: 'senior-frontend-developer',
+ *   jobTitle: 'Senior Frontend Developer',
+ *   applicant: {
+ *     firstName: 'John',
+ *     lastName: 'Doe',
+ *     email: 'john.doe@example.com',
+ *     phone: '+1234567890',
+ *     linkedIn: 'https://linkedin.com/in/johndoe',
+ *     portfolio: 'https://johndoe.dev',
+ *     coverLetter: 'I am interested in this position...',
+ *     experience: '5 years of React development...',
+ *     availability: 'immediately',
+ *     salaryExpectation: '$80,000 - $90,000',
+ *     relocate: 'no',
+ *     references: 'Available upon request'
+ *   },
+ *   status: 'submitted',
+ *   submittedAt: '2024-01-16T10:00:00Z',
+ *   updatedAt: '2024-01-16T10:00:00Z'
+ * };
+ * ```
+ */
+export interface JobApplication {
+  /** Unique application identifier */
+  applicationId: string;
+  /** ID of the job position */
+  jobId: number;
+  /** Slug of the job position */
+  jobSlug: string;
+  /** Title of the job position */
+  jobTitle: string;
+  /** Applicant's personal and professional information */
+  applicant: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    linkedIn?: string;
+    portfolio?: string;
+    coverLetter?: string;
+    experience?: string;
+    availability?: string;
+    salaryExpectation?: string;
+    relocate?: string;
+    references?: string;
+    resume?: File | string; // File object or file path/URL
+    coverLetterFile?: File | string; // File object or file path/URL
+  };
+  /** Current status of the application */
+  status:
+    | 'submitted'
+    | 'under_review'
+    | 'interviewing'
+    | 'offer_extended'
+    | 'accepted'
+    | 'rejected';
+  /** ISO timestamp when the application was submitted */
+  submittedAt: string;
+  /** ISO timestamp when the application was last updated */
+  updatedAt: string;
+}

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/ui/PageHero';
+import Filter from '../components/ui/Filter';
+import SearchInput from '../components/ui/SearchInput';
+import ResetButton from '../components/ui/ResetButton';
+import FilterContainer from '../components/ui/FilterContainer';
 
 // Define portfolio item type
 interface PortfolioItem {
@@ -113,91 +117,106 @@ const PortfolioPage = () => {
 
       <div className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
         <div className="container mx-auto px-4">
-          {/* Search and Filters */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {/* Search Input */}
-              <div className="col-span-1 md:col-span-2">
-                <label
-                  htmlFor="search"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Search
+          {/* Enhanced Search and Filters using shared components */}
+          <FilterContainer
+            showStats={true}
+            totalItems={portfolioItems.length}
+            filteredItems={filteredItems.length}
+            itemName="projects"
+            quickActions={
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm text-secondary/70">Popular:</span>
+                {['WordPress', 'React', 'JavaScript'].map(tech => (
+                  <button
+                    key={tech}
+                    onClick={() => setSelectedTech(tech)}
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary hover:text-white transition-all duration-300"
+                  >
+                    {tech}
+                  </button>
+                ))}
+              </div>
+            }
+          >
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-6">
+              {/* Enhanced Search Input */}
+              <SearchInput
+                label="Search Projects"
+                placeholder="Search by title, description, or client..."
+                value={searchTerm}
+                onChange={setSearchTerm}
+                className="col-span-1 md:col-span-3"
+              />
+
+              {/* Enhanced Technology Filter */}
+              <Filter
+                label="Technology"
+                options={technologies.map(tech => ({
+                  label: tech,
+                  value: tech,
+                }))}
+                value={selectedTech}
+                onChange={setSelectedTech}
+                placeholder="All Technologies"
+                className="col-span-1 md:col-span-2"
+                icon={
+                  <svg
+                    className="w-5 h-5 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                    />
+                  </svg>
+                }
+              />
+
+              {/* Enhanced Category Filter */}
+              <Filter
+                label="Category"
+                options={categories.map(category => ({
+                  label: category,
+                  value: category,
+                }))}
+                value={selectedCategory}
+                onChange={setSelectedCategory}
+                placeholder="All Categories"
+                className="col-span-1 md:col-span-2"
+                icon={
+                  <svg
+                    className="w-5 h-5 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0"
+                    />
+                  </svg>
+                }
+              />
+
+              {/* Enhanced Reset Button */}
+              <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
+                <label className="block label-1 text-secondary mb-2">
+                  Actions
                 </label>
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="Search projects..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                <ResetButton
+                  onReset={resetFilters}
+                  className="w-full max-w-[60px]"
+                  title="Reset all filters"
                 />
               </div>
-
-              {/* Technology Filter */}
-              <div>
-                <label
-                  htmlFor="tech-filter"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Technology
-                </label>
-                <select
-                  id="tech-filter"
-                  value={selectedTech}
-                  onChange={e => setSelectedTech(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  <option value="">All Technologies</option>
-                  {technologies.map((tech, index) => (
-                    <option key={index} value={tech}>
-                      {tech}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Category Filter */}
-              <div>
-                <label
-                  htmlFor="category-filter"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Category
-                </label>
-                <select
-                  id="category-filter"
-                  value={selectedCategory}
-                  onChange={e => setSelectedCategory(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  <option value="">All Categories</option>
-                  {categories.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
-
-            {/* Reset Filters Button */}
-            <div className="mt-4 flex justify-end">
-              <button
-                onClick={resetFilters}
-                className="px-4 py-2 text-sm text-primary hover:bg-primary/5 rounded-md transition-colors"
-              >
-                Reset Filters
-              </button>
-            </div>
-          </div>
-
-          {/* Results Count */}
-          <div className="mb-8">
-            <p className="text-secondary">
-              Showing {filteredItems.length} of {portfolioItems.length} projects
-            </p>
-          </div>
+          </FilterContainer>
 
           {/* Portfolio Grid */}
           {filteredItems.length > 0 ? (
@@ -215,14 +234,14 @@ const PortfolioPage = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <h3 className="heading-2 mb-2">{item.title}</h3>
                     <p className="text-secondary mb-4">{item.description}</p>
 
                     <div className="mb-4">
-                      <p className="text-sm text-gray-500 mb-1">
+                      <p className="text-sm text-secondary/70 mb-1">
                         Client: {item.client}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-secondary/70">
                         Category: {item.category}
                       </p>
                     </div>
@@ -265,7 +284,7 @@ const PortfolioPage = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-xl text-secondary mb-4">
+              <p className="body-1-medium text-secondary mb-4">
                 No projects match your search criteria.
               </p>
               <button onClick={resetFilters} className="btn btn-primary">
@@ -276,10 +295,8 @@ const PortfolioPage = () => {
 
           {/* Call to Action */}
           <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg text-secondary mb-6 max-w-2xl mx-auto">
+            <h2 className="heading-1 mb-4">Ready to Start Your Project?</h2>
+            <p className="text-secondary mb-6 max-w-2xl mx-auto">
               Let's discuss how ThinkRED can help bring your vision to life with
               our expertise in web development, platform engineering, and more.
             </p>

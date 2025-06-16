@@ -7,11 +7,8 @@ const ScrollToTop = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-
-      // Show scroll to top when user scrolls down more than one screen height
       setIsVisible(scrollPosition > windowHeight * 0.5);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -28,13 +25,14 @@ const ScrollToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 left-6 z-40 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+      className={`fixed bottom-8 left-8 z-40 bg-gradient-to-r from-primary to-primary/80 text-white w-10 h-10 rounded-lg shadow-2xl hover:shadow-[0_25px_50px_rgba(228,9,62,0.3)] transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-primary/30 backdrop-blur-sm border border-white/10 group ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}
       aria-label="Scroll to top"
     >
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <svg
-        className="w-5 h-5"
+        className="w-4 h-4 mx-auto transition-transform duration-300 group-hover:scale-110"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -42,7 +40,7 @@ const ScrollToTop = () => {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={2.5}
           d="M5 10l7-7m0 0l7 7m-7-7v18"
         />
       </svg>

@@ -196,8 +196,10 @@ const TechStack = () => {
               : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="heading-1 mb-4">Our Technology Stack</h2>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
+          <h2 className="heading-1 mb-4 text-secondary">
+            Our Technology Stack
+          </h2>
+          <p className="max-w-3xl mx-auto text-secondary">
             We leverage modern technologies and frameworks to build robust,
             scalable, and high-performance solutions.
           </p>
@@ -212,10 +214,10 @@ const TechStack = () => {
             <button
               key={index}
               onClick={() => setActiveCategory(index)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-500 ${
+              className={`px-4 py-2 rounded-lg transition-all duration-500 ${
                 activeCategory === index
                   ? 'bg-primary text-white shadow-lg scale-105'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 hover:scale-102'
+                  : 'bg-white text-secondary hover:bg-gray-50 hover:scale-102'
               } ${
                 visibleTabs.includes(index)
                   ? 'opacity-100 translate-y-0'
@@ -239,8 +241,8 @@ const TechStack = () => {
               : 'opacity-0 translate-y-8 scale-95'
           }`}
         >
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
-            <h3 className="text-xl font-bold text-center mb-6 text-primary">
+          <div className="bg-white rounded-lg p-6 md:p-8 shadow-lg">
+            <h3 className="heading-2 text-center mb-6 text-primary">
               {technologies[activeCategory].category}
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -252,7 +254,7 @@ const TechStack = () => {
                   <div className="w-14 h-14 mb-3 flex items-center justify-center bg-gray-50 rounded-xl shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-white">
                     {tech.icon}
                   </div>
-                  <span className="text-sm font-medium text-center text-gray-700 group-hover:text-primary transition-colors">
+                  <span className="text-center text-secondary group-hover:text-primary transition-colors">
                     {tech.name}
                   </span>
                 </div>
@@ -266,7 +268,7 @@ const TechStack = () => {
           ref={overviewRef as React.RefObject<HTMLDivElement>}
           className="mb-8"
         >
-          <h3 className="text-lg font-semibold text-center mb-6 text-dark">
+          <h3 className="body-1-semibold text-center mb-6 text-secondary">
             Complete Technology Overview
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -285,7 +287,7 @@ const TechStack = () => {
                 }}
                 onClick={() => setActiveCategory(index)}
               >
-                <h4 className="font-semibold text-sm text-gray-800 mb-3 text-center">
+                <h4 className="font-semibold text-sm text-secondary mb-3 text-center">
                   {category.category}
                 </h4>
                 <div className="flex flex-wrap justify-center gap-2">
@@ -301,7 +303,7 @@ const TechStack = () => {
                     </div>
                   ))}
                   {category.techs.length > 6 && (
-                    <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg text-xs font-medium text-gray-600">
+                    <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg body-3 text-secondary">
                       +{category.techs.length - 6}
                     </div>
                   )}
@@ -320,7 +322,7 @@ const TechStack = () => {
         >
           <Link
             to="/services"
-            className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
+            className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
           >
             Learn About Our Technical Expertise
             <svg

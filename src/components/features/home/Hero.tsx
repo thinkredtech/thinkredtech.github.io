@@ -72,7 +72,7 @@ const Hero = () => {
                   : 'opacity-0 translate-y-8'
               }`}
             >
-              <h1 className="font-comfortaa text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+              <h1 className="display-2">
                 <span className="inline-block transition-all duration-500 ease-in-out">
                   {taglines[currentTagline].split(' ').map((word, index) => (
                     <span
@@ -86,7 +86,7 @@ const Hero = () => {
                         word === 'Future' ||
                         word === 'Excellence'
                           ? 'text-primary'
-                          : 'text-black'
+                          : 'text-secondary'
                       }`}
                     >
                       {word}
@@ -97,7 +97,7 @@ const Hero = () => {
             </div>
 
             <div className="space-y-6">
-              <p className="text-lg md:text-xl text-secondary max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-secondary max-w-lg mx-auto lg:mx-0">
                 We're a team of passionate engineers who specialize in
                 transforming complex challenges into elegant solutions. From
                 startups to enterprises, we build technology that matters.
@@ -107,20 +107,20 @@ const Hero = () => {
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm">
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-dark font-medium">
-                    50+ Years Combined Expertise
+                  <span className="text-secondary font-medium">
+                    Full-Stack Expertise
                   </span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-accent1 rounded-full"></div>
-                  <span className="text-dark font-medium">
-                    Top-Tier Performance
+                  <span className="text-secondary font-medium">
+                    Quality-Driven Development
                   </span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-accent2 rounded-full"></div>
-                  <span className="text-dark font-medium">
-                    Open Source Leaders
+                  <span className="text-secondary font-medium">
+                    Open Source Heritage
                   </span>
                 </div>
               </div>
@@ -132,7 +132,7 @@ const Hero = () => {
             >
               <Link
                 to="/contact"
-                className={`btn btn-primary px-8 py-4 text-lg font-semibold group relative overflow-hidden transition-all duration-1000 delay-200 ${
+                className={`btn btn-primary px-8 py-4 group relative overflow-hidden transition-all duration-1000 delay-200 ${
                   animatedCTAItems.includes(0)
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-8'
@@ -143,7 +143,7 @@ const Hero = () => {
               </Link>
               <Link
                 to="/portfolio"
-                className={`btn btn-secondary px-8 py-4 text-lg font-semibold group transition-all duration-1000 delay-400 ${
+                className={`btn btn-secondary px-8 py-4 group transition-all duration-1000 delay-400 ${
                   animatedCTAItems.includes(1)
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-8'
@@ -170,7 +170,7 @@ const Hero = () => {
           <div className="relative mt-8 lg:mt-0">
             {/* Interactive showcase card */}
             <div className="relative group">
-              <div className="relative w-full h-80 lg:h-96 bg-white/20 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-105 border border-white/30">
+              <div className="relative w-full h-80 lg:h-96 bg-white/20 backdrop-blur-sm rounded-lg shadow-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-105 border border-white/30">
                 {/* Clean showcase area */}
                 <div className="absolute inset-0 p-8">
                   {/* Central logo */}
@@ -225,9 +225,7 @@ const Hero = () => {
           aria-label="Scroll to services section"
         >
           <div className="flex items-center space-x-2 text-secondary group-hover:text-primary transition-colors duration-300 mb-2">
-            <span className="text-sm font-medium">
-              Scroll to learn about our services
-            </span>
+            <span>Scroll to learn more</span>
           </div>
           <div className="flex justify-center">
             <svg

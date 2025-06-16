@@ -78,7 +78,7 @@ const TeamExpertise = () => {
       icon: <LeadershipIcon />,
       title: 'Leadership Excellence',
       description:
-        '15+ years of experience building and leading high-performing global teams, fostering inclusive cultures, and driving organizational transformation.',
+        'Extensive experience building and leading high-performing global teams, fostering inclusive cultures, and driving organizational transformation.',
       highlights: [
         'Global Team Leadership',
         'Talent Development',
@@ -102,7 +102,7 @@ const TeamExpertise = () => {
       icon: <CloudIcon />,
       title: 'Cloud & Infrastructure',
       description:
-        'Proven track record in cloud-native architectures, serverless solutions, and infrastructure automation delivering multi-million dollar savings.',
+        'Proven track record in cloud-native architectures, serverless solutions, and infrastructure automation, focusing on efficiency and robust solutions.',
       highlights: [
         'AWS & Kubernetes',
         'OpenShift Expertise',
@@ -114,7 +114,7 @@ const TeamExpertise = () => {
       icon: <DevOpsIcon />,
       title: 'DevOps & Automation',
       description:
-        'Extensive experience in CI/CD pipeline optimization, workflow automation, and developer experience improvements saving thousands of engineering hours.',
+        'Extensive experience in CI/CD pipeline optimization, workflow automation, and developer experience improvements, enhancing productivity and quality.',
       highlights: [
         'CI/CD Excellence',
         'Workflow Automation',
@@ -149,7 +149,7 @@ const TeamExpertise = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-backgroundAlt">
+    <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div
@@ -160,8 +160,10 @@ const TeamExpertise = () => {
               : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="heading-1 mb-4">Team Expertise & Value Proposition</h2>
-          <p className="text-lg text-secondary max-w-4xl mx-auto">
+          <h2 className="heading-1 mb-4 text-secondary">
+            Team Expertise & Value Proposition
+          </h2>
+          <p className="max-w-4xl mx-auto text-secondary">
             Our leadership team brings together decades of enterprise
             experience, open-source expertise, and proven track records in
             scaling technology solutions across global organizations. We combine
@@ -192,7 +194,7 @@ const TeamExpertise = () => {
                 <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mr-4 group-hover:bg-primary/20 transition-colors duration-300">
                   {area.icon}
                 </div>
-                <h3 className="text-xl font-bold text-dark group-hover:text-primary transition-colors duration-300">
+                <h3 className="heading-2 text-secondary group-hover:text-primary transition-colors duration-300">
                   {area.title}
                 </h3>
               </div>
@@ -207,7 +209,7 @@ const TeamExpertise = () => {
                 {area.highlights.map((highlight, highlightIndex) => (
                   <div key={highlightIndex} className="flex items-center">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3 flex-shrink-0"></div>
-                    <span className="text-sm text-dark font-medium">
+                    <span className="text-sm text-secondary font-medium">
                       {highlight}
                     </span>
                   </div>
@@ -228,7 +230,7 @@ const TeamExpertise = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-4">
+              <h3 className="heading-1 text-dark mb-4">
                 Why Organizations Choose ThinkRED
               </h3>
               <p className="text-secondary mb-6">
@@ -239,33 +241,23 @@ const TeamExpertise = () => {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">
-                    50+
-                  </div>
+                  <div className="heading-1 text-primary mb-1">Open Source</div>
                   <div className="text-sm text-secondary">
-                    Years Combined Experience
+                    Heritage &amp; Focus
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">
-                    $10M+
-                  </div>
+                  <div className="heading-1 text-primary mb-1">Modern</div>
+                  <div className="text-sm text-secondary">Technology Stack</div>
+                </div>
+                <div className="text-center">
+                  <div className="heading-1 text-primary mb-1">Quality</div>
                   <div className="text-sm text-secondary">
-                    In Client Cost Savings
+                    Driven Development
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">
-                    15+
-                  </div>
-                  <div className="text-sm text-secondary">
-                    Projects Delivered
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">
-                    Global
-                  </div>
+                  <div className="heading-1 text-primary mb-1">Global</div>
                   <div className="text-sm text-secondary">
                     Enterprise Experience
                   </div>

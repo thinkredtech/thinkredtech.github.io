@@ -19,6 +19,7 @@ const Footer = () => {
       links: [
         { name: 'Case Studies', path: '/portfolio' },
         { name: 'Documentation', path: '/docs' },
+        { name: 'Brand Guidelines', path: '/brand-guidelines' },
         { name: 'FAQ', path: '/faq' },
         { name: 'Support', path: '/contact' },
       ],
@@ -38,7 +39,7 @@ const Footer = () => {
                 className="mt-1 h-4"
               />
             </Link>
-            <p className="text-gray-400 mb-6 max-w-md">
+            <p className="text-gray-300 mb-6 max-w-md">
               ThinkRED Technologies simplifies technology to create exceptional
               experiences. We build cutting-edge web applications, platforms,
               and infrastructure solutions that transform businesses and delight
@@ -49,7 +50,7 @@ const Footer = () => {
                 href="https://github.com/thinkredtech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-secondary/60 hover:text-white transition-colors"
                 title="GitHub"
               >
                 <svg
@@ -64,7 +65,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/company/thinkredtech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-secondary/60 hover:text-white transition-colors"
                 title="LinkedIn"
               >
                 <svg
@@ -79,7 +80,7 @@ const Footer = () => {
                 href="https://x.com/thinkredtech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-secondary/60 hover:text-white transition-colors"
                 title="X (formerly Twitter)"
               >
                 <svg
@@ -96,7 +97,7 @@ const Footer = () => {
           {/* Footer Links */}
           {footerLinks.map((section, index) => (
             <div key={index}>
-              <h3 className="font-comfortaa font-bold text-lg mb-4">
+              <h3 className="font-comfortaa font-bold body-1-medium mb-4">
                 {section.title}
               </h3>
               <ul className="space-y-2">
@@ -104,7 +105,7 @@ const Footer = () => {
                   <li key={linkIndex}>
                     <Link
                       to={link.path}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-secondary/60 hover:text-white transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -118,28 +119,28 @@ const Footer = () => {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-gray-400 text-sm">
+              <p className="text-secondary/60 text-sm">
                 &copy; {currentYear} ThinkRED Technologies LLP. All rights
                 reserved.
               </p>
             </div>
             <div className="flex space-x-6">
               <Link
-                className="text-gray-400 hover:text-white text-sm transition-colors"
+                className="text-secondary/60 hover:text-white text-sm transition-colors"
                 to="/privacy-policy"
                 data-discover="true"
               >
                 Privacy Policy
               </Link>
               <Link
-                className="text-gray-400 hover:text-white text-sm transition-colors"
+                className="text-secondary/60 hover:text-white text-sm transition-colors"
                 to="/terms-of-service"
                 data-discover="true"
               >
                 Terms of Service
               </Link>
               <Link
-                className="text-gray-400 hover:text-white text-sm transition-colors"
+                className="text-secondary/60 hover:text-white text-sm transition-colors"
                 to="/sitemap"
                 data-discover="true"
               >

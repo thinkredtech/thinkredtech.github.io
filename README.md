@@ -10,11 +10,12 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.0+-61dafb.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.4+-646cff.svg)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6.3+-646cff.svg)](https://vitejs.dev/)
+[![Version](https://img.shields.io/badge/Version-1.0.0-green.svg)](./CHANGELOG.md)
 
 *A modern, high-performance corporate website showcasing engineering excellence and innovation-led technology solutions.*
 
-[🌐 Live Website](https://www.thinkred.tech) • [📚 Documentation](./docs/) • [🚀 Getting Started](#-getting-started) • [🛠️ Tech Stack](#%EF%B8%8F-technology-stack)
+[🌐 Live Website](https://www.thinkred.tech) • [📚 Documentation](./docs/) • [🚀 Getting Started](#-getting-started) • [🛠️ Tech Stack](#%EF%B8%8F-technology-stack) • [💼 Careers](https://www.thinkred.tech/careers)
 
 </div>
 
@@ -24,6 +25,47 @@
 
 ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges for businesses worldwide. Founded by engineers with deep roots in open-source communities (Mozilla, Fedora, Red Hat), we bring together innovation, collaboration, and technical excellence to deliver transformative digital solutions.
 
+### ✨ Version 1.0.0 - Major Release (June 2025)
+
+This major release represents a complete modernization of our website with comprehensive new features and UI/UX improvements:
+
+#### 🚀 **Major New Features**
+
+- **Complete Job Application System**: 
+  - Full-featured job application forms with file upload (resume, cover letter)
+  - Secure admin panel for job management (password-protected at `/admin/jobs`)
+  - Dynamic job listings with unique IDs and slug-based routing
+  - Job details pages with comprehensive information and direct application links
+
+- **Advanced User Experience**:
+  - Automatic scroll-to-top on page navigation
+  - Unified filter and search system for Portfolio and Blog pages
+  - Lazy image loading for improved performance
+  - Grid/list view toggle for portfolio items
+  - Enhanced mobile responsiveness
+
+- **Brand Guidelines Recreation**:
+  - Complete Brand Guidelines page with visual demonstrations
+  - Interactive color swatches and typography examples
+  - Logo usage guidelines and mascot showcase
+
+#### 🎨 **Complete UI/UX Standardization**
+
+- **Design System**: Unified typography, colors, spacing, and border radius
+- **Component Library**: Shared, reusable UI components for consistency
+- **Filter System**: Professional filter and search interfaces
+- **Accessibility**: Improved contrast ratios and keyboard navigation
+- **Mobile-First**: Responsive design optimized for all device sizes
+
+#### 🔧 **Technical Excellence**
+
+- **Modern React 19**: Latest React features with TypeScript integration
+- **Performance Optimized**: Lazy loading, code splitting, and optimized bundles
+- **Error Handling**: Comprehensive validation and error boundaries
+- **Type Safety**: Full TypeScript coverage for all components and utilities
+- **Build System**: Advanced Vite configuration for production optimization
+- **Documentation**: Updated with persistent worklog for memory resilience
+
 ### 🌟 Key Features
 
 <table>
@@ -32,17 +74,24 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 
 #### 🎨 **Modern Design System**
 
-- Responsive, mobile-first design
-- Component-based architecture
-- Consistent brand implementation
+- Unified typography, colors, and spacing
+- Shared component library architecture
+- Professional filter and search interfaces
 - Accessibility (WCAG 2.1 AA compliant)
+
+#### 💼 **Complete Job Application System**
+
+- Full-featured application forms with file uploads
+- Secure admin panel for job management
+- Dynamic job listings with slug-based routing
+- Application tracking and management
 
 #### ⚡ **Performance Optimized**
 
 - React 19 with concurrent features
-- Code splitting and lazy loading
-- Optimized asset delivery
-- <2s page load times
+- Lazy image loading and code splitting
+- Optimized asset delivery and bundles
+- Automatic scroll-to-top navigation
 
 </td>
 <td width="50%">
@@ -53,6 +102,13 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 - Smart sleep/wake functionality
 - Scroll and hover interactions
 - Cross-device responsive design
+
+#### 🔍 **Advanced Search & Filtering**
+
+- Unified filter system for Portfolio and Blog
+- Real-time search with instant results
+- Category and technology-based filtering
+- Grid/list view toggle for portfolio items
 
 #### 📱 **Multi-Platform Experience**
 
@@ -74,7 +130,7 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 ### Frontend Foundation
 [![React](https://img.shields.io/badge/React-19.0+-61dafb?style=for-the-badge&logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.4+-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6.3+-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4+-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 
 ### UI & Interactions
@@ -135,7 +191,35 @@ ThinkRED Technologies LLP is an engineering-focused technology consultancy that 
 
 ---
 
-## 🚀 Getting Started
+## � Job Application System
+
+Our website includes a comprehensive job application system designed for both candidates and administrators:
+
+### For Job Seekers
+
+- **Browse Open Positions**: Visit [/careers](https://www.thinkred.tech/careers) to see current openings
+- **View Job Details**: Click on any position to see detailed requirements and responsibilities
+- **Apply Online**: Submit applications with resume and cover letter uploads
+- **Track Applications**: Each application receives a unique ID for reference
+
+### For Administrators
+
+- **Secure Admin Panel**: Access job management at [/admin/jobs](https://www.thinkred.tech/admin/jobs) (password required)
+- **Job Management**: Add, edit, and delete job postings without code changes
+- **Application Review**: View and manage submitted applications
+- **Dynamic Content**: All changes reflect immediately on the careers page
+
+### Key Features
+
+- **File Upload Support**: Resume and cover letter uploads with validation
+- **Unique Job IDs**: Automatic generation of job identifiers and URL slugs
+- **SEO-Friendly URLs**: Human-readable URLs for all job postings
+- **Mobile Optimized**: Full functionality across all device types
+- **Data Persistence**: Local storage integration for reliable data management
+
+---
+
+## �🚀 Getting Started
 
 ### 📋 Prerequisites
 

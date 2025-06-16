@@ -2,6 +2,8 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/features/layout/Layout';
 import AvatarAssistant from './components/ui/AvatarAssistant';
+import ScrollToTop from './components/ui/ScrollToTop';
+import ScrollToTopOnRouteChange from './components/ui/ScrollToTopOnRouteChange';
 import './styles/components/LoadingScreen.css';
 
 const DocsPage = lazy(() => import('./pages/DocsPage'));
@@ -17,10 +19,15 @@ const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const CareerPage = lazy(() => import('./pages/CareerPage'));
+const JobDetailsPage = lazy(() => import('./pages/JobDetailsPage'));
+const JobApplicationPage = lazy(() => import('./pages/JobApplicationPage'));
+const AdminJobManagement = lazy(() => import('./pages/AdminJobManagement'));
+const BrandGuidelinesPage = lazy(() => import('./pages/BrandGuidelinesPage'));
 
 function App() {
   return (
     <Router>
+      <ScrollToTopOnRouteChange />
       <Layout>
         <Suspense
           fallback={
@@ -38,6 +45,10 @@ function App() {
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/careers" element={<CareerPage />} />
+            <Route path="/careers/:jobId" element={<JobDetailsPage />} />
+            <Route path="/job-details/:jobId" element={<JobDetailsPage />} />
+            <Route path="/apply/:jobId" element={<JobApplicationPage />} />
+            <Route path="/admin/jobs" element={<AdminJobManagement />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:postId" element={<BlogPostPage />} />
@@ -46,9 +57,11 @@ function App() {
             <Route path="/sitemap" element={<SitemapPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/brand-guidelines" element={<BrandGuidelinesPage />} />
           </Routes>
         </Suspense>
         <AvatarAssistant />
+        <ScrollToTop />
       </Layout>
     </Router>
   );

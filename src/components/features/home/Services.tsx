@@ -9,7 +9,6 @@ const Services = () => {
     useScrollAnimation();
   const { elementRef: servicesRef, visibleItems: visibleServices } =
     useStaggeredAnimation(6, 150);
-  const { elementRef: statsRef, isInView: statsVisible } = useScrollAnimation();
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
   const servicesList = [
     {
@@ -141,10 +140,7 @@ const Services = () => {
   ];
 
   return (
-    <section
-      id="services"
-      className="pt-8 pb-16 md:pt-12 md:pb-24 bg-backgroundAlt"
-    >
+    <section id="services" className="pt-16 pb-16 md:pt-24 md:pb-24 bg-white">
       <div className="container mx-auto px-4">
         <div
           ref={headerRef}
@@ -154,8 +150,8 @@ const Services = () => {
               : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="heading-1 mb-4">Our Services</h2>
-          <p className="text-lg text-secondary max-w-2xl mx-auto">
+          <h2 className="heading-1 mb-4 text-secondary">Our Services</h2>
+          <p className="max-w-2xl mx-auto text-secondary">
             Comprehensive technology solutions designed to accelerate your
             digital transformation.
           </p>
@@ -183,55 +179,16 @@ const Services = () => {
                   {service.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-lg text-dark mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                  <h3 className="heading-3 mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2 text-secondary">
                     {service.title}
                   </h3>
-                  <p className="text-secondary text-sm leading-relaxed line-clamp-3">
+                  <p className="line-clamp-5 text-secondary">
                     {service.description}
                   </p>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Services Summary Stats */}
-        <div
-          ref={statsRef}
-          className={`bg-white rounded-xl shadow-regular p-8 mb-12 transition-all duration-1000 ease-out ${
-            statsVisible
-              ? 'opacity-100 translate-y-0 scale-100'
-              : 'opacity-0 translate-y-8 scale-95'
-          }`}
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                6
-              </div>
-              <div className="text-sm text-secondary">Service Areas</div>
-            </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                50+
-              </div>
-              <div className="text-sm text-secondary">
-                Technologies Mastered
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                15+
-              </div>
-              <div className="text-sm text-secondary">Projects Delivered</div>
-            </div>
-            <div>
-              <div className="text-2xl lg:text-3xl font-bold text-primary mb-1">
-                12hr
-              </div>
-              <div className="text-sm text-secondary">Response Time</div>
-            </div>
-          </div>
         </div>
 
         {/* Call to Action */}
@@ -243,7 +200,7 @@ const Services = () => {
         >
           <Link
             to="/services"
-            className="btn btn-primary px-8 py-3 text-lg font-semibold inline-flex items-center space-x-2 hover:transform hover:scale-105 transition-all duration-300"
+            className="btn btn-primary px-8 py-3 inline-flex items-center space-x-2 hover:transform hover:scale-105 transition-all duration-300"
           >
             <span>Explore All Services</span>
             <svg

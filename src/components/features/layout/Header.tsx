@@ -11,6 +11,7 @@ const Header = () => {
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -59,7 +60,7 @@ const Header = () => {
                 className={`font-medium transition-colors ${
                   location.pathname === item.path
                     ? 'text-primary'
-                    : 'text-dark hover:text-primary'
+                    : 'text-secondary hover:text-primary'
                 }`}
               >
                 {item.name}
@@ -76,7 +77,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-dark focus:outline-none"
+            className="md:hidden text-secondary focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -129,7 +130,7 @@ const Header = () => {
               className={`font-medium py-2 ${
                 location.pathname === item.path
                   ? 'text-primary'
-                  : 'text-dark hover:text-primary'
+                  : 'text-secondary hover:text-primary'
               }`}
             >
               {item.name}

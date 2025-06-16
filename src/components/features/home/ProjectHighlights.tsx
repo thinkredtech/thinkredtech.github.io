@@ -81,7 +81,7 @@ const ProjectHighlights = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-backgroundAlt">
+    <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div
           className={`text-center mb-16 transition-all duration-1000 ${
@@ -91,8 +91,10 @@ const ProjectHighlights = () => {
           }`}
           ref={headerRef as React.RefObject<HTMLDivElement>}
         >
-          <h2 className="heading-1 mb-4">Recent Project Highlights</h2>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
+          <h2 className="heading-1 mb-4 text-secondary">
+            Recent Project Highlights
+          </h2>
+          <p className="text-secondary max-w-3xl mx-auto">
             Discover how we've helped businesses transform their digital
             presence with custom solutions and cutting-edge technology
             implementations.
@@ -119,11 +121,11 @@ const ProjectHighlights = () => {
                   <div className="flex items-center justify-center">
                     {project.icon}
                   </div>
-                  <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                  <span className="body-3 text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {project.client}
                   </span>
                 </div>
-                <h3 className="font-bold text-xl text-dark group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-bold body-1-medium text-secondary group-hover:text-primary transition-colors duration-300">
                   {project.title}
                 </h3>
               </div>
@@ -136,14 +138,12 @@ const ProjectHighlights = () => {
 
                 {/* Technologies */}
                 <div className="mb-6">
-                  <h4 className="text-sm font-medium text-dark mb-3">
-                    Technologies Used:
-                  </h4>
+                  <h4 className="mb-3">Technologies Used:</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md font-medium"
+                        className="text-xs bg-gray-100 text-secondary px-2 py-1 rounded-md font-medium"
                       >
                         {tech}
                       </span>
@@ -155,7 +155,7 @@ const ProjectHighlights = () => {
                 <div className="mb-6">
                   <div className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-sm text-dark font-medium">
+                    <p className="text-sm font-medium">
                       <span className="text-primary">Result:</span>{' '}
                       {project.outcome}
                     </p>
@@ -211,27 +211,6 @@ const ProjectHighlights = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Call to action */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg shadow-regular p-8 max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-dark mb-4">
-              Ready to Transform Your Digital Presence?
-            </h3>
-            <p className="text-secondary mb-6">
-              Let's discuss how we can help you achieve similar results with a
-              custom solution tailored to your business needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/portfolio" className="btn btn-secondary">
-                View All Projects
-              </Link>
-              <Link to="/contact" className="btn btn-primary">
-                Start Your Project
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
     </section>

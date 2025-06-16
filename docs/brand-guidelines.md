@@ -321,4 +321,4 @@ Maintain protected space around the logo equal to the height of the "R" in Think
 
 ---
 
-*For technical implementation details, see the [Design System Documentation](./design-system.md).*
+*For technical implementation details, see the [Design System Documentation](./design-system).*

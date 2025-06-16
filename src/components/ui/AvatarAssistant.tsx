@@ -29,7 +29,8 @@ const AvatarAssistant = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
-  const [isSleeping, setIsSleeping] = useState(false); // Track if user manually hid the assistant
+  const [isSleeping, setIsSleeping] = useState(false); // Track if assistant is sleeping
+  const [isManualSleep, setIsManualSleep] = useState(false); // Track if user manually put assistant to sleep
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -48,6 +49,10 @@ const AvatarAssistant = () => {
   const [lastInteractionTime, setLastInteractionTime] = useState<number>(0);
   const [pageVisitCount, setPageVisitCount] = useState(0);
   const [hasShownSpecialMessage, setHasShownSpecialMessage] = useState(false);
+  const [sleepScrollDistance] = useState(() => {
+    // Generate random distance between 2000px and 4000px
+    return Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
+  });
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const messageRef = useRef<HTMLDivElement>(null);
@@ -375,31 +380,31 @@ const AvatarAssistant = () => {
   // Handle scroll events to put avatar to sleep/wake up
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+      const scrollY = window.scrollY;
 
-      if (scrollPosition > 1000 && !isSleeping && isVisible) {
-        // Put assistant to sleep when scrolled past 1000px
+      // If user manually put assistant to sleep, don't change its state on scroll
+      if (isManualSleep) return;
+
+      // Put assistant to sleep when scrolled down more than random distance, wake up when back up
+      if (scrollY > sleepScrollDistance && !isSleeping) {
         setIsSleeping(true);
+        setIsVisible(false); // Hide message bubble when sleeping
         setIsExpanded(false);
         setShowContextualOptions(false);
-        // Show a brief goodbye message before sleeping
-        setMessage('💤 Going to sleep... Click me to wake up!');
-        setTimeout(() => {
-          setMessage('');
-        }, 2000);
-      } else if (scrollPosition <= 1000 && isSleeping) {
-        // Wake up assistant when scrolled back up
-        wakeUpAssistant();
-        setMessage("👋 I'm back! How can I help?");
-        setTimeout(() => {
-          setMessage('');
-        }, 3000);
+        setMessage(''); // Clear any existing message
+      } else if (
+        scrollY <= sleepScrollDistance &&
+        isSleeping &&
+        !isManualSleep
+      ) {
+        setIsSleeping(false);
+        setIsVisible(true); // Show assistant when waking up
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isSleeping, isVisible]);
+  }, [isSleeping, isManualSleep, sleepScrollDistance]);
 
   // Add attention-seeking behavior
   useEffect(() => {
@@ -844,9 +849,11 @@ const AvatarAssistant = () => {
   // Put assistant to sleep (user-initiated hide)
   const putAssistantToSleep = () => {
     setIsSleeping(true);
+    setIsManualSleep(true); // Mark as manual sleep
     setIsVisible(false);
     setIsExpanded(false);
     setShowContextualOptions(false);
+    setMessage(''); // Clear any existing message
   };
 
   // Wake up assistant (user-initiated show)
@@ -856,6 +863,7 @@ const AvatarAssistant = () => {
     setLastInteractionTime(Date.now());
 
     setIsSleeping(false);
+    setIsManualSleep(false); // Reset manual sleep flag
     setIsVisible(true);
     setIsAnimating(true);
     setAnimationType('bounce');
@@ -925,20 +933,21 @@ const AvatarAssistant = () => {
           />
         </div>
       ) : (
-        isVisible && (
-          <>
-            {/* Message bubble */}
+        isVisible &&
+        !isSleeping && (
+          <div className="relative">
+            {/* Message bubble - positioned relative to this container */}
             {(message || isExpanded || showContextualOptions) && (
               <div
                 ref={messageRef}
-                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-2xl p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'opacity-0 translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
+                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'message-bubble-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
                 onClick={
                   !isExpanded && !showContextualOptions
                     ? handleMessageBubbleClick
                     : undefined
                 }
               >
-                <div className="text-sm text-gray-800 font-medium">
+                <div className="text-sm text-secondary font-medium">
                   {isExpanded ? (
                     <div className="space-y-4">
                       {/* Header with icon and title */}
@@ -950,7 +959,7 @@ const AvatarAssistant = () => {
                           <p className="font-bold text-[#E4093E] text-base">
                             Quick Actions
                           </p>
-                          <p className="text-xs text-gray-500 font-normal">
+                          <p className="text-xs text-secondary/70 font-normal">
                             Choose what you'd like to do
                           </p>
                         </div>
@@ -963,7 +972,7 @@ const AvatarAssistant = () => {
                           onClick={() => navigate('/contact')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
+                            <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white body-1-medium group-hover:scale-110 transition-transform duration-200">
                               <ContactIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
@@ -997,7 +1006,7 @@ const AvatarAssistant = () => {
                           onClick={() => navigate('/portfolio')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
+                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white body-1-medium group-hover:scale-110 transition-transform duration-200">
                               <RocketIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
@@ -1031,7 +1040,7 @@ const AvatarAssistant = () => {
                           onClick={() => navigate('/services')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-200">
+                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white body-1-medium group-hover:scale-110 transition-transform duration-200">
                               <DevOpsIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
@@ -1069,13 +1078,13 @@ const AvatarAssistant = () => {
                               <SleepIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-medium text-gray-600 group-hover:text-gray-700 text-sm">
+                              <p className="font-medium text-secondary group-hover:text-secondary text-sm">
                                 Put Assistant to Sleep
                               </p>
                             </div>
                             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                               <svg
-                                className="w-3 h-3 text-gray-500"
+                                className="w-3 h-3 text-secondary/70"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -1103,7 +1112,7 @@ const AvatarAssistant = () => {
                           <p className="font-bold text-[#E4093E] text-base">
                             Quick Actions
                           </p>
-                          <p className="text-xs text-gray-500 font-normal">
+                          <p className="text-xs text-secondary/70 font-normal">
                             Based on "
                             {message.length > 30
                               ? `${message.substring(0, 30)}...`
@@ -1129,7 +1138,7 @@ const AvatarAssistant = () => {
                                 {option.icon}
                               </div>
                               <div className="text-left flex-1">
-                                <p className="font-medium text-gray-700 group-hover:text-gray-800 text-sm">
+                                <p className="font-medium text-secondary group-hover:text-secondary text-sm">
                                   {option.label}
                                 </p>
                               </div>
@@ -1159,7 +1168,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-2 justify-center">
                             <svg
-                              className="w-4 h-4 text-gray-600"
+                              className="w-4 h-4 text-secondary"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -1171,7 +1180,7 @@ const AvatarAssistant = () => {
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
                               />
                             </svg>
-                            <span className="font-medium text-gray-600 text-sm">
+                            <span className="font-medium text-secondary text-sm">
                               Back to message
                             </span>
                           </div>
@@ -1186,12 +1195,12 @@ const AvatarAssistant = () => {
                       onMouseEnter={handleMessageHover}
                       onMouseLeave={handleMessageUnhover}
                     >
-                      <p className="text-gray-800 leading-relaxed font-medium text-sm mb-2">
+                      <p className="text-secondary leading-relaxed font-medium text-sm mb-2">
                         {message}
                       </p>
                       <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-200/50">
                         <div
-                          className={`flex items-center gap-1 text-xs font-medium transition-colors duration-200 ${
+                          className={`flex items-center gap-1 body-3 transition-colors duration-200 ${
                             isMessageHovered
                               ? 'text-[#E4093E]'
                               : 'text-[#E4093E]/80'
@@ -1212,7 +1221,7 @@ const AvatarAssistant = () => {
                           </svg>
                           <span>Click here for quick help</span>
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <div className="flex items-center gap-1 text-xs text-secondary/70">
                           <svg
                             className="w-3 h-3"
                             fill="none"
@@ -1237,7 +1246,7 @@ const AvatarAssistant = () => {
               </div>
             )}
 
-            {/* Avatar - Fixed position without round backdrop */}
+            {/* Avatar - positioned at the bottom-right of the relative container */}
             <div
               className={`w-16 h-16 sm:w-20 sm:h-20 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${
                 avatarAnimationState === 'bouncing' ||
@@ -1255,7 +1264,7 @@ const AvatarAssistant = () => {
                 <GenieAvatar />
               </div>
             </div>
-          </>
+          </div>
         )
       )}
     </div>

@@ -98,14 +98,14 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Modal */}
         <div
-          className={`inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle ${sizeClasses[size]} sm:w-full`}
+          className={`inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle ${sizeClasses[size]} sm:w-full`}
         >
           {title && (
             <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+              <h3 className="body-1-semibold text-gray-900">{title}</h3>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-secondary/60 hover:text-secondary transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -183,7 +183,7 @@ export const Notification: React.FC<NotificationProps> = ({
               <span className="text-xl">{icons[type]}</span>
             </div>
             <div className="ml-3 w-0 flex-1">
-              <p className="text-sm font-medium">{title}</p>
+              <p className="body-2">{title}</p>
               <p className="mt-1 text-sm opacity-90">{message}</p>
             </div>
             <div className="ml-4 flex-shrink-0 flex">
@@ -241,7 +241,7 @@ export const Tabs: React.FC<TabsProps> = ({
             className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
               activeTab === tab.id
                 ? 'bg-white text-primary shadow-sm'
-                : 'text-gray-600 hover:text-gray-800'
+                : 'text-secondary hover:text-secondary'
             }`}
           >
             {tab.icon && <span className="mr-2">{tab.icon}</span>}
@@ -306,7 +306,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                 <span className="font-medium text-gray-900">{item.title}</span>
               </div>
               <svg
-                className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-secondary/70 transition-transform duration-200 ${
                   isOpen ? 'transform rotate-180' : ''
                 }`}
                 fill="none"

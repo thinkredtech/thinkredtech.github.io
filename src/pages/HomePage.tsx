@@ -5,7 +5,6 @@ import TeamExpertise from '../components/features/home/TeamExpertise';
 import ProcessMethodology from '../components/features/home/ProcessMethodology';
 import ProjectHighlights from '../components/features/home/ProjectHighlights';
 import CallToAction from '../components/features/home/CallToAction';
-import ScrollToTop from '../components/ui/ScrollToTop';
 
 const HomePage = () => {
   return (
@@ -17,7 +16,6 @@ const HomePage = () => {
       <ProcessMethodology />
       <ProjectHighlights />
       <CallToAction />
-      <ScrollToTop />
     </div>
   );
 };

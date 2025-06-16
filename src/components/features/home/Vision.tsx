@@ -92,7 +92,7 @@ const ProcessMethodology = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="heading-1 mb-4">Our Process & Methodology</h2>
-          <p className="text-lg text-secondary max-w-4xl mx-auto">
+          <p className="max-w-4xl mx-auto">
             We follow a proven, iterative methodology that combines enterprise
             best practices with agile principles, ensuring successful delivery
             while maintaining flexibility and continuous value creation
@@ -132,7 +132,7 @@ const ProcessMethodology = () => {
                     <div className="flex justify-center mb-4">
                       {methodology.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors duration-300">
+                    <h3 className="heading-2 text-dark mb-3 group-hover:text-primary transition-colors duration-300">
                       {methodology.title}
                     </h3>
                     <p className="text-secondary mb-4 text-sm leading-relaxed">
@@ -179,7 +179,7 @@ const ProcessMethodology = () => {
                     <div className="flex-1 bg-backgroundAlt rounded-lg p-6">
                       <div className="flex items-center mb-3">
                         {methodology.icon}
-                        <h3 className="text-xl font-bold text-dark ml-3">
+                        <h3 className="heading-2 text-dark ml-3">
                           {methodology.title}
                         </h3>
                       </div>
@@ -213,7 +213,7 @@ const ProcessMethodology = () => {
         <div className="bg-primary/5 rounded-lg p-8 md:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-6">
+              <h3 className="heading-1 text-dark mb-6">
                 Core Methodology Principles
               </h3>
               <div className="space-y-4">
@@ -323,31 +323,23 @@ const ProcessMethodology = () => {
                 </h4>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-primary mb-1">
-                      99.9%
-                    </div>
+                    <div className="heading-1 text-primary mb-1">99.9%</div>
                     <div className="text-xs text-secondary">
                       On-time Delivery
                     </div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-primary mb-1">
-                      95%
-                    </div>
+                    <div className="heading-1 text-primary mb-1">95%</div>
                     <div className="text-xs text-secondary">
                       Client Satisfaction
                     </div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-primary mb-1">
-                      12hr
-                    </div>
-                    <div className="text-xs text-secondary">Response Time</div>
+                    <div className="heading-1 text-primary mb-1">Quality</div>
+                    <div className="text-xs text-secondary">First Approach</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-primary mb-1">
-                      Zero
-                    </div>
+                    <div className="heading-1 text-primary mb-1">Zero</div>
                     <div className="text-xs text-secondary">Downtime Goals</div>
                   </div>
                 </div>

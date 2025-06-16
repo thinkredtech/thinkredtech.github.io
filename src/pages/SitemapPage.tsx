@@ -52,10 +52,10 @@ const SitemapPage = () => {
   return (
     <div className="container mx-auto px-4 py-16">
       {/* SEO meta tags should be set at the document level, not here */}
-      <h1 className="text-4xl font-bold mb-8">Sitemap</h1>
+      <h1 className="display-2 mb-8">Sitemap</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div>
-          <h2 className="text-2xl font-semibold mb-4">Main Pages</h2>
+          <h2 className="heading-1 mb-4">Main Pages</h2>
           <ul className="space-y-2 text-lg">
             {mainRoutes.map(route => (
               <li key={route.path}>
@@ -67,13 +67,11 @@ const SitemapPage = () => {
           </ul>
         </div>
         <div className="lg:col-span-2">
-          <h2 className="text-2xl font-semibold mb-4">
-            Documentation & Resources
-          </h2>
+          <h2 className="heading-1 mb-4">Documentation & Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {docsCategories.map(cat => (
               <div key={cat.category}>
-                <h3 className="text-lg font-bold mb-2">{cat.category}</h3>
+                <h3 className="heading-3 mb-2">{cat.category}</h3>
                 <ul className="space-y-1 text-base">
                   {cat.links.map(link => (
                     <li key={link.path}>
@@ -92,7 +90,7 @@ const SitemapPage = () => {
           </div>
         </div>
       </div>
-      <footer className="mt-16 text-center text-gray-500 text-sm">
+      <footer className="mt-16 text-center text-secondary/70 text-sm">
         &copy; {new Date().getFullYear()} ThinkRED Technologies LLP. All rights
         reserved.
       </footer>

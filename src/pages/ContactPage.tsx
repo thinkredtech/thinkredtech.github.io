@@ -136,13 +136,13 @@ const ContactPage = () => {
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
           <div className="flex flex-wrap justify-center mb-12">
-            <div className="bg-white rounded-2xl shadow-xl p-2 inline-flex border border-gray-100">
+            <div className="bg-white rounded-lg shadow-xl p-2 inline-flex border border-gray-100">
               <button
                 onClick={() => setActiveTab('contact')}
                 className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'contact'
                     ? 'bg-primary text-white shadow-lg scale-105'
-                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
+                    : 'text-secondary hover:bg-gray-50 hover:scale-105'
                 }`}
               >
                 Contact Us
@@ -151,8 +151,8 @@ const ContactPage = () => {
                 onClick={() => setActiveTab('discovery')}
                 className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'discovery'
-                    ? 'bg-accent1 text-white shadow-lg scale-105'
-                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
+                    ? 'bg-primary text-white shadow-lg scale-105'
+                    : 'text-secondary hover:bg-gray-50 hover:scale-105'
                 }`}
               >
                 Discovery Call
@@ -161,8 +161,8 @@ const ContactPage = () => {
                 onClick={() => setActiveTab('quote')}
                 className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform ${
                   activeTab === 'quote'
-                    ? 'bg-accent2 text-white shadow-lg scale-105'
-                    : 'text-gray-700 hover:bg-gray-50 hover:scale-105'
+                    ? 'bg-primary text-white shadow-lg scale-105'
+                    : 'text-secondary hover:bg-gray-50 hover:scale-105'
                 }`}
               >
                 Request Quote
@@ -173,10 +173,8 @@ const ContactPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Enhanced Contact Information */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl shadow-xl p-8 sticky top-24">
-                <h2 className="text-2xl font-bold mb-6 text-dark">
-                  Get in Touch
-                </h2>
+              <div className="bg-white rounded-lg shadow-xl p-8 sticky top-24">
+                <h2 className="heading-1 mb-6 text-dark">Get in Touch</h2>
 
                 <div className="space-y-6">
                   <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
@@ -196,7 +194,7 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
+                      <h3 className="body-1-semibold text-dark group-hover:text-primary transition-colors duration-300">
                         Email
                       </h3>
                       <a
@@ -209,7 +207,7 @@ const ContactPage = () => {
                   </div>
 
                   <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
-                    <div className="flex-shrink-0 bg-accent1/10 p-4 rounded-xl group-hover:bg-accent1/20 transition-colors duration-300">
+                    <div className="flex-shrink-0 bg-primary/10 p-4 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"
@@ -231,7 +229,7 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
+                      <h3 className="body-1-semibold text-dark group-hover:text-primary transition-colors duration-300">
                         Registered Address
                       </h3>
                       <p className="text-secondary leading-relaxed">
@@ -242,7 +240,7 @@ const ContactPage = () => {
                   </div>
 
                   <div className="group flex items-start hover:transform hover:scale-105 transition-all duration-300">
-                    <div className="flex-shrink-0 bg-accent2/10 p-4 rounded-xl group-hover:bg-accent2/20 transition-colors duration-300">
+                    <div className="flex-shrink-0 bg-primary/10 p-4 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
                       <svg
                         className="w-6 h-6 text-primary"
                         fill="none"
@@ -258,7 +256,7 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors duration-300">
+                      <h3 className="body-1-semibold text-dark group-hover:text-primary transition-colors duration-300">
                         Working Hours
                       </h3>
                       <p className="text-secondary">
@@ -302,7 +300,7 @@ const ContactPage = () => {
                       </svg>
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-medium">MCA Information</h3>
+                      <h3 className="body-1-medium">MCA Information</h3>
                       <p className="text-secondary">
                         LLP Identification Number: ACC-3993
                       </p>
@@ -311,7 +309,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="text-lg font-medium mb-4">Connect With Us</h3>
+                  <h3 className="body-1-medium mb-4">Connect With Us</h3>
                   <div className="flex space-x-4">
                     <a
                       href="https://github.com/thinkred-tech"
@@ -370,7 +368,7 @@ const ContactPage = () => {
             <div className="lg:col-span-2">
               {activeTab === 'contact' && (
                 <div className="bg-white rounded-lg shadow-md p-8">
-                  <h2 className="text-2xl font-bold mb-6">Talk to Us</h2>
+                  <h2 className="heading-1 mb-6">Talk to Us</h2>
 
                   {submitSuccess ? (
                     <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
@@ -388,7 +386,7 @@ const ContactPage = () => {
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
-                        <h3 className="text-xl font-bold">
+                        <h3 className="heading-2">
                           Message Sent Successfully!
                         </h3>
                       </div>
@@ -417,7 +415,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="name"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Name *
                           </label>
@@ -436,7 +434,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="email"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Email *
                           </label>
@@ -455,7 +453,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="company"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Company
                           </label>
@@ -473,7 +471,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="phone"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Phone
                           </label>
@@ -491,7 +489,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="projectType"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Project Type *
                           </label>
@@ -516,7 +514,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="budget"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Budget Range
                           </label>
@@ -540,7 +538,7 @@ const ContactPage = () => {
                         <div>
                           <label
                             htmlFor="timeline"
-                            className="block text-sm font-medium text-gray-700 mb-1"
+                            className="block body-2 text-secondary mb-1"
                           >
                             Timeline
                           </label>
@@ -565,7 +563,7 @@ const ContactPage = () => {
                       <div>
                         <label
                           htmlFor="message"
-                          className="block text-sm font-medium text-gray-700 mb-1"
+                          className="block body-2 text-secondary mb-1"
                         >
                           Message *
                         </label>

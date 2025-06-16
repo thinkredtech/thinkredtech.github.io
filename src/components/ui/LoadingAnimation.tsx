@@ -97,7 +97,7 @@ export const PageLoader: React.FC<{ message?: string }> = ({
           color="primary"
           className="mx-auto mb-4"
         />
-        <p className="text-lg text-secondary font-medium">{message}</p>
+        <p className="body-1-medium text-secondary font-medium">{message}</p>
       </div>
     </div>
   );
@@ -112,7 +112,7 @@ export const ContentLoader: React.FC<{ className?: string }> = ({
         {[1, 2, 3, 4, 5, 6].map(i => (
           <div
             key={i}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden"
+            className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
             <div className="h-48 bg-gray-200 skeleton"></div>
             <div className="p-6 space-y-3">

@@ -18,10 +18,10 @@ const CallToAction = () => {
             ctaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="font-comfortaa text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="display-2-white mb-6">
             Ready to build something amazing together?
           </h2>
-          <p className="text-lg md:text-xl mb-8 opacity-90">
+          <p className="mb-8 opacity-90">
             Let's transform your ideas into reality with our engineering
             expertise and innovative solutions.
           </p>

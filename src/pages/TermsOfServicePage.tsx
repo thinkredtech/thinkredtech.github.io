@@ -6,9 +6,9 @@ const TermsOfServicePage = () => (
       <div className="container mx-auto text-center mt-16">
         <div className="flex flex-col items-center mb-8">
           <FaGavel className="w-12 h-12 text-primary mb-4" />
-          <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
+          <h1 className="display-2 mb-2">Terms of Service</h1>
         </div>
-        <p className="text-lg text-secondary max-w-3xl mx-auto">
+        <p className="body-1-medium text-secondary max-w-3xl mx-auto">
           Please read these Terms of Service carefully before using the ThinkRED
           Technologies website.
         </p>

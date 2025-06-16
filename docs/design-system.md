@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ThinkRED Technologies Design System is a comprehensive collection of reusable components, design tokens, and guidelines that ensure consistency, accessibility, and brand alignment across all digital touchpoints. This system is built upon our core [Brand Guidelines](./brand-guidelines.md) and serves as the foundation for all user interface development.
+The ThinkRED Technologies Design System is a comprehensive collection of reusable components, design tokens, and guidelines that ensure consistency, accessibility, and brand alignment across all digital touchpoints. This system is built upon our core [Brand Guidelines](./brand-guidelines) and serves as the foundation for all user interface development.
 
 ## Design Principles
 

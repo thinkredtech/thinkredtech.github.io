@@ -61,10 +61,10 @@ const BlogPostPage = () => {
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="heading-1 text-secondary mb-4">
             {error || 'Post not found'}
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-secondary mb-8">
             The blog post you're looking for doesn't seem to exist.
           </p>
           <Link to="/blog" className="btn btn-primary">
@@ -95,9 +95,7 @@ const BlogPostPage = () => {
                   </span>
                 ))}
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                {post.title}
-              </h1>
+              <h1 className="display-1 text-white mb-4">{post.title}</h1>
               <div className="flex items-center text-white">
                 <div className="flex items-center">
                   <img
@@ -135,12 +133,12 @@ const BlogPostPage = () => {
 
             {/* Tags */}
             <div className="mt-10 pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-semibold mb-3">Tags</h3>
+              <h3 className="body-1-semibold mb-3">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag: string, index: number) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full"
+                    className="px-3 py-1 bg-gray-100 text-secondary text-sm rounded-full"
                   >
                     #{tag}
                   </span>
@@ -150,7 +148,7 @@ const BlogPostPage = () => {
 
             {/* Share Section */}
             <div className="mt-10 pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-semibold mb-3">Share this article</h3>
+              <h3 className="body-1-semibold mb-3">Share this article</h3>
               <div className="flex space-x-4">
                 {(() => {
                   const url = window.location.href;
@@ -247,8 +245,8 @@ const BlogPostPage = () => {
                 className="w-24 h-24 rounded-full object-cover"
               />
               <div>
-                <h3 className="text-xl font-bold mb-2">{post.author}</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className="heading-2 mb-2">{post.author}</h3>
+                <p className="text-secondary mb-4">
                   {post.authorBio ||
                     'Technology enthusiast and writer at ThinkRED Technologies. Passionate about sharing knowledge and exploring new technologies.'}
                 </p>
@@ -357,7 +355,7 @@ const BlogPostPage = () => {
 
           {/* Related Posts */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+            <h2 className="heading-1 mb-6">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts
                 .filter(
@@ -381,10 +379,8 @@ const BlogPostPage = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-lg font-bold mb-2">
-                        {relatedPost.title}
-                      </h3>
-                      <p className="text-gray-600 mb-4 line-clamp-2">
+                      <h3 className="heading-3 mb-2">{relatedPost.title}</h3>
+                      <p className="text-secondary mb-4 line-clamp-2">
                         {relatedPost.excerpt}
                       </p>
                       <Link

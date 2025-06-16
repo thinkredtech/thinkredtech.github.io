@@ -139,7 +139,7 @@ const DiscoveryCallScheduler = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
-      <h2 className="text-2xl font-bold mb-6">Schedule a Discovery Call</h2>
+      <h2 className="heading-1 mb-6">Schedule a Discovery Call</h2>
 
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
@@ -157,7 +157,7 @@ const DiscoveryCallScheduler = () => {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h3 className="text-xl font-bold">Discovery Call Scheduled!</h3>
+            <h3 className="heading-2">Discovery Call Scheduled!</h3>
           </div>
           <p className="mb-4">
             Thank you for scheduling a discovery call with ThinkRED
@@ -183,7 +183,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Name *
               </label>
@@ -202,7 +202,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Email *
               </label>
@@ -221,7 +221,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-company"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Company
               </label>
@@ -239,7 +239,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-phone"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Phone
               </label>
@@ -257,7 +257,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-projectType"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Project Type *
               </label>
@@ -282,7 +282,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-timezone"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Your Timezone *
               </label>
@@ -307,7 +307,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-preferredDate"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Preferred Date *
               </label>
@@ -327,7 +327,7 @@ const DiscoveryCallScheduler = () => {
             <div>
               <label
                 htmlFor="dc-preferredTime"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Preferred Time *
               </label>
@@ -352,7 +352,7 @@ const DiscoveryCallScheduler = () => {
             <div className="md:col-span-2">
               <label
                 htmlFor="dc-additionalInfo"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Additional Information
               </label>
@@ -377,7 +377,7 @@ const DiscoveryCallScheduler = () => {
             />
             <label
               htmlFor="dc-privacy"
-              className="ml-2 block text-sm text-gray-700"
+              className="ml-2 block text-sm text-secondary"
             >
               I agree to the{' '}
               <Link
@@ -546,7 +546,7 @@ const QuoteRequestForm = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
-      <h2 className="text-2xl font-bold mb-6">Request a Quote</h2>
+      <h2 className="heading-1 mb-6">Request a Quote</h2>
 
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
@@ -564,7 +564,7 @@ const QuoteRequestForm = () => {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <h3 className="text-xl font-bold">Quote Request Received!</h3>
+            <h3 className="heading-2">Quote Request Received!</h3>
           </div>
           <p className="mb-4">
             Thank you for your interest in ThinkRED Technologies. We'll review
@@ -591,7 +591,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Name *
               </label>
@@ -610,7 +610,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Email *
               </label>
@@ -629,7 +629,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-company"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Company
               </label>
@@ -647,7 +647,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-phone"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Phone
               </label>
@@ -665,7 +665,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-projectType"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Project Type *
               </label>
@@ -690,7 +690,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-budget"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Budget *
               </label>
@@ -715,7 +715,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-timeline"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Timeline *
               </label>
@@ -740,7 +740,7 @@ const QuoteRequestForm = () => {
             <div>
               <label
                 htmlFor="qr-hearAboutUs"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 How did you hear about us?
               </label>
@@ -764,7 +764,7 @@ const QuoteRequestForm = () => {
             <div className="md:col-span-2">
               <label
                 htmlFor="qr-projectDescription"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Project Description *
               </label>
@@ -784,7 +784,7 @@ const QuoteRequestForm = () => {
             <div className="md:col-span-2">
               <label
                 htmlFor="qr-requirements"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block body-2 text-secondary mb-1"
               >
                 Specific Requirements
               </label>
@@ -809,7 +809,7 @@ const QuoteRequestForm = () => {
             />
             <label
               htmlFor="qr-privacy"
-              className="ml-2 block text-sm text-gray-700"
+              className="ml-2 block text-sm text-secondary"
             >
               I agree to the{' '}
               <Link

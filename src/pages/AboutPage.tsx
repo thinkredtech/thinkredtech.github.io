@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageHero from '../components/ui/PageHero';
+import { FaReact, FaNodeJs, FaPython, FaDocker, FaAws } from 'react-icons/fa';
+import { SiTypescript, SiPostgresql, SiMongodb } from 'react-icons/si';
 
 const AboutPage = () => {
   return (
@@ -11,27 +13,25 @@ const AboutPage = () => {
       />
 
       {/* Enhanced Journey Section */}
-      <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-dark">
-                Our Journey
-              </h2>
-              <p className="text-lg text-secondary mb-6 leading-relaxed">
+              <h2 className="heading-1 mb-6 text-secondary">Our Journey</h2>
+              <p className="body-1 mb-6 text-secondary">
                 ThinkRED Technologies was founded by engineers with a passion
                 for simplifying technology and creating exceptional user
                 experiences. Our journey began in open source communities like
                 Mozilla and Fedora, where we learned the value of collaboration
                 and innovation.
               </p>
-              <p className="text-lg text-secondary mb-6 leading-relaxed">
+              <p className="body-1 mb-6 text-secondary">
                 After years of experience at Red Hat and working with global
                 clients through platforms like Upwork, we established ThinkRED
                 Technologies to bring enterprise-grade solutions to businesses
                 of all sizes.
               </p>
-              <p className="text-lg text-secondary leading-relaxed">
+              <p className="body-1 text-secondary">
                 Today, we help organizations transform their digital presence
                 and operations through custom web development, platform
                 engineering, and infrastructure automation.
@@ -40,7 +40,7 @@ const AboutPage = () => {
               {/* Interactive stats */}
               <div className="grid grid-cols-2 gap-6 mt-8">
                 <div className="group">
-                  <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                  <div className="heading-1 text-primary group-hover:scale-110 transition-transform duration-300">
                     500+
                   </div>
                   <div className="text-sm text-secondary">
@@ -48,7 +48,7 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="group">
-                  <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                  <div className="heading-1 text-primary group-hover:scale-110 transition-transform duration-300">
                     95%
                   </div>
                   <div className="text-sm text-secondary">
@@ -60,8 +60,12 @@ const AboutPage = () => {
 
             <div className="relative">
               {/* Enhanced timeline visualization */}
-              <div className="relative bg-backgroundAlt p-8 rounded-2xl shadow-xl">
-                <div className="space-y-8">
+              <div className="relative bg-backgroundAlt p-8 rounded-lg shadow-xl">
+                {/* Floating decoration - moved to background */}
+                <div className="absolute -top-4 -right-4 w-16 h-16 bg-accent1/20 rounded-full blur-xl animate-pulse -z-10"></div>
+                <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-accent2/20 rounded-full blur-xl animate-pulse animate-delay-1000 -z-10"></div>
+
+                <div className="space-y-8 relative z-10">
                   {[
                     {
                       step: '1',
@@ -106,7 +110,7 @@ const AboutPage = () => {
                         }`}
                       >
                         <span
-                          className={`font-bold text-lg ${
+                          className={`font-bold body-1-medium ${
                             item.active ? 'text-white' : 'text-primary'
                           }`}
                         >
@@ -116,7 +120,7 @@ const AboutPage = () => {
                       <div className="flex-grow">
                         <div className="flex items-center gap-3 mb-2">
                           <h3
-                            className={`font-bold text-lg transition-colors duration-300 ${
+                            className={`font-bold body-1-medium transition-colors duration-300 ${
                               item.active
                                 ? 'text-primary'
                                 : 'text-dark group-hover:text-primary'
@@ -137,11 +141,7 @@ const AboutPage = () => {
                 </div>
 
                 {/* Connecting line */}
-                <div className="absolute left-8 top-12 bottom-12 w-0.5 bg-primary/40"></div>
-
-                {/* Floating decoration */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-accent1/20 rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-accent2/20 rounded-full blur-xl animate-pulse animate-delay-1000"></div>
+                <div className="absolute left-8 top-12 bottom-12 w-0.5 bg-primary/40 z-20"></div>
               </div>
             </div>
           </div>
@@ -151,17 +151,15 @@ const AboutPage = () => {
       <section className="py-16 md:py-24 bg-backgroundAlt">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-dark">
-              Our Philosophy
-            </h2>
-            <p className="text-lg text-secondary max-w-3xl mx-auto leading-relaxed">
+            <h2 className="heading-1 mb-4 text-secondary">Our Philosophy</h2>
+            <p className="max-w-3xl mx-auto text-secondary">
               At ThinkRED, we believe in simplifying technology to create
               exceptional experiences that drive meaningful business outcomes.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div className="group bg-white p-8 rounded-lg shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-primary/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -180,10 +178,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+              <h3 className="heading-3 mb-4 group-hover:text-primary transition-colors duration-300 text-secondary">
                 Innovation-Led
               </h3>
-              <p className="text-secondary leading-relaxed">
+              <p className="text-secondary">
                 We constantly explore new technologies and approaches to solve
                 complex problems in elegant ways, staying ahead of industry
                 trends.
@@ -206,7 +204,7 @@ const AboutPage = () => {
               </div>
             </div>
 
-            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div className="group bg-white p-8 rounded-lg shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-accent1/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-accent1/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -225,10 +223,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+              <h3 className="heading-3 mb-4 group-hover:text-primary transition-colors duration-300 text-secondary">
                 Engineering Excellence
               </h3>
-              <p className="text-secondary leading-relaxed">
+              <p className="text-secondary">
                 We prioritize code quality, performance, and maintainability in
                 everything we build, ensuring long-term success.
               </p>
@@ -250,7 +248,7 @@ const AboutPage = () => {
               </div>
             </div>
 
-            <div className="group bg-white p-8 rounded-2xl shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            <div className="group bg-white p-8 rounded-lg shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-accent2/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-accent2/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -269,10 +267,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-dark group-hover:text-primary transition-colors duration-300">
+              <h3 className="heading-3 mb-4 group-hover:text-primary transition-colors duration-300 text-secondary">
                 Client Partnership
               </h3>
-              <p className="text-secondary leading-relaxed">
+              <p className="text-secondary">
                 We work closely with our clients to understand their needs and
                 deliver solutions that exceed expectations and drive growth.
               </p>
@@ -297,94 +295,119 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* <section className="py-16 md:py-24 bg-white">
+      {/* Technology Expertise Section */}
+      <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="heading-1 mb-4">Leadership Team</h2>
-            <p className="text-lg text-secondary max-w-3xl mx-auto">
-              Meet the experienced professionals leading ThinkRED Technologies.
+            <h2 className="heading-1 mb-4 text-secondary">
+              Technology Expertise
+            </h2>
+            <p className="max-w-3xl mx-auto text-secondary">
+              We leverage cutting-edge technologies and frameworks to deliver
+              scalable, high-performance solutions that drive business growth.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Team member cards would go here - using placeholders */}
-      {/* <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
-              <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-6">
-                <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary text-2xl font-bold">JS</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Frontend Stack */}
+            <div className="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex space-x-2">
+                  <FaReact className="text-blue-600 text-2xl" />
+                  <SiTypescript className="text-blue-600 text-2xl" />
                 </div>
               </div>
-              <h3 className="heading-3 mb-2">John Smith</h3>
-              <p className="text-primary font-medium mb-4">Founder & CEO</p>
-              <p className="text-secondary mb-4">
-                Former Red Hat engineer with 15+ years of experience in enterprise software development.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                  </svg>
-                </a>
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                  </svg>
-                </a>
+              <h3 className="heading-3 text-center mb-3 text-secondary">
+                Frontend
+              </h3>
+              <div className="text-center space-y-1">
+                <p className="body-3 text-secondary">React • TypeScript</p>
+                <p className="body-3 text-secondary">Next.js • Vite</p>
+                <p className="body-3 text-secondary">Tailwind CSS</p>
               </div>
             </div>
 
-            <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
-              <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-6">
-                <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary text-2xl font-bold">AP</span>
+            {/* Backend Stack */}
+            <div className="group bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex space-x-2">
+                  <FaNodeJs className="text-green-600 text-2xl" />
+                  <FaPython className="text-green-600 text-2xl" />
                 </div>
               </div>
-              <h3 className="heading-3 mb-2">Anita Patel</h3>
-              <p className="text-primary font-medium mb-4">CTO</p>
-              <p className="text-secondary mb-4">
-                Full-stack developer with expertise in cloud infrastructure and DevOps practices.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                  </svg>
-                </a>
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                  </svg>
-                </a>
+              <h3 className="heading-3 text-center mb-3 text-secondary">
+                Backend
+              </h3>
+              <div className="text-center space-y-1">
+                <p className="body-3 text-secondary">Node.js • Python</p>
+                <p className="body-3 text-secondary">Express • FastAPI</p>
+                <p className="body-3 text-secondary">GraphQL • REST</p>
               </div>
             </div>
 
-            <div className="bg-backgroundAlt p-6 rounded-lg shadow-regular text-center">
-              <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-6">
-                <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary text-2xl font-bold">MR</span>
+            {/* Database Stack */}
+            <div className="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex space-x-2">
+                  <SiPostgresql className="text-purple-600 text-2xl" />
+                  <SiMongodb className="text-purple-600 text-2xl" />
                 </div>
               </div>
-              <h3 className="heading-3 mb-2">Marcus Rodriguez</h3>
-              <p className="text-primary font-medium mb-4">Design Director</p>
-              <p className="text-secondary mb-4">
-                UX/UI specialist with a background in creating intuitive and engaging digital experiences.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                  </svg>
-                </a>
-                <a href="#" className="text-secondary hover:text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                  </svg>
-                </a>
+              <h3 className="heading-3 text-center mb-3 text-secondary">
+                Database
+              </h3>
+              <div className="text-center space-y-1">
+                <p className="body-3 text-secondary">PostgreSQL • MongoDB</p>
+                <p className="body-3 text-secondary">Redis • Elasticsearch</p>
+                <p className="body-3 text-secondary">Prisma • Mongoose</p>
+              </div>
+            </div>
+
+            {/* DevOps Stack */}
+            <div className="group bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex space-x-2">
+                  <FaDocker className="text-orange-600 text-2xl" />
+                  <FaAws className="text-orange-600 text-2xl" />
+                </div>
+              </div>
+              <h3 className="heading-3 text-center mb-3 text-secondary">
+                DevOps
+              </h3>
+              <div className="text-center space-y-1">
+                <p className="body-3 text-secondary">Docker • AWS</p>
+                <p className="body-3 text-secondary">Kubernetes • Terraform</p>
+                <p className="body-3 text-secondary">CI/CD • Monitoring</p>
               </div>
             </div>
           </div>
+
+          <div className="text-center mt-12">
+            <p className="text-secondary mb-6">
+              And many more technologies tailored to your project needs
+            </p>
+            <Link
+              to="/services"
+              className="btn btn-primary inline-flex items-center gap-2"
+            >
+              <span>Explore Our Services</span>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
+          </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Enhanced CTA Section */}
       <section className="relative py-20 md:py-28 overflow-hidden">
@@ -396,10 +419,8 @@ const AboutPage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h2 className="font-comfortaa text-3xl md:text-4xl font-bold mb-6">
-              Join Our Team
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 opacity-90">
+            <h2 className="display-2-white mb-6">Join Our Team</h2>
+            <p className="body-2-white mb-8 opacity-90">
               We're always looking for talented individuals who are passionate
               about technology and innovation. Be part of our journey to
               transform the digital landscape.
@@ -408,13 +429,13 @@ const AboutPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/careers"
-                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 body-1-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 View Open Positions
               </Link>
               <Link
                 to="/contact"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 body-1-semibold transition-all duration-300"
               >
                 Get In Touch
               </Link>
