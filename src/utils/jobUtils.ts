@@ -62,6 +62,7 @@ export const getStoredJobs = (): Position[] => {
     const storedJobs = localStorage.getItem('thinkred_job_positions');
     return storedJobs ? JSON.parse(storedJobs) : [];
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error retrieving stored jobs:', error);
     return [];
   }
@@ -75,6 +76,7 @@ export const saveJobsToStorage = (jobs: Position[]): void => {
   try {
     localStorage.setItem('thinkred_job_positions', JSON.stringify(jobs));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error saving jobs to storage:', error);
   }
 };

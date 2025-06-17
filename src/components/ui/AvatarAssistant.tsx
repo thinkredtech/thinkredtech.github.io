@@ -31,6 +31,9 @@ const AvatarAssistant = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isSleeping, setIsSleeping] = useState(false); // Track if assistant is sleeping
   const [isManualSleep, setIsManualSleep] = useState(false); // Track if user manually put assistant to sleep
+  const [isGoingToSleep, setIsGoingToSleep] = useState(false); // Track transition to sleep state
+  const [isWakingUp, setIsWakingUp] = useState(false); // Track transition from sleep to awake
+  const [justWokeUp, setJustWokeUp] = useState(false); // Track if just completed wake up to skip fade-in
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -270,13 +273,32 @@ const AvatarAssistant = () => {
       }
 
       intervalRef.current = setInterval(() => {
-        // Don't change message if paused, expanded, or animating
-        if (isPaused || isExpanded || isAnimating || isSleeping) {
+        // Don't change message if paused, expanded, animating, sleeping, going to sleep, waking up, or manually asleep
+        // Also check if component is still visible to prevent ghost messages
+        if (
+          isPaused ||
+          isExpanded ||
+          isAnimating ||
+          isSleeping ||
+          isGoingToSleep ||
+          isWakingUp ||
+          isManualSleep ||
+          !isVisible
+        ) {
           return;
         }
 
         const randomIndex = Math.floor(Math.random() * messages.length);
-        setMessage(messages[randomIndex]);
+        const newMessage = messages[randomIndex];
+
+        // Prevent setting the same message consecutively to avoid flicker
+        if (newMessage === message) {
+          const nextIndex = (randomIndex + 1) % messages.length;
+          setMessage(messages[nextIndex]);
+        } else {
+          setMessage(newMessage);
+        }
+
         setIsAnimating(true);
 
         // Enhanced animation variety with more options
@@ -309,9 +331,30 @@ const AvatarAssistant = () => {
       }, 10000); // Increased interval for less aggressive changes
     };
 
-    // Set initial message
-    setMessage(messages[0]);
-    startMessageInterval();
+    // Set initial message only if visible and not sleeping
+    if (
+      isVisible &&
+      !isSleeping &&
+      !isGoingToSleep &&
+      !isWakingUp &&
+      !isManualSleep &&
+      messages.length > 0
+    ) {
+      setMessage(messages[0]);
+      startMessageInterval();
+    } else if (
+      isSleeping ||
+      isGoingToSleep ||
+      isWakingUp ||
+      isManualSleep ||
+      !isVisible
+    ) {
+      // Clear message and stop interval when not visible
+      setMessage('');
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
 
     return () => {
       if (intervalRef.current) {
@@ -321,7 +364,18 @@ const AvatarAssistant = () => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [messages, isPaused, isExpanded, isAnimating, isSleeping]);
+  }, [
+    messages,
+    isPaused,
+    isExpanded,
+    isAnimating,
+    isSleeping,
+    isGoingToSleep,
+    isWakingUp,
+    isManualSleep,
+    isVisible,
+    message,
+  ]);
 
   // Handle hover pause functionality with UI updates
   const handleMessageHover = () => {
@@ -346,7 +400,7 @@ const AvatarAssistant = () => {
       const thirtySeconds = 30000;
       const twoMinutes = 120000;
 
-      if (idleTime > twoMinutes && !isSleeping && isVisible) {
+      if (idleTime > twoMinutes && !isSleeping && !isManualSleep && isVisible) {
         // Show encouragement after 2 minutes of no interaction
         setMessage(
           "💡 Still browsing? I can help you find exactly what you're looking for!"
@@ -363,6 +417,8 @@ const AvatarAssistant = () => {
       } else if (
         idleTime > thirtySeconds &&
         userInteractionCount === 0 &&
+        !isSleeping &&
+        !isManualSleep &&
         isVisible
       ) {
         // Show gentle nudge for new users after 30 seconds
@@ -375,36 +431,96 @@ const AvatarAssistant = () => {
 
     const idleInterval = setInterval(checkIdleTime, 10000); // Check every 10 seconds
     return () => clearInterval(idleInterval);
-  }, [lastInteractionTime, userInteractionCount, isSleeping, isVisible]);
+  }, [
+    lastInteractionTime,
+    userInteractionCount,
+    isSleeping,
+    isManualSleep,
+    isVisible,
+  ]);
 
   // Handle scroll events to put avatar to sleep/wake up
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
       // If user manually put assistant to sleep, don't change its state on scroll
       if (isManualSleep) return;
 
+      // Clear any pending scroll timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
       // Put assistant to sleep when scrolled down more than random distance, wake up when back up
-      if (scrollY > sleepScrollDistance && !isSleeping) {
-        setIsSleeping(true);
-        setIsVisible(false); // Hide message bubble when sleeping
-        setIsExpanded(false);
-        setShowContextualOptions(false);
-        setMessage(''); // Clear any existing message
+      if (
+        scrollY > sleepScrollDistance &&
+        !isSleeping &&
+        !isGoingToSleep &&
+        !isWakingUp
+      ) {
+        // Debounce the sleep transition to prevent jank
+        scrollTimeout = setTimeout(() => {
+          // Smooth transition to sleep - clear all states that might interfere
+          setIsExpanded(false);
+          setShowContextualOptions(false);
+          setIsAnimating(false);
+          setMessage(''); // Clear any existing message
+          setIsVisible(false); // Hide message bubble first
+
+          // Clear any pending timeouts that might cause state conflicts
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+
+          // Start transition to sleep for automatic scroll sleep
+          setTimeout(() => {
+            setIsGoingToSleep(true);
+
+            setTimeout(() => {
+              setIsGoingToSleep(false);
+              setIsSleeping(true);
+              // Don't set isManualSleep for automatic sleep
+            }, 400);
+          }, 150);
+        }, 100); // Small debounce to prevent rapid state changes
       } else if (
         scrollY <= sleepScrollDistance &&
-        isSleeping &&
-        !isManualSleep
+        (isSleeping || isGoingToSleep) &&
+        !isManualSleep &&
+        !isWakingUp
       ) {
-        setIsSleeping(false);
-        setIsVisible(true); // Show assistant when waking up
+        // Debounce the wake transition
+        scrollTimeout = setTimeout(() => {
+          setIsGoingToSleep(false); // Reset transition state
+          setIsSleeping(false);
+          setIsWakingUp(true); // Start wake up transition
+
+          // Complete wake up after animation
+          setTimeout(() => {
+            setIsWakingUp(false);
+            setIsVisible(true); // Show assistant when waking up
+          }, 400);
+        }, 50); // Minimal debounce for wake up
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isSleeping, isManualSleep, sleepScrollDistance]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [
+    isSleeping,
+    isManualSleep,
+    isGoingToSleep,
+    isWakingUp,
+    sleepScrollDistance,
+  ]);
 
   // Add attention-seeking behavior
   useEffect(() => {
@@ -848,12 +964,34 @@ const AvatarAssistant = () => {
 
   // Put assistant to sleep (user-initiated hide)
   const putAssistantToSleep = () => {
-    setIsSleeping(true);
-    setIsManualSleep(true); // Mark as manual sleep
-    setIsVisible(false);
+    // Clear any pending timeouts that might interfere first
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    // Step 1: Close message bubble and start transition simultaneously
     setIsExpanded(false);
     setShowContextualOptions(false);
-    setMessage(''); // Clear any existing message
+    setIsAnimating(false);
+    setIsPaused(false);
+    setAttentionSeekingActive(false);
+    setAvatarAnimationState('floating');
+    setMessage(''); // Clear message
+    setIsVisible(false); // Hide message bubble
+    setJustWokeUp(false); // Reset wake up flag
+
+    // Start the avatar transition immediately to avoid flicker
+    setIsGoingToSleep(true);
+
+    // Step 2: Complete the sleep transition exactly when animation ends
+    setTimeout(() => {
+      setIsGoingToSleep(false);
+      setIsSleeping(true);
+      setIsManualSleep(true);
+    }, 400); // Exact animation duration
   };
 
   // Wake up assistant (user-initiated show)
@@ -862,18 +1000,28 @@ const AvatarAssistant = () => {
     setUserInteractionCount(prev => prev + 1);
     setLastInteractionTime(Date.now());
 
-    setIsSleeping(false);
+    // Step 1: Start wake up transition immediately (sleeping avatar grows)
+    setIsGoingToSleep(false); // Reset transition state
+    setIsSleeping(false); // Hide sleeping avatar
+    setIsWakingUp(true); // Start wake up transition
     setIsManualSleep(false); // Reset manual sleep flag
-    setIsVisible(true);
-    setIsAnimating(true);
-    setAnimationType('bounce');
-    setAvatarAnimationState('excited');
+    setIsVisible(true); // Ensure visibility is set immediately
 
+    // Step 2: Complete wake up transition exactly when animation reaches full size
     setTimeout(() => {
-      setIsAnimating(false);
-      setAnimationType('pulse');
-      setAvatarAnimationState('floating');
-    }, 1000);
+      setIsWakingUp(false);
+      setJustWokeUp(true); // Mark that we just woke up to skip fade-in
+      setIsAnimating(true);
+      setAnimationType('bounce');
+      setAvatarAnimationState('excited');
+
+      setTimeout(() => {
+        setIsAnimating(false);
+        setAnimationType('pulse');
+        setAvatarAnimationState('floating');
+        setJustWokeUp(false); // Reset after animations complete
+      }, 1000);
+    }, 390); // Slightly before animation completes to ensure smooth transition
   };
 
   // Simplified Genie Avatar component
@@ -922,25 +1070,41 @@ const AvatarAssistant = () => {
       {isSleeping ? (
         /* Sleeping Avatar - show when assistant is put to sleep by user */
         <div
-          className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer hover:scale-110 transition-all duration-300 pointer-events-auto"
+          className="sleeping-avatar-size cursor-pointer transition-opacity duration-300 ease-in-out pointer-events-auto"
           onClick={wakeUpAssistant}
           title="Click to wake up your assistant"
         >
           <img
             src="/assets/avatars/assistant-red-sleeping.png"
             alt="Sleeping Assistant"
-            className="w-full h-full object-contain animate-pulse"
+            className="w-full h-full object-contain animate-pulse transition-opacity duration-500 ease-in-out"
           />
         </div>
+      ) : isGoingToSleep ? (
+        /* Transitioning to Sleep - show normal avatar shrinking to sleep */
+        <div className="w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto animate-avatar-to-sleep">
+          <div className="w-full h-full flex items-center justify-center">
+            <GenieAvatar />
+          </div>
+        </div>
+      ) : isWakingUp ? (
+        /* Transitioning from Sleep - show normal avatar growing from sleep size */
+        <div className="w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto animate-avatar-wake-up">
+          <div className="w-full h-full flex items-center justify-center">
+            <GenieAvatar />
+          </div>
+        </div>
       ) : (
-        isVisible &&
-        !isSleeping && (
-          <div className="relative">
+        !isSleeping &&
+        !isManualSleep && (
+          <div
+            className={`relative ${justWokeUp ? '' : 'animate-smooth-fade-in'}`}
+          >
             {/* Message bubble - positioned relative to this container */}
-            {(message || isExpanded || showContextualOptions) && (
+            {(message || isExpanded || showContextualOptions) && isVisible && (
               <div
                 ref={messageRef}
-                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'message-bubble-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
+                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'animate-smooth-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
                 onClick={
                   !isExpanded && !showContextualOptions
                     ? handleMessageBubbleClick

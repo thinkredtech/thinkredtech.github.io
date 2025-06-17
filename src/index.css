@@ -1284,6 +1284,111 @@ code {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes smoothFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s ease-in-out forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+.animate-smooth-fade-in {
+  animation: smoothFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes avatarToSleep {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.75);
+  }
+}
+
+@keyframes avatarWakeUp {
+  0% {
+    transform: scale(0.75); /* Start at sleeping scale */
+  }
+  99% {
+    transform: scale(1); /* Grow to normal scale */
+  }
+  100% {
+    transform: scale(1); /* Stay at normal scale */
+  }
+}
+
+.animate-smooth-fade-out {
+  animation: smoothFadeOut 0.3s ease-in forwards;
+}
+
+.animate-avatar-to-sleep {
+  animation: avatarToSleep 0.4s ease-out forwards;
+}
+
+.animate-avatar-wake-up {
+  animation: avatarWakeUp 0.4s ease-out forwards;
+}
+
+.sleeping-avatar-size {
+  width: 64px; /* Same as w-16 */
+  height: 64px;
+  transform: scale(0.75); /* Already scaled to final size */
+}
+
+@media (min-width: 640px) {
+  .sleeping-avatar-size {
+    width: 80px; /* Same as w-20 */
+    height: 80px;
+    transform: scale(0.75);
+  }
+}
+
+.sleeping-avatar-size:hover {
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(228, 9, 62, 0.3));
+}
+
 /* Enhanced selection styles */
 ::selection {
   background: var(--color-primary);
