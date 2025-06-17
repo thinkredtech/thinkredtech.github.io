@@ -273,12 +273,11 @@ const AvatarAssistant = () => {
       }
 
       intervalRef.current = setInterval(() => {
-        // Don't change message if paused, expanded, animating, sleeping, going to sleep, waking up, or manually asleep
-        // Also check if component is still visible to prevent ghost messages
+        // Don't change message if paused, expanded, or manually asleep
+        // Allow message changes even during some animations to keep it lively
         if (
           isPaused ||
           isExpanded ||
-          isAnimating ||
           isSleeping ||
           isGoingToSleep ||
           isWakingUp ||
@@ -317,7 +316,7 @@ const AvatarAssistant = () => {
         setAvatarAnimationState('excited');
 
         // Randomly toggle enhanced breathing for more variety
-        setIsBreathingEnhanced(Math.random() > 0.6);
+        setIsBreathingEnhanced(Math.random() > 0.4);
 
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
@@ -328,7 +327,7 @@ const AvatarAssistant = () => {
           setAnimationType('pulse');
           setAvatarAnimationState('floating');
         }, 1200); // Increased duration for smoother transitions
-      }, 10000); // Increased interval for less aggressive changes
+      }, 8000); // Slightly reduced interval for more lively behavior
     };
 
     // Set initial message only if visible and not sleeping
@@ -340,7 +339,11 @@ const AvatarAssistant = () => {
       !isManualSleep &&
       messages.length > 0
     ) {
-      setMessage(messages[0]);
+      // Start with a random message if no message is set, or use the first one as fallback
+      if (!message) {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        setMessage(messages[randomIndex]);
+      }
       startMessageInterval();
     } else if (
       isSleeping ||
@@ -525,19 +528,57 @@ const AvatarAssistant = () => {
   // Add attention-seeking behavior
   useEffect(() => {
     const attentionInterval = setInterval(() => {
-      // Randomly trigger attention-seeking behavior (10% chance every 15 seconds)
-      if (Math.random() < 0.1 && isVisible && !isExpanded && !isAnimating) {
+      // Randomly trigger attention-seeking behavior (25% chance every 15 seconds)
+      // Only require that assistant is visible and not expanded, allow other animations
+      if (
+        Math.random() < 0.25 &&
+        isVisible &&
+        !isExpanded &&
+        !isSleeping &&
+        !isGoingToSleep &&
+        !isWakingUp &&
+        !isManualSleep
+      ) {
         setAttentionSeekingActive(true);
         setAvatarAnimationState('attention');
+
+        // Show a playful message during attention-seeking
+        const attentionMessages = [
+          '👋 Hey there! Notice me?',
+          '✨ I have ideas to share!',
+          '🎯 Want to explore something cool?',
+          '💡 I can help you navigate!',
+          '🚀 Ready for a quick tour?',
+        ];
+        const randomMsg =
+          attentionMessages[
+            Math.floor(Math.random() * attentionMessages.length)
+          ];
+        setMessage(randomMsg);
+
         setTimeout(() => {
           setAttentionSeekingActive(false);
           setAvatarAnimationState('floating');
-        }, 1200);
+          // Clear the attention message after a bit
+          setTimeout(() => {
+            if (message === randomMsg) {
+              setMessage('');
+            }
+          }, 3000);
+        }, 1500);
       }
-    }, 15000);
+    }, 12000); // Check every 12 seconds for more frequent attention-seeking
 
     return () => clearInterval(attentionInterval);
-  }, [isVisible, isExpanded, isAnimating]);
+  }, [
+    isVisible,
+    isExpanded,
+    isSleeping,
+    isGoingToSleep,
+    isWakingUp,
+    isManualSleep,
+    message,
+  ]);
 
   // Page-specific welcome messages
   useEffect(() => {
