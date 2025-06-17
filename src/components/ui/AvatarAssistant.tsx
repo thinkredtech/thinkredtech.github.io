@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   ContactIcon,
@@ -43,11 +43,38 @@ const AvatarAssistant = () => {
   const [isBreathingEnhanced, setIsBreathingEnhanced] = useState(false);
   const [attentionSeekingActive, setAttentionSeekingActive] = useState(false);
   const [avatarAnimationState, setAvatarAnimationState] = useState<
-    'floating' | 'attention' | 'excited' | 'bouncing'
+    | 'floating'
+    | 'attention'
+    | 'excited'
+    | 'bouncing'
+    | 'anticipating'
+    | 'excited-pop'
+    | 'excited-bounce'
+    | 'excited-wiggle'
+    | 'excited-zoom'
+    | 'excited-explode'
   >('floating');
   const [showContextualOptions, setShowContextualOptions] = useState(false);
   const [isMessageHovered, setIsMessageHovered] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [messageAnimation, setMessageAnimation] = useState<
+    | 'pop-in'
+    | 'bounce-in'
+    | 'typewriter'
+    | 'explode-in'
+    | 'flip-in'
+    | 'zoom-in'
+    | 'wobble-in'
+    | 'shrink'
+    | 'grow-pop'
+    | 'grow-bounce'
+    | 'grow-wiggle'
+    | 'grow-zoom'
+    | 'grow-explode'
+    | 'grow-subtle'
+    | 'none'
+  >('none');
+  const [isMessageChanging, setIsMessageChanging] = useState(false);
   const [userInteractionCount, setUserInteractionCount] = useState(0);
   const [lastInteractionTime, setLastInteractionTime] = useState<number>(0);
   const [pageVisitCount, setPageVisitCount] = useState(0);
@@ -59,6 +86,103 @@ const AvatarAssistant = () => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const messageRef = useRef<HTMLDivElement>(null);
+  const hasBeenRenderedRef = useRef(false); // Track if avatar has been shown before
+
+  // Function to change message with shrink-then-grow animation
+  const changeMessageWithAnimation = useCallback(
+    (newMessage: string) => {
+      if (newMessage === message || isMessageChanging) return; // Prevent rapid changes
+
+      // Use shrink-grow animations 70% of the time for more noticeable changes
+      const useComicAnimation = Math.random() < 0.7;
+
+      if (useComicAnimation) {
+        // Choose a random grow animation style
+        const growAnimations: (
+          | 'grow-pop'
+          | 'grow-bounce'
+          | 'grow-wiggle'
+          | 'grow-zoom'
+          | 'grow-explode'
+        )[] = [
+          'grow-pop',
+          'grow-bounce',
+          'grow-wiggle',
+          'grow-zoom',
+          'grow-explode',
+        ];
+        const randomGrowAnimation =
+          growAnimations[Math.floor(Math.random() * growAnimations.length)];
+
+        // Phase 1: Start shrinking
+        setIsMessageChanging(true);
+        setMessageAnimation('shrink');
+
+        // Add subtle avatar anticipation during shrink
+        setIsAnimating(true);
+        setAnimationType('pulse');
+        setAvatarAnimationState('anticipating'); // Anticipation during shrink
+
+        // Phase 2: After shrink completes, change message and start growing
+        setTimeout(() => {
+          setMessage(newMessage); // Change message while bubble is invisible
+          setMessageAnimation(randomGrowAnimation); // Start growing with style
+
+          // Small delay to ensure message change is processed before starting sync animations
+          setTimeout(() => {
+            // Now animate avatar in sync with specific bubble growth
+            const animationMap: Record<string, typeof avatarAnimationState> = {
+              'grow-pop': 'excited-pop',
+              'grow-bounce': 'excited-bounce',
+              'grow-wiggle': 'excited-wiggle',
+              'grow-zoom': 'excited-zoom',
+              'grow-explode': 'excited-explode',
+            };
+            setAvatarAnimationState(
+              animationMap[randomGrowAnimation] || 'excited'
+            );
+            setAnimationType('bounce');
+          }, 50); // Very small delay to ensure bubble growth starts first
+        }, 320); // Slightly longer to ensure shrink completes
+
+        // Phase 3: Complete the animation
+        setTimeout(() => {
+          setIsMessageChanging(false);
+          setMessageAnimation('none');
+          setIsAnimating(false);
+          setAvatarAnimationState('floating');
+        }, 900); // Total animation time: 320ms shrink + 50ms delay + 530ms grow
+      } else {
+        // For subtle changes, use gentle shrink-grow
+        setIsMessageChanging(true);
+        setMessageAnimation('shrink');
+
+        // Add subtle avatar anticipation
+        setIsAnimating(true);
+        setAnimationType('pulse');
+        setAvatarAnimationState('anticipating'); // Gentle anticipation        // Change message and grow back subtly
+        setTimeout(() => {
+          setMessage(newMessage);
+          setMessageAnimation('grow-subtle');
+
+          // Small delay for sync
+          setTimeout(() => {
+            // Gentle avatar animation in sync with subtle grow
+            setAnimationType('pulse');
+            setAvatarAnimationState('floating'); // Stay calm for subtle changes
+          }, 50);
+        }, 320);
+
+        // Complete subtle animation
+        setTimeout(() => {
+          setIsMessageChanging(false);
+          setMessageAnimation('none');
+          setIsAnimating(false);
+        }, 770); // 320ms shrink + 50ms delay + 400ms subtle grow
+      }
+    },
+    [message, isMessageChanging]
+  );
 
   // Track user engagement and show special messages
   useEffect(() => {
@@ -72,7 +196,7 @@ const AvatarAssistant = () => {
     const showEngagementMessage = () => {
       if (userInteractionCount >= 3 && !hasShownSpecialMessage) {
         setHasShownSpecialMessage(true);
-        setMessage(
+        changeMessageWithAnimation(
           "🎉 You're really exploring! I love the enthusiasm. Need a direct line to our team?"
         );
         setIsAnimating(true);
@@ -84,16 +208,12 @@ const AvatarAssistant = () => {
           setAvatarAnimationState('floating');
         }, 2000);
 
-        setTimeout(() => {
-          setMessage('');
-        }, 8000);
+        // Don't automatically clear the message - let it persist
       } else if (pageVisitCount >= 5 && userInteractionCount === 0) {
-        setMessage(
+        changeMessageWithAnimation(
           "👋 Hey there! I'm here if you need any guidance navigating our site."
         );
-        setTimeout(() => {
-          setMessage('');
-        }, 6000);
+        // Don't automatically clear this message - let it persist
       }
     };
 
@@ -101,7 +221,12 @@ const AvatarAssistant = () => {
     if (pageVisitCount > 0) {
       showEngagementMessage();
     }
-  }, [userInteractionCount, pageVisitCount, hasShownSpecialMessage]);
+  }, [
+    userInteractionCount,
+    pageVisitCount,
+    hasShownSpecialMessage,
+    changeMessageWithAnimation,
+  ]);
 
   // Add seasonal and special occasion messages
   const getSpecialOccasionMessage = () => {
@@ -273,8 +398,7 @@ const AvatarAssistant = () => {
       }
 
       intervalRef.current = setInterval(() => {
-        // Don't change message if paused, expanded, or manually asleep
-        // Allow message changes even during some animations to keep it lively
+        // Don't change message if paused, expanded, manually asleep, or if a message animation is currently playing
         if (
           isPaused ||
           isExpanded ||
@@ -282,7 +406,8 @@ const AvatarAssistant = () => {
           isGoingToSleep ||
           isWakingUp ||
           isManualSleep ||
-          !isVisible
+          !isVisible ||
+          isMessageChanging // Added guard to prevent message changes during animations
         ) {
           return;
         }
@@ -293,9 +418,9 @@ const AvatarAssistant = () => {
         // Prevent setting the same message consecutively to avoid flicker
         if (newMessage === message) {
           const nextIndex = (randomIndex + 1) % messages.length;
-          setMessage(messages[nextIndex]);
+          changeMessageWithAnimation(messages[nextIndex]);
         } else {
-          setMessage(newMessage);
+          changeMessageWithAnimation(newMessage);
         }
 
         setIsAnimating(true);
@@ -327,7 +452,7 @@ const AvatarAssistant = () => {
           setAnimationType('pulse');
           setAvatarAnimationState('floating');
         }, 1200); // Increased duration for smoother transitions
-      }, 8000); // Slightly reduced interval for more lively behavior
+      }, 18000); // Sweet spot - 18 seconds for noticeable but calm cycling
     };
 
     // Set initial message only if visible and not sleeping
@@ -339,11 +464,12 @@ const AvatarAssistant = () => {
       !isManualSleep &&
       messages.length > 0
     ) {
-      // Start with a random message if no message is set, or use the first one as fallback
+      // Only set initial message if no message is currently displayed
       if (!message) {
         const randomIndex = Math.floor(Math.random() * messages.length);
         setMessage(messages[randomIndex]);
       }
+      // Start the interval for message changes
       startMessageInterval();
     } else if (
       isSleeping ||
@@ -352,8 +478,10 @@ const AvatarAssistant = () => {
       isManualSleep ||
       !isVisible
     ) {
-      // Clear message and stop interval when not visible
-      setMessage('');
+      // Only clear message and stop interval when going to sleep or becoming invisible
+      if (isSleeping || isGoingToSleep || isManualSleep) {
+        setMessage('');
+      }
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
@@ -378,6 +506,8 @@ const AvatarAssistant = () => {
     isManualSleep,
     isVisible,
     message,
+    changeMessageWithAnimation,
+    isMessageChanging,
   ]);
 
   // Handle hover pause functionality with UI updates
@@ -405,7 +535,7 @@ const AvatarAssistant = () => {
 
       if (idleTime > twoMinutes && !isSleeping && !isManualSleep && isVisible) {
         // Show encouragement after 2 minutes of no interaction
-        setMessage(
+        changeMessageWithAnimation(
           "💡 Still browsing? I can help you find exactly what you're looking for!"
         );
         setIsAnimating(true);
@@ -415,7 +545,7 @@ const AvatarAssistant = () => {
         setTimeout(() => {
           setIsAnimating(false);
           setAvatarAnimationState('floating');
-          setMessage('');
+          // Don't clear the message automatically
         }, 6000);
       } else if (
         idleTime > thirtySeconds &&
@@ -425,10 +555,10 @@ const AvatarAssistant = () => {
         isVisible
       ) {
         // Show gentle nudge for new users after 30 seconds
-        setMessage('👋 New here? Click on me for quick navigation!');
-        setTimeout(() => {
-          setMessage('');
-        }, 5000);
+        changeMessageWithAnimation(
+          '👋 New here? Click on me for quick navigation!'
+        );
+        // Don't automatically clear this message
       }
     };
 
@@ -440,6 +570,7 @@ const AvatarAssistant = () => {
     isSleeping,
     isManualSleep,
     isVisible,
+    changeMessageWithAnimation,
   ]);
 
   // Handle scroll events to put avatar to sleep/wake up
@@ -554,20 +685,15 @@ const AvatarAssistant = () => {
           attentionMessages[
             Math.floor(Math.random() * attentionMessages.length)
           ];
-        setMessage(randomMsg);
+        changeMessageWithAnimation(randomMsg);
 
         setTimeout(() => {
           setAttentionSeekingActive(false);
           setAvatarAnimationState('floating');
-          // Clear the attention message after a bit
-          setTimeout(() => {
-            if (message === randomMsg) {
-              setMessage('');
-            }
-          }, 3000);
+          // Don't automatically clear attention messages - let message cycling handle it
         }, 1500);
       }
-    }, 12000); // Check every 12 seconds for more frequent attention-seeking
+    }, 25000); // Reasonable attention-seeking frequency - 25 seconds
 
     return () => clearInterval(attentionInterval);
   }, [
@@ -578,6 +704,7 @@ const AvatarAssistant = () => {
     isWakingUp,
     isManualSleep,
     message,
+    changeMessageWithAnimation,
   ]);
 
   // Page-specific welcome messages
@@ -622,7 +749,7 @@ const AvatarAssistant = () => {
       // Show welcome message after a brief delay
       setTimeout(() => {
         if (isVisible && !isSleeping) {
-          setMessage(welcomeMessage);
+          changeMessageWithAnimation(welcomeMessage);
           setIsAnimating(true);
           setAnimationType('enhanced');
           setAvatarAnimationState('excited');
@@ -633,16 +760,13 @@ const AvatarAssistant = () => {
             setAvatarAnimationState('floating');
           }, 1000);
 
-          // Clear welcome message after showing it
-          setTimeout(() => {
-            setMessage('');
-          }, 6000);
+          // Don't automatically clear welcome messages - let them persist
         }
       }, 2000);
     };
 
     showPageWelcome();
-  }, [location.pathname, isVisible, isSleeping]);
+  }, [location.pathname, isVisible, isSleeping, changeMessageWithAnimation]);
 
   // Toggle expanded state
   const toggleExpanded = () => {
@@ -694,25 +818,46 @@ const AvatarAssistant = () => {
 
   // Function to get synchronized bubble animation class
   const getSyncedBubbleAnimation = () => {
+    // Base breathing animation that should always be present
+    const baseBreathing = isBreathingEnhanced
+      ? 'bubble-sync-genie-float message-bubble-enhanced-breathing'
+      : 'bubble-sync-genie-float message-bubble-breathing';
+
+    // If a message is changing, add the comic book animation ON TOP of breathing
+    if (isMessageChanging && messageAnimation !== 'none') {
+      return `${baseBreathing} message-${messageAnimation}`;
+    } else if (isMessageChanging && messageAnimation === 'none') {
+      // For subtle non-comic changes, use a gentle content pulse
+      return `${baseBreathing} bubble-content-pulse`;
+    }
+
+    // Synchronized avatar-bubble animations during excitement
+    if (avatarAnimationState.startsWith('excited-')) {
+      const excitementType = avatarAnimationState.replace('excited-', '');
+      return `${baseBreathing} bubble-sync-excited-${excitementType}`;
+    } else if (avatarAnimationState === 'anticipating') {
+      return `${baseBreathing} bubble-sync-anticipating`;
+    } else if (avatarAnimationState === 'excited') {
+      return `${baseBreathing} bubble-sync-excited-pop`; // Default excited animation
+    }
+
     if (isAnimating) {
-      // During active animations, use enhanced specific animations
+      // During active animations, use enhanced specific animations but keep breathing
       if (animationType === 'wiggle' || animationType === 'enhanced') {
-        return 'bubble-sync-wiggle';
+        return `${baseBreathing} bubble-sync-wiggle`;
       } else if (animationType === 'bounce') {
-        return 'bubble-sync-bounce';
+        return `${baseBreathing} bubble-sync-bounce`;
       } else if (animationType === 'heartbeat') {
-        return 'bubble-heartbeat';
+        return `${baseBreathing} bubble-heartbeat`;
       } else {
-        return 'bubble-content-pulse';
+        return `${baseBreathing} bubble-content-pulse`;
       }
     } else if (attentionSeekingActive) {
-      // During attention seeking, sync with gentle bounce
-      return 'bubble-sync-attention bubble-attention-seeking';
+      // During attention seeking, combine with attention animation
+      return `${baseBreathing} bubble-sync-attention bubble-attention-seeking`;
     } else if (avatarAnimationState === 'floating') {
-      // During normal floating, sync with genie float
-      return isBreathingEnhanced
-        ? 'bubble-sync-genie-float message-bubble-enhanced-breathing'
-        : 'bubble-sync-genie-float message-bubble-breathing';
+      // During normal floating, just use the base breathing
+      return baseBreathing;
     } else {
       // Fallback to breathing
       return 'message-bubble-breathing';
@@ -917,8 +1062,10 @@ const AvatarAssistant = () => {
               setAnimationType('pulse');
               setAvatarAnimationState('floating');
               setIsBreathingEnhanced(false);
-              setMessage('✨ Amazing animations, right? I love showing off!');
-              setTimeout(() => setMessage(''), 3000);
+              changeMessageWithAnimation(
+                '✨ Amazing animations, right? I love showing off!'
+              );
+              // Let the message persist
             }, 2500);
           },
           icon: <SparkleIcon size="sm" className="text-current" />,
@@ -1060,8 +1207,13 @@ const AvatarAssistant = () => {
         setIsAnimating(false);
         setAnimationType('pulse');
         setAvatarAnimationState('floating');
-        setJustWokeUp(false); // Reset after animations complete
+        // Don't reset justWokeUp immediately to prevent fade-in animation from triggering
       }, 1000);
+
+      // Reset justWokeUp after a longer delay to prevent animation conflicts
+      setTimeout(() => {
+        setJustWokeUp(false);
+      }, 2000);
     }, 390); // Slightly before animation completes to ensure smooth transition
   };
 
@@ -1072,7 +1224,13 @@ const AvatarAssistant = () => {
     return (
       <div
         className={`w-full h-full relative overflow-hidden genie-container ${
-          avatarAnimationState === 'excited' || isAnimating ? 'excited' : ''
+          avatarAnimationState === 'excited' ||
+          avatarAnimationState.startsWith('excited-') ||
+          isAnimating
+            ? avatarAnimationState
+            : ''
+        } ${avatarAnimationState === 'anticipating' ? 'anticipating' : ''} ${
+          avatarAnimationState === 'bouncing' ? 'bouncing' : ''
         } ${isHovered ? 'hovered' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -1139,7 +1297,14 @@ const AvatarAssistant = () => {
         !isSleeping &&
         !isManualSleep && (
           <div
-            className={`relative ${justWokeUp ? '' : 'animate-smooth-fade-in'}`}
+            className={`relative ${
+              justWokeUp || isAnimating || hasBeenRenderedRef.current
+                ? ''
+                : 'animate-smooth-fade-in'
+            }`}
+            ref={() => {
+              hasBeenRenderedRef.current = true;
+            }}
           >
             {/* Message bubble - positioned relative to this container */}
             {(message || isExpanded || showContextualOptions) && isVisible && (

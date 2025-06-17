@@ -840,18 +840,22 @@ code {
   0% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
-  20% {
-    opacity: 0.85;
-    transform: scale(0.96) rotate(-0.5deg);
+  30% {
+    opacity: 0.9;
+    transform: scale(1.02) rotate(-0.3deg);
+    box-shadow: 0 8px 15px -3px rgba(228, 9, 62, 0.15);
   }
   60% {
-    opacity: 0.9;
-    transform: scale(1.02) rotate(0.3deg);
+    opacity: 0.95;
+    transform: scale(1.01) rotate(0.2deg);
+    box-shadow: 0 6px 10px -2px rgba(228, 9, 62, 0.2);
   }
   100% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -881,6 +885,338 @@ code {
   }
   100% {
     transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Comic Book Style Message Animations - Shrink/Grow approach */
+
+/* Shrink phase - bubble shrinks from center */
+.message-shrink {
+  animation: bubbleShrink 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleShrink {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.05) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+/* Grow phase with different comic book styles */
+.message-grow-pop {
+  animation: bubbleGrowPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleGrowPop {
+  0% {
+    transform: scale(0.05) rotate(-5deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(2deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.message-grow-bounce {
+  animation: bubbleGrowBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleGrowBounce {
+  0% {
+    transform: scale(0.05);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scale(0.95);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.message-grow-wiggle {
+  animation: bubbleGrowWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleGrowWiggle {
+  0% {
+    transform: scale(0.05) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(0.6) rotate(-3deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scale(0.98) rotate(-1deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.message-grow-zoom {
+  animation: bubbleGrowZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleGrowZoom {
+  0% {
+    transform: scale(0.05);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.message-grow-subtle {
+  animation: bubbleGrowSubtle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transform-origin: center center;
+}
+
+.message-grow-explode {
+  animation: bubbleGrowExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transform-origin: center center;
+}
+
+@keyframes bubbleGrowExplode {
+  0% {
+    transform: scale(0.05) rotate(-10deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  30% {
+    transform: scale(0.8) rotate(5deg);
+    opacity: 0.6;
+    filter: blur(1px);
+  }
+  60% {
+    transform: scale(1.2) rotate(-2deg);
+    opacity: 0.9;
+    filter: blur(0px);
+  }
+  80% {
+    transform: scale(0.92) rotate(1deg);
+    opacity: 0.98;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes bubbleGrowSubtle {
+  0% {
+    transform: scale(0.05);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Legacy comic book animations - keeping for backward compatibility but will replace */
+
+/* Pop-in effect like comic book speech bubbles - gentler */
+.message-pop-in {
+  animation: comicPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes comicPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) rotate(-3deg) translateY(10px);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05) rotate(1deg) translateY(-2px);
+  }
+  75% {
+    opacity: 0.95;
+    transform: scale(0.98) rotate(-0.5deg) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg) translateY(0px);
+  }
+}
+
+/* Bounce in like cartoon thought bubble - gentler */
+.message-bounce-in {
+  animation: cartoonBounce 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cartoonBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(30px);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.08) translateY(-8px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(0.95) translateY(3px);
+  }
+  75% {
+    opacity: 0.98;
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+  }
+}
+
+/* Typewriter effect with character reveal - reduced for harmony */
+.message-typewriter {
+  animation: typewriterReveal 1s steps(30, end);
+  overflow: hidden;
+  border-right: 2px solid #E4093E;
+}
+
+@keyframes typewriterReveal {
+  0% {
+    width: 0;
+    border-right: 2px solid #E4093E;
+  }
+  85% {
+    width: 100%;
+    border-right: 2px solid #E4093E;
+  }
+  100% {
+    width: 100%;
+    border-right: transparent;
+  }
+}
+
+/* Comic book explosion effect - much gentler */
+.message-explode-in {
+  animation: comicExplode 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes comicExplode {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(15deg);
+    filter: blur(3px);
+  }
+  40% {
+    opacity: 0.7;
+    transform: scale(1.05) rotate(-2deg);
+    filter: blur(1px);
+  }
+  70% {
+    opacity: 0.95;
+    transform: scale(0.98) rotate(1deg);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Slide and flip effect like turning comic page - much more subtle */
+.message-flip-in {
+  animation: comicFlip 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes comicFlip {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateY(-20deg) translateX(20px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: perspective(400px) rotateY(3deg) translateX(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg) translateX(0px);
+  }
+}
+
+/* Zoom in with overshoot like comic emphasis - more subtle */
+.message-zoom-in {
+  animation: comicZoom 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes comicZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Wobbly entrance like jello - much more gentle */
+.message-wobble-in {
+  animation: comicWobble 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes comicWobble {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) skew(-2deg);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1.03) skew(1deg);
+  }
+  60% {
+    opacity: 0.95;
+    transform: scale(0.98) skew(-0.5deg);
+  }
+  80% {
+    opacity: 0.98;
+    transform: scale(1.01) skew(0.3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) skew(0deg);
   }
 }
 
@@ -1028,8 +1364,52 @@ code {
   }
 }
 
-.genie-container.excited .avatar-body {
-  animation: genieWiggle 0.5s ease-in-out;
+/* Avatar animations that sync with bubble grow phases */
+.genie-container.excited .avatar-image {
+  animation: genieExcited 0.53s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+/* Avatar animations for specific bubble sync */
+.genie-container.excited-pop .avatar-image {
+  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+.genie-container.excited-bounce .avatar-image {
+  animation: genieExcited 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
+}
+
+.genie-container.excited-wiggle .avatar-image {
+  animation: genieExcited 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) ease-in-out;
+}
+
+.genie-container.excited-zoom .avatar-image {
+  animation: genieExcited 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+.genie-container.excited-explode .avatar-image {
+  animation: genieExcited 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+.genie-container .avatar-image {
+  transition: transform 0.2s ease-in-out;
+}
+
+@keyframes genieExcited {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  30% {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.08) rotate(2deg);
+  }
+  80% {
+    transform: scale(0.98) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .genie-container.hovered .magic-wand {
@@ -1037,6 +1417,7 @@ code {
   stroke-width: 4 !important;
 }
 
+/* Legacy wiggle for backward compatibility */
 @keyframes genieWiggle {
   0%,
   100% {
@@ -1611,5 +1992,161 @@ code {
   100% {
     opacity: 0;
     transform: scale(0.9) translateY(10px);
+  }
+}
+
+/* Avatar anticipation animation during message shrink */
+.genie-container.anticipating .avatar-image {
+  animation: genieAnticipation 0.32s ease-in-out;
+}
+
+@keyframes genieAnticipation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Avatar bounce animation for attention-seeking */
+.genie-container.bouncing .avatar-image {
+  animation: genieBounce 0.6s ease-in-out;
+}
+
+@keyframes genieBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-4px) scale(0.98);
+  }
+  75% {
+    transform: translateY(-6px) scale(1.01);
+  }
+}
+
+/* Synchronized bubble animations that bounce with avatar excitement */
+.bubble-sync-excited-pop {
+  animation: bubbleSyncPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+@keyframes bubbleSyncPop {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-1.5px) scale(1.015) rotate(-0.3deg);
+  }
+  60% {
+    transform: translateY(-3px) scale(1.03) rotate(0.5deg);
+  }
+  80% {
+    transform: translateY(-0.8px) scale(0.99) rotate(-0.2deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.bubble-sync-excited-bounce {
+  animation: bubbleSyncBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
+}
+
+@keyframes bubbleSyncBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-2px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.04);
+  }
+  75% {
+    transform: translateY(-1.5px) scale(0.995);
+  }
+}
+
+.bubble-sync-excited-wiggle {
+  animation: bubbleSyncWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) ease-in-out;
+}
+
+@keyframes bubbleSyncWiggle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translateY(-2px) rotate(-1deg) scale(1.02);
+  }
+  40% {
+    transform: translateY(-4px) rotate(1.5deg) scale(1.04);
+  }
+  60% {
+    transform: translateY(-3px) rotate(-0.8deg) scale(1.03);
+  }
+  80% {
+    transform: translateY(-1px) rotate(0.5deg) scale(1.01);
+  }
+}
+
+.bubble-sync-excited-zoom {
+  animation: bubbleSyncZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+@keyframes bubbleSyncZoom {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bubble-sync-excited-explode {
+  animation: bubbleSyncExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+}
+
+@keyframes bubbleSyncExplode {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  30% {
+    transform: translateY(-2px) scale(1.03) rotate(-0.6deg);
+    filter: blur(0.3px);
+  }
+  60% {
+    transform: translateY(-5px) scale(1.08) rotate(1deg);
+    filter: blur(0px);
+  }
+  80% {
+    transform: translateY(-1.5px) scale(0.98) rotate(-0.3deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+.bubble-sync-anticipating {
+  animation: bubbleSyncAnticipation 0.32s ease-in-out;
+}
+
+@keyframes bubbleSyncAnticipation {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(1px) scale(0.99);
   }
 }
