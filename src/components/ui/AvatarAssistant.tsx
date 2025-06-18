@@ -93,6 +93,11 @@ const AvatarAssistant = () => {
     (newMessage: string) => {
       if (newMessage === message || isMessageChanging) return; // Prevent rapid changes
 
+      // Clear any existing timeouts to prevent conflicts
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
       // Use shrink-grow animations 70% of the time for more noticeable changes
       const useComicAnimation = Math.random() < 0.7;
 
@@ -128,8 +133,12 @@ const AvatarAssistant = () => {
           setMessage(newMessage); // Change message while bubble is invisible
           setMessageAnimation(randomGrowAnimation); // Start growing with style
 
-          // Small delay to ensure message change is processed before starting sync animations
+          // Delay avatar animation to prevent jumping in front of bubble
           setTimeout(() => {
+            // Clear any conflicting states before setting new animation
+            setIsAnimating(false);
+            setAttentionSeekingActive(false);
+
             // Now animate avatar in sync with specific bubble growth
             const animationMap: Record<string, typeof avatarAnimationState> = {
               'grow-pop': 'excited-pop',
@@ -142,8 +151,9 @@ const AvatarAssistant = () => {
               animationMap[randomGrowAnimation] || 'excited'
             );
             setAnimationType('bounce');
-          }, 50); // Very small delay to ensure bubble growth starts first
-        }, 320); // Slightly longer to ensure shrink completes
+            setIsAnimating(true);
+          }, 100); // Increased delay to ensure bubble starts growing first
+        }, 330); // Increased slightly to ensure shrink fully completes
 
         // Phase 3: Complete the animation
         setTimeout(() => {
@@ -151,7 +161,7 @@ const AvatarAssistant = () => {
           setMessageAnimation('none');
           setIsAnimating(false);
           setAvatarAnimationState('floating');
-        }, 900); // Total animation time: 320ms shrink + 50ms delay + 530ms grow
+        }, 960); // Adjusted total: 330ms shrink + 100ms delay + 530ms grow
       } else {
         // For subtle changes, use gentle shrink-grow
         setIsMessageChanging(true);
@@ -165,20 +175,20 @@ const AvatarAssistant = () => {
           setMessage(newMessage);
           setMessageAnimation('grow-subtle');
 
-          // Small delay for sync
+          // Increased delay for better sync with subtle changes
           setTimeout(() => {
             // Gentle avatar animation in sync with subtle grow
             setAnimationType('pulse');
             setAvatarAnimationState('floating'); // Stay calm for subtle changes
-          }, 50);
-        }, 320);
+          }, 80); // Slightly more delay for subtle sync
+        }, 330); // Match the shrink timing with comic animations
 
         // Complete subtle animation
         setTimeout(() => {
           setIsMessageChanging(false);
           setMessageAnimation('none');
           setIsAnimating(false);
-        }, 770); // 320ms shrink + 50ms delay + 400ms subtle grow
+        }, 810); // Adjusted: 330ms shrink + 80ms delay + 400ms subtle grow
       }
     },
     [message, isMessageChanging]
@@ -451,8 +461,8 @@ const AvatarAssistant = () => {
           setIsAnimating(false);
           setAnimationType('pulse');
           setAvatarAnimationState('floating');
-        }, 1200); // Increased duration for smoother transitions
-      }, 18000); // Sweet spot - 18 seconds for noticeable but calm cycling
+        }, 1000); // Reduced from 1200ms for snappier feel
+      }, 14000); // Optimized to 14 seconds for more consistent user engagement
     };
 
     // Set initial message only if visible and not sleeping
@@ -668,8 +678,13 @@ const AvatarAssistant = () => {
         !isSleeping &&
         !isGoingToSleep &&
         !isWakingUp &&
-        !isManualSleep
+        !isManualSleep &&
+        !isMessageChanging && // Don't interrupt message changes
+        !isAnimating // Don't interrupt other animations
       ) {
+        // Clear any conflicting states first
+        setIsAnimating(false);
+
         setAttentionSeekingActive(true);
         setAvatarAnimationState('attention');
 
@@ -691,9 +706,9 @@ const AvatarAssistant = () => {
           setAttentionSeekingActive(false);
           setAvatarAnimationState('floating');
           // Don't automatically clear attention messages - let message cycling handle it
-        }, 1500);
+        }, 1800); // Increased from 1500ms to match longer animation duration
       }
-    }, 25000); // Reasonable attention-seeking frequency - 25 seconds
+    }, 20000); // Reduced from 25 seconds for more responsive attention-seeking
 
     return () => clearInterval(attentionInterval);
   }, [
@@ -703,6 +718,8 @@ const AvatarAssistant = () => {
     isGoingToSleep,
     isWakingUp,
     isManualSleep,
+    isMessageChanging,
+    isAnimating,
     message,
     changeMessageWithAnimation,
   ]);
@@ -768,6 +785,50 @@ const AvatarAssistant = () => {
     showPageWelcome();
   }, [location.pathname, isVisible, isSleeping, changeMessageWithAnimation]);
 
+  // Unified function to get avatar animation classes - prevents conflicts
+  const getAvatarAnimationClass = () => {
+    // Priority order to prevent conflicts (highest to lowest priority):
+
+    // 1. Sleep/wake states take highest priority
+    if (isSleeping || isGoingToSleep || isWakingUp || isManualSleep) {
+      return '';
+    }
+
+    // 2. Message changing states take second priority (prevents interruption)
+    if (isMessageChanging) {
+      return 'genie-float-animation'; // Keep floating during message changes
+    }
+
+    // 3. User interaction states (bouncing) take third priority
+    if (avatarAnimationState === 'bouncing') {
+      return 'animate-bounce';
+    }
+
+    // 4. Attention-seeking takes fourth priority (but not during other animations)
+    if (
+      (avatarAnimationState === 'attention' || attentionSeekingActive) &&
+      !isAnimating
+    ) {
+      return 'show-assistant-float';
+    }
+
+    // 5. Excited states during message changes
+    if (avatarAnimationState.startsWith('excited-') && isAnimating) {
+      return 'genie-float-animation'; // Use base float, let CSS handle excitement via container classes
+    }
+
+    // 6. Active animation types during interactions
+    if (
+      isAnimating &&
+      (animationType === 'bounce' || animationType === 'enhanced')
+    ) {
+      return 'animate-bounce';
+    }
+
+    // 7. Default floating state
+    return 'genie-float-animation';
+  };
+
   // Toggle expanded state
   const toggleExpanded = () => {
     // Track user interaction
@@ -781,6 +842,11 @@ const AvatarAssistant = () => {
     }
 
     setIsExpanded(!isExpanded);
+
+    // Clear any conflicting animation states first
+    setAttentionSeekingActive(false);
+    setShowContextualOptions(false);
+
     setIsAnimating(true);
 
     // Use enhanced animations for user interactions
@@ -801,10 +867,6 @@ const AvatarAssistant = () => {
     // Set avatar to bouncing state for user interactions
     setAvatarAnimationState('bouncing');
 
-    // Reset attention seeking when user interacts
-    setAttentionSeekingActive(false);
-    setShowContextualOptions(false);
-
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -813,7 +875,7 @@ const AvatarAssistant = () => {
       setIsAnimating(false);
       setAnimationType('pulse'); // Return to default after interaction
       setAvatarAnimationState('floating'); // Return avatar to floating
-    }, 800);
+    }, 700); // Reduced from 800ms for more responsive interactions
   };
 
   // Function to get synchronized bubble animation class
@@ -1475,17 +1537,17 @@ const AvatarAssistant = () => {
                     <div className="space-y-4">
                       {/* Header for contextual options */}
                       <div className="flex items-center gap-3 pb-3 border-b border-gray-200/60">
-                        <div className="w-7 h-7 bg-gradient-to-br from-[#E4093E] to-[#B8072E] rounded-full flex items-center justify-center">
+                        <div className="w-8 h-8 bg-gradient-to-br from-[#E4093E] to-[#B8072E] rounded-full flex items-center justify-center animate-pulse">
                           <InsightIcon size="sm" className="text-white" />
                         </div>
                         <div>
                           <p className="font-bold text-[#E4093E] text-base">
-                            Quick Actions
+                            Smart Suggestions
                           </p>
                           <p className="text-xs text-secondary/70 font-normal">
-                            Based on "
-                            {message.length > 30
-                              ? `${message.substring(0, 30)}...`
+                            Tailored for "
+                            {message.length > 25
+                              ? `${message.substring(0, 25)}...`
                               : message}
                             "
                           </p>
@@ -1494,65 +1556,229 @@ const AvatarAssistant = () => {
 
                       {/* Contextual action cards */}
                       <div className="grid grid-cols-1 gap-3">
-                        {getContextualOptions(message).map((option, index) => (
-                          <button
-                            key={index}
-                            className="group relative overflow-hidden p-3 bg-gradient-to-br from-[#E4093E]/5 to-[#E4093E]/10 hover:from-[#E4093E]/10 hover:to-[#E4093E]/20 rounded-xl border border-[#E4093E]/20 hover:border-[#E4093E]/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
-                            onClick={() => {
-                              option.action();
-                              setShowContextualOptions(false);
-                            }}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 bg-gradient-to-br from-[#E4093E] to-[#B8072E] rounded-lg flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform duration-200">
-                                {option.icon}
-                              </div>
-                              <div className="text-left flex-1">
-                                <p className="font-medium text-secondary group-hover:text-secondary text-sm">
-                                  {option.label}
-                                </p>
-                              </div>
-                              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                <svg
-                                  className="w-3 h-3 text-[#E4093E]"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9 5l7 7-7 7"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                          </button>
-                        ))}
+                        {getContextualOptions(message).map((option, index) => {
+                          // Define color themes for different action types
+                          const colorThemes = [
+                            {
+                              bg: 'from-emerald-50 to-emerald-100/50',
+                              hoverBg:
+                                'hover:from-emerald-100 hover:to-emerald-200/60',
+                              border:
+                                'border-emerald-200/60 hover:border-emerald-300/80',
+                              iconBg: 'from-emerald-500 to-emerald-600',
+                              textColor:
+                                'text-emerald-700 group-hover:text-emerald-800',
+                              descColor: 'text-emerald-600/80',
+                              arrowColor: 'text-emerald-600',
+                            },
+                            {
+                              bg: 'from-blue-50 to-blue-100/50',
+                              hoverBg:
+                                'hover:from-blue-100 hover:to-blue-200/60',
+                              border:
+                                'border-blue-200/60 hover:border-blue-300/80',
+                              iconBg: 'from-blue-500 to-blue-600',
+                              textColor:
+                                'text-blue-700 group-hover:text-blue-800',
+                              descColor: 'text-blue-600/80',
+                              arrowColor: 'text-blue-600',
+                            },
+                            {
+                              bg: 'from-purple-50 to-purple-100/50',
+                              hoverBg:
+                                'hover:from-purple-100 hover:to-purple-200/60',
+                              border:
+                                'border-purple-200/60 hover:border-purple-300/80',
+                              iconBg: 'from-purple-500 to-purple-600',
+                              textColor:
+                                'text-purple-700 group-hover:text-purple-800',
+                              descColor: 'text-purple-600/80',
+                              arrowColor: 'text-purple-600',
+                            },
+                            {
+                              bg: 'from-orange-50 to-orange-100/50',
+                              hoverBg:
+                                'hover:from-orange-100 hover:to-orange-200/60',
+                              border:
+                                'border-orange-200/60 hover:border-orange-300/80',
+                              iconBg: 'from-orange-500 to-orange-600',
+                              textColor:
+                                'text-orange-700 group-hover:text-orange-800',
+                              descColor: 'text-orange-600/80',
+                              arrowColor: 'text-orange-600',
+                            },
+                            {
+                              bg: 'from-teal-50 to-teal-100/50',
+                              hoverBg:
+                                'hover:from-teal-100 hover:to-teal-200/60',
+                              border:
+                                'border-teal-200/60 hover:border-teal-300/80',
+                              iconBg: 'from-teal-500 to-teal-600',
+                              textColor:
+                                'text-teal-700 group-hover:text-teal-800',
+                              descColor: 'text-teal-600/80',
+                              arrowColor: 'text-teal-600',
+                            },
+                            {
+                              bg: 'from-indigo-50 to-indigo-100/50',
+                              hoverBg:
+                                'hover:from-indigo-100 hover:to-indigo-200/60',
+                              border:
+                                'border-indigo-200/60 hover:border-indigo-300/80',
+                              iconBg: 'from-indigo-500 to-indigo-600',
+                              textColor:
+                                'text-indigo-700 group-hover:text-indigo-800',
+                              descColor: 'text-indigo-600/80',
+                              arrowColor: 'text-indigo-600',
+                            },
+                          ];
 
-                        {/* Back button */}
+                          const theme = colorThemes[index % colorThemes.length];
+
+                          // Generate contextual descriptions for better UX
+                          const getDescription = (label: string) => {
+                            if (
+                              label.includes('Services') ||
+                              label.includes('All Services')
+                            )
+                              return 'Explore our comprehensive offerings';
+                            if (
+                              label.includes('Portfolio') ||
+                              label.includes('Projects')
+                            )
+                              return 'See our successful work';
+                            if (
+                              label.includes('Contact') ||
+                              label.includes('Quote')
+                            )
+                              return 'Get personalized assistance';
+                            if (
+                              label.includes('Career') ||
+                              label.includes('Team') ||
+                              label.includes('Join')
+                            )
+                              return 'Build your future with us';
+                            if (
+                              label.includes('Blog') ||
+                              label.includes('Articles')
+                            )
+                              return 'Stay informed and inspired';
+                            if (
+                              label.includes('About') ||
+                              label.includes('Learn')
+                            )
+                              return 'Discover our story';
+                            if (
+                              label.includes('Platform') ||
+                              label.includes('Engineering')
+                            )
+                              return 'Scalable infrastructure solutions';
+                            if (
+                              label.includes('Web') ||
+                              label.includes('Development')
+                            )
+                              return 'Modern web applications';
+                            if (
+                              label.includes('AI') ||
+                              label.includes('Solutions')
+                            )
+                              return 'Intelligent automation tools';
+                            if (label.includes('Featured'))
+                              return 'Our most impressive work';
+                            if (label.includes('Case Studies'))
+                              return 'Detailed project insights';
+                            if (label.includes('Open Positions'))
+                              return 'Current opportunities';
+                            if (label.includes('Latest'))
+                              return 'Recent articles and updates';
+                            if (
+                              label.includes('Tech') ||
+                              label.includes('Insights')
+                            )
+                              return 'Industry knowledge and trends';
+                            if (label.includes('DevOps'))
+                              return 'Deployment and operations';
+                            if (label.includes('Technologies'))
+                              return 'Our technical expertise';
+                            return 'Click to explore more';
+                          };
+
+                          return (
+                            <button
+                              key={index}
+                              className={`group relative overflow-hidden p-4 bg-gradient-to-br ${theme.bg} ${theme.hoverBg} rounded-xl border ${theme.border} transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+                              onClick={() => {
+                                option.action();
+                                setShowContextualOptions(false);
+                              }}
+                            >
+                              <div className="flex items-center gap-3">
+                                <div
+                                  className={`w-10 h-10 bg-gradient-to-br ${theme.iconBg} rounded-lg flex items-center justify-center text-white body-1-medium group-hover:scale-110 transition-transform duration-200`}
+                                >
+                                  {option.icon}
+                                </div>
+                                <div className="text-left flex-1">
+                                  <p
+                                    className={`font-semibold ${theme.textColor}`}
+                                  >
+                                    {option.label}
+                                  </p>
+                                  <p
+                                    className={`text-xs ${theme.descColor} font-normal`}
+                                  >
+                                    {getDescription(option.label)}
+                                  </p>
+                                </div>
+                                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                  <svg
+                                    className={`w-4 h-4 ${theme.arrowColor}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M9 5l7 7-7 7"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </button>
+                          );
+                        })}
+
+                        {/* Enhanced back button to match the new design */}
                         <button
-                          className="group relative overflow-hidden p-2 bg-gradient-to-br from-gray-50 to-gray-100/50 hover:from-gray-100 hover:to-gray-200/60 rounded-xl border border-gray-200/60 hover:border-gray-300/80 transition-all duration-300 hover:scale-[1.02]"
+                          className="group relative overflow-hidden p-4 bg-gradient-to-br from-gray-50 to-gray-100/50 hover:from-gray-100 hover:to-gray-200/60 rounded-xl border border-gray-200/60 hover:border-gray-300/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
                           onClick={() => setShowContextualOptions(false)}
                         >
-                          <div className="flex items-center gap-2 justify-center">
-                            <svg
-                              className="w-4 h-4 text-secondary"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                              />
-                            </svg>
-                            <span className="font-medium text-secondary text-sm">
-                              Back to message
-                            </span>
+                          <div className="flex items-center gap-3 justify-center">
+                            <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-200">
+                              <svg
+                                className="w-4 h-4 text-white"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                                />
+                              </svg>
+                            </div>
+                            <div className="text-left flex-1">
+                              <p className="font-semibold text-gray-700 group-hover:text-gray-800">
+                                Back to Message
+                              </p>
+                              <p className="text-xs text-gray-600/80 font-normal">
+                                Return to the main message
+                              </p>
+                            </div>
                           </div>
                         </button>
                       </div>
@@ -1618,16 +1844,7 @@ const AvatarAssistant = () => {
 
             {/* Avatar - positioned at the bottom-right of the relative container */}
             <div
-              className={`w-16 h-16 sm:w-20 sm:h-20 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${
-                avatarAnimationState === 'bouncing' ||
-                (isAnimating &&
-                  (animationType === 'bounce' || animationType === 'enhanced'))
-                  ? 'animate-bounce'
-                  : avatarAnimationState === 'attention' ||
-                      attentionSeekingActive
-                    ? 'show-assistant-float'
-                    : 'genie-float-animation'
-              }`}
+              className={`w-16 h-16 sm:w-20 sm:h-20 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${getAvatarAnimationClass()}`}
               onClick={toggleExpanded}
             >
               <div className="w-full h-full">

@@ -890,9 +890,9 @@ code {
 
 /* Comic Book Style Message Animations - Shrink/Grow approach */
 
-/* Shrink phase - bubble shrinks from center */
+/* Shrink phase - bubble shrinks from center - improved timing */
 .message-shrink {
-  animation: bubbleShrink 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+  animation: bubbleShrink 0.33s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
   transform-origin: center center;
 }
 
@@ -1250,7 +1250,7 @@ code {
   }
 }
 
-/* Synchronized breathing animations that match avatar movements */
+/* Synchronized breathing animations that match avatar movements - improved timing */
 .bubble-sync-genie-float {
   animation: bubbleSyncGenieFloat 3s ease-in-out infinite;
 }
@@ -1353,23 +1353,23 @@ code {
   }
 }
 
-/* Genie Avatar Animation Styles */
+/* Genie Avatar Animation Styles - improved smoothness */
 @keyframes genieFloat {
   0%,
   100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-6px); /* Reduced from -8px for gentler movement */
   }
 }
 
-/* Avatar animations that sync with bubble grow phases */
+/* Avatar animations that sync with bubble grow phases - improved consistency */
 .genie-container.excited .avatar-image {
-  animation: genieExcited 0.53s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
+  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
 
-/* Avatar animations for specific bubble sync */
+/* Avatar animations for specific bubble sync - standardized timing */
 .genie-container.excited-pop .avatar-image {
   animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
@@ -1398,14 +1398,14 @@ code {
   0% {
     transform: scale(1) rotate(0deg);
   }
-  30% {
-    transform: scale(1.05) rotate(-2deg);
+  25% {
+    transform: scale(1.03) rotate(-1.5deg); /* Reduced from -2deg */
   }
-  60% {
-    transform: scale(1.08) rotate(2deg);
+  50% {
+    transform: scale(1.06) rotate(1.5deg); /* Reduced from 2deg */
   }
-  80% {
-    transform: scale(0.98) rotate(-1deg);
+  75% {
+    transform: scale(0.99) rotate(-0.8deg); /* Reduced from -1deg */
   }
   100% {
     transform: scale(1) rotate(0deg);
@@ -1507,9 +1507,9 @@ code {
   animation: genieFloat 3s ease-in-out infinite;
 }
 
-/* Show assistant float animation for attention-seeking behavior */
+/* Show assistant float animation for attention-seeking behavior - smoother */
 .show-assistant-float {
-  animation: assistantFloat 2s ease-in-out infinite;
+  animation: assistantFloat 2.5s ease-in-out infinite;
 }
 
 @keyframes assistantFloat {
@@ -1518,13 +1518,13 @@ code {
     transform: translateY(0px) rotate(0deg);
   }
   25% {
-    transform: translateY(-4px) rotate(-1deg);
+    transform: translateY(-2px) rotate(-0.5deg); /* Reduced movement */
   }
   50% {
-    transform: translateY(-8px) rotate(0deg);
+    transform: translateY(-5px) rotate(0deg); /* Reduced from -8px */
   }
   75% {
-    transform: translateY(-4px) rotate(1deg);
+    transform: translateY(-2px) rotate(0.5deg); /* Reduced movement */
   }
 }
 
