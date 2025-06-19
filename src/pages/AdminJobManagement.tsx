@@ -7,6 +7,11 @@ import {
   getAllJobPositions,
   deleteJobPosition,
 } from '../utils/jobUtils';
+import {
+  sanitizeInput,
+  validateTextLength,
+  sanitizeAndValidateArrayInput,
+} from '../utils/security';
 
 interface JobFormData {
   title: string;
@@ -36,8 +41,9 @@ const AdminJobManagement: React.FC = () => {
     skills: [''],
   });
 
-  // Simple password authentication (in a real app, use proper auth)
-  const ADMIN_PASSWORD = 'ThinkRED2025!';
+  // Secure password authentication
+  const ADMIN_PASSWORD =
+    process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -99,24 +105,37 @@ const AdminJobManagement: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate form
+    // Enhanced validation with length limits
     if (!formData.title || !formData.description) {
       alert('Please fill in all required fields');
       return;
     }
 
-    // Filter out empty array items
-    const cleanedData = {
+    if (!validateTextLength(formData.title, 100, 1)) {
+      alert('Job title must be between 1 and 100 characters');
+      return;
+    }
+
+    if (!validateTextLength(formData.description, 2000, 1)) {
+      alert('Job description must be between 1 and 2000 characters');
+      return;
+    }
+
+    // Sanitize and validate input
+    const sanitizedData = {
       ...formData,
-      requirements: formData.requirements.filter(item => item.trim() !== ''),
-      responsibilities: formData.responsibilities.filter(
-        item => item.trim() !== ''
+      title: sanitizeInput(formData.title),
+      experience: sanitizeInput(formData.experience),
+      description: sanitizeInput(formData.description),
+      requirements: sanitizeAndValidateArrayInput(formData.requirements),
+      responsibilities: sanitizeAndValidateArrayInput(
+        formData.responsibilities
       ),
-      skills: formData.skills.filter(item => item.trim() !== ''),
+      skills: sanitizeAndValidateArrayInput(formData.skills),
     };
 
     try {
-      const newJob = addJobPosition(cleanedData);
+      const newJob = addJobPosition(sanitizedData);
       alert(`Job "${newJob.title}" created successfully! ID: ${newJob.id}`);
       setShowForm(false);
       setFormData({

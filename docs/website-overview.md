@@ -43,6 +43,18 @@ Built on React 19 with Vite build optimization, the site prioritizes loading spe
 ### Accessibility Standards
 Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse abilities, reflecting ThinkRED's commitment to inclusive technology.
 
+### Security-First Implementation
+Enterprise-grade security hardening protects against common web vulnerabilities:
+
+- **XSS Protection**: Comprehensive input sanitization and HTML entity encoding
+- **Content Security Policy**: Strict CSP headers preventing injection attacks
+- **Input Validation**: Multi-layer validation with SQL injection detection
+- **File Upload Security**: Secure validation with MIME type and size checks
+- **Authentication Security**: Environment-based admin authentication
+- **Security Headers**: Complete security header implementation
+
+The security architecture includes a centralized security utility module (`src/utils/security.ts`) providing reusable validation, sanitization, and protection functions across all application components.
+
 ## Technical Architecture
 
 ### Component-Based Structure

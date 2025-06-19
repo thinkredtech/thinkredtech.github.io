@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  sanitizeInput,
+  validateEmail,
+  validatePhone,
+  validateTextLength,
+} from '../../utils/security';
 
 // Discovery Call component
 const DiscoveryCallScheduler = () => {
@@ -41,11 +47,65 @@ const DiscoveryCallScheduler = () => {
     setSubmitError('');
 
     try {
+      // Input validation
+      if (!validateEmail(formData.email)) {
+        setSubmitError('Please enter a valid email address.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validatePhone(formData.phone)) {
+        setSubmitError('Please enter a valid phone number.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.name, 100, 1)) {
+        setSubmitError('Name is too long. Maximum length is 100 characters.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.company, 100, 1)) {
+        setSubmitError(
+          'Company name is too long. Maximum length is 100 characters.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.additionalInfo, 500, 0)) {
+        setSubmitError(
+          'Additional information is too long. Maximum length is 500 characters.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sanitize inputs
+      const sanitizedData = {
+        ...formData,
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        company: sanitizeInput(formData.company),
+        phone: sanitizeInput(formData.phone),
+        projectType: sanitizeInput(formData.projectType),
+        preferredDate: sanitizeInput(formData.preferredDate),
+        preferredTime: sanitizeInput(formData.preferredTime),
+        timezone: sanitizeInput(formData.timezone),
+        additionalInfo: sanitizeInput(formData.additionalInfo),
+      };
+
       // In a real implementation, this would be an API call to a scheduling service
       // For this demo, we'll simulate a successful scheduling
 
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // In production, this would send an email to hello@thinkred.tech
+      // with the form data: name, email, company, phone, project details, etc.
+      // The sanitizedData object ensures all inputs are safe from XSS attacks
+      void sanitizedData; // Used in production API calls
 
       // In production, this would send an email to hello@thinkred.tech
       // with the form data: name, email, company, phone, project details, etc.
@@ -471,8 +531,70 @@ const QuoteRequestForm = () => {
     setSubmitError('');
 
     try {
-      // In a real implementation, this would be an API call to a quote service
-      // For this demo, we'll simulate a successful quote request
+      // Input validation
+      if (!validateEmail(formData.email)) {
+        setSubmitError('Please enter a valid email address.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validatePhone(formData.phone)) {
+        setSubmitError('Please enter a valid phone number.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.name, 100, 1)) {
+        setSubmitError('Name is too long. Maximum length is 100 characters.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.company, 100, 1)) {
+        setSubmitError(
+          'Company name is too long. Maximum length is 100 characters.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.projectDescription, 500, 10)) {
+        setSubmitError(
+          'Project description is too long. Maximum length is 500 characters.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.requirements, 500, 0)) {
+        setSubmitError(
+          'Requirements are too long. Maximum length is 500 characters.'
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sanitize inputs
+      const sanitizedData = {
+        ...formData,
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        company: sanitizeInput(formData.company),
+        phone: sanitizeInput(formData.phone),
+        projectType: sanitizeInput(formData.projectType),
+        projectDescription: sanitizeInput(formData.projectDescription),
+        budget: sanitizeInput(formData.budget),
+        timeline: sanitizeInput(formData.timeline),
+        requirements: sanitizeInput(formData.requirements),
+        hearAboutUs: sanitizeInput(formData.hearAboutUs),
+      };
+
+      // In production, this would send sanitized data to hello@thinkred.tech
+      // with the form data: name, email, company, project details, etc.
+      // In production, this would send an email to hello@thinkred.tech
+      // with the form data: name, email, company, project details, etc.
+      // The sanitizedData object ensures all inputs are safe from XSS attacks
+      void sanitizedData; // Used in production API calls
 
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));

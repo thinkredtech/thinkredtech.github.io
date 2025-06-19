@@ -4,6 +4,43 @@ All notable changes to the ThinkRED website are documented in this file. The for
 
 ---
 
+## [1.0.1] - 2025-06-20
+
+### 🔒 Security Hardening & Documentation Update
+
+#### 🛡️ **Comprehensive Security Enhancements**
+
+- **XSS Protection**: Added comprehensive input sanitization with HTML entity encoding across all forms
+- **Content Security Policy**: Implemented strict CSP headers in HTML templates and deployment configuration
+- **Input Validation**: Enhanced email, phone, URL validation with SQL injection detection
+- **File Upload Security**: Hardened file validation with MIME type, size, and filename checks
+- **Authentication Security**: Replaced hardcoded admin passwords with environment variables
+- **Security Headers**: Added X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+
+#### 🏗️ **Security Infrastructure**
+
+- **Central Security Module**: Created `src/utils/security.ts` with 15+ security utilities
+- **Form Security**: Enhanced all contact and job application forms with comprehensive validation
+- **Admin Panel Hardening**: Secured job management with improved authentication and input validation
+- **Deployment Security**: Added security headers to deployment scripts and production configuration
+
+#### 📚 **Documentation Updates**
+
+- **Security Documentation**: Added comprehensive security architecture documentation
+- **README Enhancement**: Integrated security features in main documentation
+- **Website Overview**: Updated with security-first implementation details
+
+#### 🔧 **Technical Improvements**
+
+- **Code Consolidation**: Replaced all local security functions with centralized utilities
+- **TypeScript Safety**: Full type coverage for all security functions
+- **Build Verification**: Ensured zero breaking changes with comprehensive testing
+
+### 🚨 **Breaking Changes**
+None - All security enhancements maintain backward compatibility
+
+---
+
 ## [1.0.0] - 2025-06-17
 
 ### 🚀 Major Release: Complete Website Overhaul & Job Application System

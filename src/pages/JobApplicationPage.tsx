@@ -4,6 +4,14 @@ import PageHero from '../components/ui/PageHero';
 import { hardcodedPositions } from './CareerPage';
 import { getAllJobPositions } from '../utils/jobUtils';
 import { Position, JobApplication } from '../types';
+import {
+  sanitizeInput,
+  validateEmail,
+  validatePhone,
+  validateURL,
+  validateTextLength,
+  validateFile,
+} from '../utils/security';
 
 const JobApplicationPage = () => {
   const { jobId } = useParams<{ jobId: string }>();
@@ -73,24 +81,23 @@ const JobApplicationPage = () => {
   ) => {
     const file = e.target.files?.[0] || null;
     if (file) {
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setErrors(prev => ({
-          ...prev,
-          [fileType]: 'File size must be less than 5MB',
-        }));
-        return;
-      }
-      // Validate file type
+      // Use centralized file validation
       const allowedTypes = [
         'application/pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       ];
-      if (!allowedTypes.includes(file.type)) {
+
+      const validationResult = validateFile(
+        file,
+        allowedTypes,
+        5 * 1024 * 1024
+      ); // 5MB limit
+
+      if (!validationResult.isValid) {
         setErrors(prev => ({
           ...prev,
-          [fileType]: 'Please upload a PDF or Word document',
+          [fileType]: validationResult.error || 'File validation failed',
         }));
         return;
       }
@@ -113,30 +120,57 @@ const JobApplicationPage = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
+    // Enhanced validation with sanitization
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required';
+    } else if (!validateTextLength(formData.firstName, 50)) {
+      newErrors.firstName = 'First name must be less than 50 characters';
     }
+
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required';
+    } else if (!validateTextLength(formData.lastName, 50)) {
+      newErrors.lastName = 'Last name must be less than 50 characters';
     }
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
     }
+
+    // URL validation for optional fields
+    if (formData.linkedIn && !validateURL(formData.linkedIn)) {
+      newErrors.linkedIn = 'Please enter a valid LinkedIn URL';
+    }
+
+    if (formData.portfolio && !validateURL(formData.portfolio)) {
+      newErrors.portfolio = 'Please enter a valid portfolio URL';
+    }
+
     if (!formData.coverLetter.trim()) {
       newErrors.coverLetter = 'Cover letter is required';
     } else if (formData.coverLetter.trim().length < 100) {
       newErrors.coverLetter = 'Cover letter must be at least 100 characters';
+    } else if (!validateTextLength(formData.coverLetter, 2000)) {
+      newErrors.coverLetter = 'Cover letter must be less than 2000 characters';
     }
     if (!formData.experience.trim()) {
       newErrors.experience = 'Please describe your relevant experience';
     }
     if (!formData.availability.trim()) {
       newErrors.availability = 'Please specify your availability';
+    }
+
+    // File validation
+    if (!files.resume) {
+      newErrors.resume = 'Resume is required';
     }
 
     // File validation
@@ -164,6 +198,22 @@ const JobApplicationPage = () => {
       // Generate application ID (in real app, this would come from backend)
       const applicationId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
+      // Sanitize all form inputs before storing
+      const sanitizedFormData = {
+        firstName: sanitizeInput(formData.firstName),
+        lastName: sanitizeInput(formData.lastName),
+        email: sanitizeInput(formData.email),
+        phone: sanitizeInput(formData.phone),
+        linkedIn: sanitizeInput(formData.linkedIn),
+        portfolio: sanitizeInput(formData.portfolio),
+        coverLetter: sanitizeInput(formData.coverLetter),
+        experience: sanitizeInput(formData.experience),
+        availability: sanitizeInput(formData.availability),
+        salaryExpectation: sanitizeInput(formData.salaryExpectation),
+        relocate: sanitizeInput(formData.relocate),
+        references: sanitizeInput(formData.references),
+      };
+
       // Store application data (in a real app, this would be sent to a backend)
       const applicationData: JobApplication = {
         applicationId,
@@ -171,7 +221,7 @@ const JobApplicationPage = () => {
         jobSlug: job?.slug || '',
         jobTitle: job?.title || '',
         applicant: {
-          ...formData,
+          ...sanitizedFormData,
           // Convert File objects to file names for storage (in a real app, files would be uploaded to a server)
           resume: files.resume ? files.resume.name : undefined,
           coverLetterFile: files.coverLetterFile
