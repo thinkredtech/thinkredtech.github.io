@@ -890,33 +890,41 @@ code {
 
 /* Comic Book Style Message Animations - Shrink/Grow approach */
 
-/* Shrink phase - bubble shrinks from center - improved timing */
+/* Shrink phase - bubble shrinks to center like genie going back into lamp */
 .message-shrink {
-  animation: bubbleShrink 0.33s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+  animation: bubbleShrinkGenie 0.33s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleShrink {
+@keyframes bubbleShrinkGenie {
   0% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
   }
+  50% {
+    transform: scale(0.3) rotate(-2deg);
+    opacity: 0.6;
+  }
   100% {
-    transform: scale(0.05) rotate(0deg);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
   }
 }
 
-/* Grow phase with different comic book styles */
+/* Grow phase with genie-like effects - emerging from center like genie from lamp */
 .message-grow-pop {
-  animation: bubbleGrowPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bubbleGrowGeniePopPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleGrowPop {
+@keyframes bubbleGrowGeniePopPop {
   0% {
-    transform: scale(0.05) rotate(-5deg);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
+  }
+  30% {
+    transform: scale(0.4) rotate(-3deg);
+    opacity: 0.5;
   }
   60% {
     transform: scale(1.1) rotate(2deg);
@@ -929,37 +937,41 @@ code {
 }
 
 .message-grow-bounce {
-  animation: bubbleGrowBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: bubbleGrowGenieBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleGrowBounce {
+@keyframes bubbleGrowGenieBounce {
   0% {
-    transform: scale(0.05);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
   }
+  40% {
+    transform: scale(0.6) rotate(-2deg);
+    opacity: 0.6;
+  }
   50% {
-    transform: scale(1.15);
+    transform: scale(1.15) rotate(1deg);
     opacity: 0.8;
   }
   75% {
-    transform: scale(0.95);
+    transform: scale(0.95) rotate(-0.5deg);
     opacity: 0.95;
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
     opacity: 1;
   }
 }
 
 .message-grow-wiggle {
-  animation: bubbleGrowWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: bubbleGrowGenieWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleGrowWiggle {
+@keyframes bubbleGrowGenieWiggle {
   0% {
-    transform: scale(0.05) rotate(0deg);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
   }
   25% {
@@ -981,38 +993,38 @@ code {
 }
 
 .message-grow-zoom {
-  animation: bubbleGrowZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bubbleGrowGenieZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleGrowZoom {
+@keyframes bubbleGrowGenieZoom {
   0% {
-    transform: scale(0.05);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
   }
   70% {
-    transform: scale(1.08);
+    transform: scale(1.08) rotate(1deg);
     opacity: 0.9;
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
     opacity: 1;
   }
 }
 
 .message-grow-subtle {
-  animation: bubbleGrowSubtle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: bubbleGrowGenieSubtle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   transform-origin: center center;
 }
 
 .message-grow-explode {
-  animation: bubbleGrowExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bubbleGrowGenieExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
-@keyframes bubbleGrowExplode {
+@keyframes bubbleGrowGenieExplode {
   0% {
-    transform: scale(0.05) rotate(-10deg);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
     filter: blur(2px);
   }
@@ -1037,13 +1049,13 @@ code {
   }
 }
 
-@keyframes bubbleGrowSubtle {
+@keyframes bubbleGrowGenieSubtle {
   0% {
-    transform: scale(0.05);
+    transform: scale(0) rotate(0deg);
     opacity: 0;
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
     opacity: 1;
   }
 }
@@ -1995,158 +2007,123 @@ code {
   }
 }
 
-/* Avatar anticipation animation during message shrink */
-.genie-container.anticipating .avatar-image {
-  animation: genieAnticipation 0.32s ease-in-out;
-}
-
-@keyframes genieAnticipation {
+/* Floating fade animations for background bubbles - prevents truncation */
+@keyframes floatFade {
   0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Avatar bounce animation for attention-seeking */
-.genie-container.bouncing .avatar-image {
-  animation: genieBounce 0.6s ease-in-out;
-}
-
-@keyframes genieBounce {
-  0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.6;
   }
   25% {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-15px) rotate(2deg) scale(1.1);
+    opacity: 0.4;
   }
   50% {
-    transform: translateY(-4px) scale(0.98);
+    transform: translateY(-30px) rotate(-1deg) scale(1.05);
+    opacity: 0.3;
   }
   75% {
-    transform: translateY(-6px) scale(1.01);
+    transform: translateY(-45px) rotate(1deg) scale(0.9);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-60px) rotate(0deg) scale(0.7);
+    opacity: 0;
   }
 }
 
-/* Synchronized bubble animations that bounce with avatar excitement */
-.bubble-sync-excited-pop {
-  animation: bubbleSyncPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
-}
-
-@keyframes bubbleSyncPop {
+@keyframes floatFadeDelayed {
   0% {
-    transform: translateY(0) scale(1) rotate(0deg);
+    transform: translateY(0px) rotate(0deg) scale(0.8);
+    opacity: 0.4;
   }
   30% {
-    transform: translateY(-1.5px) scale(1.015) rotate(-0.3deg);
+    transform: translateY(-20px) rotate(-2deg) scale(1);
+    opacity: 0.3;
   }
   60% {
-    transform: translateY(-3px) scale(1.03) rotate(0.5deg);
-  }
-  80% {
-    transform: translateY(-0.8px) scale(0.99) rotate(-0.2deg);
+    transform: translateY(-40px) rotate(1deg) scale(0.9);
+    opacity: 0.2;
   }
   100% {
-    transform: translateY(0) scale(1) rotate(0deg);
+    transform: translateY(-70px) rotate(0deg) scale(0.6);
+    opacity: 0;
   }
 }
 
-.bubble-sync-excited-bounce {
-  animation: bubbleSyncBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
-}
-
-@keyframes bubbleSyncBounce {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-  25% {
-    transform: translateY(-2px) scale(1.02);
-  }
-  50% {
-    transform: translateY(-4px) scale(1.04);
-  }
-  75% {
-    transform: translateY(-1.5px) scale(0.995);
-  }
-}
-
-.bubble-sync-excited-wiggle {
-  animation: bubbleSyncWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) ease-in-out;
-}
-
-@keyframes bubbleSyncWiggle {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg) scale(1);
+@keyframes floatFadeSlow {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1.2);
+    opacity: 0.5;
   }
   20% {
-    transform: translateY(-2px) rotate(-1deg) scale(1.02);
+    transform: translateY(-10px) rotate(1deg) scale(1.1);
+    opacity: 0.4;
   }
   40% {
-    transform: translateY(-4px) rotate(1.5deg) scale(1.04);
+    transform: translateY(-25px) rotate(-1deg) scale(1);
+    opacity: 0.3;
   }
-  60% {
-    transform: translateY(-3px) rotate(-0.8deg) scale(1.03);
-  }
-  80% {
-    transform: translateY(-1px) rotate(0.5deg) scale(1.01);
-  }
-}
-
-.bubble-sync-excited-zoom {
-  animation: bubbleSyncZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
-}
-
-@keyframes bubbleSyncZoom {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-5px) scale(1.08);
+  70% {
+    transform: translateY(-40px) rotate(2deg) scale(0.8);
+    opacity: 0.15;
   }
   100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(-60px) rotate(0deg) scale(0.5);
+    opacity: 0;
   }
 }
 
-.bubble-sync-excited-explode {
-  animation: bubbleSyncExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
-}
-
-@keyframes bubbleSyncExplode {
+@keyframes floatFadeFast {
   0% {
-    transform: translateY(0) scale(1) rotate(0deg);
-    filter: blur(0px);
-  }
-  30% {
-    transform: translateY(-2px) scale(1.03) rotate(-0.6deg);
-    filter: blur(0.3px);
-  }
-  60% {
-    transform: translateY(-5px) scale(1.08) rotate(1deg);
-    filter: blur(0px);
-  }
-  80% {
-    transform: translateY(-1.5px) scale(0.98) rotate(-0.3deg);
-  }
-  100% {
-    transform: translateY(0) scale(1) rotate(0deg);
-    filter: blur(0px);
-  }
-}
-
-.bubble-sync-anticipating {
-  animation: bubbleSyncAnticipation 0.32s ease-in-out;
-}
-
-@keyframes bubbleSyncAnticipation {
-  0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0px) rotate(0deg) scale(0.9);
+    opacity: 0.3;
   }
   50% {
-    transform: translateY(1px) scale(0.99);
+    transform: translateY(-30px) rotate(3deg) scale(1.1);
+    opacity: 0.2;
   }
+  100% {
+    transform: translateY(-50px) rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes floatFadeMedium {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.35;
+  }
+  35% {
+    transform: translateY(-18px) rotate(-1deg) scale(1.05);
+    opacity: 0.25;
+  }
+  70% {
+    transform: translateY(-35px) rotate(1deg) scale(0.9);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-55px) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Animation classes for floating fade effects */
+.animate-float-fade {
+  animation: floatFade 4s ease-out infinite;
+}
+
+.animate-float-fade-delayed {
+  animation: floatFadeDelayed 5s ease-out infinite 1s;
+}
+
+.animate-float-fade-slow {
+  animation: floatFadeSlow 6s ease-out infinite 2s;
+}
+
+.animate-float-fade-fast {
+  animation: floatFadeFast 3s ease-out infinite 0.5s;
+}
+
+.animate-float-fade-medium {
+  animation: floatFadeMedium 4.5s ease-out infinite 1.5s;
 }

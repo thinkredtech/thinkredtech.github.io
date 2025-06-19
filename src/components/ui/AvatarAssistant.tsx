@@ -25,6 +25,41 @@ import {
   SleepIcon,
 } from './SvgIcons';
 
+// Message Duration Constants - Centralized timing configuration
+const MESSAGE_TIMINGS = {
+  // Main message cycling
+  MAIN_CYCLE_INTERVAL: 15000, // 15 seconds - increased slightly for better pacing
+  MAIN_ANIMATION_DURATION: 1000, // 1 second for avatar excitement
+
+  // Message change animations
+  COMIC_ANIMATION_TOTAL: 960, // Shrink + delay + grow
+  SUBTLE_ANIMATION_TOTAL: 810, // Shorter for subtle changes
+
+  // Special messages - standardized durations
+  ENGAGEMENT_DURATION: 2500, // 2.5 seconds for engagement messages
+  ATTENTION_SEEKING_DURATION: 2000, // 2 seconds for attention-seeking
+  IDLE_ENCOURAGEMENT_DURATION: 3000, // 3 seconds for idle messages
+  PAGE_WELCOME_DURATION: 2500, // 2.5 seconds for page welcomes
+
+  // Interaction feedback
+  USER_INTERACTION_DURATION: 800, // User click feedback
+  HOVER_RESUME_DELAY: 1000, // Delay before resuming after hover
+
+  // Intervals for different behaviors
+  ATTENTION_SEEKING_INTERVAL: 25000, // 25 seconds - increased to avoid overlap
+  IDLE_CHECK_INTERVAL: 10000, // Check idle status every 10 seconds
+  IDLE_NUDGE_THRESHOLD: 45000, // 45 seconds for new users (increased)
+  IDLE_ENCOURAGEMENT_THRESHOLD: 120000, // 2 minutes for active users
+
+  // Sleep/wake transitions
+  SLEEP_TRANSITION_DURATION: 400, // Sleep animation duration
+  WAKE_TRANSITION_DURATION: 390, // Wake animation duration (slightly before completion)
+  WAKE_RESET_DELAY: 2000, // Delay before resetting wake up flag
+
+  // Demo animations
+  DEMO_ANIMATION_STEP: 500, // Time between demo animation steps
+} as const;
+
 const AvatarAssistant = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -152,8 +187,8 @@ const AvatarAssistant = () => {
             );
             setAnimationType('bounce');
             setIsAnimating(true);
-          }, 100); // Increased delay to ensure bubble starts growing first
-        }, 330); // Increased slightly to ensure shrink fully completes
+          }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 10); // Slight delay to ensure bubble starts growing first
+        }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 3); // Allow shrink to complete
 
         // Phase 3: Complete the animation
         setTimeout(() => {
@@ -161,7 +196,7 @@ const AvatarAssistant = () => {
           setMessageAnimation('none');
           setIsAnimating(false);
           setAvatarAnimationState('floating');
-        }, 960); // Adjusted total: 330ms shrink + 100ms delay + 530ms grow
+        }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL); // Total comic animation duration
       } else {
         // For subtle changes, use gentle shrink-grow
         setIsMessageChanging(true);
@@ -180,15 +215,15 @@ const AvatarAssistant = () => {
             // Gentle avatar animation in sync with subtle grow
             setAnimationType('pulse');
             setAvatarAnimationState('floating'); // Stay calm for subtle changes
-          }, 80); // Slightly more delay for subtle sync
-        }, 330); // Match the shrink timing with comic animations
+          }, MESSAGE_TIMINGS.SUBTLE_ANIMATION_TOTAL / 10); // Slightly more delay for subtle sync
+        }, MESSAGE_TIMINGS.SUBTLE_ANIMATION_TOTAL / 2.5); // Match the shrink timing with comic animations
 
         // Complete subtle animation
         setTimeout(() => {
           setIsMessageChanging(false);
           setMessageAnimation('none');
           setIsAnimating(false);
-        }, 810); // Adjusted: 330ms shrink + 80ms delay + 400ms subtle grow
+        }, MESSAGE_TIMINGS.SUBTLE_ANIMATION_TOTAL); // Total subtle animation duration
       }
     },
     [message, isMessageChanging]
@@ -216,7 +251,7 @@ const AvatarAssistant = () => {
         setTimeout(() => {
           setIsAnimating(false);
           setAvatarAnimationState('floating');
-        }, 2000);
+        }, MESSAGE_TIMINGS.ENGAGEMENT_DURATION);
 
         // Don't automatically clear the message - let it persist
       } else if (pageVisitCount >= 5 && userInteractionCount === 0) {
@@ -461,8 +496,8 @@ const AvatarAssistant = () => {
           setIsAnimating(false);
           setAnimationType('pulse');
           setAvatarAnimationState('floating');
-        }, 1000); // Reduced from 1200ms for snappier feel
-      }, 14000); // Optimized to 14 seconds for more consistent user engagement
+        }, MESSAGE_TIMINGS.MAIN_ANIMATION_DURATION); // Main animation duration
+      }, MESSAGE_TIMINGS.MAIN_CYCLE_INTERVAL); // Main message cycling interval
     };
 
     // Set initial message only if visible and not sleeping
@@ -528,10 +563,10 @@ const AvatarAssistant = () => {
 
   const handleMessageUnhover = () => {
     setIsMessageHovered(false);
-    // Wait 1 second after unhover before resuming message changes
+    // Wait for resume delay after unhover before resuming message changes
     setTimeout(() => {
       setIsPaused(false);
-    }, 1000);
+    }, MESSAGE_TIMINGS.HOVER_RESUME_DELAY);
   };
 
   // Idle detection for proactive assistance
@@ -540,8 +575,8 @@ const AvatarAssistant = () => {
       if (lastInteractionTime === 0) return;
 
       const idleTime = Date.now() - lastInteractionTime;
-      const thirtySeconds = 30000;
-      const twoMinutes = 120000;
+      const thirtySeconds = MESSAGE_TIMINGS.IDLE_NUDGE_THRESHOLD;
+      const twoMinutes = MESSAGE_TIMINGS.IDLE_ENCOURAGEMENT_THRESHOLD;
 
       if (idleTime > twoMinutes && !isSleeping && !isManualSleep && isVisible) {
         // Show encouragement after 2 minutes of no interaction
@@ -556,7 +591,7 @@ const AvatarAssistant = () => {
           setIsAnimating(false);
           setAvatarAnimationState('floating');
           // Don't clear the message automatically
-        }, 6000);
+        }, MESSAGE_TIMINGS.IDLE_ENCOURAGEMENT_DURATION);
       } else if (
         idleTime > thirtySeconds &&
         userInteractionCount === 0 &&
@@ -572,7 +607,10 @@ const AvatarAssistant = () => {
       }
     };
 
-    const idleInterval = setInterval(checkIdleTime, 10000); // Check every 10 seconds
+    const idleInterval = setInterval(
+      checkIdleTime,
+      MESSAGE_TIMINGS.IDLE_CHECK_INTERVAL
+    ); // Check for idle status
     return () => clearInterval(idleInterval);
   }, [
     lastInteractionTime,
@@ -706,9 +744,9 @@ const AvatarAssistant = () => {
           setAttentionSeekingActive(false);
           setAvatarAnimationState('floating');
           // Don't automatically clear attention messages - let message cycling handle it
-        }, 1800); // Increased from 1500ms to match longer animation duration
+        }, MESSAGE_TIMINGS.ATTENTION_SEEKING_DURATION);
       }
-    }, 20000); // Reduced from 25 seconds for more responsive attention-seeking
+    }, MESSAGE_TIMINGS.ATTENTION_SEEKING_INTERVAL); // Attention-seeking interval
 
     return () => clearInterval(attentionInterval);
   }, [
@@ -775,11 +813,11 @@ const AvatarAssistant = () => {
             setIsAnimating(false);
             setAnimationType('pulse');
             setAvatarAnimationState('floating');
-          }, 1000);
+          }, MESSAGE_TIMINGS.MAIN_ANIMATION_DURATION);
 
           // Don't automatically clear welcome messages - let them persist
         }
-      }, 2000);
+      }, MESSAGE_TIMINGS.PAGE_WELCOME_DURATION);
     };
 
     showPageWelcome();
@@ -875,7 +913,7 @@ const AvatarAssistant = () => {
       setIsAnimating(false);
       setAnimationType('pulse'); // Return to default after interaction
       setAvatarAnimationState('floating'); // Return avatar to floating
-    }, 700); // Reduced from 800ms for more responsive interactions
+    }, MESSAGE_TIMINGS.USER_INTERACTION_DURATION); // User interaction feedback duration
   };
 
   // Function to get synchronized bubble animation class
@@ -948,17 +986,17 @@ const AvatarAssistant = () => {
         },
         {
           label: 'Platform Engineering',
-          action: () => navigate('/services#platform'),
+          action: () => navigate('/services'),
           icon: <PlatformIcon size="sm" className="text-current" />,
         },
         {
           label: 'Web Development',
-          action: () => navigate('/services#web'),
+          action: () => navigate('/services'),
           icon: <WebDevIcon size="sm" className="text-current" />,
         },
         {
           label: 'AI Solutions',
-          action: () => navigate('/services#ai'),
+          action: () => navigate('/services'),
           icon: <AIIcon size="sm" className="text-current" />,
         },
       ];
@@ -973,13 +1011,13 @@ const AvatarAssistant = () => {
           icon: <PortfolioIcon size="sm" className="text-current" />,
         },
         {
-          label: 'Featured Projects',
-          action: () => navigate('/portfolio#featured'),
+          label: 'Our Projects',
+          action: () => navigate('/portfolio'),
           icon: <StarIcon size="sm" className="text-current" />,
         },
         {
-          label: 'Case Studies',
-          action: () => navigate('/portfolio#case-studies'),
+          label: 'View Services',
+          action: () => navigate('/services'),
           icon: <ChartIcon size="sm" className="text-current" />,
         },
       ];
@@ -995,8 +1033,8 @@ const AvatarAssistant = () => {
           icon: <CareerIcon size="sm" className="text-current" />,
         },
         {
-          label: 'Open Positions',
-          action: () => navigate('/careers#positions'),
+          label: 'View Open Positions',
+          action: () => navigate('/careers'),
           icon: <RocketIcon size="sm" className="text-current" />,
         },
         {
@@ -1018,12 +1056,12 @@ const AvatarAssistant = () => {
         },
         {
           label: 'Latest Articles',
-          action: () => navigate('/blog#latest'),
+          action: () => navigate('/blog'),
           icon: <ArticleIcon size="sm" className="text-current" />,
         },
         {
           label: 'Tech Insights',
-          action: () => navigate('/blog#technology'),
+          action: () => navigate('/blog'),
           icon: <InsightIcon size="sm" className="text-current" />,
         },
       ];
@@ -1039,7 +1077,7 @@ const AvatarAssistant = () => {
         },
         {
           label: 'Get Quote',
-          action: () => navigate('/contact#quote'),
+          action: () => navigate('/contact?action=quote'),
           icon: <QuoteIcon size="sm" className="text-current" />,
         },
         {
@@ -1055,12 +1093,12 @@ const AvatarAssistant = () => {
       options = [
         {
           label: 'Our Approach',
-          action: () => navigate('/about#approach'),
+          action: () => navigate('/about'),
           icon: <TargetIcon size="sm" className="text-current" />,
         },
         {
           label: 'Technologies',
-          action: () => navigate('/services#tech-stack'),
+          action: () => navigate('/services'),
           icon: <TechIcon size="sm" className="text-current" />,
         },
         {
@@ -1076,17 +1114,17 @@ const AvatarAssistant = () => {
       options = [
         {
           label: 'DevOps Services',
-          action: () => navigate('/services#devops'),
+          action: () => navigate('/services'),
           icon: <DevOpsIcon size="sm" className="text-current" />,
         },
         {
           label: 'Platform Solutions',
-          action: () => navigate('/services#platforms'),
+          action: () => navigate('/services'),
           icon: <BuildIcon size="sm" className="text-current" />,
         },
         {
           label: 'Get Quote',
-          action: () => navigate('/contact#quote'),
+          action: () => navigate('/contact?action=quote'),
           icon: <QuoteIcon size="sm" className="text-current" />,
         },
       ];
@@ -1107,17 +1145,17 @@ const AvatarAssistant = () => {
             setTimeout(() => {
               setAnimationType('bounce');
               setAvatarAnimationState('bouncing');
-            }, 500);
+            }, MESSAGE_TIMINGS.DEMO_ANIMATION_STEP);
 
             setTimeout(() => {
               setAnimationType('wiggle');
               setAvatarAnimationState('attention');
-            }, 1000);
+            }, MESSAGE_TIMINGS.DEMO_ANIMATION_STEP * 2);
 
             setTimeout(() => {
               setAnimationType('heartbeat');
               setAvatarAnimationState('excited');
-            }, 1500);
+            }, MESSAGE_TIMINGS.DEMO_ANIMATION_STEP * 3);
 
             setTimeout(() => {
               setIsAnimating(false);
@@ -1181,14 +1219,20 @@ const AvatarAssistant = () => {
 
     // Filter out options that lead to the current page or section
     return options.filter(option => {
-      const targetPath = option.action
-        .toString()
-        .match(/navigate\('([^']+)'\)/)?.[1];
-      if (!targetPath) return true; // Keep non-navigation actions
+      const actionString = option.action.toString();
+      const navigateMatch = actionString.match(/navigate\(['"]([^'"]+)['"]\)/);
 
-      // Extract base path (before #) for comparison
-      const basePath = targetPath.split('#')[0];
-      return basePath !== currentPath;
+      if (!navigateMatch) return true; // Keep non-navigation actions
+
+      const targetPath = navigateMatch[1];
+
+      // Extract base path (before # or ?) for comparison
+      const basePath = targetPath.split(/[#?]/)[0];
+
+      // Handle root path comparison
+      const currentBasePath = currentPath === '/' ? '/' : currentPath;
+
+      return basePath !== currentBasePath;
     });
   };
 
@@ -1199,16 +1243,32 @@ const AvatarAssistant = () => {
     setLastInteractionTime(Date.now());
 
     if (!isExpanded) {
-      setShowContextualOptions(true);
-      setIsAnimating(true);
-      setAnimationType('enhanced');
-      setAvatarAnimationState('excited');
+      // Check if there are any contextual options available
+      const availableOptions = getContextualOptions(message);
 
-      setTimeout(() => {
-        setIsAnimating(false);
+      if (availableOptions.length > 0) {
+        setShowContextualOptions(true);
+        setIsAnimating(true);
+        setAnimationType('enhanced');
+        setAvatarAnimationState('excited');
+
+        setTimeout(() => {
+          setIsAnimating(false);
+          setAnimationType('pulse');
+          setAvatarAnimationState('floating');
+        }, MESSAGE_TIMINGS.USER_INTERACTION_DURATION);
+      } else {
+        // If no contextual options, just show animation feedback
+        setIsAnimating(true);
         setAnimationType('pulse');
-        setAvatarAnimationState('floating');
-      }, 800);
+        setAvatarAnimationState('excited');
+
+        setTimeout(() => {
+          setIsAnimating(false);
+          setAnimationType('pulse');
+          setAvatarAnimationState('floating');
+        }, MESSAGE_TIMINGS.USER_INTERACTION_DURATION);
+      }
     }
   };
 
@@ -1241,7 +1301,7 @@ const AvatarAssistant = () => {
       setIsGoingToSleep(false);
       setIsSleeping(true);
       setIsManualSleep(true);
-    }, 400); // Exact animation duration
+    }, MESSAGE_TIMINGS.SLEEP_TRANSITION_DURATION); // Exact animation duration
   };
 
   // Wake up assistant (user-initiated show)
@@ -1270,13 +1330,13 @@ const AvatarAssistant = () => {
         setAnimationType('pulse');
         setAvatarAnimationState('floating');
         // Don't reset justWokeUp immediately to prevent fade-in animation from triggering
-      }, 1000);
+      }, MESSAGE_TIMINGS.MAIN_ANIMATION_DURATION);
 
       // Reset justWokeUp after a longer delay to prevent animation conflicts
       setTimeout(() => {
         setJustWokeUp(false);
-      }, 2000);
-    }, 390); // Slightly before animation completes to ensure smooth transition
+      }, MESSAGE_TIMINGS.WAKE_RESET_DELAY);
+    }, MESSAGE_TIMINGS.WAKE_TRANSITION_DURATION); // Slightly before animation completes to ensure smooth transition
   };
 
   // Simplified Genie Avatar component
@@ -1297,11 +1357,13 @@ const AvatarAssistant = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Magical smoke effect */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="smoke-particle absolute w-2 h-2 bg-blue-300 rounded-full opacity-60 animate-pulse"></div>
-          <div className="smoke-particle absolute w-1 h-1 bg-purple-300 rounded-full opacity-40 animate-bounce"></div>
-          <div className="smoke-particle absolute w-1.5 h-1.5 bg-pink-300 rounded-full opacity-50"></div>
+        {/* Magical smoke effect - improved with fade-out and extended area */}
+        <div className="absolute -inset-8 pointer-events-none overflow-hidden">
+          <div className="smoke-particle absolute w-2 h-2 bg-blue-300 rounded-full opacity-60 animate-float-fade"></div>
+          <div className="smoke-particle absolute w-1 h-1 bg-purple-300 rounded-full opacity-40 animate-float-fade-delayed"></div>
+          <div className="smoke-particle absolute w-1.5 h-1.5 bg-pink-300 rounded-full opacity-50 animate-float-fade-slow"></div>
+          <div className="smoke-particle absolute w-1 h-1 bg-cyan-300 rounded-full opacity-30 animate-float-fade-fast"></div>
+          <div className="smoke-particle absolute w-1.5 h-1.5 bg-yellow-300 rounded-full opacity-35 animate-float-fade-medium"></div>
         </div>
 
         {/* Main Avatar PNG */}
@@ -1328,6 +1390,12 @@ const AvatarAssistant = () => {
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-none">
+      {/* Extended backdrop area for floating elements */}
+      <div
+        className="absolute -inset-16 pointer-events-none"
+        aria-hidden="true"
+      />
+
       {isSleeping ? (
         /* Sleeping Avatar - show when assistant is put to sleep by user */
         <div
@@ -1372,7 +1440,7 @@ const AvatarAssistant = () => {
             {(message || isExpanded || showContextualOptions) && isVisible && (
               <div
                 ref={messageRef}
-                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/85 backdrop-blur-md shadow-xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'animate-smooth-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
+                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/90 backdrop-blur-lg shadow-2xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'animate-smooth-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
                 onClick={
                   !isExpanded && !showContextualOptions
                     ? handleMessageBubbleClick
@@ -1533,7 +1601,8 @@ const AvatarAssistant = () => {
                         </button>
                       </div>
                     </div>
-                  ) : showContextualOptions ? (
+                  ) : showContextualOptions &&
+                    getContextualOptions(message).length > 0 ? (
                     <div className="space-y-4">
                       {/* Header for contextual options */}
                       <div className="flex items-center gap-3 pb-3 border-b border-gray-200/60">
