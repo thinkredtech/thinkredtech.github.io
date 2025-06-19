@@ -23,5 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Auto-generated reports (keep directory structure, ignore generated files)
+# Note: Workflows may force-add specific reports using git add -f
 reports/*.md
 !reports/README.md

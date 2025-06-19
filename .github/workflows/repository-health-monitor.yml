@@ -66,8 +66,8 @@ jobs:
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
           vulnerabilities=$(echo "$audit_output" | jq '.metadata.vulnerabilities | to_entries | length')
 
-          # Create metrics JSON
-          metrics_json=$(cat << EOF
+          # Create metrics JSON (single line for GitHub Actions output)
+          metrics_json=$(cat << EOF | jq -c '.'
           {
             "code": {
               "total_files": $total_files,
@@ -92,7 +92,12 @@ jobs:
           EOF
           )
 
-          echo "data=$metrics_json" >> $GITHUB_OUTPUT
+          # Use GitHub Actions multiline output format
+          {
+            echo "data<<EOF"
+            echo "$metrics_json"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
           echo "📈 Repository Metrics:"
           echo "- Files: $total_files"
@@ -109,8 +114,8 @@ jobs:
           score=100
 
           # Deduct points for security issues
-          vulnerabilities=$(echo '${{ steps.metrics.outputs.data }}' | jq '.security.vulnerabilities')
-          if [[ $vulnerabilities -gt 0 ]]; then
+          vulnerabilities=$(echo '${{ steps.metrics.outputs.data }}' | jq '.security.vulnerabilities // 0')
+          if [[ $vulnerabilities =~ ^[0-9]+$ ]] && [[ $vulnerabilities -gt 0 ]]; then
             score=$((score - (vulnerabilities * 10)))
             echo "⚠️ Deducted points for $vulnerabilities vulnerabilities"
           fi
@@ -202,18 +207,14 @@ jobs:
 
           echo "score=$perf_score" >> $GITHUB_OUTPUT
 
-          # Create metrics JSON
-          metrics_json=$(cat << EOF
-          {
-            "bundle": {
-              "js_size_kb": $js_size_kb,
-              "css_size_kb": $css_size_kb,
-              "total_size_kb": $total_size_kb,
-              "js_files": $js_files
-            },
-            "score": $perf_score
-          }
-          EOF
+          # Create metrics JSON (single line for GitHub Actions output)
+          metrics_json=$(jq -nc \
+            --argjson js_size_kb "$js_size_kb" \
+            --argjson css_size_kb "$css_size_kb" \
+            --argjson total_size_kb "$total_size_kb" \
+            --argjson js_files "$js_files" \
+            --argjson score "$perf_score" \
+            '{"bundle": {"js_size_kb": $js_size_kb, "css_size_kb": $css_size_kb, "total_size_kb": $total_size_kb, "js_files": $js_files}, "score": $score}'
           )
 
           echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
@@ -251,12 +252,25 @@ jobs:
 
           # Check for outdated packages
           outdated_output=$(npm outdated --json 2>/dev/null || echo "{}")
-          outdated_count=$(echo "$outdated_output" | jq 'length')
+          outdated_count=$(echo "$outdated_output" | jq 'length // 0')
+
+          # Validate counts are numbers
+          if ! [[ $outdated_count =~ ^[0-9]+$ ]]; then
+            outdated_count=0
+          fi
 
           # Check for security vulnerabilities
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
           high_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.high // 0')
           critical_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.critical // 0')
+
+          # Validate vulnerability counts are numbers
+          if ! [[ $high_vulns =~ ^[0-9]+$ ]]; then
+            high_vulns=0
+          fi
+          if ! [[ $critical_vulns =~ ^[0-9]+$ ]]; then
+            critical_vulns=0
+          fi
 
           # Determine health status
           if [[ $critical_vulns -gt 0 ]]; then
@@ -406,7 +420,7 @@ jobs:
           fi
 
           # Add new status section after existing badges
-          sed -i '/\[![Vite\]/a\\n'"$(cat temp_status_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
+          sed -i '/\!\[Vite\]/a\\n'"$(cat temp_status_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
 
           rm temp_status_badges.md
 
@@ -475,7 +489,8 @@ jobs:
           if git diff --quiet; then
             echo "No status updates needed"
           else
-            git add README.md reports/health-report.md
+            git add README.md
+            git add -f reports/health-report.md
             git commit -m "📊 Update repository health status and metrics [skip ci]"
             git push
           fi

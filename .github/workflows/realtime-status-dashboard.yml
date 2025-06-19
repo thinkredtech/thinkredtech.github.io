@@ -267,7 +267,7 @@ jobs:
           fi
 
           # Add real-time status section after repository status
-          sed -i '/\[![Security Score\]/a\\n'"$(cat temp_realtime_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
+          sed -i '/\!\[Security Score\]/a\\n'"$(cat temp_realtime_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
 
           rm temp_realtime_badges.md
 
@@ -279,7 +279,7 @@ jobs:
           if git diff --quiet; then
             echo "No dashboard updates needed"
           else
-            git add reports/status-dashboard.md README.md
+            git add -f reports/status-dashboard.md README.md
             git commit -m "📈 Update real-time status dashboard [skip ci]"
             git push
           fi

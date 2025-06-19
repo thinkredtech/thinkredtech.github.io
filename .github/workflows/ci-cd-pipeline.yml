@@ -91,7 +91,7 @@ jobs:
     needs: [pre-flight]
     outputs:
       build-size: ${{ steps.build.outputs.size }}
-      artifacts-uploaded: ${{ steps.upload.outputs.artifacts-uploaded }}
+      artifacts-uploaded: ${{ steps.set-upload-status.outputs.artifacts-uploaded }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -138,6 +138,7 @@ jobs:
           retention-days: 30
 
       - name: Set upload status
+        id: set-upload-status
         run: echo "artifacts-uploaded=true" >> $GITHUB_OUTPUT
 
   # Security scanning
@@ -287,7 +288,7 @@ jobs:
     needs: [pre-flight, deployment-readiness, build-verification]
     if: needs.deployment-readiness.outputs.ready-to-deploy == 'true'
     environment:
-      name: production
+      name: github-pages
       url: https://www.thinkred.tech
     steps:
       - name: Checkout code

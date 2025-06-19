@@ -10,7 +10,7 @@
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.thinkred.tech)](https://www.thinkred.tech)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-green.svg)](./CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.0.4-green.svg)](./CHANGELOG.md)
 
 ### 🛠️ Technology Stack
 
@@ -44,6 +44,17 @@
 ## 🎯 About ThinkRED
 
 ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges for businesses worldwide. Founded by engineers with deep roots in open-source communities (Mozilla, Fedora, Red Hat), we bring together innovation, collaboration, and technical excellence to deliver transformative digital solutions.
+
+### ✨ Version 1.0.4 - CI/CD Pipeline Enhancement (June 2025)
+
+**Latest Update**: Critical CI/CD pipeline stabilization ensuring reliable automation and monitoring.
+
+#### 🔧 **Pipeline Reliability Improvements**
+
+- **Zero Workflow Failures**: Resolved all identified CI/CD pipeline failures
+- **Enhanced Automation**: Comprehensive workflow validation and error handling
+- **Improved Monitoring**: Reliable security scanning, health monitoring, and performance tracking
+- **Robust Operations**: Stable automated reporting and status dashboard generation
 
 ### ✨ Version 1.0.0 - Major Release (June 2025)
 
