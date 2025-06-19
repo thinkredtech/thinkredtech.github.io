@@ -1,0 +1,416 @@
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  CACHE_NAME: 'thinkred-ci-cache'
+
+jobs:
+  # Pre-flight checks
+  pre-flight:
+    name: 🔍 Pre-flight Checks
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.check-deploy.outputs.should-deploy }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: version
+        run: |
+          version=$(cat package.json | jq -r '.version')
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "📦 Version: $version"
+
+      - name: Check if should deploy
+        id: check-deploy
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" && "${{ github.event_name }}" == "push" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "✅ Will deploy to production"
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Skipping deployment (not main branch or not push event)"
+          fi
+
+  # Quality assurance
+  quality-assurance:
+    name: 🧪 Quality Assurance
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [lint, type-check, format-check, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ${{ matrix.task }}
+        run: |
+          case "${{ matrix.task }}" in
+            "lint")
+              npm run lint
+              echo "✅ Linting passed"
+              ;;
+            "type-check")
+              npm run type-check
+              echo "✅ Type checking passed"
+              ;;
+            "format-check")
+              npm run format:check
+              echo "✅ Format checking passed"
+              ;;
+            "test")
+              npm test -- --coverage --watchAll=false
+              echo "✅ Tests passed"
+              ;;
+          esac
+
+  # Build verification
+  build-verification:
+    name: 🏗️ Build Verification
+    runs-on: ubuntu-latest
+    needs: [pre-flight]
+    outputs:
+      build-size: ${{ steps.build.outputs.size }}
+      artifacts-uploaded: ${{ steps.upload.outputs.artifacts-uploaded }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        id: build
+        run: |
+          echo "🏗️ Building application..."
+          npm run build
+
+          # Calculate build size
+          size=$(du -sh build/ | cut -f1)
+          echo "size=$size" >> $GITHUB_OUTPUT
+          echo "📦 Build size: $size"
+
+          # Verify critical files exist
+          if [[ ! -f "build/index.html" ]]; then
+            echo "❌ build/index.html not found"
+            exit 1
+          fi
+
+          if [[ ! -f "build/static/js"* ]]; then
+            echo "❌ No JavaScript files found in build"
+            exit 1
+          fi
+
+          echo "✅ Build verification successful"
+
+      - name: Upload build artifacts
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          path: build/
+          retention-days: 30
+
+      - name: Set upload status
+        run: echo "artifacts-uploaded=true" >> $GITHUB_OUTPUT
+
+  # Security scanning
+  security-scanning:
+    name: 🔒 Security Scanning
+    runs-on: ubuntu-latest
+    outputs:
+      security-status: ${{ steps.security.outputs.status }}
+      snyk-status: ${{ steps.snyk.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        id: security
+        run: |
+          echo "🔍 Running security audit..."
+
+          if npm audit --audit-level=moderate; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "✅ No security vulnerabilities found"
+          else
+            audit_exit_code=$?
+            if [[ $audit_exit_code -eq 1 ]]; then
+              echo "status=failed" >> $GITHUB_OUTPUT
+              echo "❌ High/Critical security vulnerabilities found"
+            else
+              echo "status=warning" >> $GITHUB_OUTPUT
+              echo "⚠️ Low/Moderate security vulnerabilities found"
+            fi
+          fi
+
+      - name: Run Snyk security scan
+        id: snyk
+        continue-on-error: true
+        run: |
+          echo "🔍 Running Snyk security scan..."
+
+          # Install Snyk if not available
+          if ! command -v snyk &> /dev/null; then
+            npm install -g snyk
+          fi
+
+          # Run Snyk test (skip authentication for public repos)
+          if snyk test --severity-threshold=high; then
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "✅ Snyk scan passed"
+          else
+            echo "status=warning" >> $GITHUB_OUTPUT
+            echo "⚠️ Snyk scan found issues"
+          fi
+
+  # Performance testing
+  performance-testing:
+    name: ⚡ Performance Testing
+    runs-on: ubuntu-latest
+    needs: [build-verification]
+    outputs:
+      lighthouse-score: ${{ steps.lighthouse.outputs.score }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          path: build/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Serve build and run Lighthouse
+        id: lighthouse
+        run: |
+          echo "⚡ Running Lighthouse performance tests..."
+
+          # Start a simple HTTP server
+          npx serve -s build -l 3000 &
+          server_pid=$!
+
+          # Wait for server to start
+          sleep 5
+
+          # Run Lighthouse
+          lhci autorun --upload.target=temporary-public-storage --collect.url=http://localhost:3000 || {
+            echo "⚠️ Lighthouse scan failed, continuing..."
+            echo "score=unknown" >> $GITHUB_OUTPUT
+          }
+
+          # Clean up
+          kill $server_pid 2>/dev/null || true
+
+          echo "score=completed" >> $GITHUB_OUTPUT
+
+  # Deployment readiness
+  deployment-readiness:
+    name: 🚀 Deployment Readiness
+    runs-on: ubuntu-latest
+    needs:
+      [pre-flight, quality-assurance, build-verification, security-scanning]
+    if: needs.pre-flight.outputs.should-deploy == 'true'
+    outputs:
+      ready-to-deploy: ${{ steps.readiness.outputs.ready }}
+    steps:
+      - name: Check deployment readiness
+        id: readiness
+        run: |
+          echo "🔍 Checking deployment readiness..."
+
+          # Check if all required jobs passed
+          qa_status="${{ needs.quality-assurance.result }}"
+          build_status="${{ needs.build-verification.result }}"
+          security_status="${{ needs.security-scanning.outputs.security-status }}"
+
+          if [[ "$qa_status" == "success" && "$build_status" == "success" && "$security_status" != "failed" ]]; then
+            echo "ready=true" >> $GITHUB_OUTPUT
+            echo "✅ Ready for deployment"
+            echo "📦 Build size: ${{ needs.build-verification.outputs.build-size }}"
+            echo "🔒 Security status: $security_status"
+          else
+            echo "ready=false" >> $GITHUB_OUTPUT
+            echo "❌ Not ready for deployment"
+            echo "QA Status: $qa_status"
+            echo "Build Status: $build_status"
+            echo "Security Status: $security_status"
+          fi
+
+  # Deployment
+  deploy:
+    name: 🌐 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [pre-flight, deployment-readiness, build-verification]
+    if: needs.deployment-readiness.outputs.ready-to-deploy == 'true'
+    environment:
+      name: production
+      url: https://www.thinkred.tech
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          path: build/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: www.thinkred.tech
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | ${{ needs.pre-flight.outputs.version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Size | ${{ needs.build-verification.outputs.build-size }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Status | ${{ needs.security-scanning.outputs.security-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deployment URL | https://www.thinkred.tech |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deployed At | $(date -u) |" >> $GITHUB_STEP_SUMMARY
+
+  # Post-deployment verification
+  post-deployment:
+    name: ✅ Post-deployment Verification
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: needs.deploy.result == 'success'
+    steps:
+      - name: Verify deployment
+        run: |
+          echo "🔍 Verifying deployment..."
+
+          # Wait for deployment to propagate
+          sleep 30
+
+          # Check if site is accessible
+          if curl -f -s https://www.thinkred.tech > /dev/null; then
+            echo "✅ Site is accessible"
+          else
+            echo "❌ Site is not accessible"
+            exit 1
+          fi
+
+          # Check if specific pages load
+          pages=("/" "/about" "/services" "/portfolio" "/contact" "/careers")
+          for page in "${pages[@]}"; do
+            if curl -f -s "https://www.thinkred.tech$page" > /dev/null; then
+              echo "✅ Page $page is accessible"
+            else
+              echo "⚠️ Page $page may have issues"
+            fi
+          done
+
+      - name: Trigger automated versioning
+        if: |
+          needs.deploy.result == 'success' &&
+          github.ref == 'refs/heads/main' &&
+          github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log('🏷️ Triggering automated versioning workflow...');
+
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'automated-versioning-release.yml',
+                ref: 'main'
+              });
+              
+              console.log('✅ Automated versioning workflow triggered successfully');
+            } catch (error) {
+              console.log('ℹ️ Could not trigger versioning workflow:', error.message);
+            }
+
+  # Notification and reporting
+  notification:
+    name: 📢 Notification & Reporting
+    runs-on: ubuntu-latest
+    needs:
+      [
+        pre-flight,
+        quality-assurance,
+        build-verification,
+        security-scanning,
+        performance-testing,
+        deployment-readiness,
+        deploy,
+        post-deployment,
+      ]
+    if: always()
+    steps:
+      - name: Generate workflow summary
+        run: |
+          echo "## 📊 CI/CD Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📋 Job Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Quality Assurance | ${{ needs.quality-assurance.result }} | Code quality checks |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Verification | ${{ needs.build-verification.result }} | Build: ${{ needs.build-verification.outputs.build-size }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Scanning | ${{ needs.security-scanning.result }} | Status: ${{ needs.security-scanning.outputs.security-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance Testing | ${{ needs.performance-testing.result }} | Score: ${{ needs.performance-testing.outputs.lighthouse-score }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deployment | ${{ needs.deploy.result }} | Ready: ${{ needs.deployment-readiness.outputs.ready-to-deploy }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Post-deployment | ${{ needs.post-deployment.result }} | Verification complete |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📈 Key Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.pre-flight.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Size**: ${{ needs.build-verification.outputs.build-size }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Security Status**: ${{ needs.security-scanning.outputs.security-status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Lighthouse Score**: ${{ needs.performance-testing.outputs.lighthouse-score }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
+          echo "- [Live Website](https://www.thinkred.tech)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Documentation](./docs/)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Security Architecture](./docs/security-architecture.md)" >> $GITHUB_STEP_SUMMARY

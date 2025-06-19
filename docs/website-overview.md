@@ -213,3 +213,135 @@ The website is implemented as a JavaScript-based frontend application:
 - Fast-loading with performance best practices
 - Visually appealing with interactive elements
 - Deployable to GitHub Pages with instructions for Hostinger deployment
+
+## CI/CD Pipeline & Automation
+
+### Comprehensive Workflow Automation
+The repository employs multiple GitHub Actions workflows for continuous monitoring and quality assurance:
+
+#### 🚀 CI/CD Pipeline (`ci-cd-pipeline.yml`)
+**Frequency**: On push/PR to main/develop branches
+- **Pre-flight Checks**: Version tracking and deployment readiness
+- **Quality Assurance**: Parallel execution of lint, type-check, format-check, and testing
+- **Build Verification**: Production build validation with artifact management
+- **Security Scanning**: NPM audit and Snyk security analysis
+- **Performance Testing**: Lighthouse CI integration for performance monitoring
+- **Deployment**: Automated deployment to GitHub Pages with post-deployment verification
+
+#### 🔍 Quality & Security Checks (`quality-security-checks.yml`)
+**Frequency**: Daily at 2 AM UTC + on code changes
+- **Documentation Quality**: Completeness checks and markdown validation
+- **Code Quality**: ESLint, TypeScript compilation, and Prettier formatting
+- **Build Status**: Test execution with coverage reports
+- **Security Audit**: Vulnerability scanning with automated issue creation
+- **Dependency Analysis**: Outdated package detection and license compliance
+
+#### 🕵️ Sensitive Data Monitor (`sensitive-data-monitor.yml`)
+**Frequency**: Daily at 3 AM UTC + on code changes
+- **Secret Detection**: GitLeaks and TruffleHog scanning for exposed credentials
+- **Data Exposure**: Pattern matching for sensitive information in codebase
+- **Content Security**: CSP compliance and security header validation
+- **Dependency Vulnerabilities**: Comprehensive security and license auditing
+- **Automated Remediation**: Issue creation with detailed fix instructions
+
+#### 📊 Repository Health Monitor (`repository-health-monitor.yml`)
+**Frequency**: Every 6 hours
+- **Health Metrics**: Code quality, performance, and dependency health scoring
+- **Performance Analysis**: Bundle size optimization and code splitting monitoring
+- **Documentation Coverage**: Completeness tracking and quality assessment
+- **Automated Reporting**: Health score calculation and badge updates
+
+#### 📈 Real-time Status Dashboard (`realtime-status-dashboard.yml`)
+**Frequency**: Hourly during business hours (9 AM - 6 PM UTC)
+
+- **Live Status Monitoring**: Website accessibility and API endpoint health
+- **Performance Tracking**: Page load time and error rate monitoring
+- **Incident Detection**: Automated issue creation for service disruptions
+- **Status Dashboard**: Real-time status page generation and badge updates
+
+#### 🏷️ Automated Versioning & Release (`automated-versioning-release.yml`)
+**Frequency**: On push to main branch + manual triggers
+
+- **Intelligent Version Analysis**: Conventional commit pattern recognition and change impact assessment
+- **Conditional Release Logic**: Smart release decisions based on changelog updates, security fixes, and change significance
+- **Quality Gate Integration**: Pre-release validation with comprehensive testing pipeline
+- **Automated Version Management**: Package.json updates, git tagging, and GitHub release creation
+- **Release Coordination**: Seamless integration with deployment workflows and post-release actions
+- **Manual Override**: Emergency release capabilities with customizable parameters
+
+### Automated Quality Gates
+
+#### Pre-Deployment Validation
+- All tests must pass with >80% coverage
+- Build must complete successfully
+- Security scans must show no critical vulnerabilities
+- Performance scores must meet minimum thresholds
+
+#### Continuous Monitoring
+- **Health Score**: Composite metric based on code quality, security, and performance
+- **Security Score**: Real-time vulnerability and compliance tracking
+- **Performance Score**: Bundle optimization and loading time analysis
+- **Documentation Score**: Completeness and quality metrics
+
+### Status Badge System
+Real-time status indicators provide immediate visibility into:
+
+```markdown
+### 🔍 Code Quality & Security
+[![CI/CD Pipeline](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml/badge.svg)](...)
+[![Quality & Security](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/quality-security-checks.yml/badge.svg)](...)
+[![Sensitive Data Monitor](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/sensitive-data-monitor.yml/badge.svg)](...)
+[![Repository Health](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/repository-health-monitor.yml/badge.svg)](...)
+
+### 📊 Repository Status
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-95%25-brightgreen)](...)
+[![Performance](https://img.shields.io/badge/Performance-90%25-brightgreen)](...)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](...)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](...)
+[![Security Score](https://img.shields.io/badge/Security%20Score-A+-brightgreen)](...)
+
+### 🔴 Real-time Status
+[![Website Status](https://img.shields.io/badge/Website-Online-brightgreen)](...)
+[![API Status](https://img.shields.io/badge/API-Healthy-brightgreen)](...)
+[![Error Rate](https://img.shields.io/badge/Error%20Rate-2%25-brightgreen)](...)
+[![Last Check](https://img.shields.io/badge/Last%20Check-14:30%20UTC-blue)](...)
+```
+
+### Incident Response & Monitoring
+
+#### Automated Incident Detection
+- **Service Disruption**: Automatic issue creation when website is inaccessible
+- **Performance Degradation**: Alerts when load times exceed thresholds
+- **Security Violations**: Immediate notification of security vulnerabilities
+- **Build Failures**: Rapid detection and reporting of deployment issues
+
+#### Status Dashboard
+A comprehensive status dashboard (`reports/status-dashboard.md`) provides:
+- Real-time service status indicators
+- Performance metrics and trends
+- Service Level Objective (SLO) tracking
+- Incident response procedures
+- Quick access to monitoring tools and logs
+
+#### Monitoring Coverage
+- **Infrastructure**: Website availability and response times
+- **Application**: Error rates and performance metrics
+- **Security**: Vulnerability scanning and compliance monitoring
+- **Code Quality**: Automated quality gates and standards enforcement
+
+### Reporting & Analytics
+
+#### Automated Reports
+- **Health Reports**: Comprehensive repository health assessments
+- **Security Reports**: Vulnerability scans and compliance status
+- **Performance Reports**: Load time analysis and optimization recommendations
+- **Dependency Reports**: Package health and license compliance
+
+#### Workflow Summaries
+Each workflow provides detailed summaries with:
+- Job execution results and metrics
+- Performance benchmarks and trends
+- Action items and recommendations
+- Quick links to relevant documentation
+
+This automation infrastructure ensures continuous quality, security, and performance monitoring while providing immediate visibility into system health and enabling rapid response to issues.

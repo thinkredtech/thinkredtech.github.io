@@ -1,0 +1,499 @@
+name: 🔍 Sensitive Data & Content Monitor
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run daily at 3 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Sensitive data scanning
+  sensitive-data-scan:
+    name: 🕵️ Sensitive Data Scan
+    runs-on: ubuntu-latest
+    outputs:
+      secrets-found: ${{ steps.secret-scan.outputs.secrets-found }}
+      exposed-data: ${{ steps.data-scan.outputs.exposed-data }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install security scanning tools
+        run: |
+          # Install gitleaks for secret detection
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_linux_x64.tar.gz | tar -xz
+          sudo mv gitleaks /usr/local/bin/
+
+          # Install truffleHog for additional secret detection
+          curl -sSfL https://github.com/trufflesecurity/trufflehog/releases/latest/download/trufflehog_linux_amd64.tar.gz | tar -xz
+          sudo mv trufflehog /usr/local/bin/
+
+      - name: Scan for secrets with GitLeaks
+        id: secret-scan
+        run: |
+          echo "🔍 Scanning for secrets with GitLeaks..."
+
+          # Create gitleaks config for React/Node.js project
+          cat > .gitleaks.toml << EOF
+          [extend]
+          useDefault = true
+
+          [[rules]]
+          id = "api-key"
+          description = "API Key"
+          regex = '''(?i)(api[_-]?key|apikey)\s*[:=]\s*['\"]?[a-zA-Z0-9_-]{16,}['\"]?'''
+
+          [[rules]]
+          id = "database-url"
+          description = "Database URL"
+          regex = '''(?i)(database[_-]?url|db[_-]?url)\s*[:=]\s*['\"]?[a-zA-Z0-9+.-]+://[^\s'"]+['\"]?'''
+
+          [[rules]]
+          id = "jwt-secret"
+          description = "JWT Secret"
+          regex = '''(?i)(jwt[_-]?secret|token[_-]?secret)\s*[:=]\s*['\"]?[a-zA-Z0-9_-]{16,}['\"]?'''
+
+          [[rules]]
+          id = "private-key"
+          description = "Private Key"
+          regex = '''-----BEGIN (RSA |DSA |EC |OPENSSH |PGP )?PRIVATE KEY-----'''
+
+          [[rules]]
+          id = "hardcoded-password"
+          description = "Hardcoded Password"
+          regex = '''(?i)(password|passwd|pwd)\s*[:=]\s*['\"](?!.*(\$\{|\{\{|process\.env))[a-zA-Z0-9!@#$%^&*()_+-=]{8,}['\"]'''
+          EOF
+
+          if gitleaks detect --config .gitleaks.toml --verbose --no-git; then
+            echo "secrets-found=false" >> $GITHUB_OUTPUT
+            echo "✅ No secrets detected by GitLeaks"
+          else
+            echo "secrets-found=true" >> $GITHUB_OUTPUT
+            echo "❌ Secrets detected by GitLeaks"
+            gitleaks detect --config .gitleaks.toml --verbose --no-git --report-format json --report-path gitleaks-report.json || true
+          fi
+
+      - name: Scan for secrets with TruffleHog
+        run: |
+          echo "🔍 Scanning for secrets with TruffleHog..."
+
+          if trufflehog filesystem . --json > trufflehog-report.json 2>/dev/null; then
+            if [[ -s trufflehog-report.json ]]; then
+              echo "⚠️ TruffleHog found potential secrets"
+              cat trufflehog-report.json | jq -r '.SourceMetadata.Data.Filesystem.file' | sort | uniq | head -10
+            else
+              echo "✅ No secrets detected by TruffleHog"
+            fi
+          else
+            echo "⚠️ TruffleHog scan completed with warnings"
+          fi
+
+      - name: Scan for exposed sensitive data
+        id: data-scan
+        run: |
+          echo "🔍 Scanning for exposed sensitive data..."
+
+          exposed_items=()
+
+          # Check for hardcoded URLs and endpoints
+          if grep -r "http://localhost" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" --include="*.json" 2>/dev/null; then
+            exposed_items+=("localhost-urls")
+            echo "⚠️ Found hardcoded localhost URLs"
+          fi
+
+          # Check for API keys or tokens in code
+          if grep -ri "api.key\|apikey\|access.token\|secret.key" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "process.env" | grep -v "import\|export"; then
+            exposed_items+=("potential-api-keys")
+            echo "⚠️ Found potential API keys in code"
+          fi
+
+          # Check for email addresses in code (except in comments)
+          if grep -r "[a-zA-Z0-9._%+-]\+@[a-zA-Z0-9.-]\+\.[a-zA-Z]{2,}" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "mailto:" | grep -v "//" | grep -v "\*"; then
+            exposed_items+=("email-addresses")
+            echo "⚠️ Found email addresses in code"
+          fi
+
+          # Check for phone numbers
+          if grep -r "\+\?[1-9][0-9]{7,14}" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "//" | grep -v "\*"; then
+            exposed_items+=("phone-numbers")
+            echo "⚠️ Found phone numbers in code"
+          fi
+
+          # Check for IP addresses (excluding common ranges)
+          if grep -r "\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" 2>/dev/null | grep -v "127.0.0.1\|0.0.0.0\|localhost"; then
+            exposed_items+=("ip-addresses")
+            echo "⚠️ Found IP addresses in code"
+          fi
+
+          # Check for AWS/Cloud credentials patterns
+          if grep -ri "aws.access.key\|aws.secret\|azure.client\|gcp.service.account" src/ public/ --include="*.js" --include="*.ts" --include="*.tsx" --include="*.json" 2>/dev/null; then
+            exposed_items+=("cloud-credentials")
+            echo "⚠️ Found potential cloud credentials"
+          fi
+
+          if [[ ${#exposed_items[@]} -gt 0 ]]; then
+            echo "exposed-data=true" >> $GITHUB_OUTPUT
+            echo "Exposed data types: ${exposed_items[*]}"
+          else
+            echo "exposed-data=false" >> $GITHUB_OUTPUT
+            echo "✅ No exposed sensitive data found"
+          fi
+
+      - name: Upload scan reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-scan-reports
+          path: |
+            gitleaks-report.json
+            trufflehog-report.json
+          retention-days: 30
+
+  # Content security scan
+  content-security-scan:
+    name: 🛡️ Content Security Scan
+    runs-on: ubuntu-latest
+    outputs:
+      csp-violations: ${{ steps.csp-scan.outputs.violations }}
+      security-headers: ${{ steps.headers-scan.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Scan Content Security Policy
+        id: csp-scan
+        run: |
+          echo "🛡️ Scanning Content Security Policy..."
+
+          violations=()
+
+          # Check if CSP is present in HTML files
+          if ! grep -r "Content-Security-Policy" build/ public/ index.html 2>/dev/null; then
+            violations+=("missing-csp")
+            echo "❌ No Content Security Policy found"
+          else
+            echo "✅ Content Security Policy found"
+            
+            # Check for unsafe CSP directives
+            if grep -r "unsafe-inline\|unsafe-eval\|data:" build/ public/ index.html 2>/dev/null; then
+              violations+=("unsafe-csp-directives")
+              echo "⚠️ Unsafe CSP directives found"
+            fi
+          fi
+
+          # Check for mixed content issues (HTTP resources in HTTPS context)
+          if grep -r "http://[^/]" build/ --include="*.html" --include="*.js" --include="*.css" 2>/dev/null | grep -v "localhost"; then
+            violations+=("mixed-content")
+            echo "⚠️ Mixed content issues found"
+          fi
+
+          if [[ ${#violations[@]} -gt 0 ]]; then
+            echo "violations=true" >> $GITHUB_OUTPUT
+            echo "CSP violations: ${violations[*]}"
+          else
+            echo "violations=false" >> $GITHUB_OUTPUT
+            echo "✅ No CSP violations found"
+          fi
+
+      - name: Scan security headers
+        id: headers-scan
+        run: |
+          echo "🛡️ Scanning security headers..."
+
+          missing_headers=()
+
+          # Check for security headers in HTML files and deployment scripts
+          headers_to_check=(
+            "X-Frame-Options"
+            "X-Content-Type-Options"
+            "Referrer-Policy"
+            "X-XSS-Protection"
+            "Strict-Transport-Security"
+          )
+
+          for header in "${headers_to_check[@]}"; do
+            if ! grep -r "$header" build/ public/ index.html deploy-hostinger.sh 2>/dev/null; then
+              missing_headers+=("$header")
+              echo "❌ Missing header: $header"
+            else
+              echo "✅ Found header: $header"
+            fi
+          done
+
+          if [[ ${#missing_headers[@]} -gt 0 ]]; then
+            echo "status=warning" >> $GITHUB_OUTPUT
+            echo "Missing headers: ${missing_headers[*]}"
+          else
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "✅ All security headers present"
+          fi
+
+  # Dependency vulnerability scan
+  dependency-vulnerability-scan:
+    name: 📦 Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    outputs:
+      vulnerable-deps: ${{ steps.vuln-scan.outputs.vulnerable }}
+      license-issues: ${{ steps.license-scan.outputs.issues }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Scan for vulnerable dependencies
+        id: vuln-scan
+        run: |
+          echo "📦 Scanning for vulnerable dependencies..."
+
+          # Run npm audit and capture results
+          if npm audit --audit-level=moderate --json > audit-results.json 2>&1; then
+            echo "vulnerable=false" >> $GITHUB_OUTPUT
+            echo "✅ No vulnerable dependencies found"
+          else
+            echo "vulnerable=true" >> $GITHUB_OUTPUT
+            
+            # Parse and display vulnerabilities
+            echo "❌ Vulnerable dependencies found:"
+            cat audit-results.json | jq -r '.vulnerabilities | to_entries[] | select(.value.severity == "high" or .value.severity == "critical") | "- \(.key) (\(.value.severity)): \(.value.title)"' | head -10
+          fi
+
+      - name: Scan for license compliance
+        id: license-scan
+        run: |
+          echo "📜 Scanning for license compliance..."
+
+          # Install license checker
+          npm install -g license-checker
+
+          # Get license information
+          license-checker --json > licenses.json
+
+          # Check for problematic licenses
+          problematic_licenses=("GPL-" "AGPL-" "LGPL-" "CPAL-" "EPL-")
+          issues=()
+
+          for license in "${problematic_licenses[@]}"; do
+            if grep -i "$license" licenses.json; then
+              issues+=("$license")
+              echo "⚠️ Found potentially problematic license: $license"
+            fi
+          done
+
+          if [[ ${#issues[@]} -gt 0 ]]; then
+            echo "issues=true" >> $GITHUB_OUTPUT
+            echo "License issues: ${issues[*]}"
+          else
+            echo "issues=false" >> $GITHUB_OUTPUT
+            echo "✅ No license compliance issues found"
+          fi
+
+      - name: Upload dependency reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-reports
+          path: |
+            audit-results.json
+            licenses.json
+          retention-days: 30
+
+  # Create security issues for findings
+  create-security-issues:
+    name: 📋 Create Security Issues
+    runs-on: ubuntu-latest
+    needs:
+      [
+        sensitive-data-scan,
+        content-security-scan,
+        dependency-vulnerability-scan,
+      ]
+    if: |
+      needs.sensitive-data-scan.outputs.secrets-found == 'true' ||
+      needs.sensitive-data-scan.outputs.exposed-data == 'true' ||
+      needs.content-security-scan.outputs.csp-violations == 'true' ||
+      needs.dependency-vulnerability-scan.outputs.vulnerable-deps == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create sensitive data issue
+        if: needs.sensitive-data-scan.outputs.secrets-found == 'true' || needs.sensitive-data-scan.outputs.exposed-data == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueBody = `
+            ## 🚨 Sensitive Data Exposure Detected
+
+            **Detected on:** ${new Date().toISOString()}
+            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ### Issues Found:
+
+            ${needs['sensitive-data-scan'].outputs['secrets-found'] === 'true' ? '❌ **Secrets detected in codebase**' : ''}
+            ${needs['sensitive-data-scan'].outputs['exposed-data'] === 'true' ? '❌ **Sensitive data exposed in code**' : ''}
+
+            ### Immediate Actions Required:
+
+            1. **Remove Secrets:** If secrets are found, remove them immediately from the codebase
+            2. **Rotate Credentials:** Change any exposed API keys, passwords, or tokens
+            3. **Use Environment Variables:** Move all sensitive data to environment variables
+            4. **Review Git History:** Check if secrets were committed in previous commits
+            5. **Update .gitignore:** Ensure sensitive files are properly ignored
+
+            ### Safe Remediation Steps:
+
+            \`\`\`bash
+            # 1. Remove secrets from current files
+            # Edit files to remove hardcoded secrets
+
+            # 2. Use environment variables instead
+            # Create .env file (DO NOT COMMIT)
+            echo "REACT_APP_API_KEY=your_api_key_here" >> .env.local
+
+            # 3. Update code to use environment variables
+            # const apiKey = process.env.REACT_APP_API_KEY;
+
+            # 4. Add to .gitignore if not already present
+            echo ".env.local" >> .gitignore
+            echo ".env" >> .gitignore
+
+            # 5. Remove from git history if needed
+            git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch path/to/file' --prune-empty --tag-name-filter cat -- --all
+            \`\`\`
+
+            ### Security Checklist:
+            - [ ] Secrets removed from codebase
+            - [ ] Credentials rotated/changed
+            - [ ] Environment variables implemented
+            - [ ] .gitignore updated
+            - [ ] Git history cleaned (if needed)
+            - [ ] Team notified of credential changes
+
+            **Priority:** Critical - Address immediately to prevent security breaches.
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Sensitive Data Exposure - Critical Security Issue',
+              body: issueBody,
+              labels: ['security', 'critical', 'sensitive-data']
+            });
+
+      - name: Create CSP violation issue
+        if: needs.content-security-scan.outputs.csp-violations == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueBody = `
+            ## 🛡️ Content Security Policy Violations Detected
+
+            **Detected on:** ${new Date().toISOString()}
+            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ### CSP Issues Found:
+
+            Content Security Policy violations can lead to XSS attacks and other security vulnerabilities.
+
+            ### Recommended Actions:
+
+            1. **Implement Strict CSP:** Add a comprehensive Content Security Policy
+            2. **Remove Unsafe Directives:** Eliminate 'unsafe-inline' and 'unsafe-eval'
+            3. **Fix Mixed Content:** Ensure all resources use HTTPS
+            4. **Add Security Headers:** Implement all recommended security headers
+
+            ### CSP Implementation:
+
+            \`\`\`html
+            <meta http-equiv="Content-Security-Policy" content="
+              default-src 'self';
+              script-src 'self' 'unsafe-inline';
+              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+              font-src 'self' https://fonts.gstatic.com;
+              img-src 'self' data: https:;
+              connect-src 'self' https://api.thinkred.tech;
+              frame-ancestors 'none';
+              base-uri 'self';
+              form-action 'self';
+            ">
+            \`\`\`
+
+            **Priority:** High - Address to improve security posture.
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🛡️ Content Security Policy Violations',
+              body: issueBody,
+              labels: ['security', 'csp', 'high-priority']
+            });
+
+  # Generate security report
+  generate-security-report:
+    name: 📊 Generate Security Report
+    runs-on: ubuntu-latest
+    needs:
+      [
+        sensitive-data-scan,
+        content-security-scan,
+        dependency-vulnerability-scan,
+      ]
+    if: always()
+    steps:
+      - name: Generate comprehensive security report
+        run: |
+          echo "## 🔒 Security Monitoring Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Generated on:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🛡️ Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Secret Detection | ${{ needs.sensitive-data-scan.outputs.secrets-found == 'true' && '❌ Secrets Found' || '✅ No Secrets' }} | GitLeaks + TruffleHog scan |" >> $GITHUB_STEP_SUMMARY
+          echo "| Data Exposure | ${{ needs.sensitive-data-scan.outputs.exposed-data == 'true' && '⚠️ Data Exposed' || '✅ No Exposure' }} | Sensitive data patterns |" >> $GITHUB_STEP_SUMMARY
+          echo "| CSP Compliance | ${{ needs.content-security-scan.outputs.csp-violations == 'true' && '⚠️ Violations' || '✅ Compliant' }} | Content Security Policy |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Headers | ${{ needs.content-security-scan.outputs.security-headers }} | HTTP security headers |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencies | ${{ needs.dependency-vulnerability-scan.outputs.vulnerable-deps == 'true' && '❌ Vulnerable' || '✅ Secure' }} | Dependency vulnerabilities |" >> $GITHUB_STEP_SUMMARY
+          echo "| License Compliance | ${{ needs.dependency-vulnerability-scan.outputs.license-issues == 'true' && '⚠️ Issues' || '✅ Compliant' }} | License compatibility |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Quick Actions" >> $GITHUB_STEP_SUMMARY
+          echo "- [Security Architecture](./docs/security-architecture.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [View Scan Artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "- [Security Issues](https://github.com/${{ github.repository }}/issues?q=is%3Aissue+is%3Aopen+label%3Asecurity)" >> $GITHUB_STEP_SUMMARY

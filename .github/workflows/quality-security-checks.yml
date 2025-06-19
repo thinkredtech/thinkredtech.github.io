@@ -1,0 +1,459 @@
+name: 🔍 Quality & Security Checks
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Documentation Quality Check
+  documentation-check:
+    name: 📚 Documentation Quality
+    runs-on: ubuntu-latest
+    outputs:
+      docs-status: ${{ steps.docs-check.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check documentation completeness
+        id: docs-check
+        run: |
+          echo "Checking documentation completeness..."
+
+          # Required documentation files
+          required_docs=(
+            "README.md"
+            "CHANGELOG.md"
+            "docs/website-overview.md"
+            "docs/security-architecture.md"
+            "docs/design-system.md"
+            "docs/brand-guidelines.md"
+            "docs/company-info.md"
+          )
+
+          missing_docs=()
+          for doc in "${required_docs[@]}"; do
+            if [[ ! -f "$doc" ]]; then
+              missing_docs+=("$doc")
+            fi
+          done
+
+          if [[ ${#missing_docs[@]} -gt 0 ]]; then
+            echo "❌ Missing documentation files:"
+            printf '%s\n' "${missing_docs[@]}"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          echo "✅ All required documentation files present"
+          echo "status=passed" >> $GITHUB_OUTPUT
+
+      - name: Validate markdown format
+        run: |
+          npx prettier --check "*.md" "docs/**/*.md" || {
+            echo "❌ Markdown formatting issues found"
+            exit 1
+          }
+          echo "✅ Markdown formatting is correct"
+
+      - name: Check for broken links in documentation
+        run: |
+          # Check for broken internal links
+          echo "Checking for broken internal documentation links..."
+
+          # Find all markdown files and check internal links
+          find . -name "*.md" -type f | while read -r file; do
+            echo "Checking $file..."
+            grep -n '\[.*\](\./' "$file" | while IFS: read -r line_num link; do
+              link_path=$(echo "$link" | sed -n 's/.*](\([^)]*\)).*/\1/p')
+              if [[ -n "$link_path" && ! -f "$link_path" ]]; then
+                echo "❌ Broken link in $file:$line_num -> $link_path"
+                exit 1
+              fi
+            done
+          done
+
+          echo "✅ No broken internal links found"
+
+  # Lint and Code Quality Check
+  lint-check:
+    name: 🔧 Lint & Code Quality
+    runs-on: ubuntu-latest
+    outputs:
+      lint-status: ${{ steps.lint-check.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        id: lint-check
+        run: |
+          echo "Running ESLint..."
+          npm run lint 2>&1 | tee lint-output.txt
+
+          if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
+            echo "✅ ESLint passed"
+            echo "status=passed" >> $GITHUB_OUTPUT
+          else
+            echo "❌ ESLint failed"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Check TypeScript compilation
+        run: |
+          echo "Checking TypeScript compilation..."
+          npx tsc --noEmit || {
+            echo "❌ TypeScript compilation failed"
+            exit 1
+          }
+          echo "✅ TypeScript compilation successful"
+
+      - name: Run Prettier format check
+        run: |
+          echo "Checking code formatting..."
+          npm run format:check || {
+            echo "❌ Code formatting issues found"
+            exit 1
+          }
+          echo "✅ Code formatting is correct"
+
+  # Build Status Check
+  build-check:
+    name: 🏗️ Build & Test
+    runs-on: ubuntu-latest
+    outputs:
+      build-status: ${{ steps.build-check.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test -- --coverage --watchAll=false || {
+            echo "❌ Tests failed"
+            exit 1
+          }
+          echo "✅ All tests passed"
+
+      - name: Build application
+        id: build-check
+        run: |
+          echo "Building application..."
+          npm run build 2>&1 | tee build-output.txt
+
+          if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
+            echo "✅ Build successful"
+            echo "status=passed" >> $GITHUB_OUTPUT
+            
+            # Check build size
+            build_size=$(du -sh build/ | cut -f1)
+            echo "📦 Build size: $build_size"
+          else
+            echo "❌ Build failed"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: build/
+          retention-days: 7
+
+  # Security Vulnerability Check
+  security-check:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    outputs:
+      security-status: ${{ steps.security-check.outputs.status }}
+      vulnerabilities: ${{ steps.security-check.outputs.vulnerabilities }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        id: security-check
+        run: |
+          echo "Running security audit..."
+
+          # Run npm audit and capture output
+          if npm audit --audit-level=moderate --json > audit-results.json 2>&1; then
+            echo "✅ No security vulnerabilities found"
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "vulnerabilities=none" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Security vulnerabilities detected"
+            
+            # Parse vulnerabilities
+            vulnerabilities=$(cat audit-results.json | jq -r '.vulnerabilities | to_entries[] | select(.value.severity == "high" or .value.severity == "critical") | "\(.key): \(.value.severity) - \(.value.title)"' | head -10)
+            
+            if [[ -n "$vulnerabilities" ]]; then
+              echo "status=failed" >> $GITHUB_OUTPUT
+              echo "vulnerabilities<<EOF" >> $GITHUB_OUTPUT
+              echo "$vulnerabilities" >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
+            else
+              echo "status=warning" >> $GITHUB_OUTPUT
+              echo "vulnerabilities=low-moderate" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Upload audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-results
+          path: audit-results.json
+          retention-days: 30
+
+  # Dependency Check
+  dependency-check:
+    name: 📦 Dependency Analysis
+    runs-on: ubuntu-latest
+    outputs:
+      dependency-status: ${{ steps.dep-check.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Check for outdated dependencies
+        id: dep-check
+        run: |
+          echo "Checking for outdated dependencies..."
+
+          # Get outdated packages
+          outdated_output=$(npm outdated --json 2>/dev/null || echo "{}")
+
+          if [[ "$outdated_output" == "{}" ]]; then
+            echo "✅ All dependencies are up to date"
+            echo "status=passed" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Some dependencies are outdated"
+            echo "$outdated_output" | jq -r 'to_entries[] | "\(.key): \(.value.current) -> \(.value.wanted)"'
+            echo "status=warning" >> $GITHUB_OUTPUT
+          fi
+
+  # Create GitHub Issues for Security Vulnerabilities
+  create-security-issues:
+    name: 📋 Create Security Issues
+    runs-on: ubuntu-latest
+    needs: [security-check]
+    if: needs.security-check.outputs.security-status == 'failed'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create security issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const vulnerabilities = `${{ needs.security-check.outputs.vulnerabilities }}`;
+
+            const issueBody = `
+            ## 🚨 Security Vulnerabilities Detected
+
+            **Detected on:** ${new Date().toISOString()}
+            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ### Vulnerabilities Found:
+            \`\`\`
+            ${vulnerabilities}
+            \`\`\`
+
+            ### Recommended Actions:
+
+            1. **Update Dependencies:** Run \`npm update\` to update packages to secure versions
+            2. **Review Audit:** Run \`npm audit\` locally for detailed vulnerability information
+            3. **Apply Fixes:** Use \`npm audit fix\` to automatically apply available fixes
+            4. **Manual Review:** For vulnerabilities that can't be auto-fixed, consider:
+               - Finding alternative packages
+               - Updating to newer versions manually
+               - Applying security patches
+
+            ### Safe Remediation Steps:
+
+            \`\`\`bash
+            # 1. Check current vulnerabilities
+            npm audit
+
+            # 2. Try automatic fixes first
+            npm audit fix
+
+            # 3. For remaining issues, update specific packages
+            npm update [package-name]
+
+            # 4. Test the application
+            npm test
+            npm run build
+            \`\`\`
+
+            ### Testing Checklist:
+            - [ ] All tests pass
+            - [ ] Application builds successfully
+            - [ ] Core functionality works (contact forms, job applications, admin panel)
+            - [ ] Security features remain intact
+            - [ ] No breaking changes introduced
+
+            **Priority:** High - Please address these security vulnerabilities promptly.
+            `;
+
+            // Check if a similar issue already exists
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['security', 'vulnerability'],
+              state: 'open'
+            });
+
+            const securityIssueExists = existingIssues.data.some(issue => 
+              issue.title.includes('Security Vulnerabilities Detected')
+            );
+
+            if (!securityIssueExists) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🚨 Security Vulnerabilities Detected - Immediate Action Required',
+                body: issueBody,
+                labels: ['security', 'vulnerability', 'high-priority']
+              });
+              
+              console.log('Created new security vulnerability issue');
+            } else {
+              console.log('Security issue already exists, skipping creation');
+            }
+
+  # Update README badges
+  update-badges:
+    name: 🏷️ Update Status Badges
+    runs-on: ubuntu-latest
+    needs:
+      [
+        documentation-check,
+        lint-check,
+        build-check,
+        security-check,
+        dependency-check,
+      ]
+    if: always() && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update README badges
+        run: |
+          # Determine status colors
+          docs_status="${{ needs.documentation-check.outputs.docs-status }}"
+          lint_status="${{ needs.lint-check.outputs.lint-status }}"
+          build_status="${{ needs.build-check.outputs.build-status }}"
+          security_status="${{ needs.security-check.outputs.security-status }}"
+          dependency_status="${{ needs.dependency-check.outputs.dependency-status }}"
+
+          # Function to get color based on status
+          get_color() {
+            case "$1" in
+              "passed") echo "brightgreen" ;;
+              "warning") echo "yellow" ;;
+              "failed") echo "red" ;;
+              *) echo "lightgrey" ;;
+            esac
+          }
+
+          # Generate badge URLs
+          docs_color=$(get_color "$docs_status")
+          lint_color=$(get_color "$lint_status")
+          build_color=$(get_color "$build_status")
+          security_color=$(get_color "$security_status")
+          dependency_color=$(get_color "$dependency_status")
+
+          # Update README.md with new badges
+          cat > temp_badges.md << EOF
+          [![Documentation](https://img.shields.io/badge/Documentation-${docs_status}-${docs_color})](./docs/)
+          [![Code Quality](https://img.shields.io/badge/Code%20Quality-${lint_status}-${lint_color})](https://github.com/${{ github.repository }}/actions)
+          [![Build Status](https://img.shields.io/badge/Build-${build_status}-${build_color})](https://github.com/${{ github.repository }}/actions)
+          [![Security](https://img.shields.io/badge/Security-${security_status}-${security_color})](https://github.com/${{ github.repository }}/actions)
+          [![Dependencies](https://img.shields.io/badge/Dependencies-${dependency_status}-${dependency_color})](https://github.com/${{ github.repository }}/actions)
+          EOF
+
+          # Update README.md
+          if grep -q "Documentation.*Code Quality.*Build.*Security.*Dependencies" README.md; then
+            # Replace existing badges
+            sed -i '/Documentation.*Code Quality.*Build.*Security.*Dependencies/r temp_badges.md' README.md
+            sed -i '/Documentation.*Code Quality.*Build.*Security.*Dependencies/d' README.md
+          else
+            # Add badges after the existing badges section
+            sed -i '/\!\[React\]/a\\n'"$(cat temp_badges.md)" README.md
+          fi
+
+          rm temp_badges.md
+
+      - name: Commit updated badges
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if git diff --quiet; then
+            echo "No badge updates needed"
+          else
+            git add README.md
+            git commit -m "🏷️ Update quality & security status badges [skip ci]"
+            git push
+          fi

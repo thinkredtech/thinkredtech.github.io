@@ -1,0 +1,412 @@
+name: 📈 Real-time Status Dashboard
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Update status every hour during business hours (9 AM - 6 PM UTC)
+    - cron: '0 9-18 * * 1-5'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Real-time status collection
+  status-collection:
+    name: 📊 Status Collection
+    runs-on: ubuntu-latest
+    outputs:
+      deployment-status: ${{ steps.deploy-check.outputs.status }}
+      api-status: ${{ steps.api-check.outputs.status }}
+      performance-metrics: ${{ steps.perf-check.outputs.metrics }}
+      error-rate: ${{ steps.error-check.outputs.rate }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check deployment status
+        id: deploy-check
+        run: |
+          echo "🚀 Checking deployment status..."
+
+          # Check if website is accessible
+          if curl -f -s -o /dev/null -w "%{http_code}" https://www.thinkred.tech | grep -q "200"; then
+            echo "status=healthy" >> $GITHUB_OUTPUT
+            echo "✅ Website is accessible"
+          else
+            echo "status=down" >> $GITHUB_OUTPUT
+            echo "❌ Website is not accessible"
+          fi
+
+      - name: Check API endpoints
+        id: api-check
+        run: |
+          echo "🔗 Checking API endpoints..."
+
+          # Check critical pages
+          pages=("/" "/about" "/services" "/portfolio" "/contact" "/careers")
+          failed_pages=0
+          total_pages=${#pages[@]}
+
+          for page in "${pages[@]}"; do
+            if ! curl -f -s -o /dev/null "https://www.thinkred.tech$page"; then
+              echo "❌ Failed to load: $page"
+              failed_pages=$((failed_pages + 1))
+            else
+              echo "✅ Loaded successfully: $page"
+            fi
+          done
+
+          if [[ $failed_pages -eq 0 ]]; then
+            echo "status=healthy" >> $GITHUB_OUTPUT
+          elif [[ $failed_pages -lt $((total_pages / 2)) ]]; then
+            echo "status=degraded" >> $GITHUB_OUTPUT
+          else
+            echo "status=unhealthy" >> $GITHUB_OUTPUT
+          fi
+
+          echo "📊 Page Status: $((total_pages - failed_pages))/$total_pages pages working"
+
+      - name: Performance check
+        id: perf-check
+        run: |
+          echo "⚡ Checking performance metrics..."
+
+          # Check page load time
+          start_time=$(date +%s%N)
+          if curl -f -s -o /dev/null https://www.thinkred.tech; then
+            end_time=$(date +%s%N)
+            load_time=$(( (end_time - start_time) / 1000000 )) # Convert to milliseconds
+            
+            # Create metrics JSON
+            metrics_json=$(cat << EOF
+          {
+            "load_time_ms": $load_time,
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "status": "$([ $load_time -lt 2000 ] && echo 'good' || echo 'slow')"
+          }
+          EOF
+            )
+            
+            echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
+            echo "📈 Page load time: ${load_time}ms"
+          else
+            echo "metrics={\"load_time_ms\": -1, \"status\": \"error\"}" >> $GITHUB_OUTPUT
+            echo "❌ Failed to measure performance"
+          fi
+
+      - name: Error rate check
+        id: error-check
+        run: |
+          echo "🔍 Checking for JavaScript errors..."
+
+          # This is a simplified check - in production you might integrate with error tracking
+          # services like Sentry, LogRocket, etc.
+
+          # For now, we'll check for common error patterns in the built files
+          # and console warnings that might indicate issues
+
+          error_rate=0
+
+          # Check if there are any obvious build errors
+          npm ci > /dev/null 2>&1
+          if ! npm run build > build.log 2>&1; then
+            error_rate=100
+            echo "❌ Build errors detected"
+          else
+            # Check for warnings in build output
+            warning_count=$(grep -c "WARNING\|WARN" build.log || echo 0)
+            if [[ $warning_count -gt 0 ]]; then
+              error_rate=$((warning_count * 5)) # 5% per warning
+              echo "⚠️ Build warnings: $warning_count"
+            fi
+          fi
+
+          # Cap error rate at 100%
+          if [[ $error_rate -gt 100 ]]; then
+            error_rate=100
+          fi
+
+          echo "rate=$error_rate" >> $GITHUB_OUTPUT
+          echo "📊 Error rate: ${error_rate}%"
+
+  # Generate status dashboard
+  generate-dashboard:
+    name: 📱 Generate Status Dashboard
+    runs-on: ubuntu-latest
+    needs: [status-collection]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate dashboard HTML
+        run: |
+          echo "📱 Generating status dashboard..."
+
+          # Get current timestamp
+          timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+          # Get status values
+          deploy_status="${{ needs.status-collection.outputs.deployment-status }}"
+          api_status="${{ needs.status-collection.outputs.api-status }}"
+          error_rate="${{ needs.status-collection.outputs.error-rate }}"
+
+          # Determine overall status
+          if [[ "$deploy_status" == "healthy" && "$api_status" == "healthy" && "$error_rate" -lt 10 ]]; then
+            overall_status="🟢 All Systems Operational"
+            status_color="#28a745"
+          elif [[ "$deploy_status" == "healthy" && "$api_status" != "unhealthy" && "$error_rate" -lt 50 ]]; then
+            overall_status="🟡 Degraded Performance"
+            status_color="#ffc107"
+          else
+            overall_status="🔴 Service Disruption"
+            status_color="#dc3545"
+          fi
+
+          # Create status dashboard
+          cat > reports/status-dashboard.md << EOF
+          # 📈 ThinkRED Website Status Dashboard
+
+          ## $overall_status
+
+          **Last Updated:** $timestamp  
+          **Monitoring Frequency:** Every hour during business hours
+
+          ---
+
+          ## 🚀 Current Status
+
+          | Service | Status | Details |
+          |---------|--------|---------|
+          | **Website Deployment** | $([ "$deploy_status" = "healthy" ] && echo "🟢 Operational" || echo "🔴 Down") | Main website accessibility |
+          | **API Endpoints** | $([ "$api_status" = "healthy" ] && echo "🟢 Operational" || [ "$api_status" = "degraded" ] && echo "🟡 Degraded" || echo "🔴 Unhealthy") | Critical page loading |
+          | **Error Rate** | $([ "$error_rate" -lt 10 ] && echo "🟢 Low ($error_rate%)" || [ "$error_rate" -lt 50 ] && echo "🟡 Moderate ($error_rate%)" || echo "🔴 High ($error_rate%)") | Application errors |
+          | **Performance** | 🟢 Monitoring | Load time tracking |
+
+          ## 📊 Performance Metrics
+
+          \`\`\`json
+          ${{ needs.status-collection.outputs.performance-metrics }}
+          \`\`\`
+
+          ## 🔗 Quick Links
+
+          - [🌐 Live Website](https://www.thinkred.tech)
+          - [📚 Documentation](./docs/)
+          - [🔒 Security Architecture](./docs/security-architecture.md)
+          - [🚀 CI/CD Pipeline](https://github.com/${{ github.repository }}/actions)
+          - [📝 Health Report](./reports/health-report.md)
+
+          ## 📋 Service Level Objectives (SLOs)
+
+          | Metric | Target | Current |
+          |--------|--------|---------|
+          | Uptime | 99.9% | $([ "$deploy_status" = "healthy" ] && echo "✅ Meeting" || echo "❌ Below") |
+          | Page Load Time | < 2s | $(echo '${{ needs.status-collection.outputs.performance-metrics }}' | jq -r '.load_time_ms // "N/A"')ms |
+          | Error Rate | < 5% | ${error_rate}% |
+          | API Response | < 1s | Monitoring |
+
+          ## 🛠️ Automated Monitoring
+
+          This dashboard is automatically updated by GitHub Actions workflows:
+
+          - **Real-time Status Dashboard**: Monitors service health every hour
+          - **Quality & Security Checks**: Comprehensive daily scans
+          - **Sensitive Data Monitor**: Continuous security monitoring
+          - **Repository Health Monitor**: Periodic health assessments
+
+          ## 🚨 Incident Response
+
+          If you notice issues not reflected here:
+
+          1. [Create an Issue](https://github.com/${{ github.repository }}/issues/new)
+          2. Contact: [hello@thinkred.tech](mailto:hello@thinkred.tech)
+          3. Emergency: Check [GitHub Actions](https://github.com/${{ github.repository }}/actions) for latest runs
+
+          ---
+
+          *This dashboard is automatically generated and updated by our CI/CD pipeline.*
+          EOF
+
+      - name: Update status badges in README
+        run: |
+          echo "🏷️ Updating real-time status badges..."
+
+          # Get status values
+          deploy_status="${{ needs.status-collection.outputs.deployment-status }}"
+          api_status="${{ needs.status-collection.outputs.api-status }}"
+          error_rate="${{ needs.status-collection.outputs.error-rate }}"
+
+          # Determine badge colors
+          deploy_color=$([ "$deploy_status" = "healthy" ] && echo "brightgreen" || echo "red")
+          api_color=$([ "$api_status" = "healthy" ] && echo "brightgreen" || [ "$api_status" = "degraded" ] && echo "yellow" || echo "red")
+          error_color=$([ "$error_rate" -lt 10 ] && echo "brightgreen" || [ "$error_rate" -lt 50 ] && echo "yellow" || echo "red")
+
+          # Create real-time status badges
+          cat > temp_realtime_badges.md << EOF
+
+          ### 🔴 Real-time Status
+
+          [![Website Status](https://img.shields.io/badge/Website-$([ "$deploy_status" = "healthy" ] && echo "Online" || echo "Offline")-${deploy_color})](https://www.thinkred.tech)
+          [![API Status](https://img.shields.io/badge/API-$([ "$api_status" = "healthy" ] && echo "Healthy" || [ "$api_status" = "degraded" ] && echo "Degraded" || echo "Unhealthy")-${api_color})](./reports/status-dashboard.md)
+          [![Error Rate](https://img.shields.io/badge/Error%20Rate-${error_rate}%25-${error_color})](./reports/status-dashboard.md)
+          [![Last Check](https://img.shields.io/badge/Last%20Check-$(date -u +%H:%M%20UTC)-blue)](./reports/status-dashboard.md)
+
+          EOF
+
+          # Update README.md with real-time status
+          if grep -q "Real-time Status" README.md; then
+            # Replace existing real-time status section
+            sed -i '/### 🔴 Real-time Status/,/^$/d' README.md
+          fi
+
+          # Add real-time status section after repository status
+          sed -i '/\[![Security Score\]/a\\n'"$(cat temp_realtime_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
+
+          rm temp_realtime_badges.md
+
+      - name: Commit dashboard updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if git diff --quiet; then
+            echo "No dashboard updates needed"
+          else
+            git add reports/status-dashboard.md README.md
+            git commit -m "📈 Update real-time status dashboard [skip ci]"
+            git push
+          fi
+
+      - name: Create workflow summary
+        run: |
+          echo "## 📈 Real-time Status Dashboard Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Current System Status" >> $GITHUB_STEP_SUMMARY
+          echo "| Service | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Website Deployment | $([ "${{ needs.status-collection.outputs.deployment-status }}" = "healthy" ] && echo "🟢 Operational" || echo "🔴 Down") |" >> $GITHUB_STEP_SUMMARY
+          echo "| API Endpoints | $([ "${{ needs.status-collection.outputs.api-status }}" = "healthy" ] && echo "🟢 Operational" || [ "${{ needs.status-collection.outputs.api-status }}" = "degraded" ] && echo "🟡 Degraded" || echo "🔴 Unhealthy") |" >> $GITHUB_STEP_SUMMARY
+          echo "| Error Rate | ${{ needs.status-collection.outputs.error-rate }}% |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Performance Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+          echo "${{ needs.status-collection.outputs.performance-metrics }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Quick Access" >> $GITHUB_STEP_SUMMARY
+          echo "- [📱 Status Dashboard](./reports/status-dashboard.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [🌐 Live Website](https://www.thinkred.tech)" >> $GITHUB_STEP_SUMMARY
+          echo "- [📊 Repository Health](./HEALTH_REPORT.md)" >> $GITHUB_STEP_SUMMARY
+
+  # Automated incident detection
+  incident-detection:
+    name: 🚨 Incident Detection
+    runs-on: ubuntu-latest
+    needs: [status-collection]
+    if: |
+      needs.status-collection.outputs.deployment-status != 'healthy' ||
+      needs.status-collection.outputs.api-status == 'unhealthy' ||
+      needs.status-collection.outputs.error-rate > 50
+    steps:
+      - name: Create incident issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const deployStatus = '${{ needs.status-collection.outputs.deployment-status }}';
+            const apiStatus = '${{ needs.status-collection.outputs.api-status }}';
+            const errorRate = '${{ needs.status-collection.outputs.error-rate }}';
+
+            let severity = 'medium';
+            let title = '⚠️ Service Degradation Detected';
+
+            if (deployStatus !== 'healthy' || apiStatus === 'unhealthy' || errorRate > 75) {
+              severity = 'high';
+              title = '🚨 Critical Service Incident Detected';
+            }
+
+            const issueBody = `
+            ## 🚨 Automated Incident Report
+
+            **Incident Detected:** ${new Date().toISOString()}
+            **Severity:** ${severity.toUpperCase()}
+            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ### 📊 Current Status
+
+            | Service | Status | Impact |
+            |---------|--------|--------|
+            | Website Deployment | ${deployStatus} | ${deployStatus !== 'healthy' ? '🔴 Service Down' : '✅ Operational'} |
+            | API Endpoints | ${apiStatus} | ${apiStatus === 'unhealthy' ? '🔴 Multiple Failures' : apiStatus === 'degraded' ? '🟡 Some Issues' : '✅ Operational'} |
+            | Error Rate | ${errorRate}% | ${errorRate > 50 ? '🔴 High Errors' : errorRate > 10 ? '🟡 Elevated' : '✅ Normal'} |
+
+            ### 🛠️ Immediate Actions
+
+            1. **Check Website Access**: Visit [https://www.thinkred.tech](https://www.thinkred.tech)
+            2. **Review Recent Deployments**: Check [GitHub Actions](https://github.com/${{ github.repository }}/actions)
+            3. **Inspect Logs**: Look for errors in recent workflow runs
+            4. **Test Core Functionality**: Verify contact forms, job applications, and navigation
+
+            ### 🔍 Investigation Steps
+
+            \`\`\`bash
+            # Local testing
+            npm ci
+            npm run build
+            npm run preview
+
+            # Check for errors
+            npm run lint
+            npm test
+            \`\`\`
+
+            ### 📞 Escalation
+
+            - **Technical Lead**: Check GitHub notifications
+            - **Emergency Contact**: hello@thinkred.tech
+            - **Status Page**: [Status Dashboard](./reports/status-dashboard.md)
+
+            ### ✅ Resolution Checklist
+
+            - [ ] Root cause identified
+            - [ ] Fix implemented and tested
+            - [ ] Service functionality restored
+            - [ ] Monitoring confirms recovery
+            - [ ] Post-incident review scheduled
+            - [ ] Documentation updated
+
+            **This incident was automatically detected by our monitoring system.**
+            `;
+
+            // Check if similar incident already exists
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['incident', 'monitoring'],
+              state: 'open'
+            });
+
+            const recentIncident = existingIssues.data.some(issue => 
+              issue.title.includes('Service Incident') || issue.title.includes('Service Degradation')
+            );
+
+            if (!recentIncident) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: issueBody,
+                labels: ['incident', 'monitoring', severity === 'high' ? 'critical' : 'high-priority']
+              });
+              
+              console.log('Created incident issue');
+            } else {
+              console.log('Recent incident issue already exists, skipping creation');
+            }

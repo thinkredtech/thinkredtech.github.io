@@ -1,0 +1,498 @@
+name: 📊 Repository Health Monitor
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Health check and metrics collection
+  health-check:
+    name: 🏥 Repository Health Check
+    runs-on: ubuntu-latest
+    outputs:
+      health-score: ${{ steps.health.outputs.score }}
+      metrics: ${{ steps.metrics.outputs.data }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect repository metrics
+        id: metrics
+        run: |
+          echo "📊 Collecting repository metrics..."
+
+          # Code metrics
+          total_files=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | wc -l)
+          total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec wc -l {} + | tail -1 | awk '{print $1}')
+
+          # Git metrics
+          commits_last_week=$(git log --since="1 week ago" --oneline | wc -l)
+          contributors=$(git log --format='%an' | sort -u | wc -l)
+
+          # Build metrics
+          npm run build > /dev/null 2>&1
+          build_size=$(du -sh build/ | cut -f1)
+
+          # Test metrics
+          test_output=$(npm test -- --coverage --watchAll=false --silent 2>&1 || echo "Tests failed")
+
+          # Package metrics
+          total_deps=$(cat package.json | jq '.dependencies | length')
+          total_dev_deps=$(cat package.json | jq '.devDependencies | length')
+
+          # Security metrics
+          audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
+          vulnerabilities=$(echo "$audit_output" | jq '.metadata.vulnerabilities | to_entries | length')
+
+          # Create metrics JSON
+          metrics_json=$(cat << EOF
+          {
+            "code": {
+              "total_files": $total_files,
+              "total_lines": $total_lines
+            },
+            "git": {
+              "commits_last_week": $commits_last_week,
+              "contributors": $contributors
+            },
+            "build": {
+              "size": "$build_size",
+              "status": "success"
+            },
+            "dependencies": {
+              "total": $total_deps,
+              "dev": $total_dev_deps
+            },
+            "security": {
+              "vulnerabilities": $vulnerabilities
+            }
+          }
+          EOF
+          )
+
+          echo "data=$metrics_json" >> $GITHUB_OUTPUT
+
+          echo "📈 Repository Metrics:"
+          echo "- Files: $total_files"
+          echo "- Lines: $total_lines"
+          echo "- Build Size: $build_size"
+          echo "- Dependencies: $total_deps"
+          echo "- Vulnerabilities: $vulnerabilities"
+
+      - name: Calculate health score
+        id: health
+        run: |
+          echo "🏥 Calculating repository health score..."
+
+          score=100
+
+          # Deduct points for security issues
+          vulnerabilities=$(echo '${{ steps.metrics.outputs.data }}' | jq '.security.vulnerabilities')
+          if [[ $vulnerabilities -gt 0 ]]; then
+            score=$((score - (vulnerabilities * 10)))
+            echo "⚠️ Deducted points for $vulnerabilities vulnerabilities"
+          fi
+
+          # Check if tests are passing
+          if ! npm test -- --watchAll=false --silent > /dev/null 2>&1; then
+            score=$((score - 20))
+            echo "⚠️ Deducted points for failing tests"
+          fi
+
+          # Check if build is successful
+          if ! npm run build > /dev/null 2>&1; then
+            score=$((score - 30))
+            echo "⚠️ Deducted points for build failures"
+          fi
+
+          # Check for recent activity
+          commits_last_week=$(echo '${{ steps.metrics.outputs.data }}' | jq '.git.commits_last_week')
+          if [[ $commits_last_week -eq 0 ]]; then
+            score=$((score - 5))
+            echo "⚠️ Deducted points for no recent activity"
+          fi
+
+          # Ensure score doesn't go below 0
+          if [[ $score -lt 0 ]]; then
+            score=0
+          fi
+
+          echo "score=$score" >> $GITHUB_OUTPUT
+          echo "🏥 Repository Health Score: $score/100"
+
+  # Performance monitoring
+  performance-monitor:
+    name: ⚡ Performance Monitor
+    runs-on: ubuntu-latest
+    outputs:
+      performance-score: ${{ steps.perf.outputs.score }}
+      metrics: ${{ steps.perf.outputs.metrics }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Analyze bundle size
+        id: perf
+        run: |
+          echo "⚡ Analyzing performance metrics..."
+
+          # Bundle analysis
+          total_js_size=$(find build/static/js -name "*.js" -exec du -b {} + | awk '{sum += $1} END {print sum}')
+          total_css_size=$(find build/static/css -name "*.css" -exec du -b {} + | awk '{sum += $1} END {print sum}' 2>/dev/null || echo 0)
+
+          # Convert to KB
+          js_size_kb=$((total_js_size / 1024))
+          css_size_kb=$((total_css_size / 1024))
+          total_size_kb=$((js_size_kb + css_size_kb))
+
+          # Performance score calculation
+          perf_score=100
+
+          # Deduct points based on bundle size
+          if [[ $js_size_kb -gt 1000 ]]; then
+            perf_score=$((perf_score - 20))
+            echo "⚠️ Large JavaScript bundle: ${js_size_kb}KB"
+          fi
+
+          if [[ $css_size_kb -gt 100 ]]; then
+            perf_score=$((perf_score - 10))
+            echo "⚠️ Large CSS bundle: ${css_size_kb}KB"
+          fi
+
+          # Check for code splitting
+          js_files=$(find build/static/js -name "*.js" | wc -l)
+          if [[ $js_files -lt 3 ]]; then
+            perf_score=$((perf_score - 15))
+            echo "⚠️ Limited code splitting detected"
+          fi
+
+          echo "score=$perf_score" >> $GITHUB_OUTPUT
+
+          # Create metrics JSON
+          metrics_json=$(cat << EOF
+          {
+            "bundle": {
+              "js_size_kb": $js_size_kb,
+              "css_size_kb": $css_size_kb,
+              "total_size_kb": $total_size_kb,
+              "js_files": $js_files
+            },
+            "score": $perf_score
+          }
+          EOF
+          )
+
+          echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
+
+          echo "📊 Performance Metrics:"
+          echo "- JavaScript: ${js_size_kb}KB"
+          echo "- CSS: ${css_size_kb}KB"
+          echo "- Total: ${total_size_kb}KB"
+          echo "- Performance Score: $perf_score/100"
+
+  # Dependency health check
+  dependency-health:
+    name: 📦 Dependency Health
+    runs-on: ubuntu-latest
+    outputs:
+      health-status: ${{ steps.deps.outputs.status }}
+      outdated-count: ${{ steps.deps.outputs.outdated }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Check dependency health
+        id: deps
+        run: |
+          echo "📦 Checking dependency health..."
+
+          # Install dependencies
+          npm ci
+
+          # Check for outdated packages
+          outdated_output=$(npm outdated --json 2>/dev/null || echo "{}")
+          outdated_count=$(echo "$outdated_output" | jq 'length')
+
+          # Check for security vulnerabilities
+          audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
+          high_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.high // 0')
+          critical_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.critical // 0')
+
+          # Determine health status
+          if [[ $critical_vulns -gt 0 ]]; then
+            status="critical"
+          elif [[ $high_vulns -gt 0 ]]; then
+            status="warning"
+          elif [[ $outdated_count -gt 10 ]]; then
+            status="warning"
+          else
+            status="healthy"
+          fi
+
+          echo "status=$status" >> $GITHUB_OUTPUT
+          echo "outdated=$outdated_count" >> $GITHUB_OUTPUT
+
+          echo "📊 Dependency Health:"
+          echo "- Status: $status"
+          echo "- Outdated packages: $outdated_count"
+          echo "- High vulnerabilities: $high_vulns"
+          echo "- Critical vulnerabilities: $critical_vulns"
+
+  # Documentation health
+  documentation-health:
+    name: 📚 Documentation Health
+    runs-on: ubuntu-latest
+    outputs:
+      coverage-score: ${{ steps.docs.outputs.score }}
+      missing-docs: ${{ steps.docs.outputs.missing }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check documentation health
+        id: docs
+        run: |
+          echo "📚 Checking documentation health..."
+
+          # Required documentation files
+          required_docs=(
+            "README.md"
+            "CHANGELOG.md"
+            "docs/website-overview.md"
+            "docs/security-architecture.md"
+            "docs/design-system.md"
+            "docs/brand-guidelines.md"
+            "docs/company-info.md"
+          )
+
+          missing_docs=()
+          present_docs=0
+
+          for doc in "${required_docs[@]}"; do
+            if [[ -f "$doc" ]]; then
+              present_docs=$((present_docs + 1))
+            else
+              missing_docs+=("$doc")
+            fi
+          done
+
+          # Calculate coverage score
+          total_docs=${#required_docs[@]}
+          coverage_score=$(( (present_docs * 100) / total_docs ))
+
+          # Check README quality
+          readme_size=$(wc -c < README.md)
+          if [[ $readme_size -lt 1000 ]]; then
+            coverage_score=$((coverage_score - 10))
+            echo "⚠️ README is too short"
+          fi
+
+          echo "score=$coverage_score" >> $GITHUB_OUTPUT
+          echo "missing=${missing_docs[*]}" >> $GITHUB_OUTPUT
+
+          echo "📊 Documentation Health:"
+          echo "- Coverage Score: $coverage_score/100"
+          echo "- Present: $present_docs/$total_docs"
+          echo "- Missing: ${missing_docs[*]}"
+
+  # Update repository badges and status
+  update-status:
+    name: 🏷️ Update Repository Status
+    runs-on: ubuntu-latest
+    needs:
+      [
+        health-check,
+        performance-monitor,
+        dependency-health,
+        documentation-health,
+      ]
+    if: always() && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update status badges
+        run: |
+          echo "🏷️ Updating repository status badges..."
+
+          # Get status values
+          health_score="${{ needs.health-check.outputs.health-score }}"
+          perf_score="${{ needs.performance-monitor.outputs.performance-score }}"
+          deps_status="${{ needs.dependency-health.outputs.health-status }}"
+          docs_score="${{ needs.documentation-health.outputs.coverage-score }}"
+
+          # Determine colors based on scores/status
+          get_color() {
+            case "$1" in
+              healthy|passed) echo "brightgreen" ;;
+              warning) echo "yellow" ;;
+              critical|failed) echo "red" ;;
+              *) 
+                if [[ "$1" =~ ^[0-9]+$ ]]; then
+                  if [[ $1 -ge 80 ]]; then echo "brightgreen"
+                  elif [[ $1 -ge 60 ]]; then echo "yellow"
+                  else echo "red"
+                  fi
+                else
+                  echo "lightgrey"
+                fi
+                ;;
+            esac
+          }
+
+          health_color=$(get_color "$health_score")
+          perf_color=$(get_color "$perf_score")
+          deps_color=$(get_color "$deps_status")
+          docs_color=$(get_color "$docs_score")
+
+          # Create new badge section
+          cat > temp_status_badges.md << EOF
+
+          ### 📊 Repository Status
+
+          [![Repository Health](https://img.shields.io/badge/Repository%20Health-${health_score}%25-${health_color})](https://github.com/${{ github.repository }}/actions)
+          [![Performance](https://img.shields.io/badge/Performance-${perf_score}%25-${perf_color})](https://github.com/${{ github.repository }}/actions)
+          [![Dependencies](https://img.shields.io/badge/Dependencies-${deps_status}-${deps_color})](https://github.com/${{ github.repository }}/actions)
+          [![Documentation](https://img.shields.io/badge/Documentation-${docs_score}%25-${docs_color})](./docs/)
+
+          EOF
+
+          # Update README.md
+          if grep -q "Repository Status" README.md; then
+            # Replace existing status section
+            sed -i '/### 📊 Repository Status/,/^$/d' README.md
+          fi
+
+          # Add new status section after existing badges
+          sed -i '/\[![Vite\]/a\\n'"$(cat temp_status_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
+
+          rm temp_status_badges.md
+
+      - name: Generate repository health report
+        run: |
+          echo "📊 Generating repository health report..."
+
+          # Create health report
+          cat > reports/health-report.md << EOF
+          # 📊 Repository Health Report
+
+          **Generated:** $(date -u)
+          **Repository:** ${{ github.repository }}
+
+          ## 🏥 Overall Health Score: ${{ needs.health-check.outputs.health-score }}/100
+
+          ### 📈 Metrics Summary
+
+          | Category | Score/Status | Details |
+          |----------|--------------|---------|
+          | **Repository Health** | ${{ needs.health-check.outputs.health-score }}/100 | Overall codebase health |
+          | **Performance** | ${{ needs.performance-monitor.outputs.performance-score }}/100 | Bundle size and optimization |
+          | **Dependencies** | ${{ needs.dependency-health.outputs.health-status }} | Package health and security |
+          | **Documentation** | ${{ needs.documentation-health.outputs.coverage-score }}/100 | Documentation coverage |
+
+          ### 🔍 Detailed Metrics
+
+          **Repository Metrics:**
+          \`\`\`json
+          ${{ needs.health-check.outputs.metrics }}
+          \`\`\`
+
+          **Performance Metrics:**
+          \`\`\`json
+          ${{ needs.performance-monitor.outputs.metrics }}
+          \`\`\`
+
+          ### 📋 Action Items
+
+          EOF
+
+          # Add action items based on status
+          if [[ "${{ needs.dependency-health.outputs.health-status }}" != "healthy" ]]; then
+            echo "- 📦 Address dependency issues (outdated: ${{ needs.dependency-health.outputs.outdated-count }})" >> reports/health-report.md
+          fi
+
+          if [[ "${{ needs.documentation-health.outputs.coverage-score }}" -lt 90 ]]; then
+            echo "- 📚 Improve documentation coverage (missing: ${{ needs.documentation-health.outputs.missing-docs }})" >> reports/health-report.md
+          fi
+
+          if [[ "${{ needs.performance-monitor.outputs.performance-score }}" -lt 80 ]]; then
+            echo "- ⚡ Optimize performance (bundle size, code splitting)" >> reports/health-report.md
+          fi
+
+          echo "" >> reports/health-report.md
+          echo "### 🔗 Quick Links" >> reports/health-report.md
+          echo "- [Security Architecture](./docs/security-architecture.md)" >> reports/health-report.md
+          echo "- [Website Overview](./docs/website-overview.md)" >> reports/health-report.md
+          echo "- [GitHub Actions](https://github.com/${{ github.repository }}/actions)" >> reports/health-report.md
+
+      - name: Commit status updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if git diff --quiet; then
+            echo "No status updates needed"
+          else
+            git add README.md reports/health-report.md
+            git commit -m "📊 Update repository health status and metrics [skip ci]"
+            git push
+          fi
+
+      - name: Create summary
+        run: |
+          echo "## 📊 Repository Health Monitor Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🏥 Health Scores" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Score | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Repository Health | ${{ needs.health-check.outputs.health-score }}/100 | $([ ${{ needs.health-check.outputs.health-score }} -ge 80 ] && echo '✅ Good' || echo '⚠️ Needs Attention') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance | ${{ needs.performance-monitor.outputs.performance-score }}/100 | $([ ${{ needs.performance-monitor.outputs.performance-score }} -ge 80 ] && echo '✅ Good' || echo '⚠️ Needs Attention') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencies | ${{ needs.dependency-health.outputs.health-status }} | $([ '${{ needs.dependency-health.outputs.health-status }}' = 'healthy' ] && echo '✅ Healthy' || echo '⚠️ Issues Found') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Documentation | ${{ needs.documentation-health.outputs.coverage-score }}/100 | $([ ${{ needs.documentation-health.outputs.coverage-score }} -ge 90 ] && echo '✅ Complete' || echo '⚠️ Incomplete') |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Resources" >> $GITHUB_STEP_SUMMARY
+          echo "- [Health Report](./reports/health-report.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Live Website](https://www.thinkred.tech)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Documentation](./docs/)" >> $GITHUB_STEP_SUMMARY
