@@ -220,6 +220,7 @@ const AdminJobManagement: React.FC = () => {
                       onChange={e => handleInputChange('title', e.target.value)}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       required
+                      placeholder="Enter job title"
                     />
                   </div>
 
@@ -228,6 +229,7 @@ const AdminJobManagement: React.FC = () => {
                       Job Type
                     </label>
                     <select
+                      aria-label="Job Type"
                       value={formData.type}
                       onChange={e => handleInputChange('type', e.target.value)}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -244,6 +246,7 @@ const AdminJobManagement: React.FC = () => {
                       Location
                     </label>
                     <select
+                      aria-label="Location"
                       value={formData.location}
                       onChange={e =>
                         handleInputChange('location', e.target.value)
@@ -284,6 +287,7 @@ const AdminJobManagement: React.FC = () => {
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     required
+                    placeholder="Enter job description"
                   />
                 </div>
 
