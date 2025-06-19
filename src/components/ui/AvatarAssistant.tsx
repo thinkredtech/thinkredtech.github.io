@@ -25,6 +25,47 @@ import {
   SleepIcon,
 } from './SvgIcons';
 
+// Safe DOM operation wrapper
+const safelyAccessDOM = function <T>(operation: () => T, fallback: T): T {
+  try {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return fallback;
+    }
+    return operation();
+  } catch {
+    // Silently handle DOM errors in production
+    return fallback;
+  }
+};
+
+// Safe timeout wrapper that tracks refs and prevents memory leaks
+const createSafeTimeout = (
+  callback: () => void,
+  delay: number,
+  timeoutRef: React.MutableRefObject<NodeJS.Timeout | null>
+): NodeJS.Timeout => {
+  // Clear existing timeout to prevent multiple timers
+  if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+
+  const timeout = setTimeout(() => {
+    try {
+      callback();
+    } catch {
+      // Silently handle timeout errors in production
+    } finally {
+      // Clear the ref when timeout completes
+      if (timeoutRef.current === timeout) {
+        timeoutRef.current = null;
+      }
+    }
+  }, delay);
+
+  timeoutRef.current = timeout;
+  return timeout;
+};
+
 // Message Duration Constants - Centralized timing configuration
 const MESSAGE_TIMINGS = {
   // Main message cycling
@@ -64,11 +105,11 @@ const AvatarAssistant = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
-  const [isSleeping, setIsSleeping] = useState(false); // Track if assistant is sleeping
-  const [isManualSleep, setIsManualSleep] = useState(false); // Track if user manually put assistant to sleep
-  const [isGoingToSleep, setIsGoingToSleep] = useState(false); // Track transition to sleep state
-  const [isWakingUp, setIsWakingUp] = useState(false); // Track transition from sleep to awake
-  const [justWokeUp, setJustWokeUp] = useState(false); // Track if just completed wake up to skip fade-in
+  const [isSleeping, setIsSleeping] = useState(false);
+  const [isManualSleep, setIsManualSleep] = useState(false);
+  const [isGoingToSleep, setIsGoingToSleep] = useState(false);
+  const [isWakingUp, setIsWakingUp] = useState(false);
+  const [justWokeUp, setJustWokeUp] = useState(false);
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -118,20 +159,43 @@ const AvatarAssistant = () => {
     // Generate random distance between 2000px and 4000px
     return Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
   });
+
+  // Enhanced ref management with cleanup tracking
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const messageRef = useRef<HTMLDivElement>(null);
-  const hasBeenRenderedRef = useRef(false); // Track if avatar has been shown before
+  const hasBeenRenderedRef = useRef(false);
+  const isUnmountedRef = useRef(false); // Track if component is unmounted
 
-  // Function to change message with shrink-then-grow animation
+  // Enhanced cleanup function
+  const cleanupTimers = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+
+  // Component unmount tracking
+  useEffect(() => {
+    isUnmountedRef.current = false;
+    return () => {
+      isUnmountedRef.current = true;
+      cleanupTimers();
+    };
+  }, [cleanupTimers]);
+
+  // Function to change message with shrink-then-grow animation - Enhanced with error handling
   const changeMessageWithAnimation = useCallback(
     (newMessage: string) => {
-      if (newMessage === message || isMessageChanging) return; // Prevent rapid changes
+      if (newMessage === message || isMessageChanging || isUnmountedRef.current)
+        return;
 
       // Clear any existing timeouts to prevent conflicts
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      cleanupTimers();
 
       // Use shrink-grow animations 70% of the time for more noticeable changes
       const useComicAnimation = Math.random() < 0.7;
@@ -161,42 +225,60 @@ const AvatarAssistant = () => {
         // Add subtle avatar anticipation during shrink
         setIsAnimating(true);
         setAnimationType('pulse');
-        setAvatarAnimationState('anticipating'); // Anticipation during shrink
+        setAvatarAnimationState('anticipating');
 
         // Phase 2: After shrink completes, change message and start growing
-        setTimeout(() => {
-          setMessage(newMessage); // Change message while bubble is invisible
-          setMessageAnimation(randomGrowAnimation); // Start growing with style
+        createSafeTimeout(
+          () => {
+            if (isUnmountedRef.current) return;
+            setMessage(newMessage);
+            setMessageAnimation(randomGrowAnimation);
 
-          // Delay avatar animation to prevent jumping in front of bubble
-          setTimeout(() => {
-            // Clear any conflicting states before setting new animation
-            setIsAnimating(false);
-            setAttentionSeekingActive(false);
+            // Delay avatar animation to prevent jumping in front of bubble
+            createSafeTimeout(
+              () => {
+                if (isUnmountedRef.current) return;
+                // Clear any conflicting states before setting new animation
+                setIsAnimating(false);
+                setAttentionSeekingActive(false);
 
-            // Now animate avatar in sync with specific bubble growth
-            const animationMap: Record<string, typeof avatarAnimationState> = {
-              'grow-pop': 'excited-pop',
-              'grow-bounce': 'excited-bounce',
-              'grow-wiggle': 'excited-wiggle',
-              'grow-zoom': 'excited-zoom',
-              'grow-explode': 'excited-explode',
-            };
-            setAvatarAnimationState(
-              animationMap[randomGrowAnimation] || 'excited'
+                // Now animate avatar in sync with specific bubble growth
+                const animationMap: Record<
+                  string,
+                  typeof avatarAnimationState
+                > = {
+                  'grow-pop': 'excited-pop',
+                  'grow-bounce': 'excited-bounce',
+                  'grow-wiggle': 'excited-wiggle',
+                  'grow-zoom': 'excited-zoom',
+                  'grow-explode': 'excited-explode',
+                };
+                setAvatarAnimationState(
+                  animationMap[randomGrowAnimation] || 'excited'
+                );
+                setAnimationType('bounce');
+                setIsAnimating(true);
+              },
+              MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 10,
+              timeoutRef
             );
-            setAnimationType('bounce');
-            setIsAnimating(true);
-          }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 10); // Slight delay to ensure bubble starts growing first
-        }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 3); // Allow shrink to complete
+          },
+          MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL / 3,
+          timeoutRef
+        );
 
         // Phase 3: Complete the animation
-        setTimeout(() => {
-          setIsMessageChanging(false);
-          setMessageAnimation('none');
-          setIsAnimating(false);
-          setAvatarAnimationState('floating');
-        }, MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL); // Total comic animation duration
+        createSafeTimeout(
+          () => {
+            if (isUnmountedRef.current) return;
+            setIsMessageChanging(false);
+            setMessageAnimation('none');
+            setIsAnimating(false);
+            setAvatarAnimationState('floating');
+          },
+          MESSAGE_TIMINGS.COMIC_ANIMATION_TOTAL,
+          timeoutRef
+        );
       } else {
         // For subtle changes, use gentle shrink-grow
         setIsMessageChanging(true);
@@ -226,7 +308,7 @@ const AvatarAssistant = () => {
         }, MESSAGE_TIMINGS.SUBTLE_ANIMATION_TOTAL); // Total subtle animation duration
       }
     },
-    [message, isMessageChanging]
+    [message, isMessageChanging, cleanupTimers]
   );
 
   // Track user engagement and show special messages
@@ -273,43 +355,47 @@ const AvatarAssistant = () => {
     changeMessageWithAnimation,
   ]);
 
-  // Add seasonal and special occasion messages
+  // Add seasonal and special occasion messages - Enhanced with safe date handling
   const getSpecialOccasionMessage = () => {
-    const now = new Date();
-    const month = now.getMonth() + 1; // 1-based month
-    const day = now.getDate();
+    try {
+      const now = new Date();
+      const month = now.getMonth() + 1; // 1-based month
+      const day = now.getDate();
 
-    // New Year
-    if (month === 1 && day <= 7) {
-      return '🎊 Happy New Year! Ready to make this year your most innovative yet?';
+      // New Year
+      if (month === 1 && day <= 7) {
+        return '🎊 Happy New Year! Ready to make this year your most innovative yet?';
+      }
+
+      // Valentine's Day
+      if (month === 2 && day === 14) {
+        return "💝 Happy Valentine's Day! We love building amazing tech solutions.";
+      }
+
+      // Tech appreciation days
+      if (month === 10 && day >= 8 && day <= 14) {
+        return "👩‍💻👨‍💻 It's Ada Lovelace Day! Celebrating the pioneers of programming.";
+      }
+
+      // World Programmer Day (256th day of year, usually Sept 13)
+      if (month === 9 && day === 13) {
+        return "🚀 Happy World Programmer Day! Let's code the future together.";
+      }
+
+      // Friday motivation
+      if (now.getDay() === 5) {
+        return "🎉 It's Friday! Perfect time to start planning your next big project.";
+      }
+
+      // Monday motivation
+      if (now.getDay() === 1) {
+        return '☕ Monday motivation: Every great project starts with a single line of code.';
+      }
+    } catch {
+      // Silently handle date errors
     }
 
-    // Valentine's Day
-    if (month === 2 && day === 14) {
-      return "💝 Happy Valentine's Day! We love building amazing tech solutions.";
-    }
-
-    // Tech appreciation days
-    if (month === 10 && day >= 8 && day <= 14) {
-      return "👩‍💻👨‍💻 It's Ada Lovelace Day! Celebrating the pioneers of programming.";
-    }
-
-    // World Programmer Day (256th day of year, usually Sept 13)
-    if (month === 9 && day === 13) {
-      return "🚀 Happy World Programmer Day! Let's code the future together.";
-    }
-
-    // Friday motivation
-    if (now.getDay() === 5) {
-      return "🎉 It's Friday! Perfect time to start planning your next big project.";
-    }
-
-    // Monday motivation
-    if (now.getDay() === 1) {
-      return '☕ Monday motivation: Every great project starts with a single line of code.';
-    }
-
-    return null;
+    return null; // No special occasion message
   };
 
   // Calculate optimal bubble width based on message length and screen size
@@ -621,15 +707,15 @@ const AvatarAssistant = () => {
     changeMessageWithAnimation,
   ]);
 
-  // Handle scroll events to put avatar to sleep/wake up
+  // Handle scroll events to put avatar to sleep/wake up - Enhanced with safe DOM access
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout | null = null;
 
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      const scrollY = safelyAccessDOM(() => window.scrollY, 0);
 
       // If user manually put assistant to sleep, don't change its state on scroll
-      if (isManualSleep) return;
+      if (isManualSleep || isUnmountedRef.current) return;
 
       // Clear any pending scroll timeout
       if (scrollTimeout) {
@@ -645,6 +731,7 @@ const AvatarAssistant = () => {
       ) {
         // Debounce the sleep transition to prevent jank
         scrollTimeout = setTimeout(() => {
+          if (isUnmountedRef.current) return;
           // Smooth transition to sleep - clear all states that might interfere
           setIsExpanded(false);
           setShowContextualOptions(false);
@@ -653,15 +740,15 @@ const AvatarAssistant = () => {
           setIsVisible(false); // Hide message bubble first
 
           // Clear any pending timeouts that might cause state conflicts
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
+          cleanupTimers();
 
           // Start transition to sleep for automatic scroll sleep
           setTimeout(() => {
+            if (isUnmountedRef.current) return;
             setIsGoingToSleep(true);
 
             setTimeout(() => {
+              if (isUnmountedRef.current) return;
               setIsGoingToSleep(false);
               setIsSleeping(true);
               // Don't set isManualSleep for automatic sleep
@@ -676,12 +763,14 @@ const AvatarAssistant = () => {
       ) {
         // Debounce the wake transition
         scrollTimeout = setTimeout(() => {
+          if (isUnmountedRef.current) return;
           setIsGoingToSleep(false); // Reset transition state
           setIsSleeping(false);
           setIsWakingUp(true); // Start wake up transition
 
           // Complete wake up after animation
           setTimeout(() => {
+            if (isUnmountedRef.current) return;
             setIsWakingUp(false);
             setIsVisible(true); // Show assistant when waking up
           }, 400);
@@ -689,9 +778,19 @@ const AvatarAssistant = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Safe event listener attachment
+    const addScrollListener = () => {
+      if (typeof window !== 'undefined') {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+    };
+
+    addScrollListener();
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('scroll', handleScroll);
+      }
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
@@ -702,6 +801,7 @@ const AvatarAssistant = () => {
     isGoingToSleep,
     isWakingUp,
     sleepScrollDistance,
+    cleanupTimers,
   ]);
 
   // Add attention-seeking behavior
