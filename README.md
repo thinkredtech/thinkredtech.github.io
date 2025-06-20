@@ -142,8 +142,8 @@ npm test
 |:--------------|:----------:|:------------|
 | **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml) |
 | **🔒 Security Checks** | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md) |
-| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/health-report.md) |
-| **⚡ Performance** | ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse) | [Performance Report](./reports/status-dashboard.md) |
+| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/automated/health-report.md) |
+| **⚡ Performance** | ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse) | [Performance Report](./reports/automated/status-dashboard.md) |
 | **📦 Dependencies** | ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot) | [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions) |
 
 ---
@@ -212,8 +212,8 @@ thinkred-website-react19-vite/
 
 ### 📊 **Reports & Monitoring**
 
-- **[Health Report](./reports/health-report.md)** - Repository health metrics
-- **[Status Dashboard](./reports/status-dashboard.md)** - Real-time system status
+- **[Health Report](./reports/automated/health-report.md)** - Repository health metrics
+- **[Status Dashboard](./reports/automated/status-dashboard.md)** - Real-time system status
 - **[Security Reports](./reports/security/)** - Security audit reports
 
 ---
