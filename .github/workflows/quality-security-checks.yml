@@ -433,14 +433,29 @@ jobs:
           [![Dependencies](https://img.shields.io/badge/Dependencies-${dependency_status}-${dependency_color})](https://github.com/${{ github.repository }}/actions)
           EOF
 
-          # Update README.md
+          # Update README.md using awk for cross-platform compatibility
           if grep -q "Documentation.*Code Quality.*Build.*Security.*Dependencies" README.md; then
-            # Replace existing badges
-            sed -i '/Documentation.*Code Quality.*Build.*Security.*Dependencies/r temp_badges.md' README.md
-            sed -i '/Documentation.*Code Quality.*Build.*Security.*Dependencies/d' README.md
+            # Replace existing badges (portable way)
+            awk '
+              /Documentation.*Code Quality.*Build.*Security.*Dependencies/ {
+                while ((getline line < "temp_badges.md") > 0) print line
+                close("temp_badges.md")
+                next
+              }
+              { print }
+            ' README.md > README.tmp && mv README.tmp README.md
           else
             # Add badges after the existing badges section
-            sed -i '/\!\[React\]/a\\n'"$(cat temp_badges.md)" README.md
+            awk '
+              /\!\[React\]/ {
+                print
+                print ""
+                while ((getline line < "temp_badges.md") > 0) print line
+                close("temp_badges.md")
+                next
+              }
+              { print }
+            ' README.md > README.tmp && mv README.tmp README.md
           fi
 
           rm temp_badges.md

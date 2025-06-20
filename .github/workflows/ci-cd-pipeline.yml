@@ -122,9 +122,17 @@ jobs:
             exit 1
           fi
 
-          if [[ ! -f "build/static/js"* ]]; then
-            echo "❌ No JavaScript files found in build"
+          # Check for Vite-generated JavaScript files in assets directory
+          if ! compgen -G "build/assets/*.js" > /dev/null; then
+            echo "❌ No JavaScript files found in build/assets/"
+            echo "📁 Build directory contents:"
+            find build -type f -name "*.js" | head -10
             exit 1
+          fi
+
+          # Check for CSS files
+          if ! compgen -G "build/assets/*.css" > /dev/null; then
+            echo "⚠️ No CSS files found in build/assets/ (this may be normal)"
           fi
 
           echo "✅ Build verification successful"

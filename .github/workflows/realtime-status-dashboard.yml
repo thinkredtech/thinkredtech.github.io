@@ -81,20 +81,18 @@ jobs:
             end_time=$(date +%s%N)
             load_time=$(( (end_time - start_time) / 1000000 )) # Convert to milliseconds
             
-            # Create metrics JSON
-            metrics_json=$(cat << EOF
-          {
-            "load_time_ms": $load_time,
-            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "status": "$([ $load_time -lt 2000 ] && echo 'good' || echo 'slow')"
-          }
-          EOF
-            )
+            # Create metrics JSON using jq for safe single-line output
+            metrics_json=$(jq -cn \
+              --arg load_time "$load_time" \
+              --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --arg status "$([ $load_time -lt 2000 ] && echo 'good' || echo 'slow')" \
+              '{load_time_ms: ($load_time|tonumber), timestamp: $timestamp, status: $status}')
             
             echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
             echo "📈 Page load time: ${load_time}ms"
           else
-            echo "metrics={\"load_time_ms\": -1, \"status\": \"error\"}" >> $GITHUB_OUTPUT
+            metrics_json=$(jq -cn '{load_time_ms: -1, status: "error", timestamp: (now | strftime("%Y-%m-%dT%H:%M:%SZ"))}')
+            echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
             echo "❌ Failed to measure performance"
           fi
 
