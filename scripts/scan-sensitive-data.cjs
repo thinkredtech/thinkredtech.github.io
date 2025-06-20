@@ -86,8 +86,7 @@ const EXCLUDE_PATTERNS = [
 // Files that are allowed to contain example secrets (but we still flag them)
 const EXAMPLE_FILES = [
   '.env.example',
-  'README.md',
-  'SECURITY-SETUP.md'
+  'README.md'
 ];
 
 function shouldExcludeFile(filePath) {
