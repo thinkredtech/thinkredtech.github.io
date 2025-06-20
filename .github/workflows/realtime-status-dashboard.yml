@@ -86,7 +86,7 @@ jobs:
           status_code=$(curl -L -f -s -o /dev/null -w "%{http_code}" https://www.thinkred.tech || echo "000")
           end_time=$(date +%s%N)
           load_time=$(( (end_time - start_time) / 1000000 )) # Convert to milliseconds
-          
+
           if [[ "$status_code" == "200" ]]; then
             # Create metrics JSON using jq for safe single-line output
             metrics_json=$(jq -cn \
