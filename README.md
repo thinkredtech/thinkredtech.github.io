@@ -253,12 +253,14 @@ npm run preview
 ```
 
 **Setup Process**:
+
 1. Go to Repository Settings → Secrets and Variables → Actions
 2. Add new repository secret: `ADMIN_PASSWORD`
 3. Set value to your secure admin password
 4. Deploy via GitHub Actions workflow
 
 **Build Process**:
+
 - Environment variable injected during build time
 - Password embedded in compiled JavaScript bundle
 - Admin authentication works immediately after deployment
@@ -280,12 +282,14 @@ npm run build
 ```
 
 **Setup Process**:
+
 1. Set environment variable locally before build
 2. Run production build (embeds password in bundle)
 3. Upload `build/` directory to Hostinger via FTP/SFTP
 4. Verify admin functionality works on live site
 
 **Alternative**: Set environment variables in build script:
+
 ```bash
 # deploy-hostinger.sh
 export REACT_APP_ADMIN_PASSWORD="$HOSTINGER_ADMIN_PASSWORD"
@@ -459,11 +463,13 @@ const ADMIN_PASSWORD = "your_actual_password_here";
 ### 💻 **Web Development**
 
 🚀 **Modern Frontend**
+
 - React, Vue, Angular
 - Progressive Web Apps
 - Mobile-first design
 
 ⚡ **Backend Solutions**
+
 - Node.js, Python, Go
 - Microservices architecture
 - API development
@@ -474,11 +480,13 @@ const ADMIN_PASSWORD = "your_actual_password_here";
 ### ☁️ **Cloud & DevOps**
 
 🏗️ **Infrastructure**
+
 - AWS, Azure, GCP
 - Kubernetes orchestration
 - Serverless computing
 
 🔄 **CI/CD Pipelines**
+
 - Automated deployments
 - Testing automation
 - Monitoring & alerts
@@ -489,11 +497,13 @@ const ADMIN_PASSWORD = "your_actual_password_here";
 ### 🤖 **AI & Innovation**
 
 🧠 **Machine Learning**
+
 - Custom ML models
 - Data analysis
 - Predictive analytics
 
 🎯 **Consulting**
+
 - Technology strategy
 - Digital transformation
 - Performance optimization

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { createHash, randomBytes } from 'crypto';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -68,6 +69,13 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 600,
+  },
+  // Security: CSP nonce generation for production builds
+  define: {
+    __CSP_NONCE__: JSON.stringify(process.env.NODE_ENV === 'production' ? 
+      randomBytes(16).toString('base64') : 
+      ''
+    ),
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],

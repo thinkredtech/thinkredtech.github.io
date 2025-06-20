@@ -275,3 +275,184 @@ export const secureStorage = {
     sessionStorage.removeItem(key);
   },
 };
+
+// ========================
+// Content Security Policy
+// ========================
+
+export interface CSPDirectives {
+  'default-src': string[];
+  'script-src': string[];
+  'style-src': string[];
+  'img-src': string[];
+  'font-src': string[];
+  'connect-src': string[];
+  'media-src': string[];
+  'object-src': string[];
+  'child-src': string[];
+  'frame-src': string[];
+  'worker-src': string[];
+  'manifest-src': string[];
+  'frame-ancestors': string[];
+  'base-uri': string[];
+  'form-action': string[];
+  'upgrade-insecure-requests': boolean;
+  'block-all-mixed-content': boolean;
+}
+
+export const DEFAULT_CSP_DIRECTIVES: CSPDirectives = {
+  'default-src': ["'self'"],
+  'script-src': [
+    "'self'",
+    // Note: In production, these should be replaced with nonces or removed
+    "'unsafe-inline'", // Required for Vite dev server and some React features
+    "'unsafe-eval'", // Required for Vite dev server
+  ],
+  'style-src': [
+    "'self'",
+    "'unsafe-inline'", // Required for styled-components and CSS-in-JS
+    'https://fonts.googleapis.com',
+  ],
+  'img-src': [
+    "'self'",
+    'data:', // For inline SVGs and base64 images
+    'https:', // Allow HTTPS images from any domain
+  ],
+  'font-src': ["'self'", 'https://fonts.gstatic.com'],
+  'connect-src': [
+    "'self'",
+    'https://api.thinkred.tech', // Your API domain
+    'https:', // Allow HTTPS connections (for development flexibility)
+  ],
+  'media-src': ["'self'"],
+  'object-src': ["'none'"],
+  'child-src': ["'none'"],
+  'frame-src': ["'none'"],
+  'worker-src': ["'self'"],
+  'manifest-src': ["'self'"],
+  'frame-ancestors': ["'none'"],
+  'base-uri': ["'self'"],
+  'form-action': ["'self'"],
+  'upgrade-insecure-requests': true,
+  'block-all-mixed-content': true,
+};
+
+/**
+ * Generate CSP header string from directives
+ */
+export function generateCSPHeader(
+  directives: Partial<CSPDirectives> = {}
+): string {
+  const mergedDirectives = { ...DEFAULT_CSP_DIRECTIVES, ...directives };
+
+  const cspParts: string[] = [];
+
+  // Add directive-based rules
+  Object.entries(mergedDirectives).forEach(([directive, values]) => {
+    if (
+      directive === 'upgrade-insecure-requests' ||
+      directive === 'block-all-mixed-content'
+    ) {
+      if (values) {
+        cspParts.push(directive.replace(/([A-Z])/g, '-$1').toLowerCase());
+      }
+    } else if (Array.isArray(values) && values.length > 0) {
+      cspParts.push(`${directive} ${values.join(' ')}`);
+    }
+  });
+
+  return cspParts.join('; ');
+}
+
+/**
+ * Generate a cryptographically secure nonce
+ */
+export function generateNonce(): string {
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    const array = new Uint8Array(16);
+    crypto.getRandomValues(array);
+    return btoa(String.fromCharCode.apply(null, Array.from(array)));
+  }
+
+  // Fallback for environments without crypto.getRandomValues
+  return btoa(
+    Math.random().toString(36).substring(2) + Date.now().toString(36)
+  );
+}
+
+/**
+ * Security headers configuration
+ */
+export const SECURITY_HEADERS = {
+  'Content-Security-Policy': generateCSPHeader(),
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy':
+    'geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+} as const;
+
+/**
+ * Get production-ready CSP (stricter than development)
+ */
+export function getProductionCSP(): string {
+  const productionDirectives: Partial<CSPDirectives> = {
+    'script-src': [
+      "'self'",
+      // Remove unsafe-inline and unsafe-eval for production
+      // Add specific script hashes or nonces here if needed
+    ],
+    'style-src': [
+      "'self'",
+      "'unsafe-inline'", // May still be needed for CSS-in-JS libraries
+      'https://fonts.googleapis.com',
+    ],
+    'connect-src': [
+      "'self'",
+      'https://api.thinkred.tech',
+      // Remove broad https: allowance for production
+    ],
+  };
+
+  return generateCSPHeader(productionDirectives);
+}
+
+/**
+ * Validate CSP configuration
+ */
+export function validateCSPConfig(): {
+  isValid: boolean;
+  warnings: string[];
+  errors: string[];
+} {
+  const warnings: string[] = [];
+  const errors: string[] = [];
+
+  // Check for unsafe directives
+  if (DEFAULT_CSP_DIRECTIVES['script-src'].includes("'unsafe-inline'")) {
+    warnings.push(
+      "script-src contains 'unsafe-inline' - consider using nonces or hashes"
+    );
+  }
+
+  if (DEFAULT_CSP_DIRECTIVES['script-src'].includes("'unsafe-eval'")) {
+    warnings.push("script-src contains 'unsafe-eval' - remove in production");
+  }
+
+  // Check for overly permissive directives
+  if (DEFAULT_CSP_DIRECTIVES['img-src'].includes('http:')) {
+    errors.push('img-src allows HTTP resources - security risk');
+  }
+
+  if (DEFAULT_CSP_DIRECTIVES['connect-src'].includes('*')) {
+    errors.push('connect-src allows all domains - security risk');
+  }
+
+  return {
+    isValid: errors.length === 0,
+    warnings,
+    errors,
+  };
+}

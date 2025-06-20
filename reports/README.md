@@ -20,6 +20,7 @@ This directory contains automatically generated reports from our CI/CD monitorin
 - **`security-scan.md`**: Vulnerability scanning results
 - **`sensitive-data-scan.md`**: Sensitive data and secret detection results
 - **`compliance-report.md`**: Security compliance and header validation
+- **`csp-implementation-2025-06-20.md`**: Content Security Policy implementation report
 
 ### 📦 Build & Deployment Reports
 
@@ -58,6 +59,7 @@ Critical issues found in reports automatically:
 - [📊 Live Status Dashboard](./status-dashboard.md) - Current service status
 - [🏥 Health Report](./health-report.md) - Repository health overview
 - [🔒 Security Status](./security-scan.md) - Security vulnerability status
+- [🛡️ CSP Implementation](./csp-implementation-2025-06-20.md) - Content Security Policy report
 
 ---
 
