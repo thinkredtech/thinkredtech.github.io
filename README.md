@@ -100,6 +100,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
 
+### 📊 Repository Status[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
+
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
