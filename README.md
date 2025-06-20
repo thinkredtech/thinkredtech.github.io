@@ -1,24 +1,85 @@
-<div align="center">
+<div a### 📊 Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shield### ### �### �### �### �### �📊 Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)center">
 
 # 🚀 ThinkRED Technologies
 
-<img src="public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="marg###![Vi###![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
+<img src="public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="margin: 20px 0;" />
 
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)epository Status
-
-[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)(https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
-
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)sitory Status
+### *En### ### �### �### �### �📊 R### 📊 ### 📊 Repository Status
 
 [![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)n: 20px 0;" />
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)epository Status
 
-### *Engineering Excellence • Innovation-Led Technology Solutions*
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)pository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
+
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+
+### 📊 Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/) Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)ineering Excellence • Innovation-Led Technology Solutions*
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.thinkred.tech&style=for-the-badge&logo=safari&logoColor=white&label=LIVE%20WEBSITE&color=e4093e)](https://www.thinkred.tech)
 [![Version](https://img.shields.io/badge/VERSION-1.0.4-00D4FF?style=for-the-badge&logo=semver&logoColor=white)](./CHANGELOG.md)
@@ -195,7 +256,12 @@ expertise to businesses worldwide.
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
 
-### 📊 Repository Status[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
+### 📊 Repository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
 
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)

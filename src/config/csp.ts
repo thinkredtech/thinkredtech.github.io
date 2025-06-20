@@ -3,11 +3,11 @@
  * Use this for deploying to production environments
  */
 
-// Production CSP - Strict security policy (matches GitHub issue #5 recommendations)
+// Production CSP - Strict security policy (Updated for GitHub issue #41)
 export const PRODUCTION_CSP = `
 default-src 'self';
-script-src 'self' 'unsafe-inline';
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+script-src 'self';
+style-src 'self' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
 connect-src 'self' https://api.thinkred.tech;

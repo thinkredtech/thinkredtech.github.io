@@ -11,7 +11,8 @@
 
 ## 📋 Executive Summary
 
-Comprehensive Content Security Policy implementation to address XSS vulnerabilities and security header deficiencies, resulting in production-ready security configuration compliant with modern web security standards.
+Comprehensive Content Security Policy implementation to address XSS vulnerabilities and security header deficiencies,
+resulting in production-ready security configuration compliant with modern web security standards.
 
 **Problem:** Website vulnerable to XSS attacks due to missing/inadequate Content Security Policy  
 **Impact:** Potential code injection, data theft, and unauthorized script execution  
@@ -144,7 +145,8 @@ npm run security:build
 
 ### Issue #3 - Content Security Policy Violations: ✅ RESOLVED
 
-The implementation provides production-grade security while maintaining development flexibility. All reported CSP violations have been addressed with comprehensive security headers that prevent XSS attacks, clickjacking, and other security vulnerabilities.
+The implementation provides production-grade security while maintaining development flexibility. All reported CSP violations
+have been addressed with comprehensive security headers that prevent XSS attacks, clickjacking, and other security vulnerabilities.
 
 ## Follow-up: Response to GitHub Issue #5
 

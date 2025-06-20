@@ -4,7 +4,8 @@
 
 **Problem**: The sensitive data monitor workflow was failing with `ReferenceError: needs is not defined` when trying to create security issues.
 
-**Root Cause**: The `needs` context is not available inside JavaScript code blocks in `actions/github-script`. It's only available at the job and step level in workflow expressions.
+**Root Cause**: The `needs` context is not available inside JavaScript code blocks in `actions/github-script`.
+It's only available at the job and step level in workflow expressions.
 
 ## 🛠️ Fix Applied
 

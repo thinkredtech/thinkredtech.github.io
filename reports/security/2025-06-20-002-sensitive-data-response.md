@@ -11,7 +11,8 @@
 
 ## 📋 Executive Summary
 
-Response to GitHub Actions security alert regarding potential sensitive data exposure, determined to be false positive from documentation examples, with comprehensive security audit performed and enhanced detection tools implemented.
+Response to GitHub Actions security alert regarding potential sensitive data exposure, determined to be false positive
+from documentation examples, with comprehensive security audit performed and enhanced detection tools implemented.
 
 ## Root Cause Analysis
 

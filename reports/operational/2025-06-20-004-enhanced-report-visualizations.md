@@ -7,7 +7,8 @@
 
 ## 🎯 Overview
 
-This document describes the enhanced visualization system implemented for ThinkRED's automated health reports and status dashboards. The improvements provide better visual representation of metrics, performance data, and system status.
+This document describes the enhanced visualization system implemented for ThinkRED's automated health reports
+and status dashboards. The improvements provide better visual representation of metrics, performance data, and system status.
 
 ## 🔄 What Was Enhanced
 

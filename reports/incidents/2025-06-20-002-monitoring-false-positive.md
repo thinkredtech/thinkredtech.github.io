@@ -7,11 +7,13 @@
 
 ## 📋 Executive Summary
 
-The automated monitoring system incorrectly detected a critical service incident due to improper handling of HTTP redirects. The website was fully operational throughout the incident period.
+The automated monitoring system incorrectly detected a critical service incident due to improper handling of
+HTTP redirects. The website was fully operational throughout the incident period.
 
 ## 🔍 Root Cause Analysis
 
-The monitoring script in `.github/workflows/realtime-status-dashboard.yml` was using `curl -f` without the `-L` flag, causing it to treat the expected 301 redirect from `https://www.thinkred.tech` to `https://thinkredtech.github.io` as a failure.
+The monitoring script in `.github/workflows/realtime-status-dashboard.yml` was using `curl -f` without the `-L` flag,
+causing it to treat the expected 301 redirect from `https://www.thinkred.tech` to `https://thinkredtech.github.io` as a failure.
 
 ### Timeline
 

@@ -2,7 +2,8 @@
 
 ## Overview
 
-The ThinkRED website implements enterprise-grade security measures to protect against common web vulnerabilities and ensure data integrity. This document outlines the comprehensive security architecture and implementation details.
+The ThinkRED website implements enterprise-grade security measures to protect against common web vulnerabilities
+and ensure data integrity. This document outlines the comprehensive security architecture and implementation details.
 
 ## Security Framework
 
