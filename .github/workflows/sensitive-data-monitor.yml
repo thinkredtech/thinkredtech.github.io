@@ -402,19 +402,27 @@ jobs:
       - name: Create sensitive data issue
         if: needs.sensitive-data-scan.outputs.secrets-found == 'true' || needs.sensitive-data-scan.outputs.exposed-data == 'true'
         uses: actions/github-script@v7
+        env:
+          SECRETS_FOUND: ${{ needs.sensitive-data-scan.outputs.secrets-found }}
+          EXPOSED_DATA: ${{ needs.sensitive-data-scan.outputs.exposed-data }}
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+          WORKFLOW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const secretsFound = process.env.SECRETS_FOUND === 'true';
+            const exposedData = process.env.EXPOSED_DATA === 'true';
+            
             const issueBody = `
             ## 🚨 Sensitive Data Exposure Detected
 
             **Detected on:** ${new Date().toISOString()}
-            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            **Workflow Run:** [${process.env.WORKFLOW_RUN_ID}](${process.env.WORKFLOW_RUN_URL})
 
             ### Issues Found:
 
-            ${needs['sensitive-data-scan'].outputs['secrets-found'] === 'true' ? '❌ **Secrets detected in codebase**' : ''}
-            ${needs['sensitive-data-scan'].outputs['exposed-data'] === 'true' ? '❌ **Sensitive data exposed in code**' : ''}
+            ${secretsFound ? '❌ **Secrets detected in codebase**' : ''}
+            ${exposedData ? '❌ **Sensitive data exposed in code**' : ''}
 
             ### Immediate Actions Required:
 
@@ -467,6 +475,9 @@ jobs:
       - name: Create CSP violation issue
         if: needs.content-security-scan.outputs.csp-violations == 'true'
         uses: actions/github-script@v7
+        env:
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+          WORKFLOW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -474,7 +485,7 @@ jobs:
             ## 🛡️ Content Security Policy Violations Detected
 
             **Detected on:** ${new Date().toISOString()}
-            **Workflow Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            **Workflow Run:** [${process.env.WORKFLOW_RUN_ID}](${process.env.WORKFLOW_RUN_URL})
 
             ### CSP Issues Found:
 
