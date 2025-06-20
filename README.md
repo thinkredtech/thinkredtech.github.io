@@ -62,6 +62,8 @@
 [![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
+
+### 📊 Repository Status[![Repository Health](https://img.shields.io/badge/Repository%20Health-40%25-red)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Performance](https://img.shields.io/badge/Performance-85%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4+-06B6D4?style=flat&logo=tailwindcss)
 
 Latest technologies for blazing performance
