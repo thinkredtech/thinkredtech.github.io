@@ -88,7 +88,7 @@ Comprehensive Content Security Policy implementation to address XSS vulnerabilit
 
 ### Security Assessment
 
-```text
+```csp
 📋 CSP Configuration Analysis:
 ❌ CSP configuration has warnings (Expected - development mode)
 
@@ -116,7 +116,9 @@ Current configuration supports Vite development server with necessary unsafe dir
 Use `npm run security:build` for strict CSP deployment:
 
 ```bash
+
 # Production deployment with strict CSP
+
 npm run security:build
 ```
 
@@ -140,7 +142,7 @@ npm run security:build
 
 ## 🎯 Resolution Status
 
-**Issue #3 - Content Security Policy Violations: ✅ RESOLVED**
+### Issue #3 - Content Security Policy Violations: ✅ RESOLVED
 
 The implementation provides production-grade security while maintaining development flexibility. All reported CSP violations have been addressed with comprehensive security headers that prevent XSS attacks, clickjacking, and other security vulnerabilities.
 
@@ -176,7 +178,7 @@ GitHub Actions workflow detected additional CSP violations with the following re
 
 ### Current CSP Status
 
-```text
+```csp
 default-src 'self'; 
 script-src 'self' 'unsafe-inline'; 
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
@@ -205,6 +207,7 @@ block-all-mixed-content;
 - ⚠️ Still uses `'unsafe-inline'` (acceptable for now, nonce-based CSP recommended for future)
 
 ### GitHub Issue #5 Compliance
+
 **Status**: ✅ **FULLY COMPLIANT**
 
 The current CSP implementation meets all requirements specified in GitHub issue #5:

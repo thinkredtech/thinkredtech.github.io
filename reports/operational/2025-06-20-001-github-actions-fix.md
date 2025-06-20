@@ -8,7 +8,7 @@
 
 ## 🛠️ Fix Applied
 
-### Before (Problematic Code):
+### Before (Problematic Code)
 
 ```yaml
 uses: actions/github-script@v7
@@ -18,7 +18,7 @@ with:
     ${needs['sensitive-data-scan'].outputs['secrets-found'] === 'true' ? '❌ **Secrets detected**' : ''}
 ```
 
-### After (Fixed Code):
+### After (Fixed Code)
 
 ```yaml
 uses: actions/github-script@v7

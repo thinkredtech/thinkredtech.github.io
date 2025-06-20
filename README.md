@@ -198,18 +198,24 @@ Intelligent features for enhanced user experience
 </div>
 
 ```bash
+
 # 1. 📥 Clone the repository
+
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
 # 2. 📦 Install dependencies
+
 npm install
 
 # 3. 🚀 Start development server
+
 npm run dev
 
 # 4. 🌐 Open in browser
+
 # Navigate to http://localhost:3000
+
 ```
 
 <details>
@@ -265,30 +271,42 @@ if (!ADMIN_PASSWORD) {
 #### 1. Create Environment File
 
 ```bash
+
 # Copy the example configuration
+
 cp .env.example .env.local
 
 # Generate a secure password (example methods)
+
 openssl rand -base64 24  # macOS/Linux
+
 # Or use a password manager to generate 16+ character password
+
 ```
 
 #### 2. Configure Local Environment
 
 ```bash
+
 # Edit .env.local (NEVER commit this file)
+
 echo "REACT_APP_ADMIN_PASSWORD=REPLACE_WITH_STRONG_PASSWORD" >> .env.local
 ```
 
 #### 3. Verify Setup
 
 ```bash
+
 # Build with environment variables
+
 npm run build
 
 # Test admin functionality
+
 npm run preview
+
 # Navigate to http://localhost:4173/admin
+
 ```
 
 </details>
@@ -310,7 +328,9 @@ npm run preview
 **Method**: GitHub Actions with environment secrets
 
 ```yaml
+
 # .github/workflows/ci-cd-pipeline.yml
+
 - name: Build for GitHub Pages
   run: npm run build
   env:
@@ -338,11 +358,14 @@ npm run preview
 **Method**: Manual build with environment variables
 
 ```bash
+
 # Local build with environment
+
 export REACT_APP_ADMIN_PASSWORD="REPLACE_WITH_STRONG_PASSWORD"
 npm run build
 
 # Deploy to Hostinger via deploy script
+
 ./deploy-hostinger.sh
 ```
 
@@ -356,10 +379,14 @@ npm run build
 **Alternative**: Set environment variables in build script:
 
 ```bash
+
 # deploy-hostinger.sh
+
 export REACT_APP_ADMIN_PASSWORD="$HOSTINGER_ADMIN_PASSWORD"
 npm run build
+
 # ... upload logic
+
 ```
 
 </td>
@@ -414,18 +441,22 @@ const ADMIN_PASSWORD = "ACTUAL_VALUE_FROM_ENV_VAR";
 <summary><strong>🚨 Common Issues & Solutions</strong></summary>
 
 #### Issue: "Admin functionality not available"
+
 **Cause**: `REACT_APP_ADMIN_PASSWORD` not set during build  
 **Solution**: Ensure environment variable is configured before building
 
 #### Issue: Admin login not working
+
 **Cause**: Wrong password or environment variable name  
 **Solution**: Verify exact password and `REACT_APP_` prefix
 
 #### Issue: Works locally but not in production
+
 **Cause**: Environment variable not set in deployment pipeline  
 **Solution**: Check deployment platform's environment configuration
 
 #### Issue: Password visible in browser source
+
 **Status**: ✅ **Expected behavior** - React environment variables are public  
 **Action**: Use unique, rotatable passwords; never expose sensitive secrets
 

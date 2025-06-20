@@ -22,6 +22,7 @@
 - **[HH:MM UTC]**: [Event description]
 
 ### Root Cause
+
 [Detailed explanation of what caused the incident]
 
 ### Impact Assessment
@@ -32,6 +33,7 @@
 - **Severity Justification**: [Why this severity level was assigned]
 
 ### Technical Details
+
 [Code snippets, configurations, logs, or other technical information]
 
 ```
@@ -47,6 +49,7 @@
 3. [Action 3]
 
 ### Solution Implementation
+
 [Detailed description of how the issue was resolved]
 
 ### Verification Steps

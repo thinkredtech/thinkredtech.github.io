@@ -7,6 +7,7 @@ ThinkRED Technologies represents engineering excellence, innovation, and the sim
 ### Brand Etymology & Meaning
 
 #### "thinkred" - The Origin Story
+
 The term **"thinkred"** originates from the powerful combination of **"think"** and **"red,"** representing a unique approach to strategic thinking paired with a vibrant, impactful methodology. This fusion embodies our philosophy of:
 
 - **Strategic Thinking**: Deep, analytical problem-solving that cuts to the core of technological challenges
@@ -17,6 +18,7 @@ The term **"thinkred"** originates from the powerful combination of **"think"** 
 The lowercase "thinkred" represents the foundational mindset—the daily practice of combining thoughtful analysis with bold action. It's how we approach every problem, every client challenge, and every innovation opportunity.
 
 #### "ThinkRED" - Bold Thinking Amplified
+
 While **thinkred** signifies the foundation of our approach, **ThinkRED** (the company name) represents **bold thinking** elevated to an organizational level. The capitalized "RED" emphasizes our commitment to:
 
 - **Revolutionary thinking** that transforms industries
@@ -84,6 +86,7 @@ Our brand communicates trustworthiness, technical expertise, and approachability
 - **Business Cards**: 0.3 inches (7.6mm) height minimum
 
 #### Clear Space Guidelines
+
 Maintain protected space around the logo equal to the height of the "R" in ThinkRED on all sides. This ensures the logo has proper visual breathing room and maintains its impact.
 
 ### Brand Icon - "thinkred Icon"
@@ -105,6 +108,7 @@ Maintain protected space around the logo equal to the height of the "R" in Think
 ### RED - The ThinkRED Mascot
 
 #### Mascot Overview
+
 **RED** is the ThinkRED Technologies mascot—an intelligent, friendly avatar assistant that embodies our brand personality and values.
 
 #### RED's Identity & Meaning
@@ -190,6 +194,7 @@ Maintain protected space around the logo equal to the height of the "R" in Think
 ### Font Families
 
 #### Primary Display Font: Comfortaa
+
 **Usage**: Headlines, hero sections, brand statements where personality matters
 
 - **Characteristics**: Rounded, approachable, friendly while maintaining professionalism
@@ -205,6 +210,7 @@ Maintain protected space around the logo equal to the height of the "R" in Think
 - Bold (700)
 
 #### Primary Content Font: Montserrat
+
 **Usage**: Body text, navigation, interface elements, professional communications
 
 - **Characteristics**: Clean, highly legible, professional, versatile

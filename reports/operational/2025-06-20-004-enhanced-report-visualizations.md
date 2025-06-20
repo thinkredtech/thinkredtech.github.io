@@ -13,12 +13,10 @@ This document describes the enhanced visualization system implemented for ThinkR
 
 ### Before: Basic Text-Based Reports
 
-```markdown
 | Category | Score/Status | Details |
 |----------|--------------|---------|
 | Performance | 100/100 | Bundle size and optimization |
 | Dependencies | healthy | Package health and security |
-```
 
 ### After: Rich Visual Dashboards
 
@@ -130,13 +128,17 @@ generateStatusDashboard()
 ### Usage Commands
 
 ```bash
+
 # Generate all enhanced reports
+
 npm run reports:generate
 
 # Generate reports with confirmation
+
 npm run reports:health
 
 # Manual execution
+
 node scripts/generate-visual-reports.cjs
 ```
 
@@ -163,7 +165,7 @@ node scripts/generate-visual-reports.cjs
 │ JavaScript   ████████████████████████████████████▒▒▒▒  889KB    │
 │ CSS          ████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   97KB    │
 │ Assets       ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   ~0KB    │
-│ Chunks       27 files optimized for code splitting             │
+│ Chunks       27 files optimized for code splitting              │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -172,11 +174,11 @@ node scripts/generate-visual-reports.cjs
 ```text
 📊 30-DAY PERFORMANCE HISTORY
 ┌─────────────────────────────────────────────────────────────────┐
-│ Week 1  ████████████████████████████████████████  99.8% uptime │
-│ Week 2  ████████████████████████████████████████  99.9% uptime │
-│ Week 3  ████████████████████████████████████████ 100.0% uptime │
-│ Week 4  ████████████████████████████████████████  99.9% uptime │
-│                                         Avg: 99.9% uptime      │
+│ Week 1  ████████████████████████████████████████   99.8% uptime │
+│ Week 2  ████████████████████████████████████████   99.9% uptime │
+│ Week 3  ████████████████████████████████████████  100.0% uptime │
+│ Week 4  ████████████████████████████████████████   99.9% uptime │
+│                                               Avg: 99.9% uptime │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

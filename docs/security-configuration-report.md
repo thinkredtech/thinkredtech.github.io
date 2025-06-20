@@ -95,6 +95,7 @@ block-all-mixed-content;
 ## Current Warnings ⚠️
 
 ### Development vs Production
+
 The current CSP includes development-friendly directives:
 
 1. **`'unsafe-inline'` in script-src**
@@ -128,6 +129,7 @@ connect-src 'self' https://api.thinkred.tech;
 ```
 
 ### 4. Monitor CSP Violations
+
 Implement CSP reporting to monitor policy violations:
 
 ```
@@ -171,4 +173,5 @@ report-uri /csp-violation-report-endpoint/;
 - Comprehensive security headers implemented
 
 ### Security Posture: IMPROVED 🛡️
+
 The implementation significantly improves the security posture while maintaining development flexibility.

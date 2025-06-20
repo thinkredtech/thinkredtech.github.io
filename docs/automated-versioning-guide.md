@@ -244,23 +244,29 @@ The versioning workflow integrates with existing quality assurance:
 To ensure proper version detection, follow these commit message patterns:
 
 ```bash
+
 # Features (Minor version bump)
+
 feat: add new contact form validation
 feature: implement job application filtering
 
 # Bug fixes (Patch version bump)
+
 fix: resolve memory leak in avatar component
 bug: correct portfolio sorting logic
 
 # Breaking changes (Major version bump)
+
 feat!: restructure API endpoints
 BREAKING: remove deprecated authentication method
 
 # Security updates (Patch version bump + auto-release)
+
 security: patch XSS vulnerability in forms
 fix: resolve CVE-2024-12345 in dependencies
 
 # Performance improvements (Minor version bump)
+
 perf: optimize bundle size and loading times
 optimize: improve image loading performance
 ```
@@ -272,6 +278,7 @@ optimize: improve image loading performance
 **Manual Changelog Format**:
 
 ```markdown
+
 ## [1.2.0] - 2025-06-20
 
 ### ✨ **Minor Release** - New Features

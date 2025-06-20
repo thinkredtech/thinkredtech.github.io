@@ -28,6 +28,7 @@ reports/
 ## 📋 Report Types & Naming Convention
 
 ### � Incident Reports (`incidents/`)
+
 **Format**: `YYYY-MM-DD-###-brief-description.md`
 
 - **Purpose**: Critical incidents requiring immediate response
@@ -36,6 +37,7 @@ reports/
 - **Example**: `2025-06-20-001-hardcoded-password.md`
 
 ### 🔒 Security Reports (`security/`)
+
 **Format**: `YYYY-MM-DD-###-security-topic.md`
 
 - **Purpose**: Security implementations, vulnerability responses, compliance
@@ -43,6 +45,7 @@ reports/
 - **Example**: `2025-06-20-001-csp-implementation.md`
 
 ### ⚙️ Operational Reports (`operational/`)
+
 **Format**: `YYYY-MM-DD-###-operational-change.md`
 
 - **Purpose**: System improvements, monitoring enhancements, process changes
@@ -71,6 +74,7 @@ All reports must follow standardized templates for consistency:
 ### Common Header Format
 
 ```markdown
+
 # [Icon] [Report Type] - [Brief Title]
 
 **Report ID**: `YYYY-MM-DD-###`
@@ -81,6 +85,7 @@ All reports must follow standardized templates for consistency:
 **GitHub Issue**: #[number] (if applicable)
 
 ## 📋 Executive Summary
+
 [Brief overview in 2-3 sentences]
 ```
 

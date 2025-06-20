@@ -119,8 +119,8 @@
 ```text
 🔗 QUICK ACCESS PANEL
 ┌─────────────────────────────────────────────────────────────────┐
-│ 🌐 Live Website       │ 📊 Health Report     │ 🔒 Security Docs   │
-│ 📈 GitHub Actions     │ 🏗️ Build Pipeline    │ 📋 Documentation   │
+│ 🌐 Live Website      │ 📊 Health Report     │ 🔒 Security Docs   │
+│ 📈 GitHub Actions    │ 🏗️ Build Pipeline    │ 📋 Documentation   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

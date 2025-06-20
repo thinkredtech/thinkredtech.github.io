@@ -42,8 +42,11 @@ The monitoring script in `.github/workflows/realtime-status-dashboard.yml` was u
 ### Fix Applied
 
 ```bash
+
 # Before: curl -f -s -o /dev/null -w "%{http_code}"
+
 # After:  curl -L -f -s -o /dev/null -w "%{http_code}"
+
 ```
 
 ## ✅ Resolution Verification

@@ -68,7 +68,7 @@ if (!ADMIN_PASSWORD) {
 
 **CRITICAL:** The exposed password `'ThinkRED2025!'` must be considered compromised.
 
-### Required Actions:
+### Required Actions
 
 1. **Change Admin Password**: Generate a new secure password
 2. **Update Production Environment**: Set `REACT_APP_ADMIN_PASSWORD` with new value

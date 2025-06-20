@@ -29,6 +29,7 @@
 - **Risk Score**: [Calculated risk level]
 
 ### Technical Details
+
 [Detailed technical information about the security implementation or issue]
 
 ```
@@ -44,6 +45,7 @@
 3. [Security measure 3]
 
 ### Configuration Changes
+
 [Detailed description of security configurations applied]
 
 ### Validation & Testing
@@ -81,6 +83,7 @@
 ```
 
 ### Audit Results
+
 [Results of any security audits or scans]
 
 ## 🎯 Recommendations

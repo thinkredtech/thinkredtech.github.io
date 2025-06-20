@@ -157,13 +157,17 @@ YYYY-MM-DD-NNN-descriptive-title.md
 To verify the implementation:
 
 ```bash
+
 # Validate security configuration
+
 node scripts/validate-security.cjs
 
 # Scan for sensitive data
+
 node scripts/scan-sensitive-data.cjs
 
 # Build with security headers
+
 npm run build
 ```
 

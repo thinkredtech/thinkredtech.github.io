@@ -70,13 +70,13 @@
 
 #### Development CSP (Current)
 
-```
+```text
 script-src 'self' 'unsafe-inline' 'unsafe-eval'; // Required for Vite
 ```
 
 #### Production CSP (Ready for deployment)
 
-```
+```text
 script-src 'self'; // Strict - no unsafe directives
 ```
 
@@ -104,7 +104,7 @@ npm run security:build      # Build with production CSP
 
 #### ✅ Security Validation Results
 
-```
+```text
 📋 CSP Configuration Analysis:
 ❌ CSP configuration has issues (Expected - development mode)
 
@@ -128,14 +128,18 @@ npm run security:build      # Build with production CSP
 
 ```bash
 npm run build
+
 # Deploy build/ directory
+
 ```
 
 ### For Production Deployment (Strict CSP)
 
 ```bash
 npm run security:build
+
 # This applies production CSP automatically
+
 ```
 
 ## Security Posture Status

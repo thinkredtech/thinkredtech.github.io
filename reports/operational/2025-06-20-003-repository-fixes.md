@@ -57,7 +57,9 @@
 ### Commit Frequency Control Logic
 
 ```bash
+
 # Example implementation added to workflows
+
 last_commit=$(git log --since="24 hours ago" --grep="Update badges" --oneline | head -1)
 
 if [ -z "$last_commit" ]; then
@@ -72,11 +74,14 @@ fi
 ### Workflow Schedule Changes
 
 ```yaml
+
 # Before: Every hour during business hours
+
 schedule:
   - cron: '0 9-18 * * 1-5'
 
 # After: Twice daily
+
 schedule:
   - cron: '0 9,17 * * 1-5'
 ```

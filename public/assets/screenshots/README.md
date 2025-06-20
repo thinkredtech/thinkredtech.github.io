@@ -2,8 +2,7 @@
 
 This directory contains screenshots and demo images for the README and documentation.
 
-## Files:
-
+## Files
 
 - `homepage-hero.png` - Homepage hero section screenshot
 - `services-overview.png` - Services page overview
