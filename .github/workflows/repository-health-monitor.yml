@@ -45,7 +45,13 @@ jobs:
 
           # Code metrics
           total_files=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | wc -l)
-          total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec wc -l {} + | tail -1 | awk '{print $1}')
+          if command -v wc >/dev/null; then
+            # Use find with wc to count lines across all files
+            total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec cat {} + 2>/dev/null | wc -l || echo 0)
+          else
+            # Fallback method
+            total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo 0)
+          fi
 
           # Git metrics
           commits_last_week=$(git log --since="1 week ago" --oneline | wc -l)
@@ -64,7 +70,8 @@ jobs:
 
           # Security metrics
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
-          vulnerabilities=$(echo "$audit_output" | jq '.metadata.vulnerabilities | to_entries | length')
+          # Check if audit shows actual vulnerabilities by counting those with severity
+          vulnerabilities=$(echo "$audit_output" | jq '[.metadata.vulnerabilities | to_entries[] | select(.value > 0)] | length' 2>/dev/null || echo 0)
 
           # Ensure all variables have safe defaults
           total_files=${total_files:-0}
@@ -192,13 +199,57 @@ jobs:
         run: |
           echo "⚡ Analyzing performance metrics..."
 
-          # Bundle analysis
-          total_js_size=$(find build/static/js -name "*.js" -exec du -b {} + | awk '{sum += $1} END {print sum}')
-          total_css_size=$(find build/static/css -name "*.css" -exec du -b {} + | awk '{sum += $1} END {print sum}' 2>/dev/null || echo 0)
+          # Bundle analysis - Check both build/assets and build/static paths
+          if [[ -d "build/assets" ]]; then
+            echo "📁 Using build/assets directory structure"
+            # Use du -b for Linux (GitHub Actions) and stat for cross-platform compatibility
+            if command -v stat >/dev/null && stat --version 2>&1 | grep -q GNU; then
+              # GNU stat (Linux)
+              total_js_size=$(find build/assets -name "*.js" -exec stat -c%s {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+              total_css_size=$(find build/assets -name "*.css" -exec stat -c%s {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+            else
+              # Use du -b as fallback for GitHub Actions
+              total_js_size=$(find build/assets -name "*.js" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+              total_css_size=$(find build/assets -name "*.css" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+            fi
+            js_files=$(find build/assets -name "*.js" | wc -l)
+          elif [[ -d "build/static" ]]; then
+            echo "📁 Using build/static directory structure"
+            if command -v stat >/dev/null && stat --version 2>&1 | grep -q GNU; then
+              # GNU stat (Linux)
+              total_js_size=$(find build/static/js -name "*.js" -exec stat -c%s {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+              total_css_size=$(find build/static/css -name "*.css" -exec stat -c%s {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+            else
+              # Use du -b as fallback
+              total_js_size=$(find build/static/js -name "*.js" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+              total_css_size=$(find build/static/css -name "*.css" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
+            fi
+            js_files=$(find build/static/js -name "*.js" | wc -l)
+          else
+            echo "⚠️ No build directory found"
+            total_js_size=0
+            total_css_size=0
+            js_files=0
+          fi
 
-          # Convert to KB
-          js_size_kb=$((total_js_size / 1024))
-          css_size_kb=$((total_css_size / 1024))
+          # Ensure we have valid numbers
+          total_js_size=${total_js_size:-0}
+          total_css_size=${total_css_size:-0}
+          js_files=${js_files:-0}
+
+          # Convert to KB (handle case where size is 0)
+          if [[ $total_js_size -gt 0 ]]; then
+            js_size_kb=$((total_js_size / 1024))
+          else
+            js_size_kb=0
+          fi
+
+          if [[ $total_css_size -gt 0 ]]; then
+            css_size_kb=$((total_css_size / 1024))
+          else
+            css_size_kb=0
+          fi
+
           total_size_kb=$((js_size_kb + css_size_kb))
 
           # Performance score calculation
@@ -215,11 +266,10 @@ jobs:
             echo "⚠️ Large CSS bundle: ${css_size_kb}KB"
           fi
 
-          # Check for code splitting
-          js_files=$(find build/static/js -name "*.js" | wc -l)
-          if [[ $js_files -lt 3 ]]; then
-            perf_score=$((perf_score - 15))
-            echo "⚠️ Limited code splitting detected"
+          # Check for code splitting (adjust threshold for Vite builds)
+          if [[ $js_files -lt 5 ]]; then
+            perf_score=$((perf_score - 10))
+            echo "⚠️ Could benefit from more code splitting (${js_files} JS files)"
           fi
 
           echo "score=$perf_score" >> $GITHUB_OUTPUT
