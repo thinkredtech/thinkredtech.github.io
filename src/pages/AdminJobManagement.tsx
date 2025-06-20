@@ -63,13 +63,13 @@ const AdminJobManagement: React.FC = () => {
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Security check: ensure admin password is configured
     if (!ADMIN_PASSWORD) {
       alert('Admin functionality not available. Contact system administrator.');
       return;
     }
-    
+
     if (password === ADMIN_PASSWORD) {
       setIsAuthenticated(true);
     } else {

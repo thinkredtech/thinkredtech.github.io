@@ -167,6 +167,212 @@ npm run dev
 
 <br />
 
+## 🔐 Admin Configuration & Deployment
+
+<div align="center">
+
+### Secure admin password setup for job management functionality
+
+</div>
+
+The website includes an admin interface for managing job postings at `/admin`. For security, this requires environment-based authentication configuration.
+
+### 🔒 **Security Model**
+
+**Environment Variable Authentication**: Admin functionality requires `REACT_APP_ADMIN_PASSWORD` environment variable to be set. **No hardcoded fallbacks** are provided for security.
+
+```typescript
+// Secure implementation - AdminJobManagement.tsx
+const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
+
+// Fail-safe: Requires proper configuration
+if (!ADMIN_PASSWORD) {
+  console.error('REACT_APP_ADMIN_PASSWORD environment variable not set');
+  // Admin functionality disabled until properly configured
+}
+```
+
+### 🛠️ **Local Development Setup**
+
+<details>
+<summary><strong>📋 Step-by-Step Configuration</strong></summary>
+
+#### 1. Create Environment File
+
+```bash
+# Copy the example configuration
+cp .env.example .env.local
+
+# Generate a secure password (example methods)
+openssl rand -base64 24  # macOS/Linux
+# Or use a password manager to generate 16+ character password
+```
+
+#### 2. Configure Local Environment
+
+```bash
+# Edit .env.local (NEVER commit this file)
+echo "REACT_APP_ADMIN_PASSWORD=your_secure_password_here" >> .env.local
+```
+
+#### 3. Verify Setup
+
+```bash
+# Build with environment variables
+npm run build
+
+# Test admin functionality
+npm run preview
+# Navigate to http://localhost:4173/admin
+```
+
+</details>
+
+### 🚀 **Production Deployment**
+
+<div align="center">
+
+#### Deployment-specific environment variable configuration
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+#### 📄 **GitHub Pages Deployment**
+
+**Method**: GitHub Actions with environment secrets
+
+```yaml
+# .github/workflows/ci-cd-pipeline.yml
+- name: Build for GitHub Pages
+  run: npm run build
+  env:
+    REACT_APP_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+```
+
+**Setup Process**:
+1. Go to Repository Settings → Secrets and Variables → Actions
+2. Add new repository secret: `ADMIN_PASSWORD`
+3. Set value to your secure admin password
+4. Deploy via GitHub Actions workflow
+
+**Build Process**:
+- Environment variable injected during build time
+- Password embedded in compiled JavaScript bundle
+- Admin authentication works immediately after deployment
+
+</td>
+<td width="50%">
+
+#### 🌐 **Hostinger Deployment**
+
+**Method**: Manual build with environment variables
+
+```bash
+# Local build with environment
+export REACT_APP_ADMIN_PASSWORD="your_secure_password"
+npm run build
+
+# Deploy to Hostinger via deploy script
+./deploy-hostinger.sh
+```
+
+**Setup Process**:
+1. Set environment variable locally before build
+2. Run production build (embeds password in bundle)
+3. Upload `build/` directory to Hostinger via FTP/SFTP
+4. Verify admin functionality works on live site
+
+**Alternative**: Set environment variables in build script:
+```bash
+# deploy-hostinger.sh
+export REACT_APP_ADMIN_PASSWORD="$HOSTINGER_ADMIN_PASSWORD"
+npm run build
+# ... upload logic
+```
+
+</td>
+</tr>
+</table>
+
+### ⚙️ **Build Process & Password Integration**
+
+<details>
+<summary><strong>🔍 How Environment Variables Work in React Builds</strong></summary>
+
+#### Build-Time Integration
+
+React apps are **client-side applications** that run in the browser. Environment variables prefixed with `REACT_APP_` are:
+
+1. **Injected at Build Time**: During `npm run build`, Vite/Webpack replaces `process.env.REACT_APP_*` with actual values
+2. **Embedded in Bundle**: The password becomes part of the compiled JavaScript code
+3. **Available at Runtime**: Browser can access the embedded values for authentication
+
+#### Example Build Output
+
+```javascript
+// Before build (source code)
+const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
+
+// After build (compiled bundle)
+const ADMIN_PASSWORD = "your_actual_password_here";
+```
+
+#### Security Considerations
+
+⚠️ **Important**: Since React runs in the browser, environment variables become **public** in the compiled bundle.
+
+- ✅ **Acceptable**: Admin passwords for basic content management
+- ❌ **Never expose**: API keys, database credentials, or sensitive secrets
+- 🔒 **Best Practice**: Use unique, rotatable passwords for admin functionality
+
+</details>
+
+### 📊 **Environment Variable Verification**
+
+| Environment | Variable Source | Build Command | Deployment Method |
+|-------------|----------------|---------------|-------------------|
+| **Local Development** | `.env.local` | `npm run dev` | Hot reload with environment |
+| **GitHub Pages** | Repository secrets | `npm run build` | GitHub Actions automation |
+| **Hostinger** | Shell export or script | `npm run build` | Manual FTP/SFTP upload |
+| **Other Platforms** | Platform-specific | `npm run build` | Platform deployment tools |
+
+### 🔧 **Troubleshooting Admin Access**
+
+<details>
+<summary><strong>🚨 Common Issues & Solutions</strong></summary>
+
+#### Issue: "Admin functionality not available"
+**Cause**: `REACT_APP_ADMIN_PASSWORD` not set during build  
+**Solution**: Ensure environment variable is configured before building
+
+#### Issue: Admin login not working
+**Cause**: Wrong password or environment variable name  
+**Solution**: Verify exact password and `REACT_APP_` prefix
+
+#### Issue: Works locally but not in production
+**Cause**: Environment variable not set in deployment pipeline  
+**Solution**: Check deployment platform's environment configuration
+
+#### Issue: Password visible in browser source
+**Status**: ✅ **Expected behavior** - React environment variables are public  
+**Action**: Use unique, rotatable passwords; never expose sensitive secrets
+
+</details>
+
+### 📋 **Security Checklist**
+
+- ✅ **Environment Variable Set**: `REACT_APP_ADMIN_PASSWORD` configured
+- ✅ **Secure Password**: 16+ characters, unique, not reused elsewhere  
+- ✅ **Local Files Protected**: `.env.local` in `.gitignore`, never committed
+- ✅ **Production Configured**: Deployment platform has environment variable
+- ✅ **Build Successful**: `npm run build` completes without errors
+- ✅ **Admin Access Tested**: Login works with configured password
+
+<br />
+
 ## 🏗️ Architecture & Tech Stack
 
 <div align="center">
