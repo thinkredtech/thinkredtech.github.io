@@ -62,7 +62,8 @@ Enterprise-grade security hardening protects against common web vulnerabilities:
 - **Authentication Security**: Environment-based admin authentication
 - **Security Headers**: Complete security header implementation
 
-The security architecture includes a centralized security utility module (`src/utils/security.ts`) providing reusable validation, sanitization, and protection functions across all application components.
+The security architecture includes a centralized security utility module (`src/utils/security.ts`) providing reusable
+validation, sanitization, and protection functions across all application components.
 
 ## Technical Architecture
 
@@ -475,4 +476,5 @@ Each workflow provides detailed summaries with:
 - Action items and recommendations
 - Quick links to relevant documentation
 
-This automation infrastructure ensures continuous quality, security, and performance monitoring while providing immediate visibility into system health and enabling rapid response to issues.
+This automation infrastructure ensures continuous quality, security, and performance monitoring while providing
+immediate visibility into system health and enabling rapid response to issues.
