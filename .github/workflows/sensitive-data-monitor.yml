@@ -410,6 +410,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Enhanced duplicate prevention logic:
+            // - Checks both open and recently closed issues (last 7 days)
+            // - Prevents spam from repeated workflow runs
+            // - Uses specific labels and title patterns for precise matching
             const secretsFound = process.env.SECRETS_FOUND === 'true';
             const exposedData = process.env.EXPOSED_DATA === 'true';
 
@@ -464,13 +468,44 @@ jobs:
             **Priority:** Critical - Address immediately to prevent security breaches.
             `;
 
-            await github.rest.issues.create({
+            // Check if a similar sensitive data issue already exists (open or recently closed)
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            const existingOpenIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🚨 Sensitive Data Exposure - Critical Security Issue',
-              body: issueBody,
-              labels: ['security', 'critical', 'sensitive-data']
+              labels: ['security', 'sensitive-data'],
+              state: 'open'
             });
+
+            const existingClosedIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['security', 'sensitive-data'],
+              state: 'closed',
+              since: sevenDaysAgo.toISOString()
+            });
+
+            const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+
+            const sensitiveDataIssueExists = allRelevantIssues.some(issue => 
+              issue.title.includes('Sensitive Data Exposure')
+            );
+
+            if (!sensitiveDataIssueExists) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🚨 Sensitive Data Exposure - Critical Security Issue',
+                body: issueBody,
+                labels: ['security', 'critical', 'sensitive-data']
+              });
+              
+              console.log('Created new sensitive data issue');
+            } else {
+              console.log('Sensitive data issue already exists or was recently closed, skipping creation');
+            }
 
       - name: Create CSP violation issue
         if: needs.content-security-scan.outputs.csp-violations == 'true'
@@ -481,6 +516,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Enhanced duplicate prevention logic:
+            // - Checks both open and recently closed issues (last 7 days)
+            // - Prevents spam from repeated workflow runs
+            // - Uses specific labels and title patterns for precise matching
             const issueBody = `
             ## 🛡️ Content Security Policy Violations Detected
 
@@ -517,13 +556,44 @@ jobs:
             **Priority:** High - Address to improve security posture.
             `;
 
-            await github.rest.issues.create({
+            // Check if a similar CSP violation issue already exists (open or recently closed)
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            const existingOpenIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🛡️ Content Security Policy Violations',
-              body: issueBody,
-              labels: ['security', 'csp', 'high-priority']
+              labels: ['security', 'csp'],
+              state: 'open'
             });
+
+            const existingClosedIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['security', 'csp'],
+              state: 'closed',
+              since: sevenDaysAgo.toISOString()
+            });
+
+            const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+
+            const cspIssueExists = allRelevantIssues.some(issue => 
+              issue.title.includes('Content Security Policy Violations')
+            );
+
+            if (!cspIssueExists) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🛡️ Content Security Policy Violations',
+                body: issueBody,
+                labels: ['security', 'csp', 'high-priority']
+              });
+              
+              console.log('Created new CSP violation issue');
+            } else {
+              console.log('CSP violation issue already exists or was recently closed, skipping creation');
+            }
 
   # Generate security report
   generate-security-report:

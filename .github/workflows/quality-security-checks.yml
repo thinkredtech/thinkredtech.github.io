@@ -303,6 +303,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Enhanced duplicate prevention logic:
+            // - Checks both open and recently closed issues (last 7 days)
+            // - Prevents spam from repeated workflow runs
+            // - Uses specific labels and title patterns for precise matching
             const vulnerabilities = `${{ needs.security-check.outputs.vulnerabilities }}`;
 
             const issueBody = `
@@ -353,15 +357,28 @@ jobs:
             **Priority:** High - Please address these security vulnerabilities promptly.
             `;
 
-            // Check if a similar issue already exists
-            const existingIssues = await github.rest.issues.listForRepo({
+            // Check if a similar issue already exists (open or recently closed)
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            const existingOpenIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: ['security', 'vulnerability'],
               state: 'open'
             });
 
-            const securityIssueExists = existingIssues.data.some(issue => 
+            const existingClosedIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['security', 'vulnerability'],
+              state: 'closed',
+              since: sevenDaysAgo.toISOString()
+            });
+
+            const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+
+            const securityIssueExists = allRelevantIssues.some(issue => 
               issue.title.includes('Security Vulnerabilities Detected')
             );
 
@@ -376,7 +393,7 @@ jobs:
               
               console.log('Created new security vulnerability issue');
             } else {
-              console.log('Security issue already exists, skipping creation');
+              console.log('Security issue already exists or was recently closed, skipping creation');
             }
 
   # Update README badges

@@ -333,6 +333,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Enhanced duplicate prevention logic:
+            // - Checks both open and recently closed issues (last 7 days)
+            // - Prevents spam from repeated workflow runs
+            // - Uses specific labels and title patterns for precise matching
+
             const deployStatus = '${{ needs.status-collection.outputs.deployment-status }}';
             const apiStatus = '${{ needs.status-collection.outputs.api-status }}';
             const errorRate = '${{ needs.status-collection.outputs.error-rate }}';
@@ -398,15 +403,28 @@ jobs:
             **This incident was automatically detected by our monitoring system.**
             `;
 
-            // Check if similar incident already exists
-            const existingIssues = await github.rest.issues.listForRepo({
+            // Check if similar incident already exists (open or recently closed)
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            const existingOpenIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: ['incident', 'monitoring'],
               state: 'open'
             });
 
-            const recentIncident = existingIssues.data.some(issue => 
+            const existingClosedIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['incident', 'monitoring'],
+              state: 'closed',
+              since: sevenDaysAgo.toISOString()
+            });
+
+            const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+
+            const recentIncident = allRelevantIssues.some(issue => 
               issue.title.includes('Service Incident') || issue.title.includes('Service Degradation')
             );
 
@@ -421,5 +439,5 @@ jobs:
               
               console.log('Created incident issue');
             } else {
-              console.log('Recent incident issue already exists, skipping creation');
+              console.log('Recent incident issue already exists or was recently closed, skipping creation');
             }
