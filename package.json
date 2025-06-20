@@ -33,6 +33,8 @@
     "security:validate": "node scripts/validate-security.cjs",
     "security:scan": "node scripts/scan-sensitive-data.cjs",
     "security:build": "./scripts/deploy-production.sh",
+    "reports:generate": "node scripts/generate-visual-reports.cjs",
+    "reports:health": "node scripts/generate-visual-reports.cjs && echo 'Health report updated!'",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css}\"",
