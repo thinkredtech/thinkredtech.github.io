@@ -1,5 +1,9 @@
 name: 📈 Real-time Status Dashboard
 
+permissions:
+  issues: write
+  contents: write
+
 on:
   push:
     branches: [main, develop]

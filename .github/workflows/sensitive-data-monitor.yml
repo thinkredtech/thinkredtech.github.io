@@ -36,21 +36,27 @@ jobs:
         run: |
           set -e  # Exit on any error
 
-          # Install gitleaks with proper version handling
+          # Install gitleaks with robust asset discovery
           echo "📥 Installing GitLeaks..."
-          GITLEAKS_VERSION=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep tag_name | cut -d '"' -f 4)
+          GITLEAKS_VERSION=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.tag_name')
           echo "Latest GitLeaks version: $GITLEAKS_VERSION"
-          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz" -o gitleaks.tar.gz
+          GITLEAKS_URL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | \
+            jq -r '.assets[] | select(.name | test("linux.*x64.*tar.gz$")) | .browser_download_url')
+          echo "Downloading from: $GITLEAKS_URL"
+          curl -L "$GITLEAKS_URL" -o gitleaks.tar.gz
           tar -xzf gitleaks.tar.gz gitleaks
           sudo mv gitleaks /usr/local/bin/
           rm gitleaks.tar.gz
           echo "✅ GitLeaks installed successfully"
 
-          # Install trufflehog with proper version handling
+          # Install trufflehog with robust asset discovery
           echo "📥 Installing TruffleHog..."
-          TRUFFLEHOG_VERSION=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | grep tag_name | cut -d '"' -f 4)
+          TRUFFLEHOG_VERSION=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | jq -r '.tag_name')
           echo "Latest TruffleHog version: $TRUFFLEHOG_VERSION"
-          curl -sSL "https://github.com/trufflesecurity/trufflehog/releases/download/${TRUFFLEHOG_VERSION}/trufflehog_${TRUFFLEHOG_VERSION#v}_linux_amd64" -o trufflehog
+          TRUFFLEHOG_URL=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | \
+            jq -r '.assets[] | select(.name | test("linux.*amd64$")) | .browser_download_url')
+          echo "Downloading from: $TRUFFLEHOG_URL"
+          curl -L "$TRUFFLEHOG_URL" -o trufflehog
           chmod +x trufflehog
           sudo mv trufflehog /usr/local/bin/
           echo "✅ TruffleHog installed successfully"

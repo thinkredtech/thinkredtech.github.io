@@ -66,30 +66,47 @@ jobs:
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
           vulnerabilities=$(echo "$audit_output" | jq '.metadata.vulnerabilities | to_entries | length')
 
-          # Create metrics JSON (single line for GitHub Actions output)
-          metrics_json=$(cat << EOF | jq -c '.'
-          {
-            "code": {
-              "total_files": $total_files,
-              "total_lines": $total_lines
-            },
-            "git": {
-              "commits_last_week": $commits_last_week,
-              "contributors": $contributors
-            },
-            "build": {
-              "size": "$build_size",
-              "status": "success"
-            },
-            "dependencies": {
-              "total": $total_deps,
-              "dev": $total_dev_deps
-            },
-            "security": {
-              "vulnerabilities": $vulnerabilities
-            }
-          }
-          EOF
+          # Ensure all variables have safe defaults
+          total_files=${total_files:-0}
+          total_lines=${total_lines:-0}
+          commits_last_week=${commits_last_week:-0}
+          contributors=${contributors:-0}
+          build_size=${build_size:-"0K"}
+          total_deps=${total_deps:-0}
+          total_dev_deps=${total_dev_deps:-0}
+          vulnerabilities=${vulnerabilities:-0}
+
+          # Create metrics JSON using jq for robust single-line output
+          metrics_json=$(jq -n -c \
+            --arg total_files "$total_files" \
+            --arg total_lines "$total_lines" \
+            --arg commits_last_week "$commits_last_week" \
+            --arg contributors "$contributors" \
+            --arg build_size "$build_size" \
+            --arg total_deps "$total_deps" \
+            --arg total_dev_deps "$total_dev_deps" \
+            --arg vulnerabilities "$vulnerabilities" \
+            '{
+              code: {
+                total_files: ($total_files | tonumber),
+                total_lines: ($total_lines | tonumber)
+              },
+              git: {
+                commits_last_week: ($commits_last_week | tonumber),
+                contributors: ($contributors | tonumber)
+              },
+              build: {
+                size: $build_size,
+                status: "success"
+              },
+              dependencies: {
+                total: ($total_deps | tonumber),
+                dev: ($total_dev_deps | tonumber)
+              },
+              security: {
+                vulnerabilities: ($vulnerabilities | tonumber)
+              }
+            }'
           )
 
           # Use GitHub Actions multiline output format

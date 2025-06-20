@@ -29,6 +29,10 @@ jobs:
         id: version
         run: |
           version=$(cat package.json | jq -r '.version')
+          if [ -z "$version" ] || [ "$version" = "null" ]; then
+            version="1.0.0"
+            echo "⚠️ Version not found in package.json, using default: $version"
+          fi
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "📦 Version: $version"
 
@@ -141,7 +145,7 @@ jobs:
         id: upload
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
           path: build/
           retention-days: 30
 
@@ -222,7 +226,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
           path: build/
 
       - name: Setup Node.js
@@ -305,7 +309,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version }}
+          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
           path: build/
 
       - name: Deploy to GitHub Pages
