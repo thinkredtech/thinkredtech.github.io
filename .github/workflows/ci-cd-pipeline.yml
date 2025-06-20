@@ -145,7 +145,7 @@ jobs:
         id: upload
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
+          name: build-artifacts
           path: build/
           retention-days: 30
 
@@ -226,7 +226,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
+          name: build-artifacts
           path: build/
 
       - name: Setup Node.js
@@ -309,7 +309,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts-${{ needs.pre-flight.outputs.version || 'unknown' }}
+          name: build-artifacts
           path: build/
 
       - name: Deploy to GitHub Pages

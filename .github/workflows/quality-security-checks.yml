@@ -470,5 +470,6 @@ jobs:
           else
             git add README.md
             git commit -m "🏷️ Update quality & security status badges [skip ci]"
+            git pull --rebase origin main
             git push
           fi

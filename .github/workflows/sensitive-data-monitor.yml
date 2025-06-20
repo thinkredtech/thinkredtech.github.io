@@ -53,12 +53,38 @@ jobs:
           echo "📥 Installing TruffleHog..."
           TRUFFLEHOG_VERSION=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | jq -r '.tag_name')
           echo "Latest TruffleHog version: $TRUFFLEHOG_VERSION"
+          
+          # Try different asset name patterns for TruffleHog
           TRUFFLEHOG_URL=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | \
-            jq -r '.assets[] | select(.name | test("linux.*amd64$")) | .browser_download_url')
+            jq -r '.assets[] | select(.name | test("trufflehog.*linux.*amd64.*tar\\.gz")) | .browser_download_url' | head -1)
+          
+          if [[ -z "$TRUFFLEHOG_URL" ]]; then
+            echo "⚠️ Trying alternative asset name pattern..."
+            TRUFFLEHOG_URL=$(curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | \
+              jq -r '.assets[] | select(.name | test("linux.*amd64")) | .browser_download_url' | head -1)
+          fi
+          
+          if [[ -z "$TRUFFLEHOG_URL" ]]; then
+            echo "❌ Could not find TruffleHog download URL"
+            echo "Available assets:"
+            curl -s https://api.github.com/repos/trufflesecurity/trufflehog/releases/latest | jq -r '.assets[].name'
+            exit 1
+          fi
+          
           echo "Downloading from: $TRUFFLEHOG_URL"
-          curl -L "$TRUFFLEHOG_URL" -o trufflehog
-          chmod +x trufflehog
-          sudo mv trufflehog /usr/local/bin/
+          
+          # Download and extract if tar.gz, otherwise direct install
+          if [[ "$TRUFFLEHOG_URL" == *".tar.gz" ]]; then
+            curl -L "$TRUFFLEHOG_URL" -o trufflehog.tar.gz
+            tar -xzf trufflehog.tar.gz
+            chmod +x trufflehog
+            sudo mv trufflehog /usr/local/bin/
+            rm -f trufflehog.tar.gz
+          else
+            curl -L "$TRUFFLEHOG_URL" -o trufflehog
+            chmod +x trufflehog
+            sudo mv trufflehog /usr/local/bin/
+          fi
           echo "✅ TruffleHog installed successfully"
 
           # Verify installations
