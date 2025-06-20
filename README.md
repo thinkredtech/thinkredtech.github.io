@@ -2,7 +2,21 @@
 
 # 🚀 ThinkRED Technologies
 
-<img src="public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="margin: 20px 0;" />
+<img src="public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="marg###![Vi###![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
+
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)epository Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)(https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
+
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)sitory Status
+
+[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)n: 20px 0;" />
 
 ### *Engineering Excellence • Innovation-Led Technology Solutions*
 
@@ -10,7 +24,8 @@
 [![Version](https://img.shields.io/badge/VERSION-1.0.4-00D4FF?style=for-the-badge&logo=semver&logoColor=white)](./CHANGELOG.md)
 [![License](https://img.shields.io/badge/LICENSE-MIT-28A745?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
-**🔗 Quick Navigation:** [🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [💼 Careers](https://www.thinkred.tech/careers) • [📊 Live Status](#-monitoring--status)
+**🔗 Quick Navigation:** [🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) •
+[💼 Careers](https://www.thinkred.tech/careers) • [📊 Live Status](#-monitoring--status)
 
 </div>
 
@@ -34,7 +49,9 @@
 
 ## 🌟 About ThinkRED
 
-**ThinkRED Technologies LLP** is a premier engineering-focused technology consultancy that transforms complex technological challenges into elegant solutions. Founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**, we bring open-source innovation and enterprise-grade expertise to businesses worldwide.
+**ThinkRED Technologies LLP** is a premier engineering-focused technology consultancy that transforms complex technological challenges into
+elegant solutions. Founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**, we bring open-source innovation and enterprise-grade
+expertise to businesses worldwide.
 
 <div align="center">
 
@@ -256,7 +273,8 @@ The website includes an admin interface for managing job postings at `/admin`. F
 
 ### 🔒 **Security Model**
 
-**Environment Variable Authentication**: Admin functionality requires `REACT_APP_ADMIN_PASSWORD` environment variable to be set. **No hardcoded fallbacks** are provided for security.
+**Environment Variable Authentication**: Admin functionality requires `REACT_APP_ADMIN_PASSWORD` environment variable to be set.
+**No hardcoded fallbacks** are provided for security.
 
 ```typescript
 // Secure implementation - AdminJobManagement.tsx

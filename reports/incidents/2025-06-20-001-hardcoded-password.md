@@ -11,7 +11,8 @@
 
 ## 📋 Executive Summary
 
-Critical security incident involving hardcoded admin password exposed in client-side React code, discovered by automated security scanning and immediately resolved with environment-based authentication.  
+Critical security incident involving hardcoded admin password exposed in client-side React code, discovered by automated security scanning
+and immediately resolved with environment-based authentication.  
 **File:** `src/pages/AdminJobManagement.tsx`  
 **Exposed Data:** Admin password `'ThinkRED2025!'`  
 **Discovery:** Automated security scan (GitHub Actions workflow)

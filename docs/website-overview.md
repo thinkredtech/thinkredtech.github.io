@@ -2,7 +2,9 @@
 
 ## Executive Summary
 
-This document outlines the comprehensive technical architecture and design philosophy behind the ThinkRED Technologies corporate website. Built with modern web technologies and user-centric design principles, this platform serves as the primary digital touchpoint for international clients seeking custom development solutions.
+This document outlines the comprehensive technical architecture and design philosophy behind the ThinkRED Technologies corporate website.
+Built with modern web technologies and user-centric design principles, this platform serves as the primary digital touchpoint for international
+clients seeking custom development solutions.
 
 ## Strategic Objectives
 
@@ -36,15 +38,18 @@ The website architecture is designed to achieve four core business objectives:
 
 ### User-Centered Design
 
-The website employs a user-first approach, prioritizing intuitive navigation and clear information hierarchy. Every design decision is evaluated against user needs and business objectives.
+The website employs a user-first approach, prioritizing intuitive navigation and clear information hierarchy.
+Every design decision is evaluated against user needs and business objectives.
 
 ### Performance-First Architecture
 
-Built on React 19 with Vite build optimization, the site prioritizes loading speed and runtime performance. Code splitting and lazy loading ensure optimal user experience across all device types.
+Built on React 19 with Vite build optimization, the site prioritizes loading speed and runtime performance.
+Code splitting and lazy loading ensure optimal user experience across all device types.
 
 ### Accessibility Standards
 
-Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse abilities, reflecting ThinkRED's commitment to inclusive technology.
+Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse abilities,
+reflecting ThinkRED's commitment to inclusive technology.
 
 ### Security-First Implementation
 
