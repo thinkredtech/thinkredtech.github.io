@@ -412,7 +412,7 @@ jobs:
           script: |
             const secretsFound = process.env.SECRETS_FOUND === 'true';
             const exposedData = process.env.EXPOSED_DATA === 'true';
-            
+
             const issueBody = `
             ## 🚨 Sensitive Data Exposure Detected
 
