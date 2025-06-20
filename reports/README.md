@@ -29,6 +29,7 @@ reports/
 
 ### � Incident Reports (`incidents/`)
 **Format**: `YYYY-MM-DD-###-brief-description.md`
+
 - **Purpose**: Critical incidents requiring immediate response
 - **Severity**: Critical, High
 - **Timeline**: Real-time response documentation
@@ -36,12 +37,14 @@ reports/
 
 ### 🔒 Security Reports (`security/`)
 **Format**: `YYYY-MM-DD-###-security-topic.md`
+
 - **Purpose**: Security implementations, vulnerability responses, compliance
 - **Scope**: Proactive security measures and reactive responses
 - **Example**: `2025-06-20-001-csp-implementation.md`
 
 ### ⚙️ Operational Reports (`operational/`)
 **Format**: `YYYY-MM-DD-###-operational-change.md`
+
 - **Purpose**: System improvements, monitoring enhancements, process changes
 - **Scope**: Non-incident operational improvements
 - **Example**: `2025-06-20-001-github-actions-fix.md`
@@ -49,6 +52,7 @@ reports/
 ## 🏷️ File Naming Standards
 
 ### Format Components
+
 - **Date**: `YYYY-MM-DD` (ISO 8601 format)
 - **Sequence**: `###` (001, 002, 003... daily sequence)
 - **Description**: `brief-kebab-case-description`
@@ -65,6 +69,7 @@ reports/
 All reports must follow standardized templates for consistency:
 
 ### Common Header Format
+
 ```markdown
 # [Icon] [Report Type] - [Brief Title]
 
@@ -82,14 +87,17 @@ All reports must follow standardized templates for consistency:
 ## 📚 Current Reports Index
 
 ### 🚨 Incidents
+
 - [`2025-06-20-001-hardcoded-password.md`](./incidents/2025-06-20-001-hardcoded-password.md) - Critical password exposure incident
 - [`2025-06-20-002-monitoring-false-positive.md`](./incidents/2025-06-20-002-monitoring-false-positive.md) - False positive service monitoring alert
 
 ### 🔒 Security
+
 - [`2025-06-20-001-csp-implementation.md`](./security/2025-06-20-001-csp-implementation.md) - Content Security Policy implementation
 - [`2025-06-20-002-sensitive-data-response.md`](./security/2025-06-20-002-sensitive-data-response.md) - Response to GitHub issue #22
 
 ### ⚙️ Operational
+
 - [`2025-06-20-001-github-actions-fix.md`](./operational/2025-06-20-001-github-actions-fix.md) - GitHub Actions workflow improvements
 - [`2025-06-20-002-health-monitoring-improvements.md`](./operational/2025-06-20-002-health-monitoring-improvements.md) - Monitoring system enhancements
 - [`2025-06-20-003-repository-fixes.md`](./operational/2025-06-20-003-repository-fixes.md) - Repository configuration fixes
@@ -97,12 +105,14 @@ All reports must follow standardized templates for consistency:
 ## 🔄 Maintenance Guidelines
 
 ### Report Lifecycle
+
 1. **Creation**: Use appropriate template from `templates/` directory
 2. **Updates**: Maintain chronological update log within report
 3. **Closure**: Mark status as "Closed" when fully resolved
 4. **Archive**: Keep all reports for historical reference
 
 ### Quality Standards
+
 - ✅ Follow template structure exactly
 - ✅ Use consistent date/time formats (ISO 8601)
 - ✅ Include GitHub issue references where applicable
@@ -111,6 +121,7 @@ All reports must follow standardized templates for consistency:
 - ✅ Link related reports and documents
 
 ### Review Process
+
 - All reports require technical review before closure
 - Security reports require additional security team review
 - Critical incidents require post-mortem documentation
