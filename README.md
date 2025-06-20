@@ -22,9 +22,9 @@
 
 | **Metric** | **Status** | **Action** |
 |:-----------|:----------:|:-----------|
-| **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml) |
-| **🔒 Security Checks** | ![Security](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md) |
-| **🏥 Repository Health** | ![Health](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/health-report.md) |
+| **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml) |
+| **🔒 Security Checks** | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md) |
+| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/health-report.md) |
 | **⚡ Performance** | ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse) | [Performance Report](./reports/status-dashboard.md) |
 | **📦 Dependencies** | ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot) | [Dependency Health](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions) |
 
@@ -141,6 +141,7 @@ npm run dev
 <td width="50%">
 
 #### 🎯 **Core Technologies**
+
 - **React 19** - Concurrent rendering & performance
 - **TypeScript 5.5+** - Type safety & developer experience
 - **Vite 6.3+** - Lightning-fast builds & HMR
@@ -148,6 +149,7 @@ npm run dev
 - **React Router 7.0+** - Declarative routing
 
 #### 🎨 **UI & Animation**
+
 - **Framer Motion 11.3+** - Smooth animations
 - **Three.js** - 3D graphics & avatar interactions
 - **React Markdown 9.0+** - Content rendering
@@ -158,6 +160,7 @@ npm run dev
 <td width="50%">
 
 #### ⚙️ **Development Tools**
+
 - **ESLint 9.9+** - Code linting & consistency
 - **Prettier 3.3+** - Code formatting
 - **PostCSS 8.4+** - CSS transformations
@@ -165,6 +168,7 @@ npm run dev
 - **Husky** - Git hooks for quality
 
 #### 🚀 **Deployment & CI/CD**
+
 - **GitHub Actions** - Automated workflows
 - **GitHub Pages** - Static hosting
 - **Hostinger** - Alternative deployment
@@ -249,6 +253,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 🔄 **Automated Workflows**
+
 - **🚀 CI/CD Pipeline** - Build, test, deploy validation
 - **🔍 Quality & Security** - Daily vulnerability scanning
 - **🕵️ Data Protection** - Sensitive data monitoring
@@ -260,6 +265,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 📈 **Live Reports**
+
 - **[📱 Status Dashboard](./reports/status-dashboard.md)** - Service status & metrics
 - **[🏥 Health Report](./reports/health-report.md)** - Repository health assessment
 - **[🔒 Security Report](./docs/security-architecture.md)** - Security implementation
@@ -299,6 +305,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 🔒 **Security Features**
+
 - **🛡️ XSS Protection** - Comprehensive input sanitization
 - **📋 Content Security Policy** - Strict CSP headers
 - **✅ Input Validation** - Multi-layer validation with SQL injection detection
@@ -310,6 +317,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 🎯 **Compliance Standards**
+
 - **📊 OWASP Top 10** - Security guideline compliance
 - **🔒 Data Protection** - Secure user data handling
 - **🚀 Secure Deployment** - Production security headers
@@ -336,6 +344,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 📖 **Technical Documentation**
+
 - **[🏗️ Website Architecture](./docs/website-overview.md)** - Technical overview & objectives
 - **[🔒 Security Implementation](./docs/security-architecture.md)** - Security features & compliance
 - **[🎨 Design System](./docs/design-system.md)** - UI/UX design principles
@@ -346,6 +355,7 @@ Our comprehensive monitoring system includes **6 automated workflows** ensuring 
 <td width="50%">
 
 #### 📄 **Page Specifications**
+
 - **[🏠 Landing Page](./docs/page-specs/landing_page.md)** - Brand introduction
 - **[👥 About Page](./docs/page-specs/about_page.md)** - Company story
 - **[⚙️ Services Page](./docs/page-specs/services_page.md)** - Service offerings
@@ -418,6 +428,7 @@ thinkred-website-react19-vite/
 <td width="50%">
 
 #### 🤖 **Automated Deployment** (Recommended)
+
 1. **Push to main** triggers automatic deployment
 2. **GitHub Actions** builds and optimizes assets
 3. **GitHub Pages** serves at [thinkred.tech](https://www.thinkred.tech)
@@ -427,6 +438,7 @@ thinkred-website-react19-vite/
 <td width="50%">
 
 #### 🛠️ **Manual Deployment**
+
 ```bash
 # Build the project
 npm run build
@@ -468,6 +480,7 @@ npm run deploy
 <td width="50%">
 
 #### 🔍 **Code Quality Tools**
+
 - **TypeScript** - Static type checking
 - **ESLint** - Code linting & consistency  
 - **Prettier** - Automated code formatting
@@ -478,6 +491,7 @@ npm run deploy
 <td width="50%">
 
 #### 🧪 **Testing Commands**
+
 ```bash
 npm run type-check    # TypeScript validation
 npm run lint          # ESLint analysis
@@ -524,12 +538,14 @@ npm test              # Run test suite
 <td width="50%">
 
 #### 🐛 **Report Issues**
+
 1. Check existing issues first
 2. Use the bug report template
 3. Include screenshots for visual bugs
 4. Provide clear reproduction steps
 
 #### ✨ **Request Features**
+
 1. Open an issue with feature template
 2. Describe the use case clearly
 3. Discuss scope and complexity
@@ -539,6 +555,7 @@ npm test              # Run test suite
 <td width="50%">
 
 #### 🔧 **Development Workflow**
+
 ```bash
 # 1. Fork & clone
 git clone your-fork-url
@@ -585,6 +602,7 @@ git push origin feature/amazing-feature
 <br />
 
 #### Build Errors
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules package-lock.json
@@ -595,6 +613,7 @@ npm run type-check
 ```
 
 #### Development Server Issues
+
 ```bash
 # Check port availability
 lsof -ti:3000
@@ -605,6 +624,7 @@ npm run dev
 ```
 
 #### Deployment Issues
+
 ```bash
 # Test build locally
 npm run build
@@ -634,6 +654,7 @@ npm run preview
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 #### 💬 **Get Support**
+
 - **📧 Email**: [hello@thinkred.tech](mailto:hello@thinkred.tech) *(24-48 hours)*
 - **🐛 Issues**: [GitHub Issues](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/issues) *(2-5 business days)*
 - **💼 Business**: [Contact Form](https://www.thinkred.tech/contact) *(1-2 business days)*
