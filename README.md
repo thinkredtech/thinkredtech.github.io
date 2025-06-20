@@ -323,10 +323,8 @@ openssl rand -base64 24  # macOS/Linux
 #### 2. Configure Local Environment
 
 ```bash
-
 # Edit .env.local (NEVER commit this file)
-
-echo "REACT_APP_ADMIN_PASSWORD=REPLACE_WITH_STRONG_PASSWORD" >> .env.local
+echo "REACT_APP_ADMIN_PASSWORD=<YOUR_SECURE_PASSWORD>" >> .env.local
 ```
 
 #### 3. Verify Setup
@@ -394,14 +392,11 @@ npm run preview
 **Method**: Manual build with environment variables
 
 ```bash
-
 # Local build with environment
-
-export REACT_APP_ADMIN_PASSWORD="REPLACE_WITH_STRONG_PASSWORD"
+export REACT_APP_ADMIN_PASSWORD="<YOUR_ADMIN_PASSWORD_HERE>"
 npm run build
 
 # Deploy to Hostinger via deploy script
-
 ./deploy-hostinger.sh
 ```
 
@@ -448,8 +443,8 @@ React apps are **client-side applications** that run in the browser. Environment
 // Before build (source code)
 const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
 
-// After build (compiled bundle)
-const ADMIN_PASSWORD = "ACTUAL_VALUE_FROM_ENV_VAR";
+// After build (compiled bundle) - example output
+const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
 ```
 
 #### Security Considerations
