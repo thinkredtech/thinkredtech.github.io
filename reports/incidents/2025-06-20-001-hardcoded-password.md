@@ -1,13 +1,17 @@
-# 🚨 Critical Security Incident Report
+# 🚨 Incident Report - Hardcoded Password Exposure
 
-**Date:** June 20, 2025  
-**Incident Type:** Sensitive Data Exposure  
-**Severity:** Critical  
-**Status:** ✅ RESOLVED
+**Report ID**: `2025-06-20-001`  
+**Date**: June 20, 2025  
+**Type**: Incident  
+**Severity**: Critical  
+**Status**: Resolved  
+**GitHub Issue**: #2  
+**Reporter**: GitHub Actions Security Scanner  
+**Assignee**: Technical Team
 
-## 📋 Incident Summary
+## 📋 Executive Summary
 
-**Issue:** Hardcoded admin password exposed in client-side React code  
+Critical security incident involving hardcoded admin password exposed in client-side React code, discovered by automated security scanning and immediately resolved with environment-based authentication.  
 **File:** `src/pages/AdminJobManagement.tsx`  
 **Exposed Data:** Admin password `'ThinkRED2025!'`  
 **Discovery:** Automated security scan (GitHub Actions workflow)
