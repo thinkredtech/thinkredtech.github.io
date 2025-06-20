@@ -13,15 +13,19 @@ Our mission is to deliver exceptional value by transforming complex technologica
 ## Core Values
 
 ### Engineering Excellence
+
 We maintain the highest standards of technical craftsmanship, ensuring every solution is built with performance, security, and scalability in mind.
 
 ### Innovation-Led Approach
+
 Drawing from our open-source heritage, we embrace cutting-edge technologies and methodologies to solve problems in novel ways.
 
 ### Client Partnership
+
 We view every engagement as a collaborative partnership, working closely with clients to understand their unique challenges and business context.
 
 ### Continuous Learning
+
 Our team is committed to staying at the forefront of technological advancement, continuously expanding our expertise and capabilities.
 
 ## Service Portfolio

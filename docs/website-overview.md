@@ -35,15 +35,19 @@ The website architecture is designed to achieve four core business objectives:
 ## Design Philosophy
 
 ### User-Centered Design
+
 The website employs a user-first approach, prioritizing intuitive navigation and clear information hierarchy. Every design decision is evaluated against user needs and business objectives.
 
 ### Performance-First Architecture
+
 Built on React 19 with Vite build optimization, the site prioritizes loading speed and runtime performance. Code splitting and lazy loading ensure optimal user experience across all device types.
 
 ### Accessibility Standards
+
 Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse abilities, reflecting ThinkRED's commitment to inclusive technology.
 
 ### Security-First Implementation
+
 Enterprise-grade security hardening protects against common web vulnerabilities:
 
 - **XSS Protection**: Comprehensive input sanitization and HTML entity encoding
@@ -58,6 +62,7 @@ The security architecture includes a centralized security utility module (`src/u
 ## Technical Architecture
 
 ### Component-Based Structure
+
 The website utilizes a modular component architecture that promotes:
 
 - **Reusability**: Shared components across multiple pages
@@ -66,6 +71,7 @@ The website utilizes a modular component architecture that promotes:
 - **Testing**: Isolated component testing capabilities
 
 ### Design System Integration
+
 A comprehensive design system based on ThinkRED's brand guidelines ensures:
 
 - **Visual Consistency**: Unified appearance across all touchpoints
@@ -77,6 +83,7 @@ For detailed design specifications, refer to the [Design System Documentation](/
 ## Page Architecture
 
 ### Landing Page Experience
+
 The homepage employs a narrative-driven approach featuring:
 
 - **Dynamic Hero Section**: Adaptive messaging with interactive elements
@@ -88,6 +95,7 @@ The homepage employs a narrative-driven approach featuring:
 Detailed specifications: [Landing Page Documentation](/docs/page-specs/landing_page)
 
 ### Company Narrative (About)
+
 A storytelling approach that positions ThinkRED through:
 
 - **Origin Story**: Journey from open-source communities to enterprise solutions
@@ -98,6 +106,7 @@ A storytelling approach that positions ThinkRED through:
 Detailed specifications: [About Page Documentation](/docs/page-specs/about_page)
 
 ### Service Portfolio
+
 Comprehensive presentation of offerings through:
 
 - **Service Categorization**: Clear organization by capability areas
@@ -108,6 +117,7 @@ Comprehensive presentation of offerings through:
 Detailed specifications: [Services Page Documentation](/docs/page-specs/services_page)
 
 ### Portfolio Showcase
+
 Professional demonstration of capabilities featuring:
 
 - **Project Filtering**: Technology and industry-based categorization
@@ -118,6 +128,7 @@ Professional demonstration of capabilities featuring:
 Detailed specifications: [Portfolio Page Documentation](/docs/page-specs/portfolio_page)
 
 ### Client Engagement Hub (Contact)
+
 Conversion-optimized contact experience including:
 
 - **Multi-Modal Communication**: Form, discovery calls, and direct contact options
@@ -128,6 +139,7 @@ Conversion-optimized contact experience including:
 Detailed specifications: [Contact Page Documentation](/docs/page-specs/contact_page)
 
 ### Thought Leadership Platform (Blog)
+
 Content marketing hub featuring:
 
 - **Technical Insights**: Deep-dive articles on technology trends
@@ -140,6 +152,7 @@ Detailed specifications: [Blog Page Documentation](/docs/page-specs/blog_page)
 ## Interactive Features
 
 ### AI-Powered Avatar Assistant
+
 A unique differentiator that enhances user experience through:
 
 - **Contextual Assistance**: Page-specific guidance and information
@@ -217,9 +230,11 @@ The website is implemented as a JavaScript-based frontend application:
 ## CI/CD Pipeline & Automation
 
 ### Comprehensive Workflow Automation
+
 The repository employs multiple GitHub Actions workflows for continuous monitoring and quality assurance:
 
 #### 🚀 CI/CD Pipeline (`ci-cd-pipeline.yml`)
+
 **Frequency**: On push/PR to main/develop branches
 
 - **Pre-flight Checks**: Version tracking and deployment readiness
@@ -230,6 +245,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Deployment**: Automated deployment to GitHub Pages with post-deployment verification
 
 #### 🔍 Quality & Security Checks (`quality-security-checks.yml`)
+
 **Frequency**: Daily + code changes
 
 - **Documentation Quality**: Comprehensive documentation completeness verification
@@ -239,6 +255,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Badge Management**: Automated README badge updates reflecting current status
 
 #### 🔒 Sensitive Data Monitor (`sensitive-data-monitor.yml`)
+
 **Frequency**: Daily + code changes
 
 - **Secret Detection**: GitLeaks and TruffleHog scanning for exposed credentials
@@ -247,6 +264,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Automated Issue Creation**: GitHub issue generation for security findings
 
 #### 📊 Repository Health Monitor (`repository-health-monitor.yml`)
+
 **Frequency**: Every 6 hours
 
 - **Health Scoring**: Comprehensive repository health assessment (0-100 scale)
@@ -256,6 +274,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Automated Reporting**: Health reports generation in `/reports/` directory
 
 #### 📈 Real-time Status Dashboard (`realtime-status-dashboard.yml`)
+
 **Frequency**: Hourly during business hours
 
 - **Live Monitoring**: Website accessibility and performance tracking
@@ -264,6 +283,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Incident Detection**: Automated issue creation for service disruptions
 
 #### 🏷️ Automated Versioning & Release (`automated-versioning-release.yml`)
+
 **Frequency**: On main branch changes
 
 - **Intelligent Versioning**: Commit analysis for semantic version determination
@@ -313,6 +333,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Historical Tracking**: Version-controlled report history for trend analysis
 
 #### 🔍 Quality & Security Checks (`quality-security-checks.yml`)
+
 **Frequency**: Daily at 2 AM UTC + on code changes
 
 - **Documentation Quality**: Completeness checks and markdown validation
@@ -322,6 +343,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Dependency Analysis**: Outdated package detection and license compliance
 
 #### 🕵️ Sensitive Data Monitor (`sensitive-data-monitor.yml`)
+
 **Frequency**: Daily at 3 AM UTC + on code changes
 
 - **Secret Detection**: GitLeaks and TruffleHog scanning for exposed credentials
@@ -331,6 +353,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Automated Remediation**: Issue creation with detailed fix instructions
 
 #### 📊 Repository Health Monitor (`repository-health-monitor.yml`)
+
 **Frequency**: Every 6 hours
 
 - **Health Metrics**: Code quality, performance, and dependency health scoring
@@ -339,6 +362,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Automated Reporting**: Health score calculation and badge updates
 
 #### 📈 Real-time Status Dashboard (`realtime-status-dashboard.yml`)
+
 **Frequency**: Hourly during business hours (9 AM - 6 PM UTC)
 
 - **Live Status Monitoring**: Website accessibility and API endpoint health
@@ -347,6 +371,7 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Status Dashboard**: Real-time status page generation and badge updates
 
 #### 🏷️ Automated Versioning & Release (`automated-versioning-release.yml`)
+
 **Frequency**: On push to main branch + manual triggers
 
 - **Intelligent Version Analysis**: Conventional commit pattern recognition and change impact assessment
@@ -373,16 +398,20 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 - **Documentation Score**: Completeness and quality metrics
 
 ### Status Badge System
+
 Real-time status indicators provide immediate visibility into:
 
 ```markdown
+
 ### 🔍 Code Quality & Security
+
 [![CI/CD Pipeline](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml/badge.svg)](...)
 [![Quality & Security](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/quality-security-checks.yml/badge.svg)](...)
 [![Sensitive Data Monitor](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/sensitive-data-monitor.yml/badge.svg)](...)
 [![Repository Health](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/repository-health-monitor.yml/badge.svg)](...)
 
 ### 📊 Repository Status
+
 [![Repository Health](https://img.shields.io/badge/Repository%20Health-95%25-brightgreen)](...)
 [![Performance](https://img.shields.io/badge/Performance-90%25-brightgreen)](...)
 [![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](...)
@@ -390,6 +419,7 @@ Real-time status indicators provide immediate visibility into:
 [![Security Score](https://img.shields.io/badge/Security%20Score-A+-brightgreen)](...)
 
 ### 🔴 Real-time Status
+
 [![Website Status](https://img.shields.io/badge/Website-Online-brightgreen)](...)
 [![API Status](https://img.shields.io/badge/API-Healthy-brightgreen)](...)
 [![Error Rate](https://img.shields.io/badge/Error%20Rate-2%25-brightgreen)](...)
@@ -406,6 +436,7 @@ Real-time status indicators provide immediate visibility into:
 - **Build Failures**: Rapid detection and reporting of deployment issues
 
 #### Status Dashboard
+
 A comprehensive status dashboard (`reports/status-dashboard.md`) provides:
 
 - Real-time service status indicators
@@ -431,6 +462,7 @@ A comprehensive status dashboard (`reports/status-dashboard.md`) provides:
 - **Dependency Reports**: Package health and license compliance
 
 #### Workflow Summaries
+
 Each workflow provides detailed summaries with:
 
 - Job execution results and metrics

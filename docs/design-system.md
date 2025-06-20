@@ -7,18 +7,23 @@ The ThinkRED Technologies Design System is a comprehensive collection of reusabl
 ## Design Principles
 
 ### 1. Simplicity First
+
 Every design decision prioritizes clarity and ease of use, reflecting our core mission to "Simplify Technology & Experience." We eliminate unnecessary complexity while maintaining functional sophistication.
 
 ### 2. Engineering Excellence
+
 Components are built with performance, accessibility, and maintainability as fundamental requirements, not afterthoughts. Each element is optimized for both developer experience and end-user performance.
 
 ### 3. Brand Consistency
+
 All elements faithfully represent ThinkRED's visual identity while providing flexibility for diverse application needs. The design system ensures brand recognition across all touchpoints.
 
 ### 4. User-Centered Approach
+
 Design decisions are validated against user needs and business objectives, ensuring optimal user experience through research-backed choices and accessibility standards.
 
 ### 5. Scalable Architecture
+
 Components are designed to scale gracefully across different devices, contexts, and future requirements while maintaining visual and functional integrity.
 
 ## Typography System
@@ -26,6 +31,7 @@ Components are designed to scale gracefully across different devices, contexts, 
 ### Font Families
 
 #### Primary Display Font: Comfortaa
+
 Used for brand headlines, hero sections, and primary display text where personality and brand recognition are paramount.
 
 - **Characteristics**: Rounded, friendly, approachable
@@ -33,6 +39,7 @@ Used for brand headlines, hero sections, and primary display text where personal
 - **Weights Available**: 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold), 700 (Bold)
 
 #### Primary Text Font: Montserrat
+
 Used for all body text, navigation, and interface elements where readability and professionalism are essential.
 
 - **Characteristics**: Clean, professional, highly legible
@@ -120,6 +127,7 @@ Used for all body text, navigation, and interface elements where readability and
 - **Info**: `#3B82F6` (Blue)
 
 #### Opacity Variants
+
 Each brand color includes predefined opacity variants:
 
 - 10%, 20%, 30%, 50%, 70%, 90% opacity levels
@@ -128,6 +136,7 @@ Each brand color includes predefined opacity variants:
 ## Spacing System
 
 ### Grid-Based Spacing
+
 Built on an 8px base unit for mathematical consistency and visual harmony.
 
 | Token | Value | Rem Equivalent | Usage |
@@ -306,6 +315,7 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 ## Implementation Guidelines
 
 ### CSS Custom Properties
+
 All design tokens are implemented as CSS custom properties for easy theming and maintenance:
 
 ```css
