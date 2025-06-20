@@ -21,6 +21,7 @@ This directory contains automatically generated reports from our CI/CD monitorin
 - **`sensitive-data-scan.md`**: Sensitive data and secret detection results
 - **`compliance-report.md`**: Security compliance and header validation
 - **`csp-implementation-2025-06-20.md`**: Content Security Policy implementation report
+- **`sensitive-data-response-2025-06-20.md`**: Response to GitHub issue #22 sensitive data exposure
 
 ### 📦 Build & Deployment Reports
 
