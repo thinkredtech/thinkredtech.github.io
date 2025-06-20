@@ -468,8 +468,16 @@ jobs:
           if git diff --quiet; then
             echo "No badge updates needed"
           else
-            git add README.md
-            git commit -m "🏷️ Update quality & security status badges [skip ci]"
-            git pull --rebase origin main
-            git push
+            # Check if there was already a badge update today
+            last_badge_commit=$(git log --since="24 hours ago" --grep="Update quality & security status badges" --oneline | head -1)
+            
+            if [ -z "$last_badge_commit" ]; then
+              echo "Creating daily badge update commit"
+              git add README.md
+              git commit -m "🏷️ Update quality & security status badges [skip ci]"
+              git pull --rebase origin main
+              git push
+            else
+              echo "Badge update already done today, skipping commit to reduce git history pollution"
+            fi
           fi

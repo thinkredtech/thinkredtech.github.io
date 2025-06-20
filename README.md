@@ -2,7 +2,11 @@
 
 # 🚀 ThinkRED Technologies
 
-<img src="public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="margin: 20px 0;" />
+<img src="public/assets/logos/thinkRED-np.svg" [![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
+
+Latest technologies for blazing performanceinkRED Logo" width="280" height="120" style="margin: 20px 0;" />
 
 ### *Engineering Excellence • Innovation-Led Technology Solutions*
 
@@ -22,11 +26,11 @@
 
 | **Metric** | **Status** | **Action** |
 |:-----------|:----------:|:-----------|
-| **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml) |
+| **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml) |
 | **🔒 Security Checks** | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md) |
 | **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/health-report.md) |
 | **⚡ Performance** | ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse) | [Performance Report](./reports/status-dashboard.md) |
-| **📦 Dependencies** | ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot) | [Dependency Health](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions) |
+| **📦 Dependencies** | ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot) | [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions) |
 
 </div>
 
@@ -141,8 +145,8 @@ Intelligent features for enhanced user experience
 
 ```bash
 # 1. 📥 Clone the repository
-git clone https://github.com/sayakdeepghosh01/thinkred-website-react19-vite.git
-cd thinkred-website-react19-vite
+git clone https://github.com/thinkredtech/thinkredtech.github.io.git
+cd thinkredtech.github.io
 
 # 2. 📦 Install dependencies
 npm install

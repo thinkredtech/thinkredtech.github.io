@@ -10,8 +10,8 @@ on:
   pull_request:
     branches: [main, develop]
   schedule:
-    # Update status every hour during business hours (9 AM - 6 PM UTC)
-    - cron: '0 9-18 * * 1-5'
+    # Update status twice daily during business hours (9 AM and 5 PM UTC)
+    - cron: '0 9,17 * * 1-5'
   workflow_dispatch:
 
 env:
@@ -284,9 +284,17 @@ jobs:
           if git diff --quiet; then
             echo "No dashboard updates needed"
           else
-            git add -f reports/status-dashboard.md README.md
-            git commit -m "📈 Update real-time status dashboard [skip ci]"
-            git push
+            # Check if there was already a dashboard update today
+            last_dashboard_commit=$(git log --since="24 hours ago" --grep="Update real-time status dashboard" --oneline | head -1)
+            
+            if [ -z "$last_dashboard_commit" ]; then
+              echo "Creating daily dashboard update"
+              git add -f reports/status-dashboard.md README.md
+              git commit -m "📈 Update real-time status dashboard [skip ci]"
+              git push
+            else
+              echo "Dashboard already updated today, skipping commit to reduce git history pollution"
+            fi
           fi
 
       - name: Create workflow summary

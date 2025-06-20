@@ -2,8 +2,8 @@ name: 📊 Repository Health Monitor
 
 on:
   schedule:
-    # Run every 6 hours
-    - cron: '0 */6 * * *'
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -506,10 +506,18 @@ jobs:
           if git diff --quiet; then
             echo "No status updates needed"
           else
-            git add README.md
-            git add -f reports/health-report.md
-            git commit -m "📊 Update repository health status and metrics [skip ci]"
-            git push
+            # Check if there was already a health update today
+            last_health_commit=$(git log --since="24 hours ago" --grep="Update repository health status" --oneline | head -1)
+            
+            if [ -z "$last_health_commit" ]; then
+              echo "Creating daily health report update"
+              git add README.md
+              git add -f reports/health-report.md
+              git commit -m "📊 Update repository health status and metrics [skip ci]"
+              git push
+            else
+              echo "Health report already updated today, skipping commit to reduce git history pollution"
+            fi
           fi
 
       - name: Create summary
