@@ -72,6 +72,12 @@
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+
+[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
 
