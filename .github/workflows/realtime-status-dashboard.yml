@@ -36,13 +36,14 @@ jobs:
         run: |
           echo "🚀 Checking deployment status..."
 
-          # Check if website is accessible
-          if curl -f -s -o /dev/null -w "%{http_code}" https://www.thinkred.tech | grep -q "200"; then
+          # Check if website is accessible (follow redirects)
+          status_code=$(curl -L -f -s -o /dev/null -w "%{http_code}" https://www.thinkred.tech || echo "000")
+          if [[ "$status_code" == "200" ]]; then
             echo "status=healthy" >> $GITHUB_OUTPUT
-            echo "✅ Website is accessible"
+            echo "✅ Website is accessible (HTTP $status_code)"
           else
             echo "status=down" >> $GITHUB_OUTPUT
-            echo "❌ Website is not accessible"
+            echo "❌ Website is not accessible (HTTP $status_code)"
           fi
 
       - name: Check API endpoints
@@ -50,17 +51,18 @@ jobs:
         run: |
           echo "🔗 Checking API endpoints..."
 
-          # Check critical pages
+          # Check critical pages (follow redirects)
           pages=("/" "/about" "/services" "/portfolio" "/contact" "/careers")
           failed_pages=0
           total_pages=${#pages[@]}
 
           for page in "${pages[@]}"; do
-            if ! curl -f -s -o /dev/null "https://www.thinkred.tech$page"; then
-              echo "❌ Failed to load: $page"
+            status_code=$(curl -L -f -s -o /dev/null -w "%{http_code}" "https://www.thinkred.tech$page" || echo "000")
+            if [[ "$status_code" != "200" ]]; then
+              echo "❌ Failed to load: $page (HTTP $status_code)"
               failed_pages=$((failed_pages + 1))
             else
-              echo "✅ Loaded successfully: $page"
+              echo "✅ Loaded successfully: $page (HTTP $status_code)"
             fi
           done
 
@@ -79,12 +81,13 @@ jobs:
         run: |
           echo "⚡ Checking performance metrics..."
 
-          # Check page load time
+          # Check page load time (follow redirects)
           start_time=$(date +%s%N)
-          if curl -f -s -o /dev/null https://www.thinkred.tech; then
-            end_time=$(date +%s%N)
-            load_time=$(( (end_time - start_time) / 1000000 )) # Convert to milliseconds
-            
+          status_code=$(curl -L -f -s -o /dev/null -w "%{http_code}" https://www.thinkred.tech || echo "000")
+          end_time=$(date +%s%N)
+          load_time=$(( (end_time - start_time) / 1000000 )) # Convert to milliseconds
+          
+          if [[ "$status_code" == "200" ]]; then
             # Create metrics JSON using jq for safe single-line output
             metrics_json=$(jq -cn \
               --arg load_time "$load_time" \
@@ -93,11 +96,11 @@ jobs:
               '{load_time_ms: ($load_time|tonumber), timestamp: $timestamp, status: $status}')
             
             echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
-            echo "📈 Page load time: ${load_time}ms"
+            echo "📈 Page load time: ${load_time}ms (HTTP $status_code)"
           else
             metrics_json=$(jq -cn '{load_time_ms: -1, status: "error", timestamp: (now | strftime("%Y-%m-%dT%H:%M:%SZ"))}')
             echo "metrics=$metrics_json" >> $GITHUB_OUTPUT
-            echo "❌ Failed to measure performance"
+            echo "❌ Failed to measure performance (HTTP $status_code)"
           fi
 
       - name: Error rate check
