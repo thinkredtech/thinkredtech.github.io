@@ -42,8 +42,13 @@ const AdminJobManagement: React.FC = () => {
   });
 
   // Secure password authentication
-  const ADMIN_PASSWORD =
-    process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
+  const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
+
+  // Require environment variable to be set - no fallback for security
+  if (!ADMIN_PASSWORD) {
+    // eslint-disable-next-line no-console
+    console.error('REACT_APP_ADMIN_PASSWORD environment variable not set');
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -58,6 +63,13 @@ const AdminJobManagement: React.FC = () => {
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Security check: ensure admin password is configured
+    if (!ADMIN_PASSWORD) {
+      alert('Admin functionality not available. Contact system administrator.');
+      return;
+    }
+    
     if (password === ADMIN_PASSWORD) {
       setIsAuthenticated(true);
     } else {
