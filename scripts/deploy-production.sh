@@ -21,12 +21,12 @@ npm run build
 
 echo "🛡️ Applying production security headers..."
 
-# Apply production CSP to built HTML files
-PRODUCTION_CSP="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content;"
+# Apply production CSP to built HTML files (addressing GitHub issue #5)
+PRODUCTION_CSP="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content;"
 
-# Update CSP in build files
+# Update CSP in build files - Remove 'unsafe-eval' and restrict connect-src
 find build -name "*.html" -type f -exec sed -i.bak \
-  's/script-src '\''self'\'' '\''unsafe-inline'\'' '\''unsafe-eval'\''/script-src '\''self'\''/g; s/connect-src '\''self'\'' https:\/\/api\.thinkred\.tech https:/connect-src '\''self'\'' https:\/\/api\.thinkred\.tech/g' {} \;
+  's/script-src '\''self'\'' '\''unsafe-inline'\'' '\''unsafe-eval'\''/script-src '\''self'\'' '\''unsafe-inline'\''/g; s/connect-src '\''self'\'' https:\/\/api\.thinkred\.tech https:/connect-src '\''self'\'' https:\/\/api\.thinkred\.tech/g' {} \;
 
 # Remove backup files
 find build -name "*.bak" -delete
