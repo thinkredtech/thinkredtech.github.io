@@ -31,6 +31,7 @@
     "deploy:hostinger": "./deploy-hostinger.sh",
     "debug:github-pages": "./debug-github-pages.sh",
     "security:validate": "node scripts/validate-security.cjs",
+    "security:scan": "node scripts/scan-sensitive-data.cjs",
     "security:build": "./scripts/deploy-production.sh",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint:fix": "eslint src/ --ext .ts,.tsx --fix",

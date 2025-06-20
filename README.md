@@ -188,6 +188,9 @@ npm run dev
 | `npm run type-check` | ✅ TypeScript validation | Type safety |
 | `npm run format` | 💄 Code formatting | Code cleanup |
 | `npm test` | 🧪 Run test suite | Quality assurance |
+| `npm run security:validate` | 🛡️ CSP validation | Security audit |
+| `npm run security:scan` | 🔍 Sensitive data scan | Security scan |
+| `npm run security:build` | 🔒 Secure production build | Secure deployment |
 
 </details>
 
@@ -238,7 +241,7 @@ openssl rand -base64 24  # macOS/Linux
 
 ```bash
 # Edit .env.local (NEVER commit this file)
-echo "REACT_APP_ADMIN_PASSWORD=your_secure_password_here" >> .env.local
+echo "REACT_APP_ADMIN_PASSWORD=REPLACE_WITH_STRONG_PASSWORD" >> .env.local
 ```
 
 #### 3. Verify Setup
@@ -300,7 +303,7 @@ npm run preview
 
 ```bash
 # Local build with environment
-export REACT_APP_ADMIN_PASSWORD="your_secure_password"
+export REACT_APP_ADMIN_PASSWORD="REPLACE_WITH_STRONG_PASSWORD"
 npm run build
 
 # Deploy to Hostinger via deploy script
@@ -347,7 +350,7 @@ React apps are **client-side applications** that run in the browser. Environment
 const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
 
 // After build (compiled bundle)
-const ADMIN_PASSWORD = "your_actual_password_here";
+const ADMIN_PASSWORD = "ACTUAL_VALUE_FROM_ENV_VAR";
 ```
 
 #### Security Considerations

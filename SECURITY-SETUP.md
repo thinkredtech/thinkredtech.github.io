@@ -22,7 +22,7 @@ cp .env.example .env.local
 
 # Edit .env.local with your secure password
 # NEVER commit this file to version control
-echo "REACT_APP_ADMIN_PASSWORD=your_secure_password_here" >> .env.local
+echo "REACT_APP_ADMIN_PASSWORD=REPLACE_WITH_STRONG_PASSWORD" >> .env.local
 ```
 
 ### 3. Production Environment Setup
@@ -39,7 +39,7 @@ Go to Site Settings → Environment Variables → Add new variable
 
 #### Heroku  
 ```bash
-heroku config:set REACT_APP_ADMIN_PASSWORD=your_secure_password_here
+heroku config:set REACT_APP_ADMIN_PASSWORD=REPLACE_WITH_STRONG_PASSWORD
 ```
 
 #### Other platforms
