@@ -2,13 +2,16 @@
 
 ## Company Overview
 
-ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges for businesses worldwide. Founded by engineers with deep roots in open-source communities and enterprise software development, we bring together innovation, collaboration, and technical excellence to deliver transformative digital solutions.
+ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges
+for businesses worldwide. Founded by engineers with deep roots in open-source communities and enterprise software development, we bring together
+innovation, collaboration, and technical excellence to deliver transformative digital solutions.
 
 ## Mission Statement
 
 ### "Simplify Technology & Experience!"
 
-Our mission is to deliver exceptional value by transforming complex technological requirements into elegant, scalable solutions that empower businesses to achieve their strategic objectives. We believe in making technology accessible, understandable, and impactful for organizations of all sizes.
+Our mission is to deliver exceptional value by transforming complex technological requirements into elegant, scalable solutions that empower
+businesses to achieve their strategic objectives. We believe in making technology accessible, understandable, and impactful for organizations of all sizes.
 
 ## Core Values
 
@@ -238,4 +241,5 @@ Our team brings deep enterprise software development experience from:
 
 ### Business Development
 
-For partnership inquiries, project discussions, or technical consultations, please reach out through our website contact form or directly via email. We welcome opportunities to discuss how we can help simplify your technology challenges and accelerate your digital transformation journey.
+For partnership inquiries, project discussions, or technical consultations, please reach out through our website contact form or directly via email.
+We welcome opportunities to discuss how we can help simplify your technology challenges and accelerate your digital transformation journey.
