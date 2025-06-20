@@ -63,6 +63,12 @@
 [![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
 [![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-failed-red)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+
+[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
