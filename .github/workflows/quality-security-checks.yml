@@ -441,41 +441,31 @@ jobs:
           security_color=$(get_color "$security_status")
           dependency_color=$(get_color "$dependency_status")
 
-          # Update README.md with new badges
-          cat > temp_badges.md << EOF
-          [![Documentation](https://img.shields.io/badge/Documentation-${docs_status}-${docs_color})](./docs/)
-          [![Code Quality](https://img.shields.io/badge/Code%20Quality-${lint_status}-${lint_color})](https://github.com/${{ github.repository }}/actions)
-          [![Build Status](https://img.shields.io/badge/Build-${build_status}-${build_color})](https://github.com/${{ github.repository }}/actions)
-          [![Security](https://img.shields.io/badge/Security-${security_status}-${security_color})](https://github.com/${{ github.repository }}/actions)
-          [![Dependencies](https://img.shields.io/badge/Dependencies-${dependency_status}-${dependency_color})](https://github.com/${{ github.repository }}/actions)
-          EOF
+          # Create replacement badges
+          BUILD_BADGE="[![Build Status](https://img.shields.io/badge/Build-${build_status}-${build_color})](https://github.com/${{ github.repository }}/actions)"
+          QUALITY_BADGE="[![Code Quality](https://img.shields.io/badge/Code%20Quality-${lint_status}-${lint_color})](https://github.com/${{ github.repository }}/actions)"
+          SECURITY_BADGE="[![Security](https://img.shields.io/badge/Security-${security_status}-${security_color})](https://github.com/${{ github.repository }}/actions)"
 
-          # Update README.md using awk for cross-platform compatibility
-          if grep -q "Documentation.*Code Quality.*Build.*Security.*Dependencies" README.md; then
-            # Replace existing badges (portable way)
-            awk '
-              /Documentation.*Code Quality.*Build.*Security.*Dependencies/ {
-                while ((getline line < "temp_badges.md") > 0) print line
-                close("temp_badges.md")
-                next
+          # Use sed to replace the badges section
+          # This targets the specific three-line section in the header
+          # Only update if the current badges are different from the new ones
+          if ! grep -q "Build-${build_status}" README.md || ! grep -q "Code%20Quality-${lint_status}" README.md || ! grep -q "Security-${security_status}" README.md; then
+            sed -i.bak -E "
+              /^\[\!\[Build Status\]/ {
+                s|.*|$BUILD_BADGE|
+                n
+                s|.*|$QUALITY_BADGE|
+                n
+                s|.*|$SECURITY_BADGE|
               }
-              { print }
-            ' README.md > README.tmp && mv README.tmp README.md
+            " README.md
+            
+            # Clean up backup file
+            rm -f README.md.bak
+            echo "✅ Badges updated successfully"
           else
-            # Add badges after the existing badges section
-            awk '
-              /\!\[React\]/ {
-                print
-                print ""
-                while ((getline line < "temp_badges.md") > 0) print line
-                close("temp_badges.md")
-                next
-              }
-              { print }
-            ' README.md > README.tmp && mv README.tmp README.md
+            echo "ℹ️ Badges are already up to date"
           fi
-
-          rm temp_badges.md
 
       - name: Commit updated badges
         run: |

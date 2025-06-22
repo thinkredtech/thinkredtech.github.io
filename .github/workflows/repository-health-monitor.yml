@@ -480,16 +480,9 @@ jobs:
 
           EOF
 
-          # Update README.md
-          if grep -q "Repository Status" README.md; then
-            # Replace existing status section
-            sed -i '/### 📊 Repository Status/,/^$/d' README.md
-          fi
-
-          # Add new status section after existing badges
-          sed -i '/\!\[Vite\]/a\\n'"$(cat temp_status_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
-
-          rm temp_status_badges.md
+          # Note: README.md updates disabled to prevent conflicts with quality-security-checks workflow
+          # Repository status badges are now managed in quality-security-checks.yml
+          # rm temp_status_badges.md
 
       - name: Generate repository health report
         run: |
@@ -561,7 +554,7 @@ jobs:
             
             if [ -z "$last_health_commit" ]; then
               echo "Creating daily health report update"
-              git add README.md
+              git add reports/
               git add -f reports/health-report.md
               git commit -m "📊 Update repository health status and metrics [skip ci]"
               git push

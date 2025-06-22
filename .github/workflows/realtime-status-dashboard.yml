@@ -265,16 +265,9 @@ jobs:
 
           EOF
 
-          # Update README.md with real-time status
-          if grep -q "Real-time Status" README.md; then
-            # Replace existing real-time status section
-            sed -i '/### 🔴 Real-time Status/,/^$/d' README.md
-          fi
-
-          # Add real-time status section after repository status
-          sed -i '/\!\[Security Score\]/a\\n'"$(cat temp_realtime_badges.md | tr '\n' '\f')" README.md | tr '\f' '\n'
-
-          rm temp_realtime_badges.md
+          # Note: README.md updates disabled to prevent conflicts with quality-security-checks workflow
+          # Real-time status badges are now managed via separate status dashboard
+          # rm temp_realtime_badges.md
 
       - name: Commit dashboard updates
         run: |
@@ -289,7 +282,7 @@ jobs:
             
             if [ -z "$last_dashboard_commit" ]; then
               echo "Creating daily dashboard update"
-              git add -f reports/status-dashboard.md README.md
+              git add -f reports/status-dashboard.md
               git commit -m "📈 Update real-time status dashboard [skip ci]"
               git push
             else

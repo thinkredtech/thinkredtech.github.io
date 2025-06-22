@@ -46,34 +46,10 @@ that transform businesses and delight users.
 ### 🔧 **Modern Frontend**
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react)
-
-[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-
-[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-
-[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-
-[![Documentation](https://img.shields.io/badge/Documentation-passed-brightgreen)](./docs/)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Dependencies](https://img.shields.io/badge/Dependencies-warning-yellow)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6?style=flat&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF?style=flat&logo=vite)
 
-### 📊 Repository Status[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Dependencies](https://img.shields.io/badge/Dependencies-healthy-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)[![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)](./docs/)
+### 📊 Repository Status
 
 Latest technologies for blazing performance
 
@@ -111,58 +87,46 @@ Optimized for speed and accessibility
 
 ### Prerequisites
 
-- **Node.js** 18+
-- **npm** 9+ or **yarn** 1.22+
+- **Node.js** 20+ (LTS recommended)
+- **npm** or **yarn** package manager
 - **Git** for version control
 
 ### Installation
 
 ```bash
-
 # Clone the repository
-
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
 # Install dependencies
-
 npm install
 
 # Start development server
-
 npm run dev
 
 # Build for production
-
 npm run build
 ```
 
 ### Development Commands
 
 ```bash
-
 # Development server with hot reload
-
 npm run dev
 
 # Production build
-
 npm run build
 
 # Preview production build
-
 npm run preview
 
 # Run linting
-
 npm run lint
 
 # Run type checking
-
 npm run type-check
 
 # Run tests
-
 npm test
 ```
 
@@ -264,17 +228,13 @@ This project maintains high code quality standards through:
 ### Testing
 
 ```bash
-
 # Run unit tests
-
 npm test
 
 # Run tests with coverage
-
 npm run test:coverage
 
 # Run end-to-end tests
-
 npm run test:e2e
 ```
 
@@ -301,18 +261,13 @@ The application is automatically deployed to GitHub Pages through GitHub Actions
 ### Manual Deployment
 
 ```bash
-
 # Build and deploy to GitHub Pages
-
 npm run build
 npm run deploy
 
 # Deploy to custom hosting
-
 npm run build
-
 # Upload build/ directory to your hosting provider
-
 ```
 
 ---
