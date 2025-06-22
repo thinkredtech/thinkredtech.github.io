@@ -110,10 +110,13 @@ form-action 'self';
 ### Hash Calculation Commands
 
 ```bash
+
 # For scripts
+
 echo "script content here" | openssl dgst -sha256 -binary | openssl base64
 
 # For styles
+
 echo "style content here" | openssl dgst -sha256 -binary | openssl base64
 ```
 
