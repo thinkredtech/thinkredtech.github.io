@@ -24,7 +24,9 @@ The sensitive data exposure was a **false positive** caused by:
 ### 1. Created GitLeaks Configuration (`.gitleaks.toml`)
 
 ```toml
+
 # Comprehensive configuration to prevent false positives
+
 [allowlist]
 description = "Allow known safe patterns and documentation examples"
 
@@ -38,6 +40,7 @@ regexes = [
 ]
 
 # Allow documentation files
+
 paths = [
     'README.md',
     'docs/**/*.md',

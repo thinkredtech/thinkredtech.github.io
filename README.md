@@ -112,39 +112,51 @@ Optimized for speed and accessibility
 ### Installation
 
 ```bash
+
 # Clone the repository
+
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
 # Install dependencies
+
 npm install
 
 # Start development server
+
 npm run dev
 
 # Build for production
+
 npm run build
 ```
 
 ### Development Commands
 
 ```bash
+
 # Development server with hot reload
+
 npm run dev
 
 # Production build
+
 npm run build
 
 # Preview production build
+
 npm run preview
 
 # Run linting
+
 npm run lint
 
 # Run type checking
+
 npm run type-check
 
 # Run tests
+
 npm test
 ```
 
@@ -246,13 +258,17 @@ This project maintains high code quality standards through:
 ### Testing
 
 ```bash
+
 # Run unit tests
+
 npm test
 
 # Run tests with coverage
+
 npm run test:coverage
 
 # Run end-to-end tests
+
 npm run test:e2e
 ```
 
@@ -279,13 +295,18 @@ The application is automatically deployed to GitHub Pages through GitHub Actions
 ### Manual Deployment
 
 ```bash
+
 # Build and deploy to GitHub Pages
+
 npm run build
 npm run deploy
 
 # Deploy to custom hosting
+
 npm run build
+
 # Upload build/ directory to your hosting provider
+
 ```
 
 ---
