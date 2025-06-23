@@ -569,6 +569,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const core = require('@actions/core');
             const newVersion = '${{ needs.analyze-changes.outputs.new-version }}';
             const versionType = '${{ needs.analyze-changes.outputs.version-type }}';
             const tagName = `v${newVersion}`;

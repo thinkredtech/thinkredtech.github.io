@@ -297,7 +297,8 @@ jobs:
   deploy:
     name: 🌐 Deploy to Production
     runs-on: ubuntu-latest
-    needs: [pre-flight, deployment-readiness, build-verification]
+    needs:
+      [pre-flight, deployment-readiness, build-verification, security-scanning]
     if: needs.deployment-readiness.outputs.ready-to-deploy == 'true'
     environment:
       name: github-pages
