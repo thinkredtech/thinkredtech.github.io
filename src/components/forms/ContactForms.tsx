@@ -6,6 +6,11 @@ import {
   validatePhone,
   validateTextLength,
 } from '../../utils/security';
+import {
+  submitContactForm,
+  checkRateLimit,
+  validateHoneypot,
+} from '../../utils/api';
 
 // Discovery Call component
 const DiscoveryCallScheduler = () => {
@@ -20,6 +25,7 @@ const DiscoveryCallScheduler = () => {
     preferredTime: '',
     timezone: '',
     additionalInfo: '',
+    honeypot: '', // Spam prevention field
   });
 
   // Form submission states
@@ -47,6 +53,20 @@ const DiscoveryCallScheduler = () => {
     setSubmitError('');
 
     try {
+      // Spam prevention: Check honeypot field
+      if (!validateHoneypot(formData.honeypot)) {
+        setSubmitError('Spam detected. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Rate limiting: Check for rapid successive submissions
+      if (!checkRateLimit(formData.email, 5000)) {
+        setSubmitError('Please wait before submitting another request.');
+        setIsSubmitting(false);
+        return;
+      }
+
       // Input validation
       if (!validateEmail(formData.email)) {
         setSubmitError('Please enter a valid email address.');
@@ -61,22 +81,20 @@ const DiscoveryCallScheduler = () => {
       }
 
       if (!validateTextLength(formData.name, 100, 1)) {
-        setSubmitError('Name is too long. Maximum length is 100 characters.');
+        setSubmitError('Name must be between 1 and 100 characters.');
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.company, 100, 1)) {
-        setSubmitError(
-          'Company name is too long. Maximum length is 100 characters.'
-        );
+        setSubmitError('Company name must be between 1 and 100 characters.');
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.additionalInfo, 500, 0)) {
         setSubmitError(
-          'Additional information is too long. Maximum length is 500 characters.'
+          'Additional information must be less than 500 characters.'
         );
         setIsSubmitting(false);
         return;
@@ -84,31 +102,16 @@ const DiscoveryCallScheduler = () => {
 
       // Sanitize inputs
       const sanitizedData = {
-        ...formData,
+        formType: 'Discovery Call',
         name: sanitizeInput(formData.name),
         email: sanitizeInput(formData.email),
         company: sanitizeInput(formData.company),
         phone: sanitizeInput(formData.phone),
-        projectType: sanitizeInput(formData.projectType),
-        preferredDate: sanitizeInput(formData.preferredDate),
-        preferredTime: sanitizeInput(formData.preferredTime),
-        timezone: sanitizeInput(formData.timezone),
-        additionalInfo: sanitizeInput(formData.additionalInfo),
+        message: `Discovery Call Request - Project Type: ${sanitizeInput(formData.projectType)}, Preferred Date: ${sanitizeInput(formData.preferredDate)}, Preferred Time: ${sanitizeInput(formData.preferredTime)}, Timezone: ${sanitizeInput(formData.timezone)}, Additional Info: ${sanitizeInput(formData.additionalInfo)}`,
       };
 
-      // In a real implementation, this would be an API call to a scheduling service
-      // For this demo, we'll simulate a successful scheduling
-
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // In production, this would send an email to hello@thinkred.tech
-      // with the form data: name, email, company, phone, project details, etc.
-      // The sanitizedData object ensures all inputs are safe from XSS attacks
-      void sanitizedData; // Used in production API calls
-
-      // In production, this would send an email to hello@thinkred.tech
-      // with the form data: name, email, company, phone, project details, etc.
+      // Submit to backend
+      await submitContactForm(sanitizedData);
 
       // Show success message
       setSubmitSuccess(true);
@@ -124,6 +127,7 @@ const DiscoveryCallScheduler = () => {
         preferredTime: '',
         timezone: '',
         additionalInfo: '',
+        honeypot: '',
       });
     } catch {
       // Error scheduling discovery call - handled gracefully
@@ -449,6 +453,22 @@ const DiscoveryCallScheduler = () => {
             </label>
           </div>
 
+          {/* Honeypot field - hidden from users to prevent spam */}
+          <div className="hidden">
+            <label htmlFor="dc-website">
+              Website (leave blank if you're human)
+            </label>
+            <input
+              type="text"
+              id="dc-website"
+              name="honeypot"
+              value={formData.honeypot}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           <div className="flex justify-end">
             <button
               type="submit"
@@ -504,6 +524,7 @@ const QuoteRequestForm = () => {
     timeline: '',
     requirements: '',
     hearAboutUs: '',
+    honeypot: '', // Spam prevention field
   });
 
   // Form submission states
@@ -531,6 +552,20 @@ const QuoteRequestForm = () => {
     setSubmitError('');
 
     try {
+      // Spam prevention: Check honeypot field
+      if (!validateHoneypot(formData.honeypot)) {
+        setSubmitError('Spam detected. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Rate limiting: Check for rapid successive submissions
+      if (!checkRateLimit(formData.email, 5000)) {
+        setSubmitError('Please wait before submitting another request.');
+        setIsSubmitting(false);
+        return;
+      }
+
       // Input validation
       if (!validateEmail(formData.email)) {
         setSubmitError('Please enter a valid email address.');
@@ -545,62 +580,43 @@ const QuoteRequestForm = () => {
       }
 
       if (!validateTextLength(formData.name, 100, 1)) {
-        setSubmitError('Name is too long. Maximum length is 100 characters.');
+        setSubmitError('Name must be between 1 and 100 characters.');
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.company, 100, 1)) {
-        setSubmitError(
-          'Company name is too long. Maximum length is 100 characters.'
-        );
+        setSubmitError('Company name must be between 1 and 100 characters.');
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.projectDescription, 500, 10)) {
         setSubmitError(
-          'Project description is too long. Maximum length is 500 characters.'
+          'Project description must be between 10 and 500 characters.'
         );
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.requirements, 500, 0)) {
-        setSubmitError(
-          'Requirements are too long. Maximum length is 500 characters.'
-        );
+        setSubmitError('Requirements must be less than 500 characters.');
         setIsSubmitting(false);
         return;
       }
 
       // Sanitize inputs
       const sanitizedData = {
-        ...formData,
+        formType: 'Quote Request',
         name: sanitizeInput(formData.name),
         email: sanitizeInput(formData.email),
         company: sanitizeInput(formData.company),
         phone: sanitizeInput(formData.phone),
-        projectType: sanitizeInput(formData.projectType),
-        projectDescription: sanitizeInput(formData.projectDescription),
-        budget: sanitizeInput(formData.budget),
-        timeline: sanitizeInput(formData.timeline),
-        requirements: sanitizeInput(formData.requirements),
-        hearAboutUs: sanitizeInput(formData.hearAboutUs),
+        message: `Quote Request - Project Type: ${sanitizeInput(formData.projectType)}, Project Description: ${sanitizeInput(formData.projectDescription)}, Budget: ${sanitizeInput(formData.budget)}, Timeline: ${sanitizeInput(formData.timeline)}, Requirements: ${sanitizeInput(formData.requirements)}, How they heard about us: ${sanitizeInput(formData.hearAboutUs)}`,
       };
 
-      // In production, this would send sanitized data to hello@thinkred.tech
-      // with the form data: name, email, company, project details, etc.
-      // In production, this would send an email to hello@thinkred.tech
-      // with the form data: name, email, company, project details, etc.
-      // The sanitizedData object ensures all inputs are safe from XSS attacks
-      void sanitizedData; // Used in production API calls
-
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // In production, this would send an email to hello@thinkred.tech
-      // with the form data: name, email, company, project details, etc.
+      // Submit to backend
+      await submitContactForm(sanitizedData);
 
       // Show success message
       setSubmitSuccess(true);
@@ -617,6 +633,7 @@ const QuoteRequestForm = () => {
         timeline: '',
         requirements: '',
         hearAboutUs: '',
+        honeypot: '',
       });
     } catch {
       // Error requesting quote - handled gracefully
@@ -941,6 +958,22 @@ const QuoteRequestForm = () => {
                 Privacy Policy
               </Link>
             </label>
+          </div>
+
+          {/* Honeypot field - hidden from users to prevent spam */}
+          <div className="hidden">
+            <label htmlFor="qr-website">
+              Website (leave blank if you're human)
+            </label>
+            <input
+              type="text"
+              id="qr-website"
+              name="honeypot"
+              value={formData.honeypot}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
           </div>
 
           <div className="flex justify-end">

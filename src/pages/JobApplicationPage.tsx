@@ -12,6 +12,11 @@ import {
   validateTextLength,
   validateFile,
 } from '../utils/security';
+import {
+  submitJobApplication,
+  checkRateLimit,
+  validateHoneypot,
+} from '../utils/api';
 
 const JobApplicationPage = () => {
   const { jobId } = useParams<{ jobId: string }>();
@@ -33,6 +38,7 @@ const JobApplicationPage = () => {
     salaryExpectation: '',
     relocate: '',
     references: '',
+    honeypot: '', // Spam prevention field
   });
 
   // File state
@@ -192,13 +198,38 @@ const JobApplicationPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call - replace with actual API endpoint
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Spam prevention: Check honeypot field
+      if (!validateHoneypot(formData.honeypot)) {
+        alert('Spam detected. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Rate limiting: Check for rapid successive submissions
+      if (!checkRateLimit(formData.email, 10000)) {
+        alert('Please wait before submitting another application.');
+        setIsSubmitting(false);
+        return;
+      }
 
       // Generate application ID (in real app, this would come from backend)
       const applicationId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-      // Sanitize all form inputs before storing
+      // Prepare data for submission
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+
+      // Submit to backend API
+      await submitJobApplication({
+        jobId: job?.slug || job?.id.toString() || '',
+        applicationId,
+        name: fullName,
+        email: formData.email,
+        phone: formData.phone,
+        resumeFile: files.resume!,
+        coverLetterFile: files.coverLetterFile || undefined,
+      });
+
+      // Sanitize all form inputs for local storage (existing logic)
       const sanitizedFormData = {
         firstName: sanitizeInput(formData.firstName),
         lastName: sanitizeInput(formData.lastName),
@@ -214,7 +245,7 @@ const JobApplicationPage = () => {
         references: sanitizeInput(formData.references),
       };
 
-      // Store application data (in a real app, this would be sent to a backend)
+      // Store application data (for local tracking)
       const applicationData: JobApplication = {
         applicationId,
         jobId: job?.id || 0,
@@ -222,7 +253,6 @@ const JobApplicationPage = () => {
         jobTitle: job?.title || '',
         applicant: {
           ...sanitizedFormData,
-          // Convert File objects to file names for storage (in a real app, files would be uploaded to a server)
           resume: files.resume ? files.resume.name : undefined,
           coverLetterFile: files.coverLetterFile
             ? files.coverLetterFile.name
@@ -240,9 +270,11 @@ const JobApplicationPage = () => {
       );
 
       setIsSubmitted(true);
-    } catch {
-      // Handle error appropriately
-      alert('Error submitting application. Please try again.');
+    } catch (error) {
+      // Handle error appropriately with better error message
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Error submitting application: ${errorMessage}. Please try again.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -709,6 +741,24 @@ const JobApplicationPage = () => {
                         />
                       </div>
                     </div>
+                  </div>
+
+                  {/* Honeypot field - hidden from users to prevent spam */}
+                  <div className="hidden">
+                    <label htmlFor="website">
+                      Website (leave blank if you're human)
+                    </label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={formData.honeypot}
+                      onChange={e =>
+                        setFormData({ ...formData, honeypot: e.target.value })
+                      }
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
                   </div>
 
                   {/* Submit Button */}

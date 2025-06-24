@@ -5,6 +5,17 @@ import {
   DiscoveryCallScheduler,
   QuoteRequestForm,
 } from '../components/forms/ContactForms';
+import {
+  submitContactForm,
+  checkRateLimit,
+  validateHoneypot,
+} from '../utils/api';
+import {
+  sanitizeInput,
+  validateEmail,
+  validatePhone,
+  validateTextLength,
+} from '../utils/security';
 
 const ContactPage = () => {
   const location = useLocation();
@@ -34,6 +45,7 @@ const ContactPage = () => {
     budget: '',
     timeline: '',
     message: '',
+    honeypot: '', // Spam prevention field
   });
 
   // Form submission states
@@ -61,14 +73,57 @@ const ContactPage = () => {
     setSubmitError('');
 
     try {
-      // In a real implementation, this would be an API call to a backend service
-      // For this demo, we'll simulate a successful email send
+      // Spam prevention: Check honeypot field
+      if (!validateHoneypot(formData.honeypot)) {
+        setSubmitError('Spam detected. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
 
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Rate limiting: Check for rapid successive submissions
+      if (!checkRateLimit(formData.email, 5000)) {
+        setSubmitError('Please wait before submitting another message.');
+        setIsSubmitting(false);
+        return;
+      }
 
-      // In production, this would send an email to hello@thinkred.tech
-      // with the form data: name, email, company, and message
+      // Input validation
+      if (!validateEmail(formData.email)) {
+        setSubmitError('Please enter a valid email address.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (formData.phone && !validatePhone(formData.phone)) {
+        setSubmitError('Please enter a valid phone number.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.name, 100, 1)) {
+        setSubmitError('Name must be between 1 and 100 characters.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!validateTextLength(formData.message, 2000, 10)) {
+        setSubmitError('Message must be between 10 and 2000 characters.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sanitize inputs
+      const sanitizedData = {
+        formType: 'Contact Us',
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        company: sanitizeInput(formData.company),
+        phone: sanitizeInput(formData.phone),
+        message: sanitizeInput(formData.message),
+      };
+
+      // Submit to backend
+      await submitContactForm(sanitizedData);
 
       // Show success message
       setSubmitSuccess(true);
@@ -83,9 +138,10 @@ const ContactPage = () => {
         budget: '',
         timeline: '',
         message: '',
+        honeypot: '',
       });
     } catch {
-      // Error sending email - handled gracefully
+      // Error sending message - handled gracefully
       setSubmitError(
         'There was an error sending your message. Please try again later.'
       );
@@ -576,6 +632,20 @@ const ContactPage = () => {
                           rows={5}
                           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         ></textarea>
+                      </div>
+
+                      {/* Honeypot field for spam prevention - hidden from users */}
+                      <div className="hidden">
+                        <label htmlFor="honeypot">Leave this field empty</label>
+                        <input
+                          type="text"
+                          id="honeypot"
+                          name="honeypot"
+                          value={formData.honeypot}
+                          onChange={handleChange}
+                          tabIndex={-1}
+                          autoComplete="off"
+                        />
                       </div>
 
                       <div className="flex justify-end">
