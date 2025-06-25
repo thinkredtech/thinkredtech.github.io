@@ -1,0 +1,69 @@
+{
+  "name": "thinkred-monorepo",
+  "version": "1.0.0",
+  "description": "ThinkRED monorepo containing frontend React app and Google Apps Script backend",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "dev": "npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "test": "npm run test:frontend",
+    "test:frontend": "cd frontend && npm run test",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "version:frontend": "node scripts/version-manager.js frontend",
+    "version:backend": "node scripts/version-manager.js backend",
+    "version:patch:frontend": "node scripts/version-manager.js frontend patch",
+    "version:minor:frontend": "node scripts/version-manager.js frontend minor",
+    "version:major:frontend": "node scripts/version-manager.js frontend major",
+    "version:patch:backend": "node scripts/version-manager.js backend patch",
+    "version:minor:backend": "node scripts/version-manager.js backend minor",
+    "version:major:backend": "node scripts/version-manager.js backend major",
+    "deploy": "node scripts/deploy.js",
+    "deploy:frontend": "node scripts/deploy.js frontend",
+    "deploy:backend": "node scripts/deploy.js backend",
+    "deploy:all": "node scripts/deploy.js all",
+    "tag:frontend": "node scripts/tag-manager.js frontend",
+    "tag:backend": "node scripts/tag-manager.js backend",
+    "release:frontend": "npm run version:patch:frontend && npm run deploy:frontend && npm run tag:frontend",
+    "release:backend": "npm run version:patch:backend && npm run deploy:backend && npm run tag:backend",
+    "release:minor:frontend": "npm run version:minor:frontend && npm run deploy:frontend && npm run tag:frontend",
+    "release:minor:backend": "npm run version:minor:backend && npm run deploy:backend && npm run tag:backend",
+    "release:major:frontend": "npm run version:major:frontend && npm run deploy:frontend && npm run tag:frontend",
+    "release:major:backend": "npm run version:major:backend && npm run deploy:backend && npm run tag:backend"
+  },
+  "devDependencies": {
+    "semver": "^7.5.4",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6",
+    "shelljs": "^0.8.5",
+    "@google/clasp": "^2.4.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinkredtech/thinkred-monorepo.git"
+  },
+  "keywords": [
+    "thinkred",
+    "monorepo",
+    "react",
+    "google-apps-script",
+    "frontend",
+    "backend"
+  ],
+  "author": "ThinkRED Tech",
+  "license": "MIT"
+}
