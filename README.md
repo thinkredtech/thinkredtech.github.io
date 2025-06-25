@@ -100,13 +100,31 @@ npm run release:major:backend
 
 ## Git Tags
 
-The system automatically creates and manages Git tags with format `frontend-v1.0.4` and `backend-v1.0.0`.
+The system automatically creates and manages Git tags with separate versioning:
+
+- **Frontend tags**: `frontend-v1.0.4`, `frontend-v1.0.5`, etc.
+- **Backend tags**: `backend-v1.0.0`, `backend-v1.0.1`, etc.
 
 ### View Tag History
 
 ```bash
 npm run tag:frontend list
 npm run tag:backend list
+```
+
+## Verification
+
+### Check Git History
+```bash
+git log --oneline -10                    # Shows all commits
+git log --follow frontend/src/App.tsx    # Shows file history for moved files
+```
+
+### Test Setup
+```bash
+npm run version:frontend                 # Shows current frontend version
+npm run version:backend                  # Shows current backend version
+npm run dev                             # Start development server
 ```
 
 ## Development Commands
@@ -139,7 +157,12 @@ Standard React + Vite setup configured for GitHub Pages and Hostinger deployment
 
 1. Install Google CLASP globally: `npm install -g @google/clasp`
 2. Login to Google: `clasp login`
-3. Update `.clasp.json` with your script ID
+3. Copy the configuration template:
+   ```bash
+   cd backend
+   cp .clasp.json.template .clasp.json
+   # Edit .clasp.json with your actual Google Apps Script ID
+   ```
 4. Configure script properties in Google Apps Script console
 
 ### Required Script Properties (Google Apps Script)
