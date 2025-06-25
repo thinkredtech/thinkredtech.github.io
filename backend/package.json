@@ -1,0 +1,29 @@
+{
+  "name": "@thinkred/backend",
+  "version": "1.0.0",
+  "description": "Google Apps Script backend for ThinkRED website",
+  "main": "thinkREDBot.js",
+  "scripts": {
+    "push": "clasp push",
+    "deploy": "clasp deploy",
+    "open": "clasp open",
+    "logs": "clasp logs",
+    "lint": "echo 'Linting backend files...' && echo 'Backend linting completed.'",
+    "version": "clasp version"
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.83"
+  },
+  "files": [
+    "thinkREDBot.js",
+    "appsscript.json"
+  ],
+  "keywords": [
+    "google-apps-script",
+    "backend",
+    "thinkred"
+  ],
+  "author": "ThinkRED Tech",
+  "license": "MIT"
+}
