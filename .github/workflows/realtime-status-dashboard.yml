@@ -117,7 +117,9 @@ jobs:
           error_rate=0
 
           # Check if there are any obvious build errors
-          npm ci > /dev/null 2>&1
+          # Clean install to prevent rollup issues
+          rm -rf node_modules package-lock.json
+          npm install > /dev/null 2>&1
           if ! npm run build > build.log 2>&1; then
             error_rate=100
             echo "❌ Build errors detected"
@@ -153,6 +155,9 @@ jobs:
       - name: Generate dashboard HTML
         run: |
           echo "📱 Generating status dashboard..."
+
+          # Create reports directory if it doesn't exist
+          mkdir -p reports
 
           # Get current timestamp
           timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
@@ -203,8 +208,8 @@ jobs:
           ## 🔗 Quick Links
 
           - [🌐 Live Website](https://www.thinkred.tech)
-          - [📚 Documentation](./docs/)
-          - [🔒 Security Architecture](./docs/security-architecture.md)
+          - [📚 Documentation](./frontend/docs/)
+          - [🔒 Security Architecture](./frontend/docs/security-architecture.md)
           - [🚀 CI/CD Pipeline](https://github.com/${{ github.repository }}/actions)
           - [📝 Health Report](./reports/health-report.md)
 

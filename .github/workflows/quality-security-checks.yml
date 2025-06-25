@@ -31,7 +31,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Clean install to prevent rollup optional dependency issues
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Check documentation completeness
         id: docs-check
@@ -41,12 +44,12 @@ jobs:
           # Required documentation files
           required_docs=(
             "README.md"
-            "CHANGELOG.md"
-            "docs/website-overview.md"
-            "docs/security-architecture.md"
-            "docs/design-system.md"
-            "docs/brand-guidelines.md"
-            "docs/company-info.md"
+            "frontend/CHANGELOG.md"
+            "frontend/docs/website-overview.md"
+            "frontend/docs/security-architecture.md"
+            "frontend/docs/design-system.md"
+            "frontend/docs/brand-guidelines.md"
+            "frontend/docs/company-info.md"
           )
 
           missing_docs=()
@@ -68,7 +71,7 @@ jobs:
 
       - name: Validate markdown format
         run: |
-          npx prettier --check "*.md" "docs/**/*.md" || {
+          npx prettier --check "*.md" "frontend/docs/**/*.md" || {
             echo "❌ Markdown formatting issues found"
             exit 1
           }
@@ -110,7 +113,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Clean install to prevent rollup optional dependency issues
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Run ESLint
         id: lint-check
@@ -130,7 +136,7 @@ jobs:
       - name: Check TypeScript compilation
         run: |
           echo "Checking TypeScript compilation..."
-          npx tsc --noEmit || {
+          npx tsc --noEmit -p frontend/tsconfig.json || {
             echo "❌ TypeScript compilation failed"
             exit 1
           }
@@ -162,7 +168,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Clean install to prevent rollup optional dependency issues
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Run tests
         run: |
@@ -218,7 +227,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Clean install to prevent rollup optional dependency issues
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Run npm audit
         id: security-check
