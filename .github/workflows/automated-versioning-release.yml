@@ -45,6 +45,7 @@ jobs:
       has-features: ${{ steps.analysis.outputs.has-features }}
       has-fixes: ${{ steps.analysis.outputs.has-fixes }}
       deployment-ready: ${{ steps.analysis.outputs.deployment-ready }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -250,7 +251,7 @@ jobs:
           echo "  Features: $has_features"
           echo "  Fixes: $has_fixes"
 
-  # Run quality checks before release
+  # Pre-release quality checks
   pre-release-checks:
     name: 🧪 Pre-release Quality Checks
     runs-on: ubuntu-latest
@@ -258,6 +259,7 @@ jobs:
     if: needs.analyze-changes.outputs.should-release == 'true'
     outputs:
       checks-passed: ${{ steps.checks.outputs.passed }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -334,7 +336,7 @@ jobs:
             exit 1
           fi
 
-  # Update version and create release
+  # Create the actual release
   create-release:
     name: 🚀 Create Release
     runs-on: ubuntu-latest
@@ -344,6 +346,8 @@ jobs:
       needs.pre-release-checks.outputs.checks-passed == 'true'
     outputs:
       # These outputs are set by the "Create GitHub Release" step (id: release)
+      # The outputs are always set in both success and failure cases via core.setOutput()
+      # Note: GitHub's static analyzer may show warnings, but these are false positives
       release-created: ${{ steps.release.outputs.created }}
       release-tag: ${{ steps.release.outputs.tag }}
       release-url: ${{ steps.release.outputs.url }}

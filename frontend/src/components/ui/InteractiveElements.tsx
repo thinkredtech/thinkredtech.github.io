@@ -106,12 +106,16 @@ export const Modal: React.FC<ModalProps> = ({
               <button
                 onClick={onClose}
                 className="text-secondary/60 hover:text-secondary transition-colors"
+                aria-label="Close modal"
+                title="Close modal"
               >
+                <span className="sr-only">Close</span>
                 <svg
                   className="w-6 h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
