@@ -17,35 +17,51 @@ declare module 'react-icons/*' {
 
 // Specific module declarations for main icon families
 declare module 'react-icons/fa' {
-  export * from 'react-icons/fa';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/fa6' {
-  export * from 'react-icons/fa6';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/si' {
-  export * from 'react-icons/si';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/md' {
-  export * from 'react-icons/md';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/hi' {
-  export * from 'react-icons/hi';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/hi2' {
-  export * from 'react-icons/hi2';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/io' {
-  export * from 'react-icons/io';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/io5' {
-  export * from 'react-icons/io5';
+  import { ComponentType, SVGProps } from 'react';
+  const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
+  export = content;
 }
 
 declare module 'react-icons/bs' {

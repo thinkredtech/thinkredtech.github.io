@@ -42,6 +42,10 @@ export default defineConfig({
             if (id.includes('react-router')) {
               return 'react-router';
             }
+            // React Icons
+            if (id.includes('react-icons')) {
+              return 'react-icons';
+            }
             // Markdown processing
             if (
               id.includes('markdown') ||
@@ -78,7 +82,8 @@ export default defineConfig({
     ),
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: ['react', 'react-dom', 'react-router-dom', 'react-icons/fa', 'react-icons/si'],
+    exclude: []
   },
   publicDir: 'public',
 });
