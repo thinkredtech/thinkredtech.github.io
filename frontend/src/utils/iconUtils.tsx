@@ -1,11 +1,12 @@
 import React from 'react';
+import type { IconType } from 'react-icons';
 
 /**
  * Utility function to wrap react-icons components for React 19 compatibility
  * This ensures that icon components return valid JSX elements instead of ReactNode
  */
 export const renderIcon = (
-  IconComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>,
+  IconComponent: IconType,
   props?: React.SVGProps<SVGSVGElement>
 ): React.JSX.Element => {
   return React.createElement(IconComponent, props);
