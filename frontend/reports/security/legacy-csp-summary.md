@@ -21,12 +21,18 @@
 **Security Headers Added/Updated:**
 
 ```html
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https:; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https:; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 <meta http-equiv="X-Frame-Options" content="DENY" />
 <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()" />
+<meta
+  http-equiv="Permissions-Policy"
+  content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()"
+/>
 ```
 
 ### 2. Security Utilities Implementation

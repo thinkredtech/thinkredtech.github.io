@@ -1,8 +1,11 @@
-# ThinkRED Website - Changelog
+# ThinkRED Frontend - Changelog
 
-All notable changes to the ThinkRED website are documented in this file. The format is based on
+All notable changes to the ThinkRED frontend application are documented in this file. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+For monorepo-wide changes, see [Root CHANGELOG.md](../CHANGELOG.md).  
+For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 
 ---
 
@@ -51,6 +54,7 @@ All notable changes to the ThinkRED website are documented in this file. The for
 #### 🎯 **Impact**
 
 These critical fixes ensure:
+
 - ✅ **Zero Workflow Failures**: All CI/CD jobs execute to completion successfully
 - ✅ **Reliable Automation**: Consistent automated monitoring and reporting
 - ✅ **Proper Error Handling**: Comprehensive validation and graceful error recovery
@@ -683,6 +687,7 @@ breaking changes, new features, and complete UI/UX standardization.
   - Implemented compact card layout with horizontal design
   - Enhanced call-to-action button with hover animations
   - Added services overview with key metrics
+
 - **Homepage Layout**: Replaced Vision section with ProcessMethodology component
 
 #### Fixed
@@ -931,11 +936,13 @@ breaking changes, new features, and complete UI/UX standardization.
 
   - Implementation checklists and testing plans
   - Page specifications for all major components
+
 - **Legal Pages**: Privacy Policy and Terms of Service
   - Complete legal framework for website operations
   - GDPR compliance considerations
 
   - User rights and responsibilities
+
 - **Sitemap Page**: Navigation aid with organized site structure
 
 #### Enhanced
@@ -990,7 +997,6 @@ breaking changes, new features, and complete UI/UX standardization.
   - Avatar assistant placeholder
 
 - **Deployment Infrastructure**: GitHub Pages deployment setup
-
   - Automated build and deployment workflow
   - Custom domain configuration
   - SEO optimizations and meta tags
@@ -1010,7 +1016,7 @@ breaking changes, new features, and complete UI/UX standardization.
 - **Brand Assets**: Complete branding package with logos and visual identity
 - **Documentation**: Extensive documentation for development and maintenance
 - **SEO**: Search engine optimization with prope
-r meta tags and structure
+  r meta tags and structure
 
 ---
 

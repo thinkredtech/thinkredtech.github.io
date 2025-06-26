@@ -38,7 +38,7 @@ causing it to treat the expected 301 redirect from `https://www.thinkred.tech` t
 - Monitoring script treated 301 redirects as failures
 - Three monitoring functions affected:
   - Deployment status check
-  - API endpoints check  
+  - API endpoints check
   - Performance check
 
 ### Fix Applied
@@ -62,12 +62,12 @@ causing it to treat the expected 301 redirect from `https://www.thinkred.tech` t
 
 ## 📊 Service Status
 
-| Component | Status | Notes |
-|-----------|--------|-------|
+| Component          | Status         | Notes                  |
+| ------------------ | -------------- | ---------------------- |
 | Website Deployment | ✅ Operational | Always was operational |
-| API Endpoints | ✅ Operational | All pages accessible |
-| Error Rate | ✅ 0% | No actual errors |
-| Build Process | ✅ Functional | No issues detected |
+| API Endpoints      | ✅ Operational | All pages accessible   |
+| Error Rate         | ✅ 0%          | No actual errors       |
+| Build Process      | ✅ Functional  | No issues detected     |
 
 ## 🔮 Prevention Measures
 

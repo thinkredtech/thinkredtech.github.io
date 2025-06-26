@@ -23,14 +23,13 @@ and immediately resolved with environment-based authentication.
 
 ```typescript
 // VULNERABLE - Before fix
-const ADMIN_PASSWORD = 
-  process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
+const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
 ```
 
 ### Security Impact
 
 - **Client-side exposure**: Password visible in browser source code
-- **Git history contamination**: Password committed to version control  
+- **Git history contamination**: Password committed to version control
 - **Unauthorized access risk**: Anyone could access admin functions
 - **Production vulnerability**: Live website exposed admin credentials
 
@@ -45,7 +44,7 @@ const ADMIN_PASSWORD =
 **Fixed Code:**
 
 ```typescript
-// SECURE - After fix  
+// SECURE - After fix
 const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
 
 if (!ADMIN_PASSWORD) {
@@ -97,12 +96,12 @@ if (!ADMIN_PASSWORD) {
 
 ## 📊 Risk Assessment
 
-| Factor | Before Fix | After Fix |
-|--------|------------|-----------|
-| **Exposure Level** | Critical (Public) | Secure (Env-only) |
-| **Access Control** | Compromised | Proper |
-| **Git History** | Contaminated | Clean (going forward) |
-| **Production Risk** | High | Low |
+| Factor              | Before Fix        | After Fix             |
+| ------------------- | ----------------- | --------------------- |
+| **Exposure Level**  | Critical (Public) | Secure (Env-only)     |
+| **Access Control**  | Compromised       | Proper                |
+| **Git History**     | Contaminated      | Clean (going forward) |
+| **Production Risk** | High              | Low                   |
 
 ## 🔗 Related Files Modified
 

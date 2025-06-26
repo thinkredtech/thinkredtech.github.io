@@ -94,39 +94,51 @@ Optimized for speed and accessibility
 ### Installation
 
 ```bash
+
 # Clone the repository
+
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
 # Install dependencies
+
 npm install
 
 # Start development server
+
 npm run dev
 
 # Build for production
+
 npm run build
 ```
 
 ### Development Commands
 
 ```bash
+
 # Development server with hot reload
+
 npm run dev
 
 # Production build
+
 npm run build
 
 # Preview production build
+
 npm run preview
 
 # Run linting
+
 npm run lint
 
 # Run type checking
+
 npm run type-check
 
 # Run tests
+
 npm test
 ```
 
@@ -134,13 +146,13 @@ npm test
 
 ## 📊 Project Status
 
-| **Component** | **Status** | **Details** |
-|:--------------|:----------:|:------------|
-| **🚀 CI/CD Pipeline** | ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg) | [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml) |
-| **🔒 Security Checks** | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md) |
-| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/automated/health-report.md) |
-| **⚡ Performance** | ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse) | [Performance Report](./reports/automated/status-dashboard.md) |
-| **📦 Dependencies** | ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot) | [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions) |
+| **Component**            |                                                         **Status**                                                          | **Details**                                                                                                  |
+| :----------------------- | :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------- |
+| **🚀 CI/CD Pipeline**    |       ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg)       | [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml) |
+| **🔒 Security Checks**   | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md)                                                           |
+| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/automated/health-report.md)                                                     |
+| **⚡ Performance**       |          ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse)           | [Performance Report](./reports/automated/status-dashboard.md)                                                |
+| **📦 Dependencies**      |         ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot)          | [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions)                          |
 
 ---
 
@@ -228,13 +240,17 @@ This project maintains high code quality standards through:
 ### Testing
 
 ```bash
+
 # Run unit tests
+
 npm test
 
 # Run tests with coverage
+
 npm run test:coverage
 
 # Run end-to-end tests
+
 npm run test:e2e
 ```
 
@@ -261,13 +277,18 @@ The application is automatically deployed to GitHub Pages through GitHub Actions
 ### Manual Deployment
 
 ```bash
+
 # Build and deploy to GitHub Pages
+
 npm run build
 npm run deploy
 
 # Deploy to custom hosting
+
 npm run build
+
 # Upload build/ directory to your hosting provider
+
 ```
 
 ---
@@ -323,7 +344,7 @@ For licensing inquiries, please contact [legal@thinkred.tech](mailto:legal@think
 
 **Made with ❤️ by ThinkRED Technologies**
 
-*Simplify Technology & Experience*
+_Simplify Technology & Experience_
 
 [![ThinkRED](https://img.shields.io/badge/Powered%20by-ThinkRED-E4093E?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K)](https://thinkred.tech)
 

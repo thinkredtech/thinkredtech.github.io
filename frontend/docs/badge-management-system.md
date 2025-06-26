@@ -11,7 +11,7 @@ The README.md file contains two sets of badges in the header:
 ### Repository Health Badges (Static)
 
 - Repository Health
-- Performance  
+- Performance
 - Dependencies
 - Documentation
 
@@ -49,11 +49,13 @@ The following workflows previously modified README.md but have been disabled to 
 ### If Badges Get Duplicated Again
 
 1. Check if multiple workflows are trying to modify README.md:
+
    ```bash
    grep -r "README.md" .github/workflows/
    ```
 
 2. Verify the badge section structure in README.md:
+
    ```bash
    head -20 README.md | grep -A 10 "Badge"
    ```

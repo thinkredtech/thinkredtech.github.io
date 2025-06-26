@@ -19,12 +19,13 @@
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "dev": "vite",
     "start": "vite",
     "build": "vite build && cp -r docs build/docs",
+    "clean": "rm -rf build .vite",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b gh-pages",

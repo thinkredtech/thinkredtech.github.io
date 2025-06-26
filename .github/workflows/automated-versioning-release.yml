@@ -343,6 +343,7 @@ jobs:
       needs.analyze-changes.outputs.should-release == 'true' &&
       needs.pre-release-checks.outputs.checks-passed == 'true'
     outputs:
+      # These outputs are set by the "Create GitHub Release" step (id: release)
       release-created: ${{ steps.release.outputs.created }}
       release-tag: ${{ steps.release.outputs.tag }}
       release-url: ${{ steps.release.outputs.url }}
@@ -597,13 +598,20 @@ jobs:
               
               console.log(`✅ Release created: ${release.data.html_url}`);
               
+              // Set job outputs for use by subsequent jobs
               core.setOutput('created', 'true');
               core.setOutput('tag', tagName);
-              core.setOutput('url', release.data.html_url);
+              core.setOutput('url', release.data.html_url || '');
               
               return release.data;
             } catch (error) {
               console.error('❌ Failed to create release:', error);
+              
+              // Set failure outputs
+              core.setOutput('created', 'false');
+              core.setOutput('tag', '');
+              core.setOutput('url', '');
+              
               throw error;
             }
 

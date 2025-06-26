@@ -25,13 +25,16 @@ resulting in production-ready security configuration compliant with modern web s
 
 ```html
 <!-- Missing or inadequate CSP headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+/>
 ```
 
 ### Security Vulnerabilities Identified
 
 - ❌ **HTTP Resources Allowed**: `img-src` included `http:` enabling mixed content attacks
-- ❌ **Missing Frame Protection**: No `frame-ancestors` directive allowing clickjacking  
+- ❌ **Missing Frame Protection**: No `frame-ancestors` directive allowing clickjacking
 - ❌ **Overly Permissive Connections**: `connect-src` allowed all HTTPS domains
 - ❌ **Missing Directives**: No `media-src`, `child-src`, `worker-src` restrictions
 - ❌ **No Mixed Content Protection**: Missing `block-all-mixed-content` directive
@@ -41,24 +44,30 @@ resulting in production-ready security configuration compliant with modern web s
 ### Enhanced CSP Configuration (After)
 
 ```html
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https:; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https:; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 <meta http-equiv="X-Frame-Options" content="DENY" />
 <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()" />
+<meta
+  http-equiv="Permissions-Policy"
+  content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()"
+/>
 ```
 
 ### Files Modified
 
 - `/index.html` - Root application template
-- `/public/index.html` - Vite build template  
+- `/public/index.html` - Vite build template
 - `/build/index.html` - Production build output
 
 ### New Security Infrastructure
 
 - `src/utils/security.ts` - Enhanced with CSP configuration utilities
-- `src/config/csp.ts` - Production and development CSP configurations  
+- `src/config/csp.ts` - Production and development CSP configurations
 - `scripts/validate-security.js` - Security validation script
 - `scripts/deploy-production.sh` - Production deployment with strict CSP
 
@@ -75,7 +84,7 @@ resulting in production-ready security configuration compliant with modern web s
 
 - `media-src 'self'` - Audio/video content restrictions
 - `child-src 'none'` - Prevent iframe embedding
-- `frame-src 'none'` - Block frame sources  
+- `frame-src 'none'` - Block frame sources
 - `worker-src 'self'` - Service worker security
 - `manifest-src 'self'` - Web app manifest security
 
@@ -101,7 +110,7 @@ resulting in production-ready security configuration compliant with modern web s
 ✅ Content-Security-Policy: Configured
 ✅ X-Content-Type-Options: nosniff
 ✅ X-Frame-Options: DENY
-✅ X-XSS-Protection: Enabled  
+✅ X-XSS-Protection: Enabled
 ✅ Referrer-Policy: strict-origin-when-cross-origin
 ✅ Permissions-Policy: Restricted
 ```
@@ -128,7 +137,7 @@ npm run security:build
 ### Before Implementation
 
 - ❌ Basic CSP with security gaps
-- ❌ Missing critical security headers  
+- ❌ Missing critical security headers
 - ❌ HTTP resources allowed
 - ❌ Overly permissive directives
 
@@ -181,22 +190,22 @@ GitHub Actions workflow detected additional CSP violations with the following re
 ### Current CSP Status
 
 ```csp
-default-src 'self'; 
-script-src 'self' 'unsafe-inline'; 
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-font-src 'self' https://fonts.gstatic.com; 
-img-src 'self' data: https:; 
-connect-src 'self' https://api.thinkred.tech; 
-object-src 'none'; 
-media-src 'self'; 
-child-src 'none'; 
-frame-src 'none'; 
-worker-src 'self'; 
-manifest-src 'self'; 
-frame-ancestors 'none'; 
-base-uri 'self'; 
-form-action 'self'; 
-upgrade-insecure-requests; 
+default-src 'self';
+script-src 'self' 'unsafe-inline';
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+font-src 'self' https://fonts.gstatic.com;
+img-src 'self' data: https:;
+connect-src 'self' https://api.thinkred.tech;
+object-src 'none';
+media-src 'self';
+child-src 'none';
+frame-src 'none';
+worker-src 'self';
+manifest-src 'self';
+frame-ancestors 'none';
+base-uri 'self';
+form-action 'self';
+upgrade-insecure-requests;
 block-all-mixed-content;
 ```
 

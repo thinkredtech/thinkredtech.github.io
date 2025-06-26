@@ -30,13 +30,13 @@
 
 ## 🚀 Detailed Service Status
 
-| 🎯 Service | Status | Performance | Health Meter | Details |
-|-----------|--------|-------------|--------------|---------|
-| **🌐 Website** | 🟢 Operational | 850ms | `████████████████████` | Main site accessibility |
-| **🏗️ Build Pipeline** | 🟢 Healthy | 2m 15s | `████████████████████` | Automated deployment |
-| **⚡ Bundle Optimization** | 🟢 Optimized | 986KB | `███████████████████▒` | JS + CSS combined |
-| **🚫 Error Rate** | 🟢 Excellent | 0% | `████████████████████` | Zero errors detected |
-| **🛡️ Security Scan** | 🟢 Clean | 0 issues | `████████████████████` | Vulnerability monitoring |
+| 🎯 Service                 | Status         | Performance | Health Meter           | Details                  |
+| -------------------------- | -------------- | ----------- | ---------------------- | ------------------------ |
+| **🌐 Website**             | 🟢 Operational | 850ms       | `████████████████████` | Main site accessibility  |
+| **🏗️ Build Pipeline**      | 🟢 Healthy     | 2m 15s      | `████████████████████` | Automated deployment     |
+| **⚡ Bundle Optimization** | 🟢 Optimized   | 986KB       | `███████████████████▒` | JS + CSS combined        |
+| **🚫 Error Rate**          | 🟢 Excellent   | 0%          | `████████████████████` | Zero errors detected     |
+| **🛡️ Security Scan**       | 🟢 Clean       | 0 issues    | `████████████████████` | Vulnerability monitoring |
 
 ## 📊 Real-Time Performance Metrics
 
@@ -127,7 +127,7 @@
 **Direct Links:**
 
 - [🌐 Live Website](https://www.thinkred.tech) - Production site
-- [📊 Repository Health](./health-report.md) - Detailed health metrics  
+- [📊 Repository Health](./health-report.md) - Detailed health metrics
 - [🔒 Security Architecture](../docs/security-architecture.md) - Security documentation
 - [📈 GitHub Actions](https://github.com/thinkredtech/thinkredtech.github.io/actions) - CI/CD pipeline
 
@@ -136,10 +136,10 @@
 ```text
 📊 STATUS SUMMARY
 ┌─────────────────────────────────────────────────────────────────┐
-│ 🟢 ALL SYSTEMS: OPERATIONAL │ 📈 PERFORMANCE: EXCELLENT 88/100  │  
+│ 🟢 ALL SYSTEMS: OPERATIONAL │ 📈 PERFORMANCE: EXCELLENT 88/100  │
 │ 🛡️ SECURITY: A+ GRADE       │ ⚡ RESPONSE: 850ms (Target <1s)   │
 │ 🏗️ BUILDS: 100% SUCCESS     │ 📦 BUNDLE: 986KB (Under 1MB)     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-*🤖 This dashboard is automatically updated by monitoring systems twice daily.*
+_🤖 This dashboard is automatically updated by monitoring systems twice daily._

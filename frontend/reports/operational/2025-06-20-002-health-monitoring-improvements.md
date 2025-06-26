@@ -25,7 +25,7 @@
 {
   "bundle": {
     "js_size_kb": 889,
-    "css_size_kb": 97, 
+    "css_size_kb": 97,
     "total_size_kb": 986,
     "js_files": 27
   },
@@ -99,14 +99,14 @@
 
 ## 📊 Updated Health Report Summary
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Health Score | 40/100 | 92/100 | +130% |
-| Lines of Code | 0 | 15,395 | ✅ Accurate |
-| JS Bundle Size | 0KB | 889KB | ✅ Real metrics |
-| CSS Bundle Size | 0KB | 97KB | ✅ Real metrics |
-| JS Files | 0 | 27 | ✅ Shows chunking |
-| Vulnerabilities | 6 | 0 | ✅ Accurate count |
+| Metric          | Before | After  | Improvement       |
+| --------------- | ------ | ------ | ----------------- |
+| Health Score    | 40/100 | 92/100 | +130%             |
+| Lines of Code   | 0      | 15,395 | ✅ Accurate       |
+| JS Bundle Size  | 0KB    | 889KB  | ✅ Real metrics   |
+| CSS Bundle Size | 0KB    | 97KB   | ✅ Real metrics   |
+| JS Files        | 0      | 27     | ✅ Shows chunking |
+| Vulnerabilities | 6      | 0      | ✅ Accurate count |
 
 ## 🚀 Remote Repository Status
 

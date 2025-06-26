@@ -105,28 +105,61 @@ cd thinkred-monorepo
 npm run install:all
 
 # 3️⃣ Start development server
+npm start
+# or
 npm run dev
 
 # 4️⃣ Build for production
 npm run build
 
 # 5️⃣ Deploy all components
-npm run deploy:all
+npm run deploy
 ```
 
-### 🎯 Development Workflow
+> � **For release history, see [CHANGELOG.md](./CHANGELOG.md)**
 
-<div align="center">
+### 🎯 Essential Scripts
 
-| **Step** | **Command** | **Description** |
-|:---------|:------------|:----------------|
-| **🏗️ Setup** | `npm run install:all` | Install all dependencies |
-| **💻 Develop** | `npm run dev` | Start development server |
-| **🧪 Test** | `npm run test` | Run all tests |
-| **🔨 Build** | `npm run build` | Build for production |
-| **🚀 Deploy** | `npm run deploy:all` | Deploy all components |
+| Script | Description |
+|--------|-------------|
+| `npm start` | Start development server |
+| `npm run build` | Build for production |
+| `npm run clean` | Clean build artifacts |
+| `npm test` | Run tests |
+| `npm run lint` | Check code quality |
+| `npm run format` | Format code |
+| `npm run type-check` | TypeScript checking |
+| `npm run deploy` | Deploy to production |
 
-</div>
+### � Installation Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run install:all` | Install all dependencies |
+| `npm run install:frontend` | Frontend only |
+| `npm run install:backend` | Backend only |
+
+### 🔄 Common Workflows
+
+**Development:**
+```bash
+npm run install:all
+npm start
+```
+
+**Pre-commit:**
+```bash
+npm run lint
+npm run type-check
+npm run format:check
+npm test
+npm run build
+```
+
+**Deploy:**
+```bash
+npm run deploy
+```
 
 ---
 
@@ -204,7 +237,7 @@ npm run version:major:backend
 
 ```bash
 # 🚀 Deploy all components simultaneously
-npm run deploy:all
+npm run deploy
 
 # 🏷️ Complete release process (version + deploy + tag)
 npm run release:frontend      # Patch release

@@ -43,7 +43,9 @@ compliance to prevent XSS attacks and enhance security posture.
 
 ```html
 <!-- VULNERABLE - Contains unsafe directives -->
-<meta http-equiv="Content-Security-Policy" content="
+<meta
+  http-equiv="Content-Security-Policy"
+  content="
   default-src 'self';
   script-src 'self' 'unsafe-inline' 'unsafe-eval';
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -60,14 +62,17 @@ compliance to prevent XSS attacks and enhance security posture.
   base-uri 'self';
   form-action 'self';
   upgrade-insecure-requests;
-" />
+"
+/>
 ```
 
 ### After (Secure Configuration)
 
 ```html
 <!-- SECURE - No unsafe directives -->
-<meta http-equiv="Content-Security-Policy" content="
+<meta
+  http-equiv="Content-Security-Policy"
+  content="
   default-src 'self';
   script-src 'self';
   style-src 'self' https://fonts.googleapis.com;
@@ -85,7 +90,8 @@ compliance to prevent XSS attacks and enhance security posture.
   form-action 'self';
   upgrade-insecure-requests;
   block-all-mixed-content;
-" />
+"
+/>
 ```
 
 ## 📝 Changes Made
@@ -101,10 +107,12 @@ compliance to prevent XSS attacks and enhance security posture.
 ### 2. Fixed HTML Files
 
 **`/index.html`:**
+
 - ✅ Replaced SHA-based CSP with secure policy
 - ✅ Maintained all required security headers
 
 **`/public/index.html`:**
+
 - ✅ Removed duplicate CSP headers
 - ✅ Implemented single, consistent secure CSP
 - ✅ Maintained compatibility with build process
@@ -121,13 +129,13 @@ compliance to prevent XSS attacks and enhance security posture.
 
 ### Risk Mitigation
 
-| **Threat** | **Before** | **After** | **Impact** |
-|------------|------------|-----------|------------|
-| **XSS via Inline Scripts** | ❌ Vulnerable | ✅ Blocked | High |
-| **Code Injection via eval()** | ❌ Vulnerable | ✅ Blocked | High |
-| **CSS-based Attacks** | ❌ Vulnerable | ✅ Blocked | Medium |
-| **Mixed Content** | ⚠️ Partial | ✅ Blocked | Medium |
-| **Clickjacking** | ✅ Protected | ✅ Protected | - |
+| **Threat**                    | **Before**    | **After**    | **Impact** |
+| ----------------------------- | ------------- | ------------ | ---------- |
+| **XSS via Inline Scripts**    | ❌ Vulnerable | ✅ Blocked   | High       |
+| **Code Injection via eval()** | ❌ Vulnerable | ✅ Blocked   | High       |
+| **CSS-based Attacks**         | ❌ Vulnerable | ✅ Blocked   | Medium     |
+| **Mixed Content**             | ⚠️ Partial    | ✅ Blocked   | Medium     |
+| **Clickjacking**              | ✅ Protected  | ✅ Protected | -          |
 
 ### Compliance Status
 

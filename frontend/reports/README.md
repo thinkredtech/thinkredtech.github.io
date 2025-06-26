@@ -133,13 +133,13 @@ All reports must follow standardized templates for consistency:
 
 ## 🔄 Update Frequency
 
-| Report Type | Update Frequency | Workflow |
-|-------------|------------------|----------|
-| Status Dashboard | Hourly (9 AM - 6 PM UTC) | Real-time Status Dashboard |
-| Health Report | Every 6 hours | Repository Health Monitor |
-| Quality Report | Daily at 2 AM UTC + code changes | Quality & Security Checks |
-| Security Scans | Daily at 3 AM UTC + code changes | Sensitive Data Monitor |
-| Build Analysis | On every deployment | CI/CD Pipeline |
+| Report Type      | Update Frequency                 | Workflow                   |
+| ---------------- | -------------------------------- | -------------------------- |
+| Status Dashboard | Hourly (9 AM - 6 PM UTC)         | Real-time Status Dashboard |
+| Health Report    | Every 6 hours                    | Repository Health Monitor  |
+| Quality Report   | Daily at 2 AM UTC + code changes | Quality & Security Checks  |
+| Security Scans   | Daily at 3 AM UTC + code changes | Sensitive Data Monitor     |
+| Build Analysis   | On every deployment              | CI/CD Pipeline             |
 
 ## 📖 How to Read Reports
 
@@ -167,4 +167,4 @@ Critical issues found in reports automatically:
 
 ---
 
-*Reports are generated automatically by GitHub Actions workflows. Do not manually edit these files as they will be overwritten.*
+_Reports are generated automatically by GitHub Actions workflows. Do not manually edit these files as they will be overwritten._

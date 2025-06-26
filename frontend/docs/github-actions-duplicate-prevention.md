@@ -7,6 +7,7 @@ This document explains the duplicate issue prevention system implemented across 
 ## Problem Solved
 
 Previously, GitHub Actions workflows could create duplicate issues when:
+
 - Multiple workflow runs triggered the same issue type
 - Issues were closed and reopened by subsequent runs
 - Different workflows detected the same underlying problem
@@ -65,7 +66,7 @@ const existingOpenIssues = await github.rest.issues.listForRepo({
   owner: context.repo.owner,
   repo: context.repo.repo,
   labels: ['security', 'vulnerability'],
-  state: 'open'
+  state: 'open',
 });
 
 const existingClosedIssues = await github.rest.issues.listForRepo({
@@ -73,12 +74,15 @@ const existingClosedIssues = await github.rest.issues.listForRepo({
   repo: context.repo.repo,
   labels: ['security', 'vulnerability'],
   state: 'closed',
-  since: sevenDaysAgo.toISOString()
+  since: sevenDaysAgo.toISOString(),
 });
 
-const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+const allRelevantIssues = [
+  ...existingOpenIssues.data,
+  ...existingClosedIssues.data,
+];
 
-const issueExists = allRelevantIssues.some(issue => 
+const issueExists = allRelevantIssues.some(issue =>
   issue.title.includes('Security Vulnerabilities Detected')
 );
 
@@ -115,12 +119,14 @@ if (!issueExists) {
 ## Monitoring
 
 Each workflow logs its duplicate prevention decisions:
+
 - `"Created new [issue-type] issue"` - New issue created
 - `"[Issue-type] issue already exists or was recently closed, skipping creation"` - Duplicate prevented
 
 ## Testing
 
 To test the duplicate prevention:
+
 1. Trigger a workflow that would create an issue
 2. Verify the issue is created
 3. Trigger the same workflow again immediately
@@ -131,6 +137,7 @@ To test the duplicate prevention:
 ## Maintenance
 
 Review and update the duplicate prevention logic when:
+
 - Adding new issue types
 - Changing issue title formats
 - Modifying label strategies

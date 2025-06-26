@@ -112,7 +112,7 @@ The current CSP includes development-friendly directives:
 
 ```html
 <script nonce="random-nonce-value">
-<!-- inline scripts -->
+  <!-- inline scripts -->
 </script>
 ```
 
