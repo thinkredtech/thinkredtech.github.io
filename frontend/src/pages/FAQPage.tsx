@@ -1,3 +1,4 @@
+import React from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
 
 const FAQPage = () => {
@@ -6,7 +7,11 @@ const FAQPage = () => {
       <section className="py-8 md:py-16">
         <div className="container mx-auto text-center mt-16">
           <div className="flex flex-col items-center mb-8">
-            <FaQuestionCircle className="w-12 h-12 text-primary mb-4" />
+            {
+              (
+                <FaQuestionCircle className="w-12 h-12 text-primary mb-4" />
+              ) as React.ReactElement
+            }
             <h1 className="display-2 mb-2">Frequently Asked Questions</h1>
           </div>
           <p className="body-1-medium text-secondary max-w-3xl mx-auto">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 import {
   useScrollAnimation,
   useStaggeredAnimation,
@@ -52,20 +53,33 @@ const TechStack = () => {
       techs: [
         {
           name: 'React',
-          icon: <FaReact className="w-10 h-10 text-[#61DAFB]" />,
+          icon: (
+            <FaReact className="w-10 h-10 text-[#61DAFB]" />
+          ) as React.ReactElement,
         },
-        { name: 'Vue', icon: <FaVuejs className="w-10 h-10 text-[#4FC08D]" /> },
+        {
+          name: 'Vue',
+          icon: (
+            <FaVuejs className="w-10 h-10 text-[#4FC08D]" />
+          ) as React.ReactElement,
+        },
         {
           name: 'Next.js',
-          icon: <SiNextdotjs className="w-10 h-10 text-[#000000]" />,
+          icon: (
+            <SiNextdotjs className="w-10 h-10 text-[#000000]" />
+          ) as React.ReactElement,
         },
         {
           name: 'TailwindCSS',
-          icon: <SiTailwindcss className="w-10 h-10 text-[#06B6D4]" />,
+          icon: (
+            <SiTailwindcss className="w-10 h-10 text-[#06B6D4]" />
+          ) as React.ReactElement,
         },
         {
           name: 'TypeScript',
-          icon: <SiTypescript className="w-10 h-10 text-[#3178C6]" />,
+          icon: (
+            <SiTypescript className="w-10 h-10 text-[#3178C6]" />
+          ) as React.ReactElement,
         },
       ],
     },
@@ -74,31 +88,45 @@ const TechStack = () => {
       techs: [
         {
           name: 'Node.js',
-          icon: <FaNodeJs className="w-10 h-10 text-[#339933]" />,
+          icon: (
+            <FaNodeJs className="w-10 h-10 text-[#339933]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Express',
-          icon: <SiExpress className="w-10 h-10 text-[#000000]" />,
+          icon: (
+            <SiExpress className="w-10 h-10 text-[#000000]" />
+          ) as React.ReactElement,
         },
         {
           name: 'NestJS',
-          icon: <SiNestjs className="w-10 h-10 text-[#E0234E]" />,
+          icon: (
+            <SiNestjs className="w-10 h-10 text-[#E0234E]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Python',
-          icon: <FaPython className="w-10 h-10 text-[#3776AB]" />,
+          icon: (
+            <FaPython className="w-10 h-10 text-[#3776AB]" />
+          ) as React.ReactElement,
         },
         {
           name: 'FastAPI',
-          icon: <SiFastapi className="w-10 h-10 text-[#009688]" />,
+          icon: (
+            <SiFastapi className="w-10 h-10 text-[#009688]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Spring Boot',
-          icon: <SiSpringboot className="w-10 h-10 text-[#6DB33F]" />,
+          icon: (
+            <SiSpringboot className="w-10 h-10 text-[#6DB33F]" />
+          ) as React.ReactElement,
         },
         {
           name: 'PHP',
-          icon: <SiPhp className="w-10 h-10 text-[#777BB4]" />,
+          icon: (
+            <SiPhp className="w-10 h-10 text-[#777BB4]" />
+          ) as React.ReactElement,
         },
       ],
     },
@@ -107,19 +135,27 @@ const TechStack = () => {
       techs: [
         {
           name: 'MySQL',
-          icon: <SiMysql className="w-10 h-10 text-[#4479A1]" />,
+          icon: (
+            <SiMysql className="w-10 h-10 text-[#4479A1]" />
+          ) as React.ReactElement,
         },
         {
           name: 'PostgreSQL',
-          icon: <SiPostgresql className="w-10 h-10 text-[#336791]" />,
+          icon: (
+            <SiPostgresql className="w-10 h-10 text-[#336791]" />
+          ) as React.ReactElement,
         },
         {
           name: 'GraphQL',
-          icon: <SiGraphql className="w-10 h-10 text-[#E10098]" />,
+          icon: (
+            <SiGraphql className="w-10 h-10 text-[#E10098]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Firebase',
-          icon: <SiFirebase className="w-10 h-10 text-[#FFCA28]" />,
+          icon: (
+            <SiFirebase className="w-10 h-10 text-[#FFCA28]" />
+          ) as React.ReactElement,
         },
       ],
     },
@@ -128,11 +164,15 @@ const TechStack = () => {
       techs: [
         {
           name: 'WordPress',
-          icon: <SiWordpress className="w-10 h-10 text-[#21759B]" />,
+          icon: (
+            <SiWordpress className="w-10 h-10 text-[#21759B]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Drupal',
-          icon: <SiDrupal className="w-10 h-10 text-[#0073BA]" />,
+          icon: (
+            <SiDrupal className="w-10 h-10 text-[#0073BA]" />
+          ) as React.ReactElement,
         },
       ],
     },
@@ -141,11 +181,15 @@ const TechStack = () => {
       techs: [
         {
           name: 'TensorFlow',
-          icon: <SiTensorflow className="w-10 h-10 text-[#FF6F00]" />,
+          icon: (
+            <SiTensorflow className="w-10 h-10 text-[#FF6F00]" />
+          ) as React.ReactElement,
         },
         {
           name: 'PyTorch',
-          icon: <SiPytorch className="w-10 h-10 text-[#EE4C2C]" />,
+          icon: (
+            <SiPytorch className="w-10 h-10 text-[#EE4C2C]" />
+          ) as React.ReactElement,
         },
         {
           name: 'LLM Integration',
@@ -170,16 +214,27 @@ const TechStack = () => {
       techs: [
         {
           name: 'Docker',
-          icon: <FaDocker className="w-10 h-10 text-[#2496ED]" />,
+          icon: (
+            <FaDocker className="w-10 h-10 text-[#2496ED]" />
+          ) as React.ReactElement,
         },
         {
           name: 'Kubernetes',
-          icon: <SiKubernetes className="w-10 h-10 text-[#326CE5]" />,
+          icon: (
+            <SiKubernetes className="w-10 h-10 text-[#326CE5]" />
+          ) as React.ReactElement,
         },
-        { name: 'AWS', icon: <FaAws className="w-10 h-10 text-[#FF9900]" /> },
+        {
+          name: 'AWS',
+          icon: (
+            <FaAws className="w-10 h-10 text-[#FF9900]" />
+          ) as React.ReactElement,
+        },
         {
           name: 'GitHub Actions',
-          icon: <FaGithub className="w-10 h-10 text-[#2088FF]" />,
+          icon: (
+            <FaGithub className="w-10 h-10 text-[#2088FF]" />
+          ) as React.ReactElement,
         },
       ],
     },
