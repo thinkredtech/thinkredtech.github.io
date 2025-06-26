@@ -112,6 +112,12 @@ const ContactPage = () => {
         return;
       }
 
+      if (!formData.projectType) {
+        setSubmitError('Please select a project type.');
+        setIsSubmitting(false);
+        return;
+      }
+
       // Sanitize inputs
       const sanitizedData = {
         formType: 'Contact Us',
@@ -119,6 +125,9 @@ const ContactPage = () => {
         email: sanitizeInput(formData.email),
         company: sanitizeInput(formData.company),
         phone: sanitizeInput(formData.phone),
+        projectType: sanitizeInput(formData.projectType),
+        budget: sanitizeInput(formData.budget),
+        timeline: sanitizeInput(formData.timeline),
         message: sanitizeInput(formData.message),
       };
 

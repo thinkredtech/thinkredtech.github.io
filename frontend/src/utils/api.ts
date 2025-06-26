@@ -62,6 +62,9 @@ export const submitContactForm = async (
     if (result.error) {
       throw new Error(result.error);
     }
+
+    // Log successful submission
+    logFormSubmission('contactForm', true);
   } catch (error) {
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
@@ -78,6 +81,13 @@ export const submitContactForm = async (
         'Unable to submit form. Please check your internet connection or try again later.'
       );
     }
+
+    // Log failed submission
+    logFormSubmission(
+      'contactForm',
+      false,
+      error instanceof Error ? error.message : String(error)
+    );
 
     throw error;
   }
@@ -138,14 +148,46 @@ export const submitJobApplication = async (
     if (result.error) {
       throw new Error(result.error);
     }
+
+    // Log successful submission
+    logFormSubmission('jobApplication', true);
   } catch (error) {
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
       console.error('Error submitting job application:', error);
     }
+
+    // Log failed submission
+    logFormSubmission(
+      'jobApplication',
+      false,
+      error instanceof Error ? error.message : String(error)
+    );
+
     throw error;
   }
+};
+
+/**
+ * Log form submission analytics (for monitoring and improvement)
+ */
+export const logFormSubmission = (
+  formType: string,
+  success: boolean,
+  error?: string
+): void => {
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log(`[Form Analytics] ${formType}:`, {
+      success,
+      timestamp: new Date().toISOString(),
+      error,
+    });
+  }
+
+  // In production, you could send this to an analytics service
+  // Example: analytics.track('Form Submission', { formType, success, error });
 };
 
 /**

@@ -179,11 +179,6 @@ const JobApplicationPage = () => {
       newErrors.resume = 'Resume is required';
     }
 
-    // File validation
-    if (!files.resume) {
-      newErrors.resume = 'Resume is required';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -200,14 +195,20 @@ const JobApplicationPage = () => {
     try {
       // Spam prevention: Check honeypot field
       if (!validateHoneypot(formData.honeypot)) {
-        alert('Spam detected. Please try again.');
+        setErrors(prev => ({
+          ...prev,
+          general: 'Spam detected. Please try again.',
+        }));
         setIsSubmitting(false);
         return;
       }
 
       // Rate limiting: Check for rapid successive submissions
       if (!checkRateLimit(formData.email, 10000)) {
-        alert('Please wait before submitting another application.');
+        setErrors(prev => ({
+          ...prev,
+          general: 'Please wait before submitting another application.',
+        }));
         setIsSubmitting(false);
         return;
       }
@@ -274,7 +275,10 @@ const JobApplicationPage = () => {
       // Handle error appropriately with better error message
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error occurred';
-      alert(`Error submitting application: ${errorMessage}. Please try again.`);
+      setErrors(prev => ({
+        ...prev,
+        general: `Error submitting application: ${errorMessage}. Please try again.`,
+      }));
     } finally {
       setIsSubmitting(false);
     }
@@ -407,6 +411,13 @@ const JobApplicationPage = () => {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* General Error Message */}
+                  {errors.general && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+                      {errors.general}
+                    </div>
+                  )}
+
                   {/* Personal Information */}
                   <div>
                     <h3 className="heading-3 text-secondary mb-4">

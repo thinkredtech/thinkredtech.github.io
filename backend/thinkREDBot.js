@@ -49,6 +49,9 @@ function handleContactForm(data) {
     data.email,
     data.phone || '',
     data.company || '',
+    data.projectType || '',
+    data.budget || '',
+    data.timeline || '',
     data.message
   ]);
 
@@ -64,6 +67,9 @@ Name: ${data.name}
 Email: ${data.email}
 Phone: ${data.phone || '-'}
 Company: ${data.company || '-'}
+Project Type: ${data.projectType || '-'}
+Budget: ${data.budget || '-'}
+Timeline: ${data.timeline || '-'}
 Message:
 ${data.message}
 
@@ -80,6 +86,9 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
   <li><strong>Email:</strong> ${data.email}</li>
   <li><strong>Phone:</strong> ${data.phone || '-'}</li>
   <li><strong>Company:</strong> ${data.company || '-'}</li>
+  <li><strong>Project Type:</strong> ${data.projectType || '-'}</li>
+  <li><strong>Budget:</strong> ${data.budget || '-'}</li>
+  <li><strong>Timeline:</strong> ${data.timeline || '-'}</li>
 </ul>
 <p><strong>Message:</strong><br>${data.message}</p>
 <p><a href="https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}">View Spreadsheet</a></p>
