@@ -46,6 +46,7 @@ export const submitContactForm = async (
       headers: {
         'Content-Type': 'application/json',
       },
+      mode: 'cors',
       body: JSON.stringify({
         action: 'submitContactForm',
         data: formData,
@@ -67,6 +68,17 @@ export const submitContactForm = async (
       // eslint-disable-next-line no-console
       console.error('Error submitting contact form:', error);
     }
+
+    // Provide a more user-friendly error message
+    if (
+      error instanceof TypeError &&
+      error.message.includes('Failed to fetch')
+    ) {
+      throw new Error(
+        'Unable to submit form. Please check your internet connection or try again later.'
+      );
+    }
+
     throw error;
   }
 };

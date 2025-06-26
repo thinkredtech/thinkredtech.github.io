@@ -10,6 +10,11 @@ const EMAIL_CC_CONTACT_FORM = SCRIPT_PROPS.getProperty('EMAIL_CC_CONTACT_FORM');
 const EMAIL_CC_JOB_APPLY = SCRIPT_PROPS.getProperty('EMAIL_CC_JOB_APPLY');
 
 // === ENTRY POINT ===
+function doGet(e) {
+  // Handle preflight OPTIONS requests
+  return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+}
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
@@ -85,8 +90,7 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
     htmlBody: htmlBody
   });
 
-  return ContentService.createTextOutput(JSON.stringify({ success: true }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return createCorsResponse({ success: true });
 }
 
 // === JOB APPLICATION HANDLER ===
@@ -166,8 +170,7 @@ https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}
     htmlBody: htmlBody
   });
 
-  return ContentService.createTextOutput(JSON.stringify({ success: true }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return createCorsResponse({ success: true });
 }
 
 // === UTILITY FUNCTIONS ===
@@ -177,6 +180,16 @@ function getOrCreateSubFolder(parent, name) {
 }
 
 function createErrorResponse(message) {
-  return ContentService.createTextOutput(JSON.stringify({ success: false, error: message }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return createCorsResponse({ success: false, error: message });
+}
+
+function createCorsResponse(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '3600'
+    });
 }
