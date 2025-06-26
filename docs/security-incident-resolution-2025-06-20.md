@@ -52,12 +52,14 @@ paths = [
 ### 2. Updated Documentation Placeholders
 
 **Before (flagged by scanner):**
+
 ```bash
 export REACT_APP_ADMIN_PASSWORD="REPLACE_WITH_STRONG_PASSWORD"
 const ADMIN_PASSWORD = "ACTUAL_VALUE_FROM_ENV_VAR";
 ```
 
 **After (safer format):**
+
 ```bash
 export REACT_APP_ADMIN_PASSWORD="<YOUR_ADMIN_PASSWORD_HERE>"
 const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
@@ -66,6 +68,7 @@ const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
 ### 3. Updated Environment Example File
 
 **`.env.example` improvements:**
+
 - Changed `REPLACE_WITH_STRONG_PASSWORD` → `<YOUR_SECURE_PASSWORD_HERE>`
 - Added clearer documentation about security practices
 
@@ -118,11 +121,11 @@ const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
 
 ## 📝 Files Modified
 
-| File | Change Type | Description |
-|------|-------------|-------------|
-| `.gitleaks.toml` | **Created** | Comprehensive security scanner configuration |
-| `README.md` | **Updated** | Improved placeholder formats in documentation |
-| `.env.example` | **Updated** | Safer placeholder pattern |
+| File             | Change Type | Description                                   |
+| ---------------- | ----------- | --------------------------------------------- |
+| `.gitleaks.toml` | **Created** | Comprehensive security scanner configuration  |
+| `README.md`      | **Updated** | Improved placeholder formats in documentation |
+| `.env.example`   | **Updated** | Safer placeholder pattern                     |
 
 ## ✨ Benefits Achieved
 
@@ -135,6 +138,7 @@ const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
 ## 🔍 Verification
 
 The fix will be verified by:
+
 - ✅ Pushing changes triggers new security scan
 - ✅ GitLeaks scan should pass with new configuration
 - ✅ No new duplicate issues should be created

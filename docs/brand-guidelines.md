@@ -13,7 +13,7 @@ The term **"thinkred"** originates from the powerful combination of **"think"** 
 thinking paired with a vibrant, impactful methodology. This fusion embodies our philosophy of:
 
 - **Strategic Thinking**: Deep, analytical problem-solving that cuts to the core of technological challenges
-- **Vibrant Impact**: Bold, decisive action that creates meaningful change in business outcomes  
+- **Vibrant Impact**: Bold, decisive action that creates meaningful change in business outcomes
 - **Red Innovation**: The courage to think differently and challenge conventional approaches
 - **Focus on Results**: A commitment to delivering outcomes that matter, not just solutions that work
 
@@ -26,7 +26,7 @@ While **thinkred** signifies the foundation of our approach, **ThinkRED** (the c
 organizational level. The capitalized "RED" emphasizes our commitment to:
 
 - **Revolutionary thinking** that transforms industries
-- **Exceptional delivery** that exceeds client expectations  
+- **Exceptional delivery** that exceeds client expectations
 - **Disruptive innovation** that simplifies complex technology landscapes
 - **Enterprise-grade Solutions** that scale with business growth
 
@@ -120,7 +120,7 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 #### RED's Identity & Meaning
 
 - **Name Origin**: "RED" is a clever wordplay combining "think" and "red" with the double meaning of making **R**evolutionary
-**E**ngineering **D**ecisions. The mascot embodies the company's core philosophy of strategic thinking combined with bold action.
+  **E**ngineering **D**ecisions. The mascot embodies the company's core philosophy of strategic thinking combined with bold action.
 - **Personality**: Intelligent, helpful, approachable, innovative, and slightly playful
 - **Role**: Digital brand ambassador, interactive assistant, and user experience enhancer
 - **Characteristics**: Embodies strategic thinking, technical expertise, user-focused problem-solving, and the "thinkred" methodology
@@ -236,36 +236,36 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 
 #### Display Typography (Comfortaa)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage Context |
-|-------|------------------|----------------|---------|---------------|
-| **Display 1** | 80px/88px | -2px | Medium (500) | Hero headlines, primary brand statements |
-| **Display 2** | 48px/56px | -1px | Medium (500) | Section headers, secondary headlines |
+| Style         | Size/Line Height | Letter Spacing | Weight       | Usage Context                            |
+| ------------- | ---------------- | -------------- | ------------ | ---------------------------------------- |
+| **Display 1** | 80px/88px        | -2px           | Medium (500) | Hero headlines, primary brand statements |
+| **Display 2** | 48px/56px        | -1px           | Medium (500) | Section headers, secondary headlines     |
 
 #### Heading Typography (Montserrat)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage Context |
-|-------|------------------|----------------|---------|---------------|
-| **Heading 1** | 32px/40px | -0.5px | Medium (500) / Regular (400) | Page titles, main sections |
-| **Heading 2** | 24px/32px | -0.25px | Medium (500) / Regular (400) | Subsections, content blocks |
-| **Heading 3** | 18px/26px | -0.25px | Medium (500) / Regular (400) | Card titles, minor sections |
+| Style         | Size/Line Height | Letter Spacing | Weight                       | Usage Context               |
+| ------------- | ---------------- | -------------- | ---------------------------- | --------------------------- |
+| **Heading 1** | 32px/40px        | -0.5px         | Medium (500) / Regular (400) | Page titles, main sections  |
+| **Heading 2** | 24px/32px        | -0.25px        | Medium (500) / Regular (400) | Subsections, content blocks |
+| **Heading 3** | 18px/26px        | -0.25px        | Medium (500) / Regular (400) | Card titles, minor sections |
 
 #### Body Typography (Montserrat)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage Context |
-|-------|------------------|----------------|---------|---------------|
-| **Body 1** | 16px/24px | 0px | Regular (400) / Medium (500) | Primary content, descriptions |
-| **Body 2** | 14px/20px | 0px | Regular (400) / Medium (500) | Secondary content, captions |
+| Style      | Size/Line Height | Letter Spacing | Weight                       | Usage Context                 |
+| ---------- | ---------------- | -------------- | ---------------------------- | ----------------------------- |
+| **Body 1** | 16px/24px        | 0px            | Regular (400) / Medium (500) | Primary content, descriptions |
+| **Body 2** | 14px/20px        | 0px            | Regular (400) / Medium (500) | Secondary content, captions   |
 
 #### Interface Typography (Montserrat)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage Context |
-|-------|------------------|----------------|---------|---------------|
-| **CTA Medium** | 14px | +1.5px | SemiBold (600) | Primary action buttons |
-| **CTA Small** | 12px | +1px | SemiBold (600) | Secondary buttons |
-| **Label Primary** | 14px | +1px | SemiBold (600) | Form labels, navigation |
-| **Label Secondary** | 12px | +1px | SemiBold (600) | Small labels, tags |
-| **Caption** | 12px/16px | +0.25px | Medium (500) | Image captions, footnotes |
-| **Breadcrumb** | 10px/14px | +0.25px | Medium (500) | Navigation breadcrumbs |
+| Style               | Size/Line Height | Letter Spacing | Weight         | Usage Context             |
+| ------------------- | ---------------- | -------------- | -------------- | ------------------------- |
+| **CTA Medium**      | 14px             | +1.5px         | SemiBold (600) | Primary action buttons    |
+| **CTA Small**       | 12px             | +1px           | SemiBold (600) | Secondary buttons         |
+| **Label Primary**   | 14px             | +1px           | SemiBold (600) | Form labels, navigation   |
+| **Label Secondary** | 12px             | +1px           | SemiBold (600) | Small labels, tags        |
+| **Caption**         | 12px/16px        | +0.25px        | Medium (500)   | Image captions, footnotes |
+| **Breadcrumb**      | 10px/14px        | +0.25px        | Medium (500)   | Navigation breadcrumbs    |
 
 ## Color System
 
@@ -286,17 +286,17 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 
 ### Typography Colors
 
-| Color | HEX Code | RGB Values | Usage |
-|-------|----------|------------|--------|
-| **Primary Text** | `#2A2A2A` | rgb(42, 42, 42) | Headlines, body text, primary content |
-| **Secondary Text** | `#7A7A7A` | rgb(122, 122, 122) | Supporting text, descriptions |
-| **Tertiary Text** | `#AAAAAA` | rgb(170, 170, 170) | Captions, metadata, subtle text |
+| Color              | HEX Code  | RGB Values         | Usage                                 |
+| ------------------ | --------- | ------------------ | ------------------------------------- |
+| **Primary Text**   | `#2A2A2A` | rgb(42, 42, 42)    | Headlines, body text, primary content |
+| **Secondary Text** | `#7A7A7A` | rgb(122, 122, 122) | Supporting text, descriptions         |
+| **Tertiary Text**  | `#AAAAAA` | rgb(170, 170, 170) | Captions, metadata, subtle text       |
 
 ### Background Colors
 
-| Color | HEX Code | RGB Values | Usage |
-|-------|----------|------------|--------|
-| **Primary Background** | `#FEFEFE` | rgb(254, 254, 254) | Main page backgrounds |
+| Color                    | HEX Code  | RGB Values         | Usage                       |
+| ------------------------ | --------- | ------------------ | --------------------------- |
+| **Primary Background**   | `#FEFEFE` | rgb(254, 254, 254) | Main page backgrounds       |
 | **Secondary Background** | `#FEFEF6` | rgb(254, 254, 246) | Section alternatives, cards |
 
 ## Brand Voice & Tone
@@ -334,4 +334,4 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 
 ---
 
-*For technical implementation details, see the [Design System Documentation](./design-system).*
+_For technical implementation details, see the [Design System Documentation](./design-system)._

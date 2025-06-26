@@ -139,15 +139,15 @@ MAJOR.MINOR.PATCH[-PRERELEASE]
 
 ### Version Bump Decision Matrix
 
-| Detected Changes | Version Type | Example |
-|------------------|--------------|---------|
-| Breaking changes (BREAKING, !, major:) | **Major** | 1.0.0 → 2.0.0 |
-| New features (feat, add, new) | **Minor** | 1.0.0 → 1.1.0 |
-| Performance improvements (perf, optimize) | **Minor** | 1.0.0 → 1.1.0 |
-| Bug fixes (fix, bug, patch) | **Patch** | 1.0.0 → 1.0.1 |
-| Security updates (security, vuln, cve) | **Patch** | 1.0.0 → 1.0.1 |
-| Dependency updates (package.json) | **Patch** | 1.0.0 → 1.0.1 |
-| Documentation only | **None** | No version change |
+| Detected Changes                          | Version Type | Example           |
+| ----------------------------------------- | ------------ | ----------------- |
+| Breaking changes (BREAKING, !, major:)    | **Major**    | 1.0.0 → 2.0.0     |
+| New features (feat, add, new)             | **Minor**    | 1.0.0 → 1.1.0     |
+| Performance improvements (perf, optimize) | **Minor**    | 1.0.0 → 1.1.0     |
+| Bug fixes (fix, bug, patch)               | **Patch**    | 1.0.0 → 1.0.1     |
+| Security updates (security, vuln, cve)    | **Patch**    | 1.0.0 → 1.0.1     |
+| Dependency updates (package.json)         | **Patch**    | 1.0.0 → 1.0.1     |
+| Documentation only                        | **None**     | No version change |
 
 ### Prerelease Versioning
 
@@ -168,13 +168,13 @@ For beta/testing versions:
 
 ### Release Condition Matrix
 
-| Condition | Changelog Updated | Security Update | Breaking Change | Result |
-|-----------|------------------|-----------------|-----------------|---------|
-| Version change detected | ✅ Yes | - | - | ✅ **Release** |
-| Version change detected | ❌ No | ✅ Yes | - | ✅ **Release** |
-| Version change detected | ❌ No | ❌ No | ✅ Yes | ✅ **Release** |
-| Version change detected | ❌ No | ❌ No | ❌ No | ⏸️ **Hold** |
-| No version change | - | - | - | ⏸️ **Skip** |
+| Condition               | Changelog Updated | Security Update | Breaking Change | Result         |
+| ----------------------- | ----------------- | --------------- | --------------- | -------------- |
+| Version change detected | ✅ Yes            | -               | -               | ✅ **Release** |
+| Version change detected | ❌ No             | ✅ Yes          | -               | ✅ **Release** |
+| Version change detected | ❌ No             | ❌ No           | ✅ Yes          | ✅ **Release** |
+| Version change detected | ❌ No             | ❌ No           | ❌ No           | ⏸️ **Hold**    |
+| No version change       | -                 | -               | -               | ⏸️ **Skip**    |
 
 ### Manual Release Override
 

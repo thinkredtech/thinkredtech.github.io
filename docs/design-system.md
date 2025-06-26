@@ -56,37 +56,37 @@ Used for all body text, navigation, and interface elements where readability and
 
 #### Display Typography (Comfortaa)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage |
-|-------|------------------|----------------|---------|--------|
-| Display 1 | 80px/88px | -2px | Medium 500 | Hero headlines, primary brand statements |
-| Display 2 | 48px/56px | -1px | Medium 500 | Section headers, secondary headlines |
+| Style     | Size/Line Height | Letter Spacing | Weight     | Usage                                    |
+| --------- | ---------------- | -------------- | ---------- | ---------------------------------------- |
+| Display 1 | 80px/88px        | -2px           | Medium 500 | Hero headlines, primary brand statements |
+| Display 2 | 48px/56px        | -1px           | Medium 500 | Section headers, secondary headlines     |
 
 #### Heading Typography (Montserrat)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage |
-|-------|------------------|----------------|---------|--------|
-| Heading 1 | 32px/40px | -0.5px | Medium 500/Regular 400 | Page titles, main section headers |
-| Heading 2 | 24px/32px | -0.25px | Medium 500/Regular 400 | Subsection headers, card titles |
-| Heading 3 | 18px/26px | -0.25px | Medium 500/Regular 400 | Component headers, list headers |
+| Style     | Size/Line Height | Letter Spacing | Weight                 | Usage                             |
+| --------- | ---------------- | -------------- | ---------------------- | --------------------------------- |
+| Heading 1 | 32px/40px        | -0.5px         | Medium 500/Regular 400 | Page titles, main section headers |
+| Heading 2 | 24px/32px        | -0.25px        | Medium 500/Regular 400 | Subsection headers, card titles   |
+| Heading 3 | 18px/26px        | -0.25px        | Medium 500/Regular 400 | Component headers, list headers   |
 
 #### Body Typography (Montserrat)
 
-| Style | Size/Line Height | Letter Spacing | Weight | Usage |
-|-------|------------------|----------------|---------|--------|
-| Body 1 | 16px/24px | 0 | Regular 400/Medium 500/SemiBold 600 | Primary body text, descriptions |
-| Body 2 | 14px/20px | 0 | Medium 500 | Secondary text, captions |
+| Style  | Size/Line Height | Letter Spacing | Weight                              | Usage                           |
+| ------ | ---------------- | -------------- | ----------------------------------- | ------------------------------- |
+| Body 1 | 16px/24px        | 0              | Regular 400/Medium 500/SemiBold 600 | Primary body text, descriptions |
+| Body 2 | 14px/20px        | 0              | Medium 500                          | Secondary text, captions        |
 
 #### Interactive Typography (Montserrat)
 
-| Style | Size | Letter Spacing | Weight | Usage |
-|-------|------|----------------|---------|--------|
-| CTA Medium | 14px | 1.5px | SemiBold 600 | Primary buttons, prominent calls-to-action |
-| CTA Small | 12px | 1px | SemiBold 600 | Secondary buttons, small interactive elements |
-| Label 1 | 14px | 1px | SemiBold 600 | Form labels, primary labels |
-| Label 2 | 12px | 1px | SemiBold 600 | Secondary labels, metadata |
-| Small Label | 10px/14px | 0.25px | SemiBold 600 | Micro-labels, status indicators |
-| Caption | 12px/16px | 0.25px | SemiBold 600/Medium 500 | Image captions, fine print |
-| Breadcrumb | 10px/14px | 0.25px | Medium 500 | Navigation breadcrumbs |
+| Style       | Size      | Letter Spacing | Weight                  | Usage                                         |
+| ----------- | --------- | -------------- | ----------------------- | --------------------------------------------- |
+| CTA Medium  | 14px      | 1.5px          | SemiBold 600            | Primary buttons, prominent calls-to-action    |
+| CTA Small   | 12px      | 1px            | SemiBold 600            | Secondary buttons, small interactive elements |
+| Label 1     | 14px      | 1px            | SemiBold 600            | Form labels, primary labels                   |
+| Label 2     | 12px      | 1px            | SemiBold 600            | Secondary labels, metadata                    |
+| Small Label | 10px/14px | 0.25px         | SemiBold 600            | Micro-labels, status indicators               |
+| Caption     | 12px/16px | 0.25px         | SemiBold 600/Medium 500 | Image captions, fine print                    |
+| Breadcrumb  | 10px/14px | 0.25px         | Medium 500              | Navigation breadcrumbs                        |
 
 ## Color System
 
@@ -145,18 +145,18 @@ Each brand color includes predefined opacity variants:
 
 Built on an 8px base unit for mathematical consistency and visual harmony.
 
-| Token | Value | Rem Equivalent | Usage |
-|-------|-------|----------------|--------|
-| `spacing-1` | 4px | 0.25rem | Tiny gaps, tight spacing |
-| `spacing-2` | 8px | 0.5rem | Small spacing, icon gaps |
-| `spacing-3` | 12px | 0.75rem | Small component spacing |
-| `spacing-4` | 16px | 1rem | Regular spacing, paragraph gaps |
-| `spacing-6` | 24px | 1.5rem | Medium spacing, section gaps |
-| `spacing-8` | 32px | 2rem | Large spacing, component margins |
-| `spacing-10` | 40px | 2.5rem | Very large spacing |
-| `spacing-12` | 48px | 3rem | Extra large spacing |
-| `spacing-14` | 56px | 3.5rem | Huge spacing |
-| `spacing-16` | 64px | 4rem | Giant spacing, section dividers |
+| Token        | Value | Rem Equivalent | Usage                            |
+| ------------ | ----- | -------------- | -------------------------------- |
+| `spacing-1`  | 4px   | 0.25rem        | Tiny gaps, tight spacing         |
+| `spacing-2`  | 8px   | 0.5rem         | Small spacing, icon gaps         |
+| `spacing-3`  | 12px  | 0.75rem        | Small component spacing          |
+| `spacing-4`  | 16px  | 1rem           | Regular spacing, paragraph gaps  |
+| `spacing-6`  | 24px  | 1.5rem         | Medium spacing, section gaps     |
+| `spacing-8`  | 32px  | 2rem           | Large spacing, component margins |
+| `spacing-10` | 40px  | 2.5rem         | Very large spacing               |
+| `spacing-12` | 48px  | 3rem           | Extra large spacing              |
+| `spacing-14` | 56px  | 3.5rem         | Huge spacing                     |
+| `spacing-16` | 64px  | 4rem           | Giant spacing, section dividers  |
 
 ### Layout Spacing
 
@@ -169,12 +169,12 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 
 ### Elevation Levels
 
-| Level | Shadow | Usage |
-|-------|---------|--------|
-| **Subtle** | `0.4px 8px rgba(0,0,0,0.08)` | Hover states, slight elevation |
-| **Subtle 2** | `0.4px 8px rgba(0,0,0,0.08)` | Alternative subtle shadow |
-| **Small** | `0.4px 8px rgba(0,0,0,0.16)` | Small cards, dropdowns |
-| **Regular** | `0.8px 8px rgba(0,0,0,0.16)` | Cards, modals, prominent elements |
+| Level        | Shadow                       | Usage                             |
+| ------------ | ---------------------------- | --------------------------------- |
+| **Subtle**   | `0.4px 8px rgba(0,0,0,0.08)` | Hover states, slight elevation    |
+| **Subtle 2** | `0.4px 8px rgba(0,0,0,0.08)` | Alternative subtle shadow         |
+| **Small**    | `0.4px 8px rgba(0,0,0,0.16)` | Small cards, dropdowns            |
+| **Regular**  | `0.8px 8px rgba(0,0,0,0.16)` | Cards, modals, prominent elements |
 
 ### Shadow Usage Guidelines
 
@@ -187,13 +187,13 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 
 ### Radius Scale
 
-| Token | Value | Usage |
-|-------|-------|--------|
-| `radius-sm` | 4px | Small elements, badges, tags |
-| `radius-default` | 8px | Default components, buttons, inputs |
-| `radius-lg` | 16px | Large components, cards, modals |
-| `radius-xl` | 24px | Extra large components, hero sections |
-| `radius-full` | 9999px | Circular elements, pills, avatars |
+| Token            | Value  | Usage                                 |
+| ---------------- | ------ | ------------------------------------- |
+| `radius-sm`      | 4px    | Small elements, badges, tags          |
+| `radius-default` | 8px    | Default components, buttons, inputs   |
+| `radius-lg`      | 16px   | Large components, cards, modals       |
+| `radius-xl`      | 24px   | Extra large components, hero sections |
+| `radius-full`    | 9999px | Circular elements, pills, avatars     |
 
 ## Component Guidelines
 
@@ -304,12 +304,12 @@ Built on an 8px base unit for mathematical consistency and visual harmony.
 
 ### Breakpoint System
 
-| Breakpoint | Min Width | Usage |
-|------------|-----------|--------|
-| `mobile` | 0px | Default, mobile-first approach |
-| `tablet` | 768px | Tablet devices, medium screens |
-| `desktop` | 1024px | Desktop devices, large screens |
-| `wide` | 1440px | Large desktop displays |
+| Breakpoint | Min Width | Usage                          |
+| ---------- | --------- | ------------------------------ |
+| `mobile`   | 0px       | Default, mobile-first approach |
+| `tablet`   | 768px     | Tablet devices, medium screens |
+| `desktop`  | 1024px    | Desktop devices, large screens |
+| `wide`     | 1440px    | Large desktop displays         |
 
 ### Grid System
 
@@ -331,7 +331,7 @@ All design tokens are implemented as CSS custom properties for easy theming and 
   --color-accent-purple: #ae6cfc;
   --spacing-4: 1rem;
   --radius-default: 8px;
-  --shadow-regular: 0.8px 8px rgba(0,0,0,0.16);
+  --shadow-regular: 0.8px 8px rgba(0, 0, 0, 0.16);
 }
 ```
 

@@ -286,6 +286,6 @@ For security-related inquiries or to report vulnerabilities:
 
 ---
 
-*Last Updated: June 20, 2025*
-*Security Review: Comprehensive hardening completed*
-*Next Review: December 20, 2025*
+_Last Updated: June 20, 2025_
+_Security Review: Comprehensive hardening completed_
+_Next Review: December 20, 2025_
