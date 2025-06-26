@@ -65,7 +65,7 @@ jobs:
           build_size=$(du -sh build/ | cut -f1)
 
           # Test metrics
-          test_output=$(npm test -- --coverage --watchAll=false --silent 2>&1 || echo "Tests failed")
+          test_output=$(npm test --silent 2>&1 || echo "Tests failed")
 
           # Package metrics
           total_deps=$(cat package.json | jq '.dependencies | length')

@@ -176,7 +176,7 @@ jobs:
       - name: Run tests
         run: |
           echo "Running tests..."
-          npm test -- --coverage --watchAll=false || {
+          npm test || {
             echo "❌ Tests failed"
             exit 1
           }

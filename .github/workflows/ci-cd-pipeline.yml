@@ -86,7 +86,7 @@ jobs:
               echo "✅ Format checking passed"
               ;;
             "test")
-              npm test -- --coverage --watchAll=false
+              npm test
               echo "✅ Tests passed"
               ;;
           esac

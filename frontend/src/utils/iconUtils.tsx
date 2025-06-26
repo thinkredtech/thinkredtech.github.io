@@ -9,7 +9,11 @@ export const renderIcon = (
   IconComponent: IconType,
   props?: React.SVGProps<SVGSVGElement>
 ): React.JSX.Element => {
-  return React.createElement(IconComponent, props);
+  // Cast IconComponent to a compatible React component type
+  const Component = IconComponent as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
+  return React.createElement(Component, props);
 };
 
 /**

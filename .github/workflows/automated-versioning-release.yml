@@ -303,7 +303,7 @@ jobs:
 
           # Tests
           echo "🧪 Running tests..."
-          if npm test -- --watchAll=false; then
+          if npm test; then
             echo "✅ Tests passed"
           else
             echo "❌ Tests failed"
