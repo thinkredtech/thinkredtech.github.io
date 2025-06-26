@@ -7,6 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { execSync } = require('child_process');
 
 const colors = {
@@ -106,10 +107,10 @@ function main() {
   });
 
   // Check clasp login status
-  try {
-    execSync('clasp login --status', { stdio: 'pipe' });
+  const clasprcPath = path.join(os.homedir(), '.clasprc.json');
+  if (fs.existsSync(clasprcPath)) {
     log.success('Logged in to Google Apps Script');
-  } catch {
+  } else {
     log.warn('⚠️  Not logged in to clasp. Run "clasp login" before deployment.');
   }
 

@@ -59,14 +59,15 @@ It handles:
 
 Choose one of the following deployment methods:
 
-**Recommended (Node.js)**:
+**Recommended (Bash script - most reliable)**:
 ```bash
-npm run deploy
+./deploy.sh
 ```
 
 **Alternative Methods**:
-* **Bash script** (Unix/macOS): `npm run deploy:bash`
-* **Simple deployment**: `npm run deploy:simple`
+* **Via npm**: `npm run deploy` (may have authentication issues)
+* **Node.js script**: `node deploy.js` (may have authentication issues)
+* **Simple deployment**: `clasp push && clasp deploy`
 
 ### GitHub Actions Deployment
 
@@ -306,6 +307,27 @@ You can use `Logger.log()` and **Apps Script Logs** (via View > Executions) to d
 4. **"File not found" errors**:
    * Ensure you're in the `backend/` directory
    * Run `npm run setup` to create `.env` file
+
+5. **Authentication errors with npm deployment**:
+   If you encounter `"Error retrieving access token"` when running `npm run deploy`, try these alternatives:
+   
+   **Option A**: Use direct bash script
+   ```bash
+   ./deploy.sh
+   ```
+   
+   **Option B**: Use direct clasp commands
+   ```bash
+   clasp push --force
+   clasp deploy --description "Manual deployment"
+   ```
+   
+   **Option C**: Use Node.js deployment directly
+   ```bash
+   node deploy.js
+   ```
+   
+   This is a known issue with clasp authentication in Node.js child processes when run through npm scripts.
 
 ### Post-Deployment Testing
 

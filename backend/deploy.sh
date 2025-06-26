@@ -47,7 +47,7 @@ if ! command -v clasp &> /dev/null; then
 fi
 
 # Check if user is logged in to clasp
-if ! clasp login --status &> /dev/null; then
+if [ ! -f "$HOME/.clasprc.json" ]; then
     echo -e "${YELLOW}⚠️  Not logged in to clasp. Please run 'clasp login' first.${NC}"
     exit 1
 fi
@@ -100,9 +100,7 @@ fi
 
 # Deploy the script (create a new deployment)
 echo -e "${GREEN}🚀 Creating new deployment...${NC}"
-DEPLOYMENT_ID=$(clasp deploy --description "${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}" --deploymentId)
-
-if [ $? -eq 0 ]; then
+if clasp deploy --description "${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}"; then
     echo -e "${GREEN}✅ Deployment successful!${NC}"
     echo -e "${GREEN}🔗 Deployment Details:${NC}"
     echo "   Script ID: $CLASP_SCRIPT_ID"
@@ -112,7 +110,13 @@ if [ $? -eq 0 ]; then
     read -p "Open Google Apps Script in browser? (y/N): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        clasp open
+        echo -e "${GREEN}🌐 Opening Google Apps Script...${NC}"
+        echo "   Visit: https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+        if command -v open &> /dev/null; then
+            open "https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+        elif command -v xdg-open &> /dev/null; then
+            xdg-open "https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+        fi
     fi
     
     echo -e "${GREEN}🎉 Backend deployment completed successfully!${NC}"

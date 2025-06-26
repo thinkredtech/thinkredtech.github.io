@@ -1,0 +1,25 @@
+# Node.js deployment and verification scripts
+deploy.js
+verify-setup.js
+
+# Environment files
+.env
+.env.example
+
+# Documentation and configuration
+README.md
+CHANGELOG.md
+package.json
+package-lock.json
+
+# Deployment scripts
+deploy.sh
+
+# Git files
+.gitignore
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+*.log

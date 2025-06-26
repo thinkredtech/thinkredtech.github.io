@@ -5,8 +5,8 @@
   "main": "thinkREDBot.js",
   "scripts": {
     "push": "clasp push",
-    "deploy": "node deploy.js",
-    "deploy:bash": "./deploy.sh",
+    "deploy": "./deploy.sh",
+    "deploy:node": "node deploy.js",
     "deploy:simple": "clasp deploy",
     "open": "clasp open",
     "logs": "clasp logs",

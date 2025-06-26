@@ -7,7 +7,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const os = require('os');
+const { execSync, spawn } = require('child_process');
 const readline = require('readline');
 
 // Colors for console output
@@ -72,16 +73,45 @@ async function loadEnvironmentVariables() {
   return envVars;
 }
 
-function runCommand(command, description) {
+function runCommand(command, description, inheritStdio = false) {
   try {
     log.info(`🔄 ${description}...`);
-    const output = execSync(command, { encoding: 'utf8', stdio: 'pipe' });
+    const options = inheritStdio 
+      ? { encoding: 'utf8', stdio: 'inherit', env: process.env }
+      : { encoding: 'utf8', stdio: 'pipe', env: process.env };
+    const output = execSync(command, options);
     return output;
   } catch (error) {
     log.error(`❌ Failed: ${description}`);
     log.error(error.message);
     process.exit(1);
   }
+}
+
+function runClaspCommand(command, description) {
+  return new Promise((resolve, reject) => {
+    log.info(`🔄 ${description}...`);
+    const [cmd, ...args] = command.split(' ');
+    const child = spawn(cmd, args, {
+      stdio: 'inherit',
+      env: process.env,
+      shell: true
+    });
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        log.error(`❌ Failed: ${description}`);
+        reject(new Error(`Command failed with exit code ${code}`));
+      }
+    });
+
+    child.on('error', (err) => {
+      log.error(`❌ Failed: ${description}`);
+      reject(err);
+    });
+  });
 }
 
 function checkCommandExists(command) {
@@ -117,27 +147,41 @@ async function main() {
   }
 
   // Check if user is logged in to clasp
-  try {
-    execSync('clasp login --status', { stdio: 'pipe' });
-  } catch {
+  const clasprcPath = path.join(os.homedir(), '.clasprc.json');
+  if (!fs.existsSync(clasprcPath)) {
     log.warn('⚠️  Not logged in to clasp. Please run "clasp login" first.');
     process.exit(1);
   }
 
   // Generate .clasp.json with the script ID from environment
-  log.info('🔧 Updating .clasp.json configuration...');
-  const claspConfig = {
-    scriptId: env.CLASP_SCRIPT_ID,
-    rootDir: "",
-    scriptExtensions: [".js", ".gs"],
-    htmlExtensions: [".html"],
-    jsonExtensions: [".json"],
-    filePushOrder: [],
-    skipSubdirectories: false
-  };
+  let needsUpdate = true;
+  if (fs.existsSync('.clasp.json')) {
+    try {
+      const existingConfig = JSON.parse(fs.readFileSync('.clasp.json', 'utf8'));
+      if (existingConfig.scriptId === env.CLASP_SCRIPT_ID) {
+        needsUpdate = false;
+        log.success('.clasp.json already configured correctly');
+      }
+    } catch {
+      // If we can't parse the existing file, we'll recreate it
+    }
+  }
 
-  fs.writeFileSync('.clasp.json', JSON.stringify(claspConfig, null, 2));
-  log.success('.clasp.json updated successfully');
+  if (needsUpdate) {
+    log.info('🔧 Updating .clasp.json configuration...');
+    const claspConfig = {
+      scriptId: env.CLASP_SCRIPT_ID,
+      rootDir: "",
+      scriptExtensions: [".js", ".gs"],
+      htmlExtensions: [".html"],
+      jsonExtensions: [".json"],
+      filePushOrder: [],
+      skipSubdirectories: false
+    };
+
+    fs.writeFileSync('.clasp.json', JSON.stringify(claspConfig, null, 2));
+    log.success('.clasp.json updated successfully');
+  }
 
   // Check for uncommitted changes (if in git repo)
   const gitDir = path.join('..', '.git');
@@ -159,12 +203,12 @@ async function main() {
   }
 
   // Push the code
-  runCommand('clasp push --force', 'Pushing code to Google Apps Script');
+  await runClaspCommand('clasp push --force', 'Pushing code to Google Apps Script');
   log.success('Code pushed successfully');
 
   // Deploy the script
   const deployDescription = env.DEPLOYMENT_DESCRIPTION || 'Backend deployment';
-  runCommand(`clasp deploy --description "${deployDescription}"`, 'Creating new deployment');
+  await runClaspCommand(`clasp deploy --description "${deployDescription}"`, 'Creating new deployment');
   
   log.success('Deployment successful!');
   log.info('🔗 Deployment Details:');
@@ -174,7 +218,7 @@ async function main() {
   // Ask if user wants to open script in browser
   const openAnswer = await askQuestion('Open Google Apps Script in browser? (y/N): ');
   if (['y', 'Y', 'yes', 'Yes'].includes(openAnswer.trim())) {
-    runCommand('clasp open', 'Opening Google Apps Script');
+    await runClaspCommand('clasp open', 'Opening Google Apps Script');
   }
 
   log.success('🎉 Backend deployment completed successfully!');
