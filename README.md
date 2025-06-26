@@ -423,6 +423,48 @@ Google Apps Script execution logs via `cd backend && npm run logs` and Google Cl
 
 ---
 
+## 🔧 Recent Improvements
+
+### 📡 **CORS & Form Submission Fixes**
+
+Recently resolved CORS issues with Google Apps Script backend that were preventing form submissions:
+
+**Problem**: Contact forms and job applications were failing with CORS errors when submitting from localhost and production environments.
+
+**Solution Implemented**:
+- ✅ **Automatic Fallback Mechanism**: Forms now automatically retry with GET requests if POST fails due to CORS
+- ✅ **Enhanced Error Handling**: Better user feedback and error recovery
+- ✅ **Cross-Origin Compatibility**: Works from any domain (localhost, production, etc.)
+- ✅ **Robust Backend**: Updated Google Apps Script to handle both POST and GET submissions
+
+**Files Enhanced**:
+- `frontend/src/utils/api.ts` - Added fallback submission logic
+- `backend/thinkREDBot.js` - Enhanced CORS handling and GET request support
+
+### 🚀 **Secure Deployment Pipeline**
+
+Implemented comprehensive deployment automation:
+
+**Backend Deployment**:
+- ✅ **Multiple Deployment Methods**: Node.js script, Bash script, GitHub Actions
+- ✅ **Environment Management**: Secure configuration via `.env` files
+- ✅ **Automated CI/CD**: GitHub Actions workflow for hands-free deployment
+- ✅ **Security First**: No hardcoded credentials, proper secret management
+
+**Quick Backend Deployment**:
+```bash
+cd backend
+npm run setup     # First time only
+npm run deploy    # Deploy to Google Apps Script
+```
+
+**Frontend Deployment**:
+- ✅ **GitHub Pages**: Automatic deployment via GitHub Actions
+- ✅ **Hostinger**: Production deployment with custom domain
+- ✅ **Build Optimization**: Efficient bundling and asset optimization
+
+---
+
 ## 🤝 Contributing
 
 ### 🚀 **Getting Started**

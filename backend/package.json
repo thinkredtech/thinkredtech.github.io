@@ -5,11 +5,15 @@
   "main": "thinkREDBot.js",
   "scripts": {
     "push": "clasp push",
-    "deploy": "clasp deploy",
+    "deploy": "node deploy.js",
+    "deploy:bash": "./deploy.sh",
+    "deploy:simple": "clasp deploy",
     "open": "clasp open",
     "logs": "clasp logs",
     "lint": "echo 'Linting backend files...' && echo 'Backend linting completed.'",
-    "version": "clasp version"
+    "version": "clasp version",
+    "setup": "cp .env.example .env && echo 'Please edit .env file with your configuration'",
+    "verify": "node verify-setup.js"
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",

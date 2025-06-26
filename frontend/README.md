@@ -171,6 +171,8 @@ npm test
 - **TypeScript**: Full type safety and enhanced developer experience
 - **Vite Build**: Lightning-fast development and optimized production builds
 - **Code Splitting**: Automatic code splitting for optimal loading performance
+- **CORS Resilience**: Automatic fallback mechanism for Google Apps Script integration
+- **Form Reliability**: Robust contact forms with enhanced error handling and recovery
 
 ### 🛡️ **Security & Performance**
 
@@ -210,7 +212,37 @@ thinkred-website-react19-vite/
 
 ---
 
-## 📖 Documentation
+## � Form Submission & Backend Integration
+
+### 📡 **Robust Form Handling**
+
+The website features enterprise-grade form submission with automatic error recovery:
+
+**Contact Forms & Job Applications**:
+- ✅ **Automatic CORS Fallback**: Seamlessly handles Google Apps Script CORS limitations
+- ✅ **Dual Submission Methods**: POST with GET fallback for maximum reliability
+- ✅ **Enhanced Validation**: Client-side and server-side validation with sanitization
+- ✅ **Error Recovery**: Transparent error handling with user-friendly messages
+- ✅ **Cross-Origin Support**: Works reliably from any domain or environment
+
+**Technical Implementation**:
+- **Primary Method**: POST requests with JSON payload
+- **Fallback Method**: GET requests with URL parameters
+- **Error Detection**: Automatic CORS/405 error detection and recovery
+- **Security**: Honeypot fields, rate limiting, and input sanitization
+
+```typescript
+// Example: Automatic fallback in action
+try {
+  await submitContactForm(formData); // POST attempt
+} catch (corsError) {
+  await submitContactFormFallback(formData); // GET fallback
+}
+```
+
+---
+
+## �📖 Documentation
 
 - **[Website Overview](./docs/website-overview.md)** - Comprehensive project overview
 - **[Security Architecture](./docs/security-architecture.md)** - Security implementation details

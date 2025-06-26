@@ -1,0 +1,43 @@
+# Environment variables (contains sensitive information)
+.env
+
+# Clasp credentials
+.clasprc.json
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
