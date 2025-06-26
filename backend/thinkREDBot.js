@@ -11,12 +11,38 @@ const EMAIL_CC_JOB_APPLY = SCRIPT_PROPS.getProperty('EMAIL_CC_JOB_APPLY');
 
 // === ENTRY POINT ===
 function doGet(e) {
-  // Handle preflight OPTIONS requests
-  return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+  try {
+    // Handle CORS preflight requests
+    if (!e.parameter || !e.parameter.action) {
+      return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+    }
+
+    // Handle actual GET requests with parameters
+    const action = e.parameter.action;
+    
+    if (action === 'submitContactForm' && e.parameter.data) {
+      const data = JSON.parse(e.parameter.data);
+      return handleContactForm(data);
+    }
+    
+    if (action === 'submitJobApplication' && e.parameter.data) {
+      const data = JSON.parse(e.parameter.data);
+      return handleJobApplication(data);
+    }
+
+    return createErrorResponse('Invalid action or missing data in GET request');
+  } catch (error) {
+    return createErrorResponse(`Server Error in GET: ${error.message}`);
+  }
 }
 
 function doPost(e) {
   try {
+    // Handle preflight OPTIONS request in POST method
+    if (e.parameter && e.parameter.method === 'OPTIONS') {
+      return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+    }
+
     const payload = JSON.parse(e.postData.contents);
     switch (payload.action) {
       case 'submitContactForm':
@@ -198,7 +224,8 @@ function createCorsResponse(data) {
     .setHeaders({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '3600'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Max-Age': '3600',
+      'Cache-Control': 'no-cache'
     });
 }

@@ -66,20 +66,88 @@ export const submitContactForm = async (
     // Log successful submission
     logFormSubmission('contactForm', true);
   } catch (error) {
+    // Check if it's a CORS preflight error (common with Google Apps Script)
+    if (
+      error instanceof TypeError ||
+      (error instanceof Error &&
+        (error.message.includes('Failed to fetch') ||
+          error.message.includes('CORS') ||
+          error.message.includes('405')))
+    ) {
+      // Try fallback GET method
+      try {
+        await submitContactFormFallback(formData);
+        return;
+      } catch (fallbackError) {
+        // Log error for debugging in development
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.error('Both POST and fallback GET failed:', {
+            originalError: error,
+            fallbackError,
+          });
+        }
+
+        // Throw the fallback error as it's likely more informative
+        throw new Error(
+          'Unable to submit form. Please check your internet connection or try again later.'
+        );
+      }
+    }
+
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
       console.error('Error submitting contact form:', error);
     }
 
-    // Provide a more user-friendly error message
-    if (
-      error instanceof TypeError &&
-      error.message.includes('Failed to fetch')
-    ) {
-      throw new Error(
-        'Unable to submit form. Please check your internet connection or try again later.'
-      );
+    // Log failed submission
+    logFormSubmission(
+      'contactForm',
+      false,
+      error instanceof Error ? error.message : String(error)
+    );
+
+    throw error;
+  }
+};
+
+/**
+ * Fallback submission method using GET request with URL parameters
+ * This works around CORS preflight issues with Google Apps Script
+ */
+const submitContactFormFallback = async (
+  formData: ContactFormData
+): Promise<void> => {
+  try {
+    const params = new URLSearchParams({
+      action: 'submitContactForm',
+      data: JSON.stringify(formData),
+    });
+
+    const response = await fetch(`${API_ENDPOINT}?${params.toString()}`, {
+      method: 'GET',
+      mode: 'cors',
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    if (result.error) {
+      logFormSubmission('contactForm', false, result.error);
+      throw new Error(result.error);
+    }
+
+    // Log successful submission
+    logFormSubmission('contactForm', true);
+  } catch (error) {
+    // Log error for debugging in development
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting contact form (fallback):', error);
     }
 
     // Log failed submission
@@ -152,10 +220,109 @@ export const submitJobApplication = async (
     // Log successful submission
     logFormSubmission('jobApplication', true);
   } catch (error) {
+    // Check if it's a CORS preflight error (common with Google Apps Script)
+    if (
+      error instanceof TypeError ||
+      (error instanceof Error &&
+        (error.message.includes('Failed to fetch') ||
+          error.message.includes('CORS') ||
+          error.message.includes('405')))
+    ) {
+      // Try fallback GET method
+      try {
+        await submitJobApplicationFallback(applicationData);
+        return;
+      } catch (fallbackError) {
+        // Log error for debugging in development
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.error(
+            'Both POST and fallback GET failed for job application:',
+            {
+              originalError: error,
+              fallbackError,
+            }
+          );
+        }
+
+        // Throw the fallback error as it's likely more informative
+        throw new Error(
+          'Unable to submit application. Please check your internet connection or try again later.'
+        );
+      }
+    }
+
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
       console.error('Error submitting job application:', error);
+    }
+
+    // Log failed submission
+    logFormSubmission(
+      'jobApplication',
+      false,
+      error instanceof Error ? error.message : String(error)
+    );
+
+    throw error;
+  }
+};
+
+/**
+ * Fallback submission method for job applications using GET request
+ * This works around CORS preflight issues with Google Apps Script
+ */
+const submitJobApplicationFallback = async (
+  applicationData: JobApplicationData
+): Promise<void> => {
+  try {
+    // Convert files to base64
+    const resumeBase64 = await fileToBase64(applicationData.resumeFile);
+
+    let coverLetterBase64: string | undefined;
+    if (applicationData.coverLetterFile) {
+      coverLetterBase64 = await fileToBase64(applicationData.coverLetterFile);
+    }
+
+    const payload = {
+      jobId: applicationData.jobId,
+      applicationId: applicationData.applicationId,
+      name: applicationData.name,
+      email: applicationData.email,
+      phone: applicationData.phone,
+      resumeBase64,
+      coverLetterBase64,
+    };
+
+    const params = new URLSearchParams({
+      action: 'submitJobApplication',
+      data: JSON.stringify(payload),
+    });
+
+    const response = await fetch(`${API_ENDPOINT}?${params.toString()}`, {
+      method: 'GET',
+      mode: 'cors',
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    if (result.error) {
+      logFormSubmission('jobApplication', false, result.error);
+      throw new Error(result.error);
+    }
+
+    // Log successful submission
+    logFormSubmission('jobApplication', true);
+  } catch (error) {
+    // Log error for debugging in development
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting job application (fallback):', error);
     }
 
     // Log failed submission
