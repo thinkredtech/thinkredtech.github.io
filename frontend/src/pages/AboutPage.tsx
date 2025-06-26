@@ -3,6 +3,7 @@ import React from 'react';
 import PageHero from '../components/ui/PageHero';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaAws } from 'react-icons/fa';
 import { SiTypescript, SiPostgresql, SiMongodb } from 'react-icons/si';
+import { renderIcon } from '../utils/iconUtils';
 
 const AboutPage = () => {
   return (
@@ -314,16 +315,12 @@ const AboutPage = () => {
             <div className="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
               <div className="flex items-center justify-center mb-4">
                 <div className="flex space-x-2">
-                  {
-                    (
-                      <FaReact className="text-blue-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
-                  {
-                    (
-                      <SiTypescript className="text-blue-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
+                  {renderIcon(FaReact, {
+                    className: 'text-blue-600 text-2xl',
+                  })}
+                  {renderIcon(SiTypescript, {
+                    className: 'text-blue-600 text-2xl',
+                  })}
                 </div>
               </div>
               <h3 className="heading-3 text-center mb-3 text-secondary">
@@ -340,16 +337,12 @@ const AboutPage = () => {
             <div className="group bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
               <div className="flex items-center justify-center mb-4">
                 <div className="flex space-x-2">
-                  {
-                    (
-                      <FaNodeJs className="text-green-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
-                  {
-                    (
-                      <FaPython className="text-green-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
+                  {renderIcon(FaNodeJs, {
+                    className: 'text-green-600 text-2xl',
+                  })}
+                  {renderIcon(FaPython, {
+                    className: 'text-green-600 text-2xl',
+                  })}
                 </div>
               </div>
               <h3 className="heading-3 text-center mb-3 text-secondary">
@@ -366,16 +359,12 @@ const AboutPage = () => {
             <div className="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
               <div className="flex items-center justify-center mb-4">
                 <div className="flex space-x-2">
-                  {
-                    (
-                      <SiPostgresql className="text-purple-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
-                  {
-                    (
-                      <SiMongodb className="text-purple-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
+                  {renderIcon(SiPostgresql, {
+                    className: 'text-purple-600 text-2xl',
+                  })}
+                  {renderIcon(SiMongodb, {
+                    className: 'text-purple-600 text-2xl',
+                  })}
                 </div>
               </div>
               <h3 className="heading-3 text-center mb-3 text-secondary">
@@ -392,16 +381,12 @@ const AboutPage = () => {
             <div className="group bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg hover:shadow-lg transition-all duration-300">
               <div className="flex items-center justify-center mb-4">
                 <div className="flex space-x-2">
-                  {
-                    (
-                      <FaDocker className="text-orange-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
-                  {
-                    (
-                      <FaAws className="text-orange-600 text-2xl" />
-                    ) as React.ReactElement
-                  }
+                  {renderIcon(FaDocker, {
+                    className: 'text-orange-600 text-2xl',
+                  })}
+                  {renderIcon(FaAws, {
+                    className: 'text-orange-600 text-2xl',
+                  })}
                 </div>
               </div>
               <h3 className="heading-3 text-center mb-3 text-secondary">

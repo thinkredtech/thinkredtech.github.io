@@ -1,16 +1,15 @@
 import React from 'react';
 import { FaUserShield } from 'react-icons/fa';
+import { renderIcon } from '../utils/iconUtils';
 
 const PrivacyPolicyPage = () => (
   <div>
     <section className="py-8 md:py-16">
       <div className="container mx-auto text-center mt-16">
         <div className="flex flex-col items-center mb-8">
-          {
-            (
-              <FaUserShield className="w-12 h-12 text-primary mb-4" />
-            ) as React.ReactElement
-          }
+          {renderIcon(FaUserShield, {
+            className: 'w-12 h-12 text-primary mb-4',
+          })}
           <h1 className="display-2 mb-2">Privacy Policy</h1>
         </div>
         <p className="body-1-medium text-secondary max-w-3xl mx-auto">
