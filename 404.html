@@ -5,97 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         <!-- Security Headers -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'sha256-G5TvyTuo3I5v0tY9LYf2WMhdsedxTYQ70Np/hyIMYgs='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" />
-        <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-        <meta http-equiv="X-Frame-Options" content="DENY" />
-        <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-        
         <title>ThinkRED Technologies</title>
-        <style>
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                margin: 0;
-                padding: 0;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .redirect-container {
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                max-width: 400px;
-                width: 90%;
-            }
-            h1 {
-                color: #333;
-                margin-bottom: 1rem;
-                font-size: 1.5rem;
-            }
-            p {
-                color: #666;
-                line-height: 1.6;
-            }
-            a {
-                color: #E4093E;
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-            .spinner {
-                border: 4px solid #f3f3f3;
-                border-top: 4px solid #E4093E;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                animation: spin 1s linear infinite;
-                margin: 20px auto;
-            }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        </style>
         <script type="text/javascript">
-            // GitHub Pages SPA redirect script
-            // This script takes the current URL and redirects to the root with the path as a query parameter
-            // which can be handled by the React app for client-side routing
-
+            // GitHub Pages SPA redirect script - INSTANT redirect, no visible page
             (function(l) {
-                // Check if we're on GitHub Pages
-                if (l.hostname === 'thinkredtech.github.io') {
-                    var pathSegmentsToKeep = 0; // For user/org sites
-                } else {
-                    var pathSegmentsToKeep = 1; // For project sites
+                if (l.search[1] !== '/' ) {
+                    var pathSegmentsToKeep = 0;
+                    
+                    l.replace(
+                        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
+                        '/?/' + 
+                        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') + 
+                        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') + 
+                        l.hash
+                    );
                 }
-
-                // Construct the redirect URL
-                var redirectURL = l.protocol + '//' + l.hostname + 
-                    (l.port ? ':' + l.port : '') +
-                    l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
-                    '/?/' + 
-                    l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') + 
-                    (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') + 
-                    l.hash;
-
-                // Redirect to the new URL
-                window.location.replace(redirectURL);
             })(window.location);
         </script>
     </head>
     <body>
-        <div class="redirect-container">
-            <div class="spinner"></div>
-            <h1>Redirecting...</h1>
-            <p>
-                Please wait while we redirect you to the correct page.<br>
-                If you are not redirected automatically, <a href="/">click here</a>.
-            </p>
-        </div>
+        <!-- No visible content - instant redirect -->
     </body>
 </html>
