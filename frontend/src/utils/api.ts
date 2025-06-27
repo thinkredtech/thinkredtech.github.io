@@ -43,8 +43,18 @@ export const submitContactForm = async (
   formData: ContactFormData
 ): Promise<void> => {
   try {
-    // Use GET method as primary approach for Google Apps Script to avoid CORS preflight issues
-    await submitContactFormFallback(formData);
+    // Try POST first (proper RESTful approach)
+    try {
+      await submitContactFormPost(formData);
+    } catch (postError) {
+      // If POST fails due to Google Apps Script limitations, fall back to GET
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('POST request failed, falling back to GET:', postError);
+      }
+
+      await submitContactFormGet(formData);
+    }
   } catch (error) {
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
@@ -67,7 +77,7 @@ export const submitContactForm = async (
  * Fallback submission method using GET request with URL parameters
  * This works around CORS preflight issues with Google Apps Script
  */
-const submitContactFormFallback = async (
+const submitContactFormGet = async (
   formData: ContactFormData
 ): Promise<void> => {
   try {
@@ -129,8 +139,63 @@ export const submitJobApplication = async (
   applicationData: JobApplicationData
 ): Promise<void> => {
   try {
-    // Use GET method as primary approach for Google Apps Script to avoid CORS preflight issues
-    await submitJobApplicationFallback(applicationData);
+    // Validate file sizes before processing
+    if (!validateFileSize(applicationData.resumeFile, 2)) {
+      throw new Error(
+        `Resume file is too large (${getFileSizeString(
+          applicationData.resumeFile.size
+        )}). Maximum size allowed is 2MB.`
+      );
+    }
+
+    if (
+      applicationData.coverLetterFile &&
+      !validateFileSize(applicationData.coverLetterFile, 2)
+    ) {
+      throw new Error(
+        `Cover letter file is too large (${getFileSizeString(
+          applicationData.coverLetterFile.size
+        )}). Maximum size allowed is 2MB.`
+      );
+    }
+
+    // Convert files to base64
+    const resumeBase64 = await fileToBase64(applicationData.resumeFile);
+    let coverLetterBase64: string | undefined;
+    if (applicationData.coverLetterFile) {
+      coverLetterBase64 = await fileToBase64(applicationData.coverLetterFile);
+    }
+
+    const payload = {
+      jobId: applicationData.jobId,
+      applicationId: applicationData.applicationId,
+      name: applicationData.name,
+      email: applicationData.email,
+      phone: applicationData.phone,
+      resumeBase64,
+      coverLetterBase64,
+    };
+
+    // Try POST first (proper RESTful approach)
+    try {
+      await submitJobApplicationPost(payload);
+    } catch (postError) {
+      // If POST fails due to Google Apps Script limitations, fall back to GET
+      // This is a temporary workaround - ideally we'd fix the backend
+      if (isPayloadTooLargeForGet(payload)) {
+        throw new Error(
+          'Combined file size too large for submission. Please ensure your resume and cover letter are smaller files (under 1MB each recommended).'
+        );
+      }
+
+      // Log the POST failure for debugging
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('POST request failed, falling back to GET:', postError);
+      }
+
+      await submitJobApplicationGet(payload);
+    }
   } catch (error) {
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
@@ -150,31 +215,18 @@ export const submitJobApplication = async (
 };
 
 /**
- * Fallback submission method for job applications using GET request
- * This works around CORS preflight issues with Google Apps Script
+ * Submit job application using GET method (works best with Google Apps Script)
  */
-const submitJobApplicationFallback = async (
-  applicationData: JobApplicationData
-): Promise<void> => {
+const submitJobApplicationGet = async (payload: {
+  jobId: string;
+  applicationId: string;
+  name: string;
+  email: string;
+  phone: string;
+  resumeBase64: string;
+  coverLetterBase64?: string;
+}): Promise<void> => {
   try {
-    // Convert files to base64
-    const resumeBase64 = await fileToBase64(applicationData.resumeFile);
-
-    let coverLetterBase64: string | undefined;
-    if (applicationData.coverLetterFile) {
-      coverLetterBase64 = await fileToBase64(applicationData.coverLetterFile);
-    }
-
-    const payload = {
-      jobId: applicationData.jobId,
-      applicationId: applicationData.applicationId,
-      name: applicationData.name,
-      email: applicationData.email,
-      phone: applicationData.phone,
-      resumeBase64,
-      coverLetterBase64,
-    };
-
     const params = new URLSearchParams({
       action: 'submitJobApplication',
       data: JSON.stringify(payload),
@@ -202,18 +254,62 @@ const submitJobApplicationFallback = async (
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
-      console.error('Error submitting job application (fallback):', error);
+      console.error('Error submitting job application (GET):', error);
     }
-
-    // Log failed submission
-    logFormSubmission(
-      'jobApplication',
-      false,
-      error instanceof Error ? error.message : String(error)
-    );
 
     throw error;
   }
+};
+
+/**
+ * Submit job application using POST method (proper RESTful approach)
+ */
+const submitJobApplicationPost = async (payload: {
+  jobId: string;
+  applicationId: string;
+  name: string;
+  email: string;
+  phone: string;
+  resumeBase64: string;
+  coverLetterBase64?: string;
+}): Promise<void> => {
+  const requestBody = {
+    action: 'submitJobApplication',
+    data: payload,
+  };
+
+  const response = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+    mode: 'cors',
+    // Follow redirects to handle Google Apps Script deployment
+    redirect: 'follow',
+  });
+
+  // Check if we got an HTML response (indicates redirect issue)
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('text/html')) {
+    throw new Error(
+      'POST request redirected to HTML page - falling back to GET'
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+
+  if (result.error) {
+    logFormSubmission('jobApplication', false, result.error);
+    throw new Error(result.error);
+  }
+
+  // Log successful submission
+  logFormSubmission('jobApplication', true);
 };
 
 /**
@@ -262,4 +358,89 @@ export const checkRateLimit = (
 
   submissionTimestamps.set(identifier, now);
   return true;
+};
+
+/**
+ * Check if the payload is too large for GET request
+ * URL length limit is typically around 2048 characters
+ */
+const isPayloadTooLargeForGet = (payload: object): boolean => {
+  const dataString = JSON.stringify(payload);
+  const urlParams = new URLSearchParams({
+    action: 'submitJobApplication',
+    data: dataString,
+  });
+  const fullUrl = `${API_ENDPOINT}?${urlParams.toString()}`;
+
+  // Conservative limit: 8KB for the entire URL
+  return fullUrl.length > 8192;
+};
+
+/**
+ * Validate file size before submission
+ * Helps prevent issues with large payloads
+ */
+export const validateFileSize = (
+  file: File,
+  maxSizeMB: number = 2
+): boolean => {
+  const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to bytes
+  return file.size <= maxSizeBytes;
+};
+
+/**
+ * Get human-readable file size
+ */
+export const getFileSizeString = (bytes: number): string => {
+  if (bytes === 0) return '0 Bytes';
+
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+};
+
+/**
+ * Submit contact form using POST method (proper RESTful approach)
+ */
+const submitContactFormPost = async (
+  formData: ContactFormData
+): Promise<void> => {
+  const requestBody = {
+    action: 'submitContactForm',
+    data: formData,
+  };
+
+  const response = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+    mode: 'cors',
+    redirect: 'follow',
+  });
+
+  // Check if we got an HTML response (indicates redirect issue)
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('text/html')) {
+    throw new Error(
+      'POST request redirected to HTML page - falling back to GET'
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+
+  if (result.error) {
+    logFormSubmission('contactForm', false, result.error);
+    throw new Error(result.error);
+  }
+
+  // Log successful submission
+  logFormSubmission('contactForm', true);
 };
