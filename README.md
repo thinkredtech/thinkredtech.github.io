@@ -12,7 +12,7 @@
 [![Deployment](https://img.shields.io/badge/Deployment-Automated-blue)](./scripts/)
 
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-failed-red)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
 </div>
