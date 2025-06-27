@@ -2,14 +2,91 @@
 
 # 🏗️ ThinkRED Monorepo
 
-<img src="frontend/public/assets/logos/thinkRED-np.svg" alt="ThinkRED Logo" width="280" height="120" style="margin: 20px 0;" />
+<img src="frontend/public/assets/logos/thinkRED-np.svg" # 2️⃣ Initialize environment configuration
+./scripts/env-manager.sh init
+
+# 3️⃣ Configure environment variables
+# Edit .env file with your actual values (see Environment Setup section)
+nano .env
+
+# 4️⃣ Install all dependencies
+npm run install:all
+
+# 5️⃣ Start development server
+npm start
+# or
+npm run dev
+
+# 6️⃣ Build for production
+npm run build
+
+# 7️⃣ Deploy all components
+npm run deploy
+```
+
+> 📋 **For complete environment setup, see [Environment Configuration Guide](./docs/ENVIRONMENT.md)**  
+> 📋 **For release history, see [CHANGELOG.md](./CHANGELOG.md)**
+
+---
+
+## 🔧 Environment Configuration
+
+This monorepo uses a **centralized environment management system** that eliminates hardcoded configuration values and provides type-safe access to all settings.
+
+### ⚡ **Quick Setup**
+
+```bash
+# Initialize environment from template
+./scripts/env-manager.sh init
+
+# Validate configuration
+./scripts/env-manager.sh validate
+
+# Show current configuration
+./scripts/env-manager.sh show
+```
+
+### 📋 **Required Environment Variables**
+
+| Variable | Description | Required | Example |
+|----------|-------------|----------|---------|
+| `GOOGLE_APPS_SCRIPT_ID` | Google Apps Script project ID | ✅ Yes | `1lxhn-Siz6ThM7r...` |
+| `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID` | Current deployment ID | ✅ Yes | `AKfycbzjcTdSJp...` |
+| `REACT_APP_ADMIN_PASSWORD` | Admin panel password | ✅ Yes | `your-secure-password` |
+
+### 🔄 **API Endpoint Management**
+
+When you deploy the backend and get a new deployment ID:
+
+```bash
+# Update API endpoint automatically
+./scripts/env-manager.sh update-api --deployment-id NEW_DEPLOYMENT_ID
+
+# Rebuild and deploy frontend
+cd frontend && npm run build
+```
+
+### 🛠️ **Environment Manager Commands**
+
+| Command | Description |
+|---------|-------------|
+| `./scripts/env-manager.sh init` | Initialize environment from template |
+| `./scripts/env-manager.sh validate` | Validate current configuration |
+| `./scripts/env-manager.sh show` | Display current settings |
+| `./scripts/env-manager.sh update-api --deployment-id ID` | Update API endpoint |
+| `./scripts/env-manager.sh help` | Show all available commands |
+
+> 📖 **For complete environment documentation, see [docs/ENVIRONMENT.md](./docs/ENVIRONMENT.md)**
+
+---go" width="280" height="120" style="margin: 20px 0;" />
 
 **Unified Development & Deployment Platform**
 
 [![Monorepo Health](https://img.shields.io/badge/Monorepo%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo)
 [![Frontend Status](https://img.shields.io/badge/Frontend-Active-brightgreen)](./frontend/)
 [![Backend Status](https://img.shields.io/badge/Backend-Active-brightgreen)](./backend/)
-[![Deployment](https://img.shields.io/badge/Deployment-Automated-blue)](./scripts/)
+[![Environment Management](https://img.shields.io/badge/Environment-Managed-blue)](./docs/ENVIRONMENT.md)
+[![CORS Status](https://img.shields.io/badge/CORS-Fixed-brightgreen)](./backend/thinkREDBot.js)
 
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-failed-red)](https://github.com/thinkredtech/thinkredtech.github.io/actions)

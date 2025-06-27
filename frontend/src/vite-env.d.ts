@@ -27,7 +27,7 @@ interface ImportMetaEnv {
   readonly VITE_ENABLE_BUNDLE_ANALYSIS: string;
   readonly VITE_ENABLE_CSS_MINIFICATION: string;
   readonly VITE_ENABLE_JS_MINIFICATION: string;
-  
+
   // Legacy React environment variables (for backward compatibility)
   readonly REACT_APP_ADMIN_PASSWORD: string;
 }

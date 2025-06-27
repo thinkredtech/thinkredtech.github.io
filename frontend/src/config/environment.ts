@@ -205,12 +205,18 @@ export const config: AppConfig = {
       getEnvVar('ENABLE_PROD_SOURCE_MAPS'),
       false
     ),
-    enableBundleAnalysis: parseBoolean(getEnvVar('ENABLE_BUNDLE_ANALYSIS'), false),
+    enableBundleAnalysis: parseBoolean(
+      getEnvVar('ENABLE_BUNDLE_ANALYSIS'),
+      false
+    ),
     enableCssMinification: parseBoolean(
       getEnvVar('ENABLE_CSS_MINIFICATION'),
       true
     ),
-    enableJsMinification: parseBoolean(getEnvVar('ENABLE_JS_MINIFICATION'), true),
+    enableJsMinification: parseBoolean(
+      getEnvVar('ENABLE_JS_MINIFICATION'),
+      true
+    ),
   },
 };
 
