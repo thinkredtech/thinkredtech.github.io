@@ -36,13 +36,13 @@ function doGet(e) {
   }
 }
 
+// Handle OPTIONS requests for CORS preflight
+function doOptions(e) {
+  return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+}
+
 function doPost(e) {
   try {
-    // Handle preflight OPTIONS request in POST method
-    if (e.parameter && e.parameter.method === 'OPTIONS') {
-      return createCorsResponse({ success: true, message: 'CORS preflight OK' });
-    }
-
     const payload = JSON.parse(e.postData.contents);
     switch (payload.action) {
       case 'submitContactForm':

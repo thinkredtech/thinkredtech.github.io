@@ -41,60 +41,9 @@ export const submitContactForm = async (
   formData: ContactFormData
 ): Promise<void> => {
   try {
-    const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      body: JSON.stringify({
-        action: 'submitContactForm',
-        data: formData,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.error) {
-      throw new Error(result.error);
-    }
-
-    // Log successful submission
-    logFormSubmission('contactForm', true);
+    // Use GET method as primary approach for Google Apps Script to avoid CORS preflight issues
+    await submitContactFormFallback(formData);
   } catch (error) {
-    // Check if it's a CORS preflight error (common with Google Apps Script)
-    if (
-      error instanceof TypeError ||
-      (error instanceof Error &&
-        (error.message.includes('Failed to fetch') ||
-          error.message.includes('CORS') ||
-          error.message.includes('405')))
-    ) {
-      // Try fallback GET method
-      try {
-        await submitContactFormFallback(formData);
-        return;
-      } catch (fallbackError) {
-        // Log error for debugging in development
-        if (process.env.NODE_ENV === 'development') {
-          // eslint-disable-next-line no-console
-          console.error('Both POST and fallback GET failed:', {
-            originalError: error,
-            fallbackError,
-          });
-        }
-
-        // Throw the fallback error as it's likely more informative
-        throw new Error(
-          'Unable to submit form. Please check your internet connection or try again later.'
-        );
-      }
-    }
-
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
@@ -178,80 +127,9 @@ export const submitJobApplication = async (
   applicationData: JobApplicationData
 ): Promise<void> => {
   try {
-    // Convert files to base64
-    const resumeBase64 = await fileToBase64(applicationData.resumeFile);
-
-    let coverLetterBase64: string | undefined;
-    if (applicationData.coverLetterFile) {
-      coverLetterBase64 = await fileToBase64(applicationData.coverLetterFile);
-    }
-
-    const payload = {
-      action: 'submitJobApplication',
-      data: {
-        jobId: applicationData.jobId,
-        applicationId: applicationData.applicationId,
-        name: applicationData.name,
-        email: applicationData.email,
-        phone: applicationData.phone,
-        resumeBase64,
-        coverLetterBase64,
-      },
-    };
-
-    const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.error) {
-      throw new Error(result.error);
-    }
-
-    // Log successful submission
-    logFormSubmission('jobApplication', true);
+    // Use GET method as primary approach for Google Apps Script to avoid CORS preflight issues
+    await submitJobApplicationFallback(applicationData);
   } catch (error) {
-    // Check if it's a CORS preflight error (common with Google Apps Script)
-    if (
-      error instanceof TypeError ||
-      (error instanceof Error &&
-        (error.message.includes('Failed to fetch') ||
-          error.message.includes('CORS') ||
-          error.message.includes('405')))
-    ) {
-      // Try fallback GET method
-      try {
-        await submitJobApplicationFallback(applicationData);
-        return;
-      } catch (fallbackError) {
-        // Log error for debugging in development
-        if (process.env.NODE_ENV === 'development') {
-          // eslint-disable-next-line no-console
-          console.error(
-            'Both POST and fallback GET failed for job application:',
-            {
-              originalError: error,
-              fallbackError,
-            }
-          );
-        }
-
-        // Throw the fallback error as it's likely more informative
-        throw new Error(
-          'Unable to submit application. Please check your internet connection or try again later.'
-        );
-      }
-    }
-
     // Log error for debugging in development
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-console
