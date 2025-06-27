@@ -14,11 +14,11 @@ NC='\033[0m' # No Color
 echo -e "${GREEN}🚀 ThinkRED Backend Deployment Script${NC}"
 echo "======================================="
 
-# Check if .env file exists
-if [ ! -f ".env" ]; then
-    echo -e "${YELLOW}⚠️  .env file not found. Creating from template...${NC}"
-    if [ -f ".env.example" ]; then
-        cp .env.example .env
+# Check if root .env file exists
+if [ ! -f "../.env" ]; then
+    echo -e "${YELLOW}⚠️  Root .env file not found. Creating from template...${NC}"
+    if [ -f "../.env.example" ]; then
+        cp ../.env.example ../.env
         echo -e "${YELLOW}📝 Please edit .env file with your configuration before running again.${NC}"
         exit 1
     else
@@ -27,17 +27,17 @@ if [ ! -f ".env" ]; then
     fi
 fi
 
-# Load environment variables
-source .env
+# Load environment variables from root
+source ../.env
 
 # Validate required environment variables
-if [ -z "$CLASP_SCRIPT_ID" ]; then
-    echo -e "${RED}❌ CLASP_SCRIPT_ID not set in .env file${NC}"
+if [ -z "$GOOGLE_APPS_SCRIPT_ID" ]; then
+    echo -e "${RED}❌ GOOGLE_APPS_SCRIPT_ID not set in .env file${NC}"
     exit 1
 fi
 
 echo -e "${GREEN}📋 Configuration:${NC}"
-echo "   Script ID: $CLASP_SCRIPT_ID"
+echo "   Script ID: $GOOGLE_APPS_SCRIPT_ID"
 echo "   Description: ${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}"
 
 # Check if clasp is installed
@@ -56,7 +56,7 @@ fi
 echo -e "${GREEN}🔧 Updating .clasp.json configuration...${NC}"
 cat > .clasp.json << EOF
 {
-  "scriptId": "$CLASP_SCRIPT_ID",
+  "scriptId": "$GOOGLE_APPS_SCRIPT_ID",
   "rootDir": "",
   "scriptExtensions": [
     ".js",

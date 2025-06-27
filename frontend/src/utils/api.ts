@@ -2,8 +2,10 @@
  * API utilities for form submissions and external service integrations
  */
 
-const API_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzjcTdSJp9sQYs3gtzCalt2bbwV7Ml8ure4gh2TuRxVjkDA1BxNfO5-1zn-cyXHJMON9Q/exec';
+import { config } from '../config/environment';
+
+// Use centralized configuration for API endpoint
+const API_ENDPOINT = config.googleAppsScript.apiEndpoint;
 
 /**
  * Convert File object to base64 string
