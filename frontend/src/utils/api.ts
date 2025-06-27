@@ -3,7 +3,7 @@
  */
 
 const API_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbxiPo1PZW85C8Pfj7bEKT6yk3es9uRZUo4JAXyGWnvJgYLTmuKQPv7WTYvFCx1O2aAlUg/exec';
+  'https://script.google.com/macros/s/AKfycbzjcTdSJp9sQYs3gtzCalt2bbwV7Ml8ure4gh2TuRxVjkDA1BxNfO5-1zn-cyXHJMON9Q/exec';
 
 /**
  * Convert File object to base64 string

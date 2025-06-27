@@ -219,13 +219,10 @@ function createErrorResponse(message) {
 }
 
 function createCorsResponse(data) {
-  return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-      'Access-Control-Max-Age': '3600',
-      'Cache-Control': 'no-cache'
-    });
+  const output = ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+  
+  // Google Apps Script automatically handles CORS for web apps
+  // when deployed as a web app with "Execute as: Me" and "Who has access: Anyone"
+  return output;
 }
