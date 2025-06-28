@@ -184,7 +184,7 @@ export const submitJobApplication = async (
         'Combined file size too large for submission. Please ensure your resume and cover letter are smaller files (under 1MB each recommended).'
       );
     }
-    
+
     try {
       await submitJobApplicationGet(payload);
     } catch (getError) {
@@ -194,7 +194,7 @@ export const submitJobApplication = async (
         // eslint-disable-next-line no-console
         console.error('GET request failed:', getError);
       }
-      
+
       throw getError;
     }
   } catch (error) {

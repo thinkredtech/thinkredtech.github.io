@@ -249,14 +249,20 @@ export const validateConfig = (): { isValid: boolean; errors: string[] } => {
  */
 export const logConfig = (): void => {
   if (config.development.enableDevLogging && import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
     console.group('🔧 Application Configuration');
+    // eslint-disable-next-line no-console
     console.log('Environment:', config.app.environment);
+    // eslint-disable-next-line no-console
     console.log('API Endpoint:', config.googleAppsScript.apiEndpoint);
+    // eslint-disable-next-line no-console
     console.log('Features:', config.features);
+    // eslint-disable-next-line no-console
     console.log('Security:', {
       ...config.security,
       allowedOrigins: config.security.allowedOrigins.join(', '),
     });
+    // eslint-disable-next-line no-console
     console.groupEnd();
   }
 };
