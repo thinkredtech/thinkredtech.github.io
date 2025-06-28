@@ -97,8 +97,8 @@ const JobApplicationPage = () => {
       const validationResult = validateFile(
         file,
         allowedTypes,
-        5 * 1024 * 1024
-      ); // 5MB limit
+        10 * 1024 * 1024
+      ); // 10MB limit (increased from 5MB)
 
       if (!validationResult.isValid) {
         setErrors(prev => ({
@@ -578,7 +578,7 @@ const JobApplicationPage = () => {
                           )}
                         </div>
                         <p className="text-xs text-gray-500 mt-1">
-                          PDF, DOC, or DOCX format. Max 5MB.
+                          PDF, DOC, or DOCX format. Max 10MB.
                         </p>
                       </div>
                       <div>
@@ -611,7 +611,7 @@ const JobApplicationPage = () => {
                           )}
                         </div>
                         <p className="text-xs text-gray-500 mt-1">
-                          PDF, DOC, or DOCX format. Max 5MB.
+                          PDF, DOC, or DOCX format. Max 10MB.
                         </p>
                       </div>
                     </div>

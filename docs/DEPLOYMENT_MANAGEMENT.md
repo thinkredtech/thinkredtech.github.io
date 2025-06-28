@@ -21,6 +21,7 @@ The new system provides:
 ## 📁 System Components
 
 ### 1. GitHub Actions Workflow (`deploy-backend.yml`)
+
 - Automatically captures new deployment IDs from Google Apps Script
 - Updates frontend configuration files
 - Commits and pushes changes to trigger frontend rebuild
@@ -29,6 +30,7 @@ The new system provides:
 ### 2. Local Deployment Scripts
 
 #### `scripts/update-deployment-id.sh`
+
 Updates deployment ID across all configuration files:
 ```bash
 # Update to specific deployment ID
@@ -39,6 +41,7 @@ Updates deployment ID across all configuration files:
 ```
 
 #### `scripts/deployment-manager.sh`
+
 Manages multiple deployment environments:
 ```bash
 # Show current configuration
@@ -58,11 +61,13 @@ Manages multiple deployment environments:
 ```
 
 #### Enhanced `backend/deploy.sh`
+
 - Automatically extracts deployment ID from `clasp deploy` output
 - Calls update scripts to synchronize frontend configuration
 - Provides deployment status and testing instructions
 
 ### 3. Frontend Configuration (`frontend/src/config/environment.ts`)
+
 Enhanced to support environment-specific deployment IDs:
 ```typescript
 // Environment-specific deployment IDs
@@ -75,6 +80,7 @@ GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID=AKfycby...
 ```
 
 ### 4. Environment Configuration (`.deployment-config.json`)
+
 Stores deployment IDs for different environments:
 ```json
 {
@@ -152,19 +158,21 @@ Stores deployment IDs for different environments:
 ## 🧪 Testing
 
 ### Automated Testing
+
 The `test-cors-api.sh` script is automatically updated with new deployment IDs:
 ```bash
 ./test-cors-api.sh
 ```
 
 ### Manual Testing
+
 1. **Check endpoint status**:
    ```bash
    curl "https://script.google.com/macros/s/AKfycby.../exec?action=test"
    ```
 
 2. **Test job application flow**:
-   - Visit: https://thinkredtech.github.io/apply/ui-ux-designer
+   - Visit: <https://thinkredtech.github.io/apply/ui-ux-designer>
    - Submit test application
    - Verify in Google Sheets
 
@@ -179,16 +187,19 @@ The system automatically updates these files:
 ## 🚨 Troubleshooting
 
 ### Frontend Still Points to Old Endpoint
+
 1. Check if GitHub Actions deployment completed successfully
 2. Verify frontend rebuild was triggered
 3. Manually update using: `./scripts/update-deployment-id.sh NEW_ID`
 
 ### Backend Deployment ID Not Captured
+
 1. Check `clasp deploy` output format
 2. Verify regex pattern in deployment script
 3. Manually extract ID from Google Apps Script console
 
 ### Environment Configuration Issues
+
 1. Check `.deployment-config.json` exists and is valid JSON
 2. Verify `jq` is installed for JSON manipulation
 3. Reset configuration: `rm .deployment-config.json && ./scripts/deployment-manager.sh`

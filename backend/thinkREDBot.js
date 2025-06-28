@@ -48,7 +48,19 @@ function doOptions(e) {
 
 function doPost(e) {
   try {
-    const payload = JSON.parse(e.postData.contents);
+    // Handle larger payloads for file uploads
+    let payload;
+    try {
+      payload = JSON.parse(e.postData.contents);
+    } catch (parseError) {
+      return createErrorResponse('Invalid JSON payload');
+    }
+    
+    // Validate payload structure
+    if (!payload.action) {
+      return createErrorResponse('Missing action in payload');
+    }
+    
     switch (payload.action) {
       case 'submitContactForm':
         return handleContactForm(payload.data);
@@ -58,6 +70,7 @@ function doPost(e) {
         return createErrorResponse('Invalid action provided');
     }
   } catch (error) {
+    console.error('doPost error:', error);
     return createErrorResponse(`Server Error: ${error.message}`);
   }
 }
@@ -135,47 +148,81 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
 
 // === JOB APPLICATION HANDLER ===
 function handleJobApplication(data) {
-  const {
-    jobId, applicationId, name, email, phone,
-    resumeBase64, coverLetterBase64
-  } = data;
+  try {
+    const {
+      jobId, applicationId, name, email, phone,
+      resumeBase64, coverLetterBase64
+    } = data;
 
-  if (!(jobId && applicationId && name && email && resumeBase64)) {
-    return createErrorResponse('Missing required fields in job application');
-  }
+    // Validate required fields
+    if (!(jobId && applicationId && name && email && resumeBase64)) {
+      return createErrorResponse('Missing required fields in job application');
+    }
 
-  const resumeParentFolder = DriveApp.getFolderById(RESUME_PARENT_FOLDER_ID);
-  const jobFolder = getOrCreateSubFolder(resumeParentFolder, jobId);
-  const applicationFolder = jobFolder.createFolder(applicationId);
+    // Validate base64 data to prevent corruption
+    if (!isValidBase64(resumeBase64)) {
+      return createErrorResponse('Invalid resume file format');
+    }
 
-  const resumeFile = applicationFolder.createFile(
-    Utilities.newBlob(Utilities.base64Decode(resumeBase64), 'application/pdf', `${name}_Resume.pdf`)
-  );
+    if (coverLetterBase64 && !isValidBase64(coverLetterBase64)) {
+      return createErrorResponse('Invalid cover letter file format');
+    }
 
-  let coverLetterFile = null;
-  if (coverLetterBase64) {
-    coverLetterFile = applicationFolder.createFile(
-      Utilities.newBlob(Utilities.base64Decode(coverLetterBase64), 'application/pdf', `${name}_CoverLetter.pdf`)
-    );
-  }
+    // Get or create folder structure
+    const resumeParentFolder = DriveApp.getFolderById(RESUME_PARENT_FOLDER_ID);
+    const jobFolder = getOrCreateSubFolder(resumeParentFolder, jobId);
+    const applicationFolder = jobFolder.createFolder(applicationId);
 
-  const sheet = SpreadsheetApp.openById(JOB_APPLICATION_SHEET_ID).getSheetByName('Applications');
-  if (!sheet) return createErrorResponse('Sheet "Applications" not found');
+    // Create resume file with better error handling
+    let resumeFile;
+    try {
+      const resumeBlob = Utilities.newBlob(
+        Utilities.base64Decode(resumeBase64), 
+        'application/pdf', 
+        `${sanitizeFileName(name)}_Resume.pdf`
+      );
+      resumeFile = applicationFolder.createFile(resumeBlob);
+    } catch (error) {
+      console.error('Error creating resume file:', error);
+      return createErrorResponse('Failed to save resume file');
+    }
 
-  sheet.appendRow([
-    new Date(),
-    jobId,
-    applicationId,
-    name,
-    email,
-    phone || '',
-    resumeFile.getUrl(),
-    coverLetterFile ? coverLetterFile.getUrl() : ''
-  ]);
+    // Create cover letter file if provided
+    let coverLetterFile = null;
+    if (coverLetterBase64) {
+      try {
+        const coverLetterBlob = Utilities.newBlob(
+          Utilities.base64Decode(coverLetterBase64), 
+          'application/pdf', 
+          `${sanitizeFileName(name)}_CoverLetter.pdf`
+        );
+        coverLetterFile = applicationFolder.createFile(coverLetterBlob);
+      } catch (error) {
+        console.error('Error creating cover letter file:', error);
+        // Don't fail the entire submission for cover letter issues
+        console.warn('Cover letter file creation failed, continuing without it');
+      }
+    }
 
-  const subject = `[ThinkRED] New Job Application – ${name} (${jobId})`;
+    // Save to spreadsheet
+    const sheet = SpreadsheetApp.openById(JOB_APPLICATION_SHEET_ID).getSheetByName('Applications');
+    if (!sheet) return createErrorResponse('Sheet "Applications" not found');
 
-  const plainBody = `
+    sheet.appendRow([
+      new Date(),
+      jobId,
+      applicationId,
+      name,
+      email,
+      phone || '',
+      resumeFile.getUrl(),
+      coverLetterFile ? coverLetterFile.getUrl() : ''
+    ]);
+
+    // Send notification email
+    const subject = `[ThinkRED] New Job Application – ${name} (${jobId})`;
+
+    const plainBody = `
 A new job application has been received.
 
 Job ID: ${jobId}
@@ -191,7 +238,7 @@ View the full record in the spreadsheet:
 https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}
 `;
 
-  const htmlBody = `
+    const htmlBody = `
 <h3>New job application received</h3>
 <ul>
   <li><strong>Job ID:</strong> ${jobId}</li>
@@ -205,12 +252,17 @@ https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}
 <p><a href="https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}">View Spreadsheet</a></p>
 `;
 
-  GmailApp.sendEmail(EMAIL_TO, subject, plainBody, {
-    cc: EMAIL_CC_JOB_APPLY,
-    htmlBody: htmlBody
-  });
+    GmailApp.sendEmail(EMAIL_TO, subject, plainBody, {
+      cc: EMAIL_CC_JOB_APPLY,
+      htmlBody: htmlBody
+    });
 
-  return createCorsResponse({ success: true });
+    return createCorsResponse({ success: true });
+    
+  } catch (error) {
+    console.error('Job application handling error:', error);
+    return createErrorResponse(`Failed to process job application: ${error.message}`);
+  }
 }
 
 // === UTILITY FUNCTIONS ===
@@ -219,19 +271,24 @@ function getOrCreateSubFolder(parent, name) {
   return folders.hasNext() ? folders.next() : parent.createFolder(name);
 }
 
-function createErrorResponse(message) {
-  return createCorsResponse({ success: false, error: message });
+/**
+ * Validate base64 string format
+ */
+function isValidBase64(str) {
+  try {
+    if (!str || typeof str !== 'string') return false;
+    // Basic base64 validation - should be divisible by 4 and contain valid characters
+    const base64Regex = /^[A-Za-z0-9+\/]*={0,2}$/;
+    return str.length % 4 === 0 && base64Regex.test(str);
+  } catch (error) {
+    return false;
+  }
 }
 
-function createCorsResponse(data) {
-  const output = ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-  
-  // Google Apps Script does not support custom headers for CORS
-  // CORS is automatically handled when the web app is deployed with:
-  // - Execute as: Me (or User accessing the web app)  
-  // - Who has access: Anyone
-  // The deployment settings handle CORS automatically
-  
-  return output;
+/**
+ * Sanitize file names to prevent issues with Google Drive
+ */
+function sanitizeFileName(name) {
+  // Remove special characters and replace spaces with underscores
+  return name.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_').substring(0, 50);
 }

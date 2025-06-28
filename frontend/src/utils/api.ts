@@ -139,23 +139,23 @@ export const submitJobApplication = async (
   applicationData: JobApplicationData
 ): Promise<void> => {
   try {
-    // Validate file sizes before processing
-    if (!validateFileSize(applicationData.resumeFile, 2)) {
+    // Increased file size limits - 10MB per file for better user experience
+    if (!validateFileSize(applicationData.resumeFile, 10)) {
       throw new Error(
         `Resume file is too large (${getFileSizeString(
           applicationData.resumeFile.size
-        )}). Maximum size allowed is 2MB.`
+        )}). Maximum size allowed is 10MB.`
       );
     }
 
     if (
       applicationData.coverLetterFile &&
-      !validateFileSize(applicationData.coverLetterFile, 2)
+      !validateFileSize(applicationData.coverLetterFile, 10)
     ) {
       throw new Error(
         `Cover letter file is too large (${getFileSizeString(
           applicationData.coverLetterFile.size
-        )}). Maximum size allowed is 2MB.`
+        )}). Maximum size allowed is 10MB.`
       );
     }
 
@@ -176,26 +176,25 @@ export const submitJobApplication = async (
       coverLetterBase64,
     };
 
-    // Google Apps Script has limitations with POST requests and CORS preflight
-    // Use GET method with URL parameters to avoid preflight issues
-    // First check if payload is too large for GET request
-    if (isPayloadTooLargeForGet(payload)) {
-      throw new Error(
-        'Combined file size too large for submission. Please ensure your resume and cover letter are smaller files (under 1MB each recommended).'
-      );
-    }
-
+    // Try POST first for larger files, fall back to GET for smaller ones
     try {
-      await submitJobApplicationGet(payload);
-    } catch (getError) {
-      // If GET fails and payload is small enough, we can't do much more
-      // since POST will also fail due to CORS preflight issues
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.error('GET request failed:', getError);
+      await submitJobApplicationPost(payload);
+    } catch (postError) {
+      // If POST fails and payload is small enough for GET, try GET method
+      if (!isPayloadTooLargeForGet(payload)) {
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn(
+            'POST failed, trying GET method for smaller payload:',
+            postError
+          );
+        }
+        await submitJobApplicationGet(payload);
+      } else {
+        throw new Error(
+          'File submission failed. Your files may be too large or there may be a connection issue. Please try with smaller files or contact support.'
+        );
       }
-
-      throw getError;
     }
   } catch (error) {
     // Log error for debugging in development
@@ -263,6 +262,54 @@ const submitJobApplicationGet = async (payload: {
 };
 
 /**
+ * Submit job application using POST method (better for larger files)
+ */
+const submitJobApplicationPost = async (payload: {
+  jobId: string;
+  applicationId: string;
+  name: string;
+  email: string;
+  phone: string;
+  resumeBase64: string;
+  coverLetterBase64?: string;
+}): Promise<void> => {
+  try {
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'submitJobApplication',
+        data: payload,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    if (result.error) {
+      throw new Error(result.error);
+    }
+
+    // Log successful submission
+    logFormSubmission('jobApplication', true);
+  } catch (error) {
+    // Log failed submission
+    logFormSubmission(
+      'jobApplication',
+      false,
+      error instanceof Error ? error.message : String(error)
+    );
+    throw error;
+  }
+};
+
+/**
  * Log form submission analytics (for monitoring and improvement)
  */
 export const logFormSubmission = (
@@ -312,7 +359,8 @@ export const checkRateLimit = (
 
 /**
  * Check if the payload is too large for GET request
- * URL length limit is typically around 2048 characters
+ * URL length limit is typically around 2048 characters for some browsers
+ * We'll use a more conservative limit for better compatibility
  */
 const isPayloadTooLargeForGet = (payload: object): boolean => {
   const dataString = JSON.stringify(payload);
@@ -322,8 +370,9 @@ const isPayloadTooLargeForGet = (payload: object): boolean => {
   });
   const fullUrl = `${API_ENDPOINT}?${urlParams.toString()}`;
 
-  // Conservative limit: 8KB for the entire URL
-  return fullUrl.length > 8192;
+  // Conservative limit: 32KB for the entire URL (increased from 8KB)
+  // This allows for larger files while maintaining compatibility
+  return fullUrl.length > 32768;
 };
 
 /**
@@ -332,7 +381,7 @@ const isPayloadTooLargeForGet = (payload: object): boolean => {
  */
 export const validateFileSize = (
   file: File,
-  maxSizeMB: number = 2
+  maxSizeMB: number = 10
 ): boolean => {
   const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to bytes
   return file.size <= maxSizeBytes;
