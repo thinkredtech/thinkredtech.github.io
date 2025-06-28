@@ -292,3 +292,20 @@ function sanitizeFileName(name) {
   // Remove special characters and replace spaces with underscores
   return name.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_').substring(0, 50);
 }
+
+function createErrorResponse(message) {
+  return createCorsResponse({ success: false, error: message });
+}
+
+function createCorsResponse(data) {
+  const output = ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+  
+  // Google Apps Script does not support custom headers for CORS
+  // CORS is automatically handled when the web app is deployed with:
+  // - Execute as: Me (or User accessing the web app)  
+  // - Who has access: Anyone
+  // The deployment settings handle CORS automatically
+  
+  return output;
+}

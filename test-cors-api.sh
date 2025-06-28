@@ -5,7 +5,7 @@
 echo "🧪 Testing ThinkRED API CORS Fix"
 echo "================================="
 
-API_ENDPOINT="https://script.google.com/macros/s/AKfycbx1hNttxsfo5_LaXTPRN7XJvktexa8dWd38pu7ADZGY-JUzNG7S0p7rFohF-AWReBkxMg/exec"
+API_ENDPOINT="https://script.google.com/macros/s/AKfycbwLJqlNoilpsu7RBoOv0Cb6L9j3SDl-XAQKUZALyo3Bhspr07Vdq5XCd4fy9BAj1fZCMg/exec"
 
 echo "📡 Testing API endpoint: $API_ENDPOINT"
 echo ""

@@ -158,7 +158,7 @@ const getDeploymentId = (): string => {
   }
 
   // Final fallback to latest known production deployment ID
-  return 'AKfycbx1hNttxsfo5_LaXTPRN7XJvktexa8dWd38pu7ADZGY-JUzNG7S0p7rFohF-AWReBkxMg';
+  return 'AKfycbwLJqlNoilpsu7RBoOv0Cb6L9j3SDl-XAQKUZALyo3Bhspr07Vdq5XCd4fy9BAj1fZCMg';
 };
 
 /**
