@@ -133,15 +133,41 @@ const getEnvVar = (key: string, fallback?: string): string => {
 };
 
 /**
+ * Get deployment ID based on environment
+ * Supports multiple deployment targets for different environments
+ */
+const getDeploymentId = (): string => {
+  // Get environment from env vars first
+  const environment = getEnvVar('NODE_ENV', 'production') as
+    | 'development'
+    | 'staging'
+    | 'production';
+  
+  // Try environment-specific deployment ID first
+  const envSpecificId = getEnvVar(
+    `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`
+  );
+  if (envSpecificId) {
+    return envSpecificId;
+  }
+
+  // Fallback to general deployment ID
+  const generalId = getEnvVar('GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID');
+  if (generalId) {
+    return generalId;
+  }
+
+  // Final fallback to latest known production deployment ID
+  return 'AKfycbyQpxAHaosv-kGuveJbboxpn3jnzl3TabvmMlTMBAtn-s4VGbEOAJKVYhndRVMYOpISYw';
+};
+
+/**
  * Application configuration
  */
 export const config: AppConfig = {
   googleAppsScript: {
     projectId: getEnvVar('GOOGLE_APPS_SCRIPT_ID', ''),
-    deploymentId: getEnvVar(
-      'GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID',
-      'AKfycbyQpxAHaosv-kGuveJbboxpn3jnzl3TabvmMlTMBAtn-s4VGbEOAJKVYhndRVMYOpISYw'
-    ),
+    deploymentId: getDeploymentId(),
     baseUrl: getEnvVar(
       'GOOGLE_APPS_SCRIPT_BASE_URL',
       'https://script.google.com/macros/s'

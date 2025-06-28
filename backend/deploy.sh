@@ -100,28 +100,59 @@ fi
 
 # Deploy the script (create a new deployment)
 echo -e "${GREEN}🚀 Creating new deployment...${NC}"
-if clasp deploy --description "${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}"; then
+DEPLOY_OUTPUT=$(clasp deploy --description "${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}")
+
+if echo "$DEPLOY_OUTPUT" | grep -q "Deployed"; then
     echo -e "${GREEN}✅ Deployment successful!${NC}"
-    echo -e "${GREEN}🔗 Deployment Details:${NC}"
-    echo "   Script ID: $CLASP_SCRIPT_ID"
-    echo "   Description: ${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}"
+    
+    # Extract deployment ID from output
+    DEPLOYMENT_ID=$(echo "$DEPLOY_OUTPUT" | grep -o 'AK[a-zA-Z0-9_-]*')
+    
+    if [ -n "$DEPLOYMENT_ID" ]; then
+        echo -e "${GREEN}🔗 Deployment Details:${NC}"
+        echo "   Script ID: $GOOGLE_APPS_SCRIPT_ID"
+        echo "   Deployment ID: $DEPLOYMENT_ID"
+        echo "   Description: ${DEPLOYMENT_DESCRIPTION:-'Backend deployment'}"
+        echo "   Endpoint: https://script.google.com/macros/s/$DEPLOYMENT_ID/exec"
+        
+        # Update frontend configuration automatically
+        echo -e "${GREEN}🔄 Updating frontend configuration...${NC}"
+        if [ -f "../scripts/update-deployment-id.sh" ]; then
+            chmod +x ../scripts/update-deployment-id.sh
+            if ../scripts/update-deployment-id.sh "$DEPLOYMENT_ID"; then
+                echo -e "${GREEN}✅ Frontend configuration updated successfully!${NC}"
+            else
+                echo -e "${YELLOW}⚠️  Frontend configuration update failed, please run manually:${NC}"
+                echo "   ../scripts/update-deployment-id.sh $DEPLOYMENT_ID"
+            fi
+        else
+            echo -e "${YELLOW}⚠️  Auto-update script not found. Please update manually:${NC}"
+            echo "   Deployment ID: $DEPLOYMENT_ID"
+            echo "   Endpoint: https://script.google.com/macros/s/$DEPLOYMENT_ID/exec"
+        fi
+    else
+        echo -e "${YELLOW}⚠️  Could not extract deployment ID from output${NC}"
+        echo "   Deploy output: $DEPLOY_OUTPUT"
+    fi
     
     # Open the script in browser (optional)
     read -p "Open Google Apps Script in browser? (y/N): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         echo -e "${GREEN}🌐 Opening Google Apps Script...${NC}"
-        echo "   Visit: https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+        echo "   Visit: https://script.google.com/d/$GOOGLE_APPS_SCRIPT_ID/edit"
         if command -v open &> /dev/null; then
-            open "https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+            open "https://script.google.com/d/$GOOGLE_APPS_SCRIPT_ID/edit"
         elif command -v xdg-open &> /dev/null; then
-            xdg-open "https://script.google.com/d/$CLASP_SCRIPT_ID/edit"
+            xdg-open "https://script.google.com/d/$GOOGLE_APPS_SCRIPT_ID/edit"
         fi
     fi
     
     echo -e "${GREEN}🎉 Backend deployment completed successfully!${NC}"
     echo -e "${YELLOW}💡 Don't forget to test the contact form and job application forms.${NC}"
+    echo -e "${YELLOW}🧪 Run the test script: cd .. && ./test-cors-api.sh${NC}"
 else
     echo -e "${RED}❌ Deployment failed${NC}"
+    echo "   Output: $DEPLOY_OUTPUT"
     exit 1
 fi

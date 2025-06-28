@@ -1,0 +1,26 @@
+{
+  "environments": {
+    "production": {
+      "name": "GitHub Pages",
+      "deploymentId": "",
+      "description": "Production deployment on GitHub Pages"
+    },
+    "hostinger": {
+      "name": "Hostinger",
+      "deploymentId": "",
+      "description": "Production deployment on Hostinger"
+    },
+    "staging": {
+      "name": "Staging",
+      "deploymentId": "",
+      "description": "Staging environment for testing"
+    },
+    "development": {
+      "name": "Development",
+      "deploymentId": "",
+      "description": "Local development environment"
+    }
+  },
+  "lastUpdated": "",
+  "currentDefault": "production"
+}
