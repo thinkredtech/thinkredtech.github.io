@@ -34,6 +34,10 @@ echo -e "${GREEN}🎯 Updating deployment ID to: ${NEW_DEPLOYMENT_ID}${NC}"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_ROOT"
 
+# Create backup directory in temp
+BACKUP_DIR="/tmp/thinkred-backups-$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+
 # Files to update
 FILES_TO_UPDATE=(
     "frontend/src/config/environment.ts"
@@ -41,11 +45,11 @@ FILES_TO_UPDATE=(
     ".env"
 )
 
-# Backup files
-echo -e "${YELLOW}📋 Creating backups...${NC}"
+# Backup files to temp directory
+echo -e "${YELLOW}📋 Creating backups in $BACKUP_DIR...${NC}"
 for file in "${FILES_TO_UPDATE[@]}"; do
     if [ -f "$file" ]; then
-        cp "$file" "$file.backup.$(date +%Y%m%d_%H%M%S)"
+        cp "$file" "$BACKUP_DIR/$(basename "$file").backup"
         echo "   ✓ Backed up $file"
     fi
 done
@@ -153,8 +157,11 @@ echo ""
 echo -e "${GREEN}🎉 Deployment ID update completed!${NC}"
 echo -e "${GREEN}📋 New deployment ID: ${NEW_DEPLOYMENT_ID}${NC}"
 echo -e "${GREEN}🌐 New endpoint: ${NEW_ENDPOINT}${NC}"
+echo -e "${BLUE}💾 Backups stored in: ${BACKUP_DIR}${NC}"
 echo ""
 echo -e "${YELLOW}💡 Next steps:${NC}"
 echo "   1. Test the application: npm run dev (in frontend directory)"
 echo "   2. Run the test script: ./test-cors-api.sh"
 echo "   3. Deploy to production if everything works"
+echo ""
+echo -e "${YELLOW}🗑️  Clean up backups when satisfied: rm -rf ${BACKUP_DIR}${NC}"

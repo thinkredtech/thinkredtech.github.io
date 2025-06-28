@@ -15,7 +15,12 @@ NC='\033[0m' # No Color
 echo -e "${GREEN}🌐 ThinkRED Deployment Environment Manager${NC}"
 echo "=============================================="
 
-# Configuration file
+# Configuration file (relative to project root)
+CONFIG_FILE="../.deployment-config.json"
+
+# Ensure we're working from the project root
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$PROJECT_ROOT"
 CONFIG_FILE=".deployment-config.json"
 
 # Create default config if it doesn't exist

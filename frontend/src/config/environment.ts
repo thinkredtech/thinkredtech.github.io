@@ -142,7 +142,7 @@ const getDeploymentId = (): string => {
     | 'development'
     | 'staging'
     | 'production';
-  
+
   // Try environment-specific deployment ID first
   const envSpecificId = getEnvVar(
     `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`
