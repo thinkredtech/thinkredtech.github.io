@@ -280,7 +280,7 @@ Security headers are configured in:
 
 For security-related inquiries or to report vulnerabilities:
 
-- **Email**: <security@thinkred.tech>
+- **Email**: <hello@thinkred.tech>
 - **Response Time**: 24-48 hours
 - **Encryption**: PGP key available on request
 

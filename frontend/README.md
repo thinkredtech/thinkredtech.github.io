@@ -353,13 +353,13 @@ The project uses Vite for building with optimizations for:
 ### ThinkRED Technologies
 
 - **Website**: [https://thinkred.tech](https://thinkred.tech)
-- **Email**: [contact@thinkred.tech](mailto:contact@thinkred.tech)
+- **Email**: [hello@thinkred.tech](mailto:hello@thinkred.tech)
 - **GitHub**: [https://github.com/thinkredtech](https://github.com/thinkredtech)
 
 ### Get Help
 
 - **Issues**: [GitHub Issues](https://github.com/thinkredtech/thinkredtech.github.io/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/thinkredtech/thinkredtech.github.io/discussions)
+- **Discussions**: [GitHub Discussions](https://github.com/orgs/thinkredtech/discussions)
 - **Documentation**: [Project Docs](./docs/)
 
 ---
@@ -368,7 +368,7 @@ The project uses Vite for building with optimizations for:
 
 This project is proprietary software of **ThinkRED Technologies LLP**. All rights reserved.
 
-For licensing inquiries, please contact [legal@thinkred.tech](mailto:legal@thinkred.tech).
+For licensing inquiries, please contact [hello@thinkred.tech](mailto:hello@thinkred.tech).
 
 ---
 

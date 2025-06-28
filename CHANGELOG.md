@@ -1,14 +1,22 @@
-# ThinkRED Monorepo - Changelog
+# 📚 ThinkRED Monorepo - Epic Changelog
 
-All notable changes to the ThinkRED monorepo are documented in this file. The format is based on
-[Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
-[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All **legendary changes** to the ThinkRED monorepo are documented in this file! Each update is a new chapter in our epic journey! 🚀
+
+<div align="center">
+
+![Changelog](https://img.shields.io/badge/Changelog-Epic%20Journey-purple?style=for-the-badge&logo=book)
+![Updates](https://img.shields.io/badge/Updates-Regular-green?style=for-the-badge&logo=refresh)
+![Quality](https://img.shields.io/badge/Quality-Master%20Level-gold?style=for-the-badge&logo=star)
+
+</div>
+
+*Based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)*
 
 This changelog covers **monorepo-wide changes** including infrastructure, tooling, and cross-component updates.
-For component-specific changes, see:
 
-- [Frontend CHANGELOG.md](./frontend/CHANGELOG.md) - Frontend application changes
-- [Backend CHANGELOG.md](./backend/CHANGELOG.md) - Backend API and services changes
+For component-specific adventures, check out:
+- **🎨 [Frontend CHANGELOG.md](./frontend/CHANGELOG.md)** - Frontend application changes
+- **⚙️ [Backend CHANGELOG.md](./backend/CHANGELOG.md)** - Backend API and services changes
 
 ---
 
@@ -33,7 +41,7 @@ For component-specific changes, see:
 #### 📁 **Project Organization**
 
 ```
-thinkred-monorepo/
+thinkredtech.github.io/
 ├── frontend/           # React application with Vite build system
 ├── backend/            # Google Apps Script serverless backend
 ├── scripts/            # Shared build and deployment scripts

@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thinkredtech/thinkred-monorepo.git"
+    "url": "git+https://github.com/thinkredtech/thinkredtech.github.io.git"
   },
   "keywords": [
     "thinkred",
