@@ -38,7 +38,12 @@ function doGet(e) {
 
 // Handle OPTIONS requests for CORS preflight
 function doOptions(e) {
-  return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+  // Google Apps Script doesn't support custom headers for OPTIONS
+  // but we can return a proper response structure
+  return createCorsResponse({ 
+    success: true, 
+    message: 'CORS preflight handled by Google Apps Script' 
+  });
 }
 
 function doPost(e) {
@@ -222,7 +227,11 @@ function createCorsResponse(data) {
   const output = ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
   
-  // Google Apps Script automatically handles CORS for web apps
-  // when deployed as a web app with "Execute as: Me" and "Who has access: Anyone"
+  // Google Apps Script does not support custom headers for CORS
+  // CORS is automatically handled when the web app is deployed with:
+  // - Execute as: Me (or User accessing the web app)  
+  // - Who has access: Anyone
+  // The deployment settings handle CORS automatically
+  
   return output;
 }

@@ -140,7 +140,7 @@ export const config: AppConfig = {
     projectId: getEnvVar('GOOGLE_APPS_SCRIPT_ID', ''),
     deploymentId: getEnvVar(
       'GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID',
-      'AKfycbzjcTdSJp9sQYs3gtzCalt2bbwV7Ml8ure4gh2TuRxVjkDA1BxNfO5-1zn-cyXHJMON9Q'
+      'AKfycbyQpxAHaosv-kGuveJbboxpn3jnzl3TabvmMlTMBAtn-s4VGbEOAJKVYhndRVMYOpISYw'
     ),
     baseUrl: getEnvVar(
       'GOOGLE_APPS_SCRIPT_BASE_URL',

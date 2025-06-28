@@ -176,25 +176,26 @@ export const submitJobApplication = async (
       coverLetterBase64,
     };
 
-    // Try POST first (proper RESTful approach)
+    // Google Apps Script has limitations with POST requests and CORS preflight
+    // Use GET method with URL parameters to avoid preflight issues
+    // First check if payload is too large for GET request
+    if (isPayloadTooLargeForGet(payload)) {
+      throw new Error(
+        'Combined file size too large for submission. Please ensure your resume and cover letter are smaller files (under 1MB each recommended).'
+      );
+    }
+    
     try {
-      await submitJobApplicationPost(payload);
-    } catch (postError) {
-      // If POST fails due to Google Apps Script limitations, fall back to GET
-      // This is a temporary workaround - ideally we'd fix the backend
-      if (isPayloadTooLargeForGet(payload)) {
-        throw new Error(
-          'Combined file size too large for submission. Please ensure your resume and cover letter are smaller files (under 1MB each recommended).'
-        );
-      }
-
-      // Log the POST failure for debugging
+      await submitJobApplicationGet(payload);
+    } catch (getError) {
+      // If GET fails and payload is small enough, we can't do much more
+      // since POST will also fail due to CORS preflight issues
       if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
-        console.warn('POST request failed, falling back to GET:', postError);
+        console.error('GET request failed:', getError);
       }
-
-      await submitJobApplicationGet(payload);
+      
+      throw getError;
     }
   } catch (error) {
     // Log error for debugging in development
@@ -259,57 +260,6 @@ const submitJobApplicationGet = async (payload: {
 
     throw error;
   }
-};
-
-/**
- * Submit job application using POST method (proper RESTful approach)
- */
-const submitJobApplicationPost = async (payload: {
-  jobId: string;
-  applicationId: string;
-  name: string;
-  email: string;
-  phone: string;
-  resumeBase64: string;
-  coverLetterBase64?: string;
-}): Promise<void> => {
-  const requestBody = {
-    action: 'submitJobApplication',
-    data: payload,
-  };
-
-  const response = await fetch(API_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(requestBody),
-    mode: 'cors',
-    // Follow redirects to handle Google Apps Script deployment
-    redirect: 'follow',
-  });
-
-  // Check if we got an HTML response (indicates redirect issue)
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('text/html')) {
-    throw new Error(
-      'POST request redirected to HTML page - falling back to GET'
-    );
-  }
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const result = await response.json();
-
-  if (result.error) {
-    logFormSubmission('jobApplication', false, result.error);
-    throw new Error(result.error);
-  }
-
-  // Log successful submission
-  logFormSubmission('jobApplication', true);
 };
 
 /**
