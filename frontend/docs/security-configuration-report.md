@@ -4,7 +4,8 @@
 
 ### Current CSP Status: ✅ IMPLEMENTED
 
-The ThinkRED website now has a comprehensive Content Security Policy implemented across all HTML files:
+The ThinkRED website now has a comprehensive Content Security Policy implemented across all HTML
+files:
 
 - `index.html` (root)
 - `public/index.html` (source template)
@@ -174,4 +175,5 @@ report-uri /csp-violation-report-endpoint/;
 
 ### Security Posture: IMPROVED 🛡️
 
-The implementation significantly improves the security posture while maintaining development flexibility.
+The implementation significantly improves the security posture while maintaining development
+flexibility.

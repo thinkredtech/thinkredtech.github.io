@@ -149,7 +149,7 @@ const getDeploymentId = (): string => {
   if (fallbackId) {
     return fallbackId;
   }
-  
+
   // If no deployment ID is available, throw an error in development
   if (import.meta.env.DEV) {
     throw new Error(
@@ -157,7 +157,7 @@ const getDeploymentId = (): string => {
         'Please set it in your environment or .env file.'
     );
   }
-  
+
   // In production, return empty string to prevent app crash
   // This will cause API calls to fail gracefully
   // eslint-disable-next-line no-console

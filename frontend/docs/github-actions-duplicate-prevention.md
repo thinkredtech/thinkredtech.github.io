@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document explains the duplicate issue prevention system implemented across all GitHub Actions workflows that create issues.
+This document explains the duplicate issue prevention system implemented across all GitHub Actions
+workflows that create issues.
 
 ## Problem Solved
 
@@ -77,10 +78,7 @@ const existingClosedIssues = await github.rest.issues.listForRepo({
   since: sevenDaysAgo.toISOString(),
 });
 
-const allRelevantIssues = [
-  ...existingOpenIssues.data,
-  ...existingClosedIssues.data,
-];
+const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
 
 const issueExists = allRelevantIssues.some(issue =>
   issue.title.includes('Security Vulnerabilities Detected')
@@ -121,7 +119,8 @@ if (!issueExists) {
 Each workflow logs its duplicate prevention decisions:
 
 - `"Created new [issue-type] issue"` - New issue created
-- `"[Issue-type] issue already exists or was recently closed, skipping creation"` - Duplicate prevented
+- `"[Issue-type] issue already exists or was recently closed, skipping creation"` - Duplicate
+  prevented
 
 ## Testing
 

@@ -4,7 +4,8 @@
 
 - **Character Style:** 3D vector action figurine based on ThinkRED branding
 - **Color Scheme:** Primary red (#E4093E) with accent colors from brand palette
-- **Personality:** Professional yet friendly, embodying ThinkRED's "Simplify Technology & Experience" mission
+- **Personality:** Professional yet friendly, embodying ThinkRED's "Simplify Technology &
+  Experience" mission
 - **Size:** Compact but visible, positioned in bottom right corner of the screen
 
 ## Visual Elements

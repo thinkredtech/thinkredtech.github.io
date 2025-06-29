@@ -4,7 +4,8 @@
 
 **Issue**: GitHub Actions detected sensitive data exposure in the repository  
 **GitHub Issue**: #40  
-**Trigger**: Documentation examples containing placeholder values that security scanners flagged as potential secrets  
+**Trigger**: Documentation examples containing placeholder values that security scanners flagged as
+potential secrets  
 **Status**: ✅ **RESOLVED**
 
 ## 🔍 Root Cause Analysis

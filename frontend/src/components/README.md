@@ -4,7 +4,8 @@ This directory contains components and utilities for monitoring application perf
 
 ## `PerformanceWrapper.tsx`
 
-A higher-order component for monitoring React component performance in development and production environments.
+A higher-order component for monitoring React component performance in development and production
+environments.
 
 ### Features
 
@@ -32,11 +33,7 @@ function App() {
 ### Advanced Usage
 
 ```tsx
-<PerformanceWrapper
-  name="ComplexComponent"
-  logMetrics={true}
-  slowThreshold={50}
->
+<PerformanceWrapper name="ComplexComponent" logMetrics={true} slowThreshold={50}>
   <ComplexComponent />
 </PerformanceWrapper>
 ```

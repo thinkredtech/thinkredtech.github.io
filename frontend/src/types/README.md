@@ -1,6 +1,7 @@
 # TypeScript Type Declarations
 
-This directory contains custom TypeScript type declarations to enhance type safety and compatibility across the project.
+This directory contains custom TypeScript type declarations to enhance type safety and compatibility
+across the project.
 
 ## Files Overview
 
@@ -8,9 +9,11 @@ This directory contains custom TypeScript type declarations to enhance type safe
 
 **Purpose**: Provides React 19 compatibility for the react-icons library.
 
-**Problem Solved**: React 19 introduced changes to the JSX runtime that affect how icon libraries like react-icons work with TypeScript.
+**Problem Solved**: React 19 introduced changes to the JSX runtime that affect how icon libraries
+like react-icons work with TypeScript.
 
-**Solution**: Instead of hard-coding specific icon exports (which would be unmaintainable), this file provides:
+**Solution**: Instead of hard-coding specific icon exports (which would be unmaintainable), this
+file provides:
 
 - Generic module declarations that work with all react-icons packages
 - Proper TypeScript integration for React 19's JSX runtime
@@ -121,8 +124,8 @@ Cannot find module 'react-icons/fa' or its corresponding type declarations
 
 **Issue**: Icons not rendering properly
 
-**Solution**: This is likely a React 19 JSX runtime issue. The type declarations here only fix TypeScript compilation,
-not runtime issues. Check your React version and JSX runtime configuration.
+**Solution**: This is likely a React 19 JSX runtime issue. The type declarations here only fix
+TypeScript compilation, not runtime issues. Check your React version and JSX runtime configuration.
 
 ## Maintenance
 

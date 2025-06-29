@@ -2,8 +2,9 @@
 
 ## Overview
 
-The ThinkRED website implements enterprise-grade security measures to protect against common web vulnerabilities
-and ensure data integrity. This document outlines the comprehensive security architecture and implementation details.
+The ThinkRED website implements enterprise-grade security measures to protect against common web
+vulnerabilities and ensure data integrity. This document outlines the comprehensive security
+architecture and implementation details.
 
 ## Security Framework
 
@@ -286,6 +287,5 @@ For security-related inquiries or to report vulnerabilities:
 
 ---
 
-_Last Updated: June 20, 2025_
-_Security Review: Comprehensive hardening completed_
-_Next Review: December 20, 2025_
+_Last Updated: June 20, 2025_ _Security Review: Comprehensive hardening completed_ _Next Review:
+December 20, 2025_

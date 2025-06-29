@@ -2,35 +2,39 @@
 
 ## Overview
 
-The ThinkRED Technologies Design System is a comprehensive collection of reusable components, design tokens, and guidelines that ensure consistency,
-accessibility, and brand alignment across all digital touchpoints. This system is built upon our core [Brand Guidelines](./brand-guidelines)
-and serves as the foundation for all user interface development.
+The ThinkRED Technologies Design System is a comprehensive collection of reusable components, design
+tokens, and guidelines that ensure consistency, accessibility, and brand alignment across all
+digital touchpoints. This system is built upon our core [Brand Guidelines](./brand-guidelines) and
+serves as the foundation for all user interface development.
 
 ## Design Principles
 
 ### 1. Simplicity First
 
-Every design decision prioritizes clarity and ease of use, reflecting our core mission to "Simplify Technology & Experience."
-We eliminate unnecessary complexity while maintaining functional sophistication.
+Every design decision prioritizes clarity and ease of use, reflecting our core mission to "Simplify
+Technology & Experience." We eliminate unnecessary complexity while maintaining functional
+sophistication.
 
 ### 2. Engineering Excellence
 
-Components are built with performance, accessibility, and maintainability as fundamental requirements, not afterthoughts.
-Each element is optimized for both developer experience and end-user performance.
+Components are built with performance, accessibility, and maintainability as fundamental
+requirements, not afterthoughts. Each element is optimized for both developer experience and
+end-user performance.
 
 ### 3. Brand Consistency
 
-All elements faithfully represent ThinkRED's visual identity while providing flexibility for diverse application needs.
-The design system ensures brand recognition across all touchpoints.
+All elements faithfully represent ThinkRED's visual identity while providing flexibility for diverse
+application needs. The design system ensures brand recognition across all touchpoints.
 
 ### 4. User-Centered Approach
 
-Design decisions are validated against user needs and business objectives, ensuring optimal user experience through research-backed choices
-and accessibility standards.
+Design decisions are validated against user needs and business objectives, ensuring optimal user
+experience through research-backed choices and accessibility standards.
 
 ### 5. Scalable Architecture
 
-Components are designed to scale gracefully across different devices, contexts, and future requirements while maintaining visual and functional integrity.
+Components are designed to scale gracefully across different devices, contexts, and future
+requirements while maintaining visual and functional integrity.
 
 ## Typography System
 
@@ -38,7 +42,8 @@ Components are designed to scale gracefully across different devices, contexts, 
 
 #### Primary Display Font: Comfortaa
 
-Used for brand headlines, hero sections, and primary display text where personality and brand recognition are paramount.
+Used for brand headlines, hero sections, and primary display text where personality and brand
+recognition are paramount.
 
 - **Characteristics**: Rounded, friendly, approachable
 - **Usage**: Headlines, hero text, brand statements
@@ -46,7 +51,8 @@ Used for brand headlines, hero sections, and primary display text where personal
 
 #### Primary Text Font: Montserrat
 
-Used for all body text, navigation, and interface elements where readability and professionalism are essential.
+Used for all body text, navigation, and interface elements where readability and professionalism are
+essential.
 
 - **Characteristics**: Clean, professional, highly legible
 - **Usage**: Body text, navigation, UI elements, captions

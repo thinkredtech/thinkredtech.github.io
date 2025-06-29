@@ -21,10 +21,10 @@
 
 ## 🌟 About ThinkRED
 
-**ThinkRED Technologies LLP** is a premier engineering-focused technology consultancy that transforms
-complex technological challenges into elegant solutions. Founded by engineers from **Mozilla**,
-**Fedora**, and **Red Hat**, we bring open-source innovation and enterprise-grade expertise to
-businesses worldwide.
+**ThinkRED Technologies LLP** is a premier engineering-focused technology consultancy that
+transforms complex technological challenges into elegant solutions. Founded by engineers from
+**Mozilla**, **Fedora**, and **Red Hat**, we bring open-source innovation and enterprise-grade
+expertise to businesses worldwide.
 
 ### 🎯 Our Mission
 
@@ -219,6 +219,7 @@ thinkred-website-react19-vite/
 The website features enterprise-grade form submission with automatic error recovery:
 
 **Contact Forms & Job Applications**:
+
 - ✅ **Automatic CORS Fallback**: Seamlessly handles Google Apps Script CORS limitations
 - ✅ **Dual Submission Methods**: POST with GET fallback for maximum reliability
 - ✅ **Enhanced Validation**: Client-side and server-side validation with sanitization
@@ -226,6 +227,7 @@ The website features enterprise-grade form submission with automatic error recov
 - ✅ **Cross-Origin Support**: Works reliably from any domain or environment
 
 **Technical Implementation**:
+
 - **Primary Method**: POST requests with JSON payload
 - **Fallback Method**: GET requests with URL parameters
 - **Error Detection**: Automatic CORS/405 error detection and recovery

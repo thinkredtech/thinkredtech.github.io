@@ -2,9 +2,10 @@
 
 ## Executive Summary
 
-This document outlines the comprehensive technical architecture and design philosophy behind the ThinkRED Technologies corporate website.
-Built with modern web technologies and user-centric design principles, this platform serves as the primary digital touchpoint for international
-clients seeking custom development solutions.
+This document outlines the comprehensive technical architecture and design philosophy behind the
+ThinkRED Technologies corporate website. Built with modern web technologies and user-centric design
+principles, this platform serves as the primary digital touchpoint for international clients seeking
+custom development solutions.
 
 ## Strategic Objectives
 
@@ -38,18 +39,18 @@ The website architecture is designed to achieve four core business objectives:
 
 ### User-Centered Design
 
-The website employs a user-first approach, prioritizing intuitive navigation and clear information hierarchy.
-Every design decision is evaluated against user needs and business objectives.
+The website employs a user-first approach, prioritizing intuitive navigation and clear information
+hierarchy. Every design decision is evaluated against user needs and business objectives.
 
 ### Performance-First Architecture
 
-Built on React 19 with Vite build optimization, the site prioritizes loading speed and runtime performance.
-Code splitting and lazy loading ensure optimal user experience across all device types.
+Built on React 19 with Vite build optimization, the site prioritizes loading speed and runtime
+performance. Code splitting and lazy loading ensure optimal user experience across all device types.
 
 ### Accessibility Standards
 
-Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse abilities,
-reflecting ThinkRED's commitment to inclusive technology.
+Compliance with WCAG 2.1 AA guidelines ensures the platform is accessible to users with diverse
+abilities, reflecting ThinkRED's commitment to inclusive technology.
 
 ### Security-First Implementation
 
@@ -62,8 +63,9 @@ Enterprise-grade security hardening protects against common web vulnerabilities:
 - **Authentication Security**: Environment-based admin authentication
 - **Security Headers**: Complete security header implementation
 
-The security architecture includes a centralized security utility module (`src/utils/security.ts`) providing reusable
-validation, sanitization, and protection functions across all application components.
+The security architecture includes a centralized security utility module (`src/utils/security.ts`)
+providing reusable validation, sanitization, and protection functions across all application
+components.
 
 ## Technical Architecture
 
@@ -237,7 +239,8 @@ The website is implemented as a JavaScript-based frontend application:
 
 ### Comprehensive Workflow Automation
 
-The repository employs multiple GitHub Actions workflows for continuous monitoring and quality assurance:
+The repository employs multiple GitHub Actions workflows for continuous monitoring and quality
+assurance:
 
 #### 🚀 CI/CD Pipeline (`ci-cd-pipeline.yml`)
 
@@ -380,8 +383,10 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 
 **Frequency**: On push to main branch + manual triggers
 
-- **Intelligent Version Analysis**: Conventional commit pattern recognition and change impact assessment
-- **Conditional Release Logic**: Smart release decisions based on changelog updates, security fixes, and change significance
+- **Intelligent Version Analysis**: Conventional commit pattern recognition and change impact
+  assessment
+- **Conditional Release Logic**: Smart release decisions based on changelog updates, security fixes,
+  and change significance
 - **Quality Gate Integration**: Pre-release validation with comprehensive testing pipeline
 - **Automated Version Management**: Package.json updates, git tagging, and GitHub release creation
 - **Release Coordination**: Seamless integration with deployment workflows and post-release actions
@@ -408,7 +413,6 @@ The repository employs multiple GitHub Actions workflows for continuous monitori
 Real-time status indicators provide immediate visibility into:
 
 ```markdown
-
 ### 🔍 Code Quality & Security
 
 [![CI/CD Pipeline](https://github.com/sayakdeepghosh01/thinkred-website-react19-vite/actions/workflows/ci-cd-pipeline.yml/badge.svg)](...)
@@ -476,5 +480,5 @@ Each workflow provides detailed summaries with:
 - Action items and recommendations
 - Quick links to relevant documentation
 
-This automation infrastructure ensures continuous quality, security, and performance monitoring while providing
-immediate visibility into system health and enabling rapid response to issues.
+This automation infrastructure ensures continuous quality, security, and performance monitoring
+while providing immediate visibility into system health and enabling rapid response to issues.
