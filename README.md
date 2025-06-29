@@ -127,15 +127,54 @@ thinkred-monorepo/
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
-# 2️⃣ Install frontend dependencies
-cd frontend
-npm install
+# 2️⃣ Install all dependencies
+npm run install:all
 
-# 3️⃣ Start development server
+# 3️⃣ Start development
 npm run dev
 ```
 
 🌐 **The application will be available at** `http://localhost:3000`
+
+---
+
+## 🎛️ Unified Task Management
+
+This monorepo features a **unified task management system** that simplifies development workflows:
+
+```bash
+# 📋 Show all available commands
+npm run help
+
+# 🚀 Development commands
+npm run dev              # Start frontend development
+npm run dev:all          # Start all development servers
+npm run build            # Build frontend
+npm run build:all        # Build everything
+
+# 🔍 Code quality
+npm run lint             # Lint all workspaces
+npm run format           # Format all code
+npm run type-check       # TypeScript checking
+
+# 🚢 Deployment
+npm run deploy           # Deploy to production
+npm run deploy:frontend  # Deploy frontend only
+npm run deploy:backend   # Deploy backend only
+
+# 📊 Monitoring
+npm run status           # Show workspace status
+npm run backend:logs     # View backend logs
+```
+
+### 🎯 Key Benefits
+
+- **🎯 Single Entry Point**: All tasks run from root directory
+- **⚡ Parallel Execution**: Multiple tasks run simultaneously when safe
+- **🧠 Context Aware**: Automatically runs tasks in correct workspace
+- **🔍 Clear Visibility**: See exactly what's running where
+
+📖 **Complete Guide**: [docs/TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) | 📋 **Quick Ref**: [TASKS.md](TASKS.md)
 
 ---
 

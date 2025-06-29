@@ -1,6 +1,6 @@
 {
   "name": "thinkred-monorepo",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "ThinkRED monorepo containing frontend React app and Google Apps Script backend",
   "private": true,
   "workspaces": [
@@ -8,27 +8,51 @@
     "backend"
   ],
   "scripts": {
-    "start": "cd frontend && npm run dev",
-    "dev": "npm start",
+    "task": "node scripts/task-runner.js",
+    "help": "npm run task help",
+    "status": "npm run task status",
+    
+    "start": "npm run task dev",
+    "dev": "npm run task dev",
+    "dev:all": "npm run task dev:all",
+    
+    "build": "npm run task build",
+    "build:all": "npm run task build:all",
     "prebuild": "./scripts/pre-build.sh",
-    "build": "cd frontend && npm run build && cp -r dist ../build",
     "postbuild": "./scripts/post-build.sh",
-    "clean": "npm run clean:frontend && npm run clean:backend && rm -rf build temp",
-    "clean:git": "./scripts/clean-git-build-artifacts.sh",
-    "clean:frontend": "cd frontend && npm run clean",
-    "clean:backend": "rm -rf backend/node_modules backend/.clasp.json.bak",
-    "test": "cd frontend && npm run test",
-    "lint": "npm run lint:frontend && npm run lint:backend",
-    "lint:frontend": "cd frontend && npm run lint",
-    "lint:backend": "cd backend && npm run lint || echo 'Backend linting not configured'",
-    "format": "cd frontend && npm run format:all",
-    "format:check": "cd frontend && npm run format:check",
-    "type-check": "cd frontend && npm run type-check",
+    
+    "test": "npm run task test",
+    "test:watch": "npm run task test:watch",
+    
+    "lint": "npm run task lint",
+    "lint:fix": "npm run task lint:fix",
+    "format": "npm run task format",
+    "format:check": "npm run task format:check",
+    "type-check": "npm run task type-check",
+    
+    "clean": "npm run task clean",
+    "clean:git": "npm run task clean:git",
+    "install:clean": "npm run task install:clean",
+    
+    "deploy": "npm run task deploy",
+    "deploy:frontend": "npm run task deploy:frontend",
+    "deploy:backend": "npm run task deploy:backend",
+    "release": "npm run deploy",
+    
+    "backend:push": "npm run task backend:push",
+    "backend:open": "npm run task backend:open",
+    "backend:logs": "npm run task backend:logs",
+    
+    "security:scan": "npm run task security:scan",
+    "reports:health": "npm run task reports:health",
+    
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
-    "deploy": "node scripts/deploy/deploy.js",
-    "release": "npm run deploy"
+    "clean:frontend": "cd frontend && npm run clean",
+    "clean:backend": "rm -rf backend/node_modules backend/.clasp.json.bak",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint || echo 'Backend linting not configured'"
   },
   "devDependencies": {
     "semver": "^7.5.4",
