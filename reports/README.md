@@ -100,6 +100,10 @@ All reports must follow standardized templates for consistency:
 
 - [`2025-06-20-001-csp-implementation.md`](./security/2025-06-20-001-csp-implementation.md) - Content Security Policy implementation
 - [`2025-06-20-002-sensitive-data-response.md`](./security/2025-06-20-002-sensitive-data-response.md) - Response to GitHub issue #22
+- [`2025-06-20-003-task-completion-summary.md`](./security/2025-06-20-003-task-completion-summary.md) - Security task completion summary
+- [`2025-06-20-004-csp-violations-issue-41.md`](./security/2025-06-20-004-csp-violations-issue-41.md) - CSP violations issue resolution
+- [`2025-06-29-001-security-incident-resolution.md`](./security/2025-06-29-001-security-incident-resolution.md) - Security incident resolution
+- [`2025-06-29-002-security-verification-complete.md`](./security/2025-06-29-002-security-verification-complete.md) - Security verification report
 
 ### ⚙️ Operational
 

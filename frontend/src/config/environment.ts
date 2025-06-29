@@ -149,7 +149,6 @@ const getDeploymentId = (): string => {
   if (fallbackId) {
     return fallbackId;
   }
-
   // If no deployment ID is available, throw an error in development
   if (import.meta.env.DEV) {
     throw new Error(
