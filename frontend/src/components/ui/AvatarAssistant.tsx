@@ -101,12 +101,78 @@ const MESSAGE_TIMINGS = {
   DEMO_ANIMATION_STEP: 500, // Time between demo animation steps
 } as const;
 
+// Sleep persistence configuration
+const SLEEP_CONFIG = {
+  STORAGE_KEY: 'thinkred_assistant_sleep_state',
+  DEFAULT_SLEEP_DURATION: 10 * 60 * 1000, // 10 minutes in milliseconds
+  MIN_SLEEP_DURATION: 5 * 60 * 1000, // 5 minutes minimum
+  MAX_SLEEP_DURATION: 30 * 60 * 1000, // 30 minutes maximum
+  QUICK_SLEEP_DURATION: 5 * 60 * 1000, // 5 minutes for quick sleep
+  LONG_SLEEP_DURATION: 20 * 60 * 1000, // 20 minutes for long sleep
+} as const;
+
+// Sleep state interface
+interface SleepState {
+  isAsleep: boolean;
+  sleepStartTime: number;
+  sleepDuration: number;
+  reason: 'manual' | 'automatic';
+}
+
+// Sleep storage utilities
+const sleepStorage = {
+  set: (state: SleepState): void => {
+    try {
+      localStorage.setItem(SLEEP_CONFIG.STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      // Silently fail if localStorage is not available
+    }
+  },
+
+  get: (): SleepState | null => {
+    try {
+      const storedState = localStorage.getItem(SLEEP_CONFIG.STORAGE_KEY);
+      if (!storedState) return null;
+
+      const state = JSON.parse(storedState) as SleepState;
+
+      // Validate the stored state structure
+      if (
+        typeof state.isAsleep !== 'boolean' ||
+        typeof state.sleepStartTime !== 'number' ||
+        typeof state.sleepDuration !== 'number'
+      ) {
+        sleepStorage.clear();
+        return null;
+      }
+
+      return state;
+    } catch {
+      sleepStorage.clear();
+      return null;
+    }
+  },
+
+  clear: (): void => {
+    try {
+      localStorage.removeItem(SLEEP_CONFIG.STORAGE_KEY);
+    } catch {
+      // Silently fail if localStorage is not available
+    }
+  },
+
+  isExpired: (state: SleepState): boolean => {
+    return Date.now() > state.sleepStartTime + state.sleepDuration;
+  },
+};
+
 const AvatarAssistant = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
   const [isSleeping, setIsSleeping] = useState(false);
   const [isManualSleep, setIsManualSleep] = useState(false);
+  const [persistentSleep, setPersistentSleep] = useState<SleepState | null>(null);
   const [isGoingToSleep, setIsGoingToSleep] = useState(false);
   const [isWakingUp, setIsWakingUp] = useState(false);
   const [justWokeUp, setJustWokeUp] = useState(false);
@@ -164,6 +230,7 @@ const AvatarAssistant = () => {
   const messageRef = useRef<HTMLDivElement>(null);
   const hasBeenRenderedRef = useRef(false);
   const isUnmountedRef = useRef(false); // Track if component is unmounted
+  const [sleepTimeoutId, setSleepTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   // Enhanced cleanup function
   const cleanupTimers = useCallback(() => {
@@ -185,6 +252,48 @@ const AvatarAssistant = () => {
       cleanupTimers();
     };
   }, [cleanupTimers]);
+
+  // Initialize persistent sleep state on component mount
+  useEffect(() => {
+    const storedSleepState = sleepStorage.get();
+
+    if (storedSleepState && storedSleepState.isAsleep) {
+      if (sleepStorage.isExpired(storedSleepState)) {
+        // Sleep duration has expired, clear storage and wake up
+        sleepStorage.clear();
+        setPersistentSleep(null);
+      } else {
+        // Still within sleep duration, restore sleep state
+        setPersistentSleep(storedSleepState);
+        setIsSleeping(true);
+        setIsManualSleep(storedSleepState.reason === 'manual');
+        setIsVisible(false);
+
+        // Set timeout for remaining sleep duration
+        const remainingTime = storedSleepState.sleepStartTime + storedSleepState.sleepDuration - Date.now();
+        const timeoutId = setTimeout(() => {
+          // Auto wake up when sleep duration expires
+          sleepStorage.clear();
+          setPersistentSleep(null);
+          // Wake up by resetting sleep states
+          setIsSleeping(false);
+          setIsManualSleep(false);
+          setIsVisible(true);
+        }, remainingTime);
+
+        setSleepTimeoutId(timeoutId);
+      }
+    }
+  }, []);
+
+  // Clean up sleep timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (sleepTimeoutId) {
+        clearTimeout(sleepTimeoutId);
+      }
+    };
+  }, [sleepTimeoutId]);
 
   // Function to change message with shrink-then-grow animation - Enhanced with error handling
   const changeMessageWithAnimation = useCallback(
@@ -689,7 +798,7 @@ const AvatarAssistant = () => {
           }, 150);
         }, 100); // Small debounce to prevent rapid state changes
       } else if (scrollY <= sleepScrollDistance && (isSleeping || isGoingToSleep) && !isManualSleep && !isWakingUp) {
-        // Debounce the wake transition
+        // Debounce the wake up transition
         scrollTimeout = setTimeout(() => {
           if (isUnmountedRef.current) return;
           setIsGoingToSleep(false); // Reset transition state
@@ -833,6 +942,35 @@ const AvatarAssistant = () => {
 
     showPageWelcome();
   }, [location.pathname, isVisible, isSleeping, changeMessageWithAnimation]);
+
+  // Function to determine appropriate sleep duration based on user behavior
+  const getAdaptiveSleepDuration = (): number => {
+    // If user has been very active, use shorter sleep duration
+    if (userInteractionCount > 10) {
+      return SLEEP_CONFIG.QUICK_SLEEP_DURATION;
+    }
+
+    // If user has been idle for a long time, use longer sleep duration
+    const timeSinceLastInteraction = Date.now() - lastInteractionTime;
+    if (timeSinceLastInteraction > 5 * 60 * 1000) {
+      // 5 minutes of inactivity
+      return SLEEP_CONFIG.LONG_SLEEP_DURATION;
+    }
+
+    // Default duration for most cases
+    return SLEEP_CONFIG.DEFAULT_SLEEP_DURATION;
+  };
+
+  // Function to get remaining sleep time for display
+  const getRemainingSleepaTime = () => {
+    if (!persistentSleep) return null;
+
+    const remaining = persistentSleep.sleepStartTime + persistentSleep.sleepDuration - Date.now();
+    if (remaining <= 0) return null;
+
+    const minutes = Math.ceil(remaining / (60 * 1000));
+    return minutes;
+  };
 
   // Unified function to get avatar animation classes - prevents conflicts
   const getAvatarAnimationClass = () => {
@@ -1249,6 +1387,12 @@ const AvatarAssistant = () => {
 
   // Put assistant to sleep (user-initiated hide)
   const putAssistantToSleep = () => {
+    // Clear any existing sleep timeout
+    if (sleepTimeoutId) {
+      clearTimeout(sleepTimeoutId);
+      setSleepTimeoutId(null);
+    }
+
     // Clear any pending timeouts that might interfere first
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -1256,6 +1400,28 @@ const AvatarAssistant = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
+
+    // Create persistent sleep state with adaptive duration
+    const sleepState: SleepState = {
+      isAsleep: true,
+      sleepStartTime: Date.now(),
+      sleepDuration: getAdaptiveSleepDuration(),
+      reason: 'manual',
+    };
+
+    // Store sleep state in localStorage
+    sleepStorage.set(sleepState);
+    setPersistentSleep(sleepState);
+
+    // Set timeout to automatically wake up after sleep duration
+    const timeoutId = setTimeout(() => {
+      sleepStorage.clear();
+      setPersistentSleep(null);
+      // Auto wake up by calling the wake up function
+      wakeUpAssistant();
+    }, sleepState.sleepDuration);
+
+    setSleepTimeoutId(timeoutId);
 
     // Step 1: Close message bubble and start transition simultaneously
     setIsExpanded(false);
@@ -1281,6 +1447,16 @@ const AvatarAssistant = () => {
 
   // Wake up assistant (user-initiated show)
   const wakeUpAssistant = () => {
+    // Clear any existing sleep timeout
+    if (sleepTimeoutId) {
+      clearTimeout(sleepTimeoutId);
+      setSleepTimeoutId(null);
+    }
+
+    // Clear persistent sleep state
+    sleepStorage.clear();
+    setPersistentSleep(null);
+
     // Track user interaction
     setUserInteractionCount(prev => prev + 1);
     setLastInteractionTime(Date.now());
@@ -1371,7 +1547,7 @@ const AvatarAssistant = () => {
         <div
           className="sleeping-avatar-size cursor-pointer transition-opacity duration-300 ease-in-out pointer-events-auto"
           onClick={wakeUpAssistant}
-          title="Click to wake up your assistant"
+          title={`Click to wake up your assistant${getRemainingSleepaTime() ? ` (${getRemainingSleepaTime()} min remaining)` : ''}`}
         >
           <img
             src="/assets/avatars/assistant-red-sleeping.png"
