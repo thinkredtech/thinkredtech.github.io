@@ -1,16 +1,16 @@
 <div a[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-A+-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)="center">
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
 # 🚀 ThinkRED Technologies Monorepo
 
 **Simplify Technology & Experience**
 
 [![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-A+-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo/actions)
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
 *Complete monorepo for ThinkRED Technologies company website and infrastructure*
 
