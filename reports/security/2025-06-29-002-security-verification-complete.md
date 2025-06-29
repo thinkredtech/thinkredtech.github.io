@@ -14,7 +14,7 @@
 - **Issue**: Missing CSP headers allowing XSS vulnerabilities
 - **Resolution**: Comprehensive CSP implemented with proper domain allowlisting
 - **Verification**: CSP meta tag deployed and active on live site
-- **Current CSP**: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com; upgrade-insecure-requests; block-all-mixed-content;`
+- **Current CSP**: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;`
 - **Status**: SECURED
 
 #### 3. ✅ Additional Security Headers - IMPLEMENTED
