@@ -104,6 +104,7 @@ All reports must follow standardized templates for consistency:
 - [`2025-06-20-004-csp-violations-issue-41.md`](./security/2025-06-20-004-csp-violations-issue-41.md) - CSP violations issue resolution
 - [`2025-06-29-001-security-incident-resolution.md`](./security/2025-06-29-001-security-incident-resolution.md) - Security incident resolution
 - [`2025-06-29-002-security-verification-complete.md`](./security/2025-06-29-002-security-verification-complete.md) - Security verification report
+- [`2025-06-29-003-google-apps-script-api-fix.md`](./security/2025-06-29-003-google-apps-script-api-fix.md) - Google Apps Script API configuration fix
 
 ### ⚙️ Operational
 

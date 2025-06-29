@@ -34,6 +34,8 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 - **Development Setup**: Created `.env.example` template and `frontend/.env.local` for local development
 - **Test Script Updates**: Updated test scripts (`test-cors-api.sh`, `test-file-sizes.sh`) to require environment variables
 - **Build Configuration**: Ensured all builds pass with new environment variable system
+- **GitHub Actions Fix**: Updated deployment workflow to include all required environment variables in build process
+- **Production API Fix**: Resolved Google Apps Script deployment ID configuration for production environment
 
 #### 📊 **Security Documentation & Reporting**
 
@@ -41,7 +43,9 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 - **Incident Reports**: Generated detailed security resolution reports in `reports/security/` directory:
   - `2025-06-29-001-security-incident-resolution.md` - Complete incident analysis and remediation steps
   - `2025-06-29-002-security-verification-complete.md` - Security verification and testing results
+  - `2025-06-29-003-google-apps-script-api-fix.md` - Google Apps Script API configuration fix
 - **Troubleshooting Guide**: Created `CSP_JOB_APPLICATION_FIX.md` for CSP-related issue resolution
+- **API Configuration Guide**: Created `GOOGLE_APPS_SCRIPT_API_FIX.md` for Google Apps Script deployment configuration
 - **Reports Index**: Updated `reports/README.md` to include new security reports
 
 #### 🔍 **Security Validation & Testing**
@@ -71,6 +75,10 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 - `reports/security/2025-06-29-002-security-verification-complete.md` - Verification report
 - `reports/README.md` - Updated security reports index
 - `CSP_JOB_APPLICATION_FIX.md` - CSP troubleshooting guide
+- `GOOGLE_APPS_SCRIPT_API_FIX.md` - API configuration troubleshooting guide
+
+**GitHub Actions:**
+- `.github/workflows/deploy.yml` - Updated with environment variables for production builds
 
 #### ✅ **Security Impact**
 
