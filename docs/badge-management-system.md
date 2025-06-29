@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document explains how the status badges in the README.md file are managed to prevent duplication and conflicts.
+This document explains how the status badges in the README.md file are managed to prevent
+duplication and conflicts.
 
 ## Current Badge Structure
 

@@ -2,42 +2,49 @@
 
 ## Brand Overview
 
-ThinkRED Technologies represents engineering excellence, innovation, and the simplification of complex technological challenges.
-Our brand identity reflects our commitment to accessible, high-quality technology solutions that empower businesses worldwide.
+ThinkRED Technologies represents engineering excellence, innovation, and the simplification of
+complex technological challenges. Our brand identity reflects our commitment to accessible,
+high-quality technology solutions that empower businesses worldwide.
 
 ### Brand Etymology & Meaning
 
 #### "thinkred" - The Origin Story
 
-The term **"thinkred"** originates from the powerful combination of **"think"** and **"red,"** representing a unique approach to strategic
-thinking paired with a vibrant, impactful methodology. This fusion embodies our philosophy of:
+The term **"thinkred"** originates from the powerful combination of **"think"** and **"red,"**
+representing a unique approach to strategic thinking paired with a vibrant, impactful methodology.
+This fusion embodies our philosophy of:
 
-- **Strategic Thinking**: Deep, analytical problem-solving that cuts to the core of technological challenges
+- **Strategic Thinking**: Deep, analytical problem-solving that cuts to the core of technological
+  challenges
 - **Vibrant Impact**: Bold, decisive action that creates meaningful change in business outcomes
 - **Red Innovation**: The courage to think differently and challenge conventional approaches
-- **Focus on Results**: A commitment to delivering outcomes that matter, not just solutions that work
+- **Focus on Results**: A commitment to delivering outcomes that matter, not just solutions that
+  work
 
-The lowercase "thinkred" represents the foundational mindset—the daily practice of combining thoughtful analysis with bold action.
-It's how we approach every problem, every client challenge, and every innovation opportunity.
+The lowercase "thinkred" represents the foundational mindset—the daily practice of combining
+thoughtful analysis with bold action. It's how we approach every problem, every client challenge,
+and every innovation opportunity.
 
 #### "ThinkRED" - Bold Thinking Amplified
 
-While **thinkred** signifies the foundation of our approach, **ThinkRED** (the company name) represents **bold thinking** elevated to an
-organizational level. The capitalized "RED" emphasizes our commitment to:
+While **thinkred** signifies the foundation of our approach, **ThinkRED** (the company name)
+represents **bold thinking** elevated to an organizational level. The capitalized "RED" emphasizes
+our commitment to:
 
 - **Revolutionary thinking** that transforms industries
 - **Exceptional delivery** that exceeds client expectations
 - **Disruptive innovation** that simplifies complex technology landscapes
 - **Enterprise-grade Solutions** that scale with business growth
 
-ThinkRED, the name, signifies **bold thinking** at scale—where individual "thinkred" moments compound into transformative business outcomes.
+ThinkRED, the name, signifies **bold thinking** at scale—where individual "thinkred" moments
+compound into transformative business outcomes.
 
 ### Brand Mission
 
 > **"Simplify Technology & Experience!"**
 
-Our brand communicates trustworthiness, technical expertise, and approachability—bridging the gap between complex technology and
-business value through bold, strategic thinking.
+Our brand communicates trustworthiness, technical expertise, and approachability—bridging the gap
+between complex technology and business value through bold, strategic thinking.
 
 ## Brand Assets & Usage Guidelines
 
@@ -66,7 +73,8 @@ business value through bold, strategic thinking.
 
 **🎯 Specific Usage Contexts:**
 
-- **Website Headers**: Use full-color version on light backgrounds, white version on dark backgrounds
+- **Website Headers**: Use full-color version on light backgrounds, white version on dark
+  backgrounds
 - **Business Cards**: Minimum 0.3" height, positioned in top-left or centered
 - **Email Signatures**: 150px width maximum, linked to company website
 - **Social Media**: Use as profile image with square crop maintaining proportions
@@ -115,17 +123,22 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 
 #### Mascot Overview
 
-**RED** is the ThinkRED Technologies mascot—an intelligent, friendly avatar assistant that embodies our brand personality and values.
+**RED** is the ThinkRED Technologies mascot—an intelligent, friendly avatar assistant that embodies
+our brand personality and values.
 
 #### RED's Identity & Meaning
 
-- **Name Origin**: "RED" is a clever wordplay combining "think" and "red" with the double meaning of making **R**evolutionary
-  **E**ngineering **D**ecisions. The mascot embodies the company's core philosophy of strategic thinking combined with bold action.
+- **Name Origin**: "RED" is a clever wordplay combining "think" and "red" with the double meaning of
+  making **R**evolutionary **E**ngineering **D**ecisions. The mascot embodies the company's core
+  philosophy of strategic thinking combined with bold action.
 - **Personality**: Intelligent, helpful, approachable, innovative, and slightly playful
 - **Role**: Digital brand ambassador, interactive assistant, and user experience enhancer
-- **Characteristics**: Embodies strategic thinking, technical expertise, user-focused problem-solving, and the "thinkred" methodology
-- **Voice & Tone**: Professional yet friendly, knowledgeable but not condescending, solution-oriented and encouraging
-- **Brand Representation**: RED serves as the personification of ThinkRED's values—making complex technology approachable and delightful
+- **Characteristics**: Embodies strategic thinking, technical expertise, user-focused
+  problem-solving, and the "thinkred" methodology
+- **Voice & Tone**: Professional yet friendly, knowledgeable but not condescending,
+  solution-oriented and encouraging
+- **Brand Representation**: RED serves as the personification of ThinkRED's values—making complex
+  technology approachable and delightful
 
 #### RED's Purpose & Applications
 
@@ -172,10 +185,13 @@ This ensures the logo has proper visual breathing room and maintains its impact.
 
 - **Website Integration**: Position RED consistently across pages, typically bottom-right corner
 - **Animation Timing**: 2-3 second transitions between states, subtle movements every 8-10 seconds
-- **Interaction Triggers**: Scroll-based activation, time-based state changes, user proximity detection
+- **Interaction Triggers**: Scroll-based activation, time-based state changes, user proximity
+  detection
 - **Response Patterns**: Quick acknowledgment (< 1 second), helpful suggestions, clear next steps
-- **Accessibility**: Keyboard navigation support, screen reader compatibility, reduced motion options
-- **Mobile Optimization**: Responsive positioning, touch-friendly interactions, performance-optimized animations
+- **Accessibility**: Keyboard navigation support, screen reader compatibility, reduced motion
+  options
+- **Mobile Optimization**: Responsive positioning, touch-friendly interactions,
+  performance-optimized animations
 
 **❌ Incorrect Usage:**
 

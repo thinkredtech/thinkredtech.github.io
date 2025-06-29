@@ -14,7 +14,7 @@
         <meta name="msapplication-TileColor" content="#E4093E" />
 
         <!-- Security Headers (frame-ancestors and X-Frame-Options moved to HTTP headers) -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content;" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com; upgrade-insecure-requests; block-all-mixed-content;" />
         <meta http-equiv="X-Content-Type-Options" content="nosniff" />
         <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
         <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
@@ -71,7 +71,7 @@
                 }
             })(window.location);
         </script>
-      <script type="module" crossorigin src="/assets/index-bDTtr3eh.js"></script>
+      <script type="module" crossorigin src="/assets/index-BL6Rlyea.js"></script>
       <link rel="modulepreload" crossorigin href="/assets/vendors-CX-AtO5K.js">
       <link rel="modulepreload" crossorigin href="/assets/react-core-TFpcIGCL.js">
       <link rel="modulepreload" crossorigin href="/assets/react-router-BY0luY0s.js">

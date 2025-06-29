@@ -2,34 +2,41 @@
 
 ## Company Overview
 
-ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in simplifying complex technological challenges
-for businesses worldwide. Founded by engineers with deep roots in open-source communities and enterprise software development, we bring together
+ThinkRED Technologies LLP is an engineering-focused technology consultancy that specializes in
+simplifying complex technological challenges for businesses worldwide. Founded by engineers with
+deep roots in open-source communities and enterprise software development, we bring together
 innovation, collaboration, and technical excellence to deliver transformative digital solutions.
 
 ## Mission Statement
 
 ### "Simplify Technology & Experience!"
 
-Our mission is to deliver exceptional value by transforming complex technological requirements into elegant, scalable solutions that empower
-businesses to achieve their strategic objectives. We believe in making technology accessible, understandable, and impactful for organizations of all sizes.
+Our mission is to deliver exceptional value by transforming complex technological requirements into
+elegant, scalable solutions that empower businesses to achieve their strategic objectives. We
+believe in making technology accessible, understandable, and impactful for organizations of all
+sizes.
 
 ## Core Values
 
 ### Engineering Excellence
 
-We maintain the highest standards of technical craftsmanship, ensuring every solution is built with performance, security, and scalability in mind.
+We maintain the highest standards of technical craftsmanship, ensuring every solution is built with
+performance, security, and scalability in mind.
 
 ### Innovation-Led Approach
 
-Drawing from our open-source heritage, we embrace cutting-edge technologies and methodologies to solve problems in novel ways.
+Drawing from our open-source heritage, we embrace cutting-edge technologies and methodologies to
+solve problems in novel ways.
 
 ### Client Partnership
 
-We view every engagement as a collaborative partnership, working closely with clients to understand their unique challenges and business context.
+We view every engagement as a collaborative partnership, working closely with clients to understand
+their unique challenges and business context.
 
 ### Continuous Learning
 
-Our team is committed to staying at the forefront of technological advancement, continuously expanding our expertise and capabilities.
+Our team is committed to staying at the forefront of technological advancement, continuously
+expanding our expertise and capabilities.
 
 ## Service Portfolio
 
@@ -211,7 +218,8 @@ Our team is committed to staying at the forefront of technological advancement, 
 
 ### Open Source Roots
 
-ThinkRED Technologies was founded by engineers with extensive experience in open-source communities, including:
+ThinkRED Technologies was founded by engineers with extensive experience in open-source communities,
+including:
 
 - **Mozilla Foundation**: Contributing to Firefox and web standards
 - **Fedora Project**: Linux distribution development and community building
@@ -223,7 +231,8 @@ ThinkRED Technologies was founded by engineers with extensive experience in open
 Our team brings deep enterprise software development experience from:
 
 - **Global Client Work**: International projects through platforms like Upwork
-- **Enterprise Platforms**: Experience with Red Hat OpenShift, IBM Cloud, and enterprise-scale deployments
+- **Enterprise Platforms**: Experience with Red Hat OpenShift, IBM Cloud, and enterprise-scale
+  deployments
 - **Industry Expertise**: Financial services, healthcare, e-commerce, and SaaS platforms
 - **Consulting Heritage**: Strategic technology consulting for Fortune 500 companies
 
@@ -241,5 +250,6 @@ Our team brings deep enterprise software development experience from:
 
 ### Business Development
 
-For partnership inquiries, project discussions, or technical consultations, please reach out through our website contact form or directly via email.
-We welcome opportunities to discuss how we can help simplify your technology challenges and accelerate your digital transformation journey.
+For partnership inquiries, project discussions, or technical consultations, please reach out through
+our website contact form or directly via email. We welcome opportunities to discuss how we can help
+simplify your technology challenges and accelerate your digital transformation journey.

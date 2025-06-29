@@ -88,7 +88,8 @@
 
 ## Interactive Elements
 
-- **3D Avatar Assistant:** Positioned in bottom right, reacts to scroll position and user interactions
+- **3D Avatar Assistant:** Positioned in bottom right, reacts to scroll position and user
+  interactions
 - **Form Interactions:** Smooth focus states and validation feedback
 - **Hover Effects:** All buttons and clickable elements have smooth hover transitions
 - **Scroll Animations:** Content elements animate in as they enter viewport
