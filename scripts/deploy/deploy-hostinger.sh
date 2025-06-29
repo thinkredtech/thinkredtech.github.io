@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# ThinkRed Website - Hostinger Deployment Script
-# This script builds the React app and prepares it for Hostinger hosting
+# ThinkRed Website - Hostinger SSH Deployment Script
+# This script builds the React app and deploys it to Hostinger via SSH
 
 set -e  # Exit on any error
 
@@ -12,14 +12,43 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Configuration
+# SSH Configuration
+SSH_HOST="147.93.109.69"
+SSH_PORT="65002"
+SSH_USER="u468045938"
+SSH_PATH="domains/thinkred.tech/public_html"
+SSH_CONNECTION="${SSH_USER}@${SSH_HOST}"
+
+# Local Configuration
 BUILD_DIR="dist"
 DEPLOY_DIR="hostinger-deploy"
 ZIP_FILE="thinkred-website.zip"
 
-echo -e "${BLUE}🚀 Starting Hostinger Deployment Process...${NC}"
+echo -e "${BLUE}🚀 Starting Hostinger SSH Deployment Process...${NC}"
 
-# Step 1: Clean previous builds
+# Function to test SSH connection
+test_ssh_connection() {
+    echo -e "${YELLOW}🔗 Testing SSH connection...${NC}"
+    if ssh -p "$SSH_PORT" -o ConnectTimeout=10 -o BatchMode=yes "$SSH_CONNECTION" "echo 'SSH connection successful'" 2>/dev/null; then
+        echo -e "${GREEN}✅ SSH connection successful${NC}"
+        return 0
+    else
+        echo -e "${RED}❌ SSH connection failed${NC}"
+        echo -e "${YELLOW}💡 Please ensure:${NC}"
+        echo -e "   1. Your SSH key is properly configured"
+        echo -e "   2. You can connect manually: ssh -p $SSH_PORT $SSH_CONNECTION"
+        echo -e "   3. The server is accessible"
+        return 1
+    fi
+}
+
+# Step 1: Test SSH connection
+if ! test_ssh_connection; then
+    echo -e "${RED}❌ Cannot proceed without SSH connection${NC}"
+    exit 1
+fi
+
+# Step 2: Clean previous builds
 echo -e "${YELLOW}🧹 Cleaning previous builds...${NC}"
 if [ -d "$BUILD_DIR" ]; then
     rm -rf "$BUILD_DIR"
@@ -146,27 +175,75 @@ Note: This is a Single Page Application (SPA) built with React and Vite.
 The .htaccess file ensures proper routing for React Router.
 EOF
 
-# Step 12: Create zip file for easy upload
-echo -e "${YELLOW}📦 Creating zip file for upload...${NC}"
-cd "$DEPLOY_DIR"
-zip -r "../$ZIP_FILE" . -x "*.DS_Store" "*.git*"
-cd ..
+# Step 12: Backup existing files on server (optional)
+echo -e "${YELLOW}💾 Creating backup of existing files...${NC}"
+ssh -p "$SSH_PORT" "$SSH_CONNECTION" "
+    if [ -d '$SSH_PATH' ]; then
+        if [ -f '$SSH_PATH/index.html' ]; then
+            echo 'Creating backup...'
+            tar -czf ~/backup-$(date +%Y%m%d-%H%M%S).tar.gz -C '$SSH_PATH' . 2>/dev/null || echo 'Backup creation failed (may be empty directory)'
+        fi
+    else
+        mkdir -p '$SSH_PATH'
+    fi
+"
 
-# Step 13: Display file sizes
+# Step 13: Clear existing files (keep .htaccess and important files)
+echo -e "${YELLOW}�️  Clearing old deployment files...${NC}"
+ssh -p "$SSH_PORT" "$SSH_CONNECTION" "
+    cd '$SSH_PATH' && 
+    find . -name '*.html' -delete 2>/dev/null || true
+    find . -name '*.js' -delete 2>/dev/null || true
+    find . -name '*.css' -delete 2>/dev/null || true
+    find . -name '*.json' -delete 2>/dev/null || true
+    find . -name '*.ico' -delete 2>/dev/null || true
+    find . -name '*.txt' -delete 2>/dev/null || true
+    find . -name '*.map' -delete 2>/dev/null || true
+    rm -rf assets/ static/ docs/ 2>/dev/null || true
+    echo 'Old files cleared'
+"
+
+# Step 14: Upload new files via SCP
+echo -e "${YELLOW}📤 Uploading files to server...${NC}"
+scp -P "$SSH_PORT" -r "$DEPLOY_DIR"/* "$SSH_CONNECTION:$SSH_PATH/"
+
+# Step 15: Set proper permissions
+echo -e "${YELLOW}🔐 Setting file permissions...${NC}"
+ssh -p "$SSH_PORT" "$SSH_CONNECTION" "
+    cd '$SSH_PATH' &&
+    find . -type f -name '*.html' -exec chmod 644 {} \;
+    find . -type f -name '*.css' -exec chmod 644 {} \;
+    find . -type f -name '*.js' -exec chmod 644 {} \;
+    find . -type f -name '*.json' -exec chmod 644 {} \;
+    find . -type f -name '.htaccess' -exec chmod 644 {} \;
+    find . -type d -exec chmod 755 {} \;
+    echo 'Permissions set successfully'
+"
+
+# Step 16: Verify deployment
+echo -e "${YELLOW}🔍 Verifying deployment...${NC}"
+if ssh -p "$SSH_PORT" "$SSH_CONNECTION" "test -f '$SSH_PATH/index.html'"; then
+    echo -e "${GREEN}✅ Deployment verification successful - index.html found${NC}"
+else
+    echo -e "${RED}❌ Deployment verification failed - index.html not found${NC}"
+    exit 1
+fi
+
+# Step 17: Display file sizes
 echo -e "${BLUE}📊 Deployment Statistics:${NC}"
 echo -e "Build directory size: $(du -sh "$BUILD_DIR" | cut -f1)"
 echo -e "Deployment directory size: $(du -sh "$DEPLOY_DIR" | cut -f1)"
-echo -e "Zip file size: $(du -sh "$ZIP_FILE" | cut -f1)"
+echo -e "Server files: $(ssh -p "$SSH_PORT" "$SSH_CONNECTION" "du -sh '$SSH_PATH' 2>/dev/null || echo 'Unable to get size'")"
 
-# Step 14: Display completion message
-echo -e "${GREEN}🎉 Deployment preparation complete!${NC}"
-echo -e "${BLUE}📁 Files ready in: ${YELLOW}$DEPLOY_DIR${NC}"
-echo -e "${BLUE}📦 Zip file created: ${YELLOW}$ZIP_FILE${NC}"
+# Step 18: Display completion message
+echo -e "${GREEN}🎉 SSH Deployment completed successfully!${NC}"
+echo -e "${BLUE}🌐 Your website should now be live!${NC}"
 echo ""
-echo -e "${YELLOW}📋 Next Steps:${NC}"
-echo -e "1. Extract or upload the contents of '${YELLOW}$DEPLOY_DIR${NC}' to your Hostinger public_html folder"
-echo -e "2. Or upload and extract '${YELLOW}$ZIP_FILE${NC}' directly to your Hostinger file manager"
-echo -e "3. Ensure the ${YELLOW}.htaccess${NC} file is uploaded (it may be hidden in file managers)"
-echo -e "4. Your website should be live at your domain!"
+echo -e "${YELLOW}📋 Deployment Summary:${NC}"
+echo -e "• Server: ${YELLOW}$SSH_HOST:$SSH_PORT${NC}"
+echo -e "• User: ${YELLOW}$SSH_USER${NC}"
+echo -e "• Path: ${YELLOW}$SSH_PATH${NC}"
+echo -e "• Build Date: ${YELLOW}$(date)${NC}"
+echo -e "• Git Commit: ${YELLOW}$(git rev-parse --short HEAD 2>/dev/null || echo "N/A")${NC}"
 echo ""
-echo -e "${GREEN}✅ All files are ready for Hostinger deployment!${NC}"
+echo -e "${GREEN}✅ Hostinger SSH deployment completed!${NC}"

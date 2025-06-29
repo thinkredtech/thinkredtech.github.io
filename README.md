@@ -227,6 +227,8 @@ npm run dev          # 🚀 Start development server
 npm run build        # 🏗️ Build for production
 npm run preview      # 👀 Preview production build
 npm run deploy       # 🌐 Deploy to GitHub Pages
+npm run deploy:github # 🚀 Deploy to GitHub Pages
+npm run deploy:ssh   # 🔒 Deploy to Hostinger via SSH
 npm run lint         # 🔍 Run ESLint
 npm run type-check   # ✅ TypeScript compiler check
 ```
