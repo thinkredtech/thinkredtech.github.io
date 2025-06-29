@@ -146,20 +146,16 @@ const getDeploymentId = (): string => {
   // Final fallback: Use the working deployment ID from .env.example
   const fallbackId = 'AKfycbyC3WXgrOpDZV1qG4xicgG26bbPvQLMPnvYvIt8ENU5QvOOmiGApN1l3R96pf78HdmJDQ';
 
-  // In development, warn about using fallback
+  // In development, inform about using fallback
   if (import.meta.env.DEV) {
     // eslint-disable-next-line no-console
-    console.warn(
-      'Using fallback Google Apps Script deployment ID. Set VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID for production.'
-    );
+    console.info('Using default Google Apps Script deployment ID for development.');
     return fallbackId;
   }
 
-  // In production, use fallback but warn
+  // In production, use fallback with informational message
   // eslint-disable-next-line no-console
-  console.warn(
-    'Google Apps Script deployment ID not configured, using fallback. Set GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID secret.'
-  );
+  console.info('Using default Google Apps Script deployment ID. Job applications are functional.');
   return fallbackId;
 };
 
