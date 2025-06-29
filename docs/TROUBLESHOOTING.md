@@ -118,7 +118,14 @@ This guide provides solutions to common issues encountered during development an
 3. **Check Dependencies**:
    ```bash
    npm audit
-   npm audit fix
+   ```
+
+4. **Git Build Artifacts Issues**:
+   If you're seeing build files appearing in Git during builds, see [GIT_BUILD_PREVENTION.md](./GIT_BUILD_PREVENTION.md) for comprehensive solutions.
+
+   ```bash
+   # Quick fix for build artifacts in Git
+   npm run clean:git
    ```
 
 ### Styling Issues

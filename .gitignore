@@ -22,6 +22,48 @@ thinkred-website.zip
 dist/
 **/dist/
 
+# Build artifacts and source maps
+*.map
+**/*.map
+*.min.js
+**/*.min.js
+*.min.css
+**/*.min.css
+*.bundle.js
+**/*.bundle.js
+*.bundle.css
+**/*.bundle.css
+
+# Vite build cache and temp files
+.vite/
+**/.vite/
+vite.config.js.timestamp-*
+**/vite.config.js.timestamp-*
+
+# Build process temporary files
+*.tsbuildinfo
+**/*.tsbuildinfo
+.turbo/
+**/.turbo/
+.next/
+**/.next/
+.nuxt/
+**/.nuxt/
+.output/
+**/.output/
+.vercel/
+**/.vercel/
+.netlify/
+**/.netlify/
+
+# Cache directories
+.cache/
+**/.cache/
+.parcel-cache/
+**/.parcel-cache/
+.rollup.cache/
+**/.rollup.cache/
+
 # misc
 .DS_Store
 **/.DS_Store
@@ -45,6 +87,20 @@ clasp-credentials.json
 *.backup*
 *.tmp
 *.temp
+*~
+**/*~
+*.lock.tmp
+**/*.lock.tmp
+
+# Build and deployment locks
+*.building
+**/*.building
+*.deploying
+**/*.deploying
+deploy.lock
+**/deploy.lock
+build.lock
+**/build.lock
 
 # Logs
 npm-debug.log*

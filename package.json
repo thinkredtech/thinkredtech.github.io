@@ -10,8 +10,11 @@
   "scripts": {
     "start": "cd frontend && npm run dev",
     "dev": "npm start",
+    "prebuild": "./scripts/pre-build.sh",
     "build": "cd frontend && npm run build && cp -r dist ../build",
+    "postbuild": "./scripts/post-build.sh",
     "clean": "npm run clean:frontend && npm run clean:backend && rm -rf build temp",
+    "clean:git": "./scripts/clean-git-build-artifacts.sh",
     "clean:frontend": "cd frontend && npm run clean",
     "clean:backend": "rm -rf backend/node_modules backend/.clasp.json.bak",
     "test": "cd frontend && npm run test",

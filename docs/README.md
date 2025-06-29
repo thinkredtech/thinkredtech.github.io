@@ -30,10 +30,15 @@ The ThinkRED website is a modern React-based company website with a Google Apps 
 |----------|---------|----------|
 | [ENVIRONMENT.md](./ENVIRONMENT.md) | Environment configuration | Developers, DevOps |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common issues and solutions | Developers |
+| [GIT_BUILD_PREVENTION.md](./GIT_BUILD_PREVENTION.md) | Git build artifacts prevention | Developers, DevOps |
+
+### Process and Guidelines
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
+| [WORKFLOW.md](./WORKFLOW.md) | Development workflow and Git practices | Developers |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines | Contributors |
+| [STYLE_GUIDE.md](./STYLE_GUIDE.md) | Code style and conventions | Developers |
 
 ## Getting Started
 
