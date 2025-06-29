@@ -31,6 +31,16 @@ dist/
 .env.test.local
 .env.production.local
 
+# Security sensitive files
+*.key
+*.pem
+*.p12
+*.json.backup*
+**/secrets.*
+**/.secrets/
+clasp-credentials.json
+**/clasp-credentials.json
+
 # Backup files created by deployment scripts
 *.backup*
 *.tmp

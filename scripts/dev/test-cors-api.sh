@@ -5,7 +5,14 @@
 echo "🧪 Testing ThinkRED API CORS Fix"
 echo "================================="
 
-API_ENDPOINT="https://script.google.com/macros/s/AKfycbwLJqlNoilpsu7RBoOv0Cb6L9j3SDl-XAQKUZALyo3Bhspr07Vdq5XCd4fy9BAj1fZCMg/exec"
+# Get API endpoint from environment or use placeholder
+API_ENDPOINT="${GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL:-https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec}"
+
+if [[ "$API_ENDPOINT" == *"YOUR_DEPLOYMENT_ID_HERE"* ]]; then
+    echo "❌ ERROR: Please set GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL environment variable"
+    echo "   Example: export GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"
+    exit 1
+fi
 
 echo "📡 Testing API endpoint: $API_ENDPOINT"
 echo ""

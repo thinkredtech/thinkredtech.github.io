@@ -7,8 +7,12 @@ echo "🧪 ThinkRED File Size Enhancement Testing"
 echo "=========================================="
 echo ""
 
-# API endpoint (using the current deployment)
-API_ENDPOINT="https://script.google.com/macros/s/AKfycbwLJqlNoilpsu7RBoOv0Cb6L9j3SDl-XAQKUZALyo3Bhspr07Vdq5XCd4fy9BAj1fZCMg/exec"
+# API endpoint (using environment variable or placeholder)
+API_ENDPOINT="${GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL:-https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec}"
+
+if [[ "$API_ENDPOINT" == *"YOUR_DEPLOYMENT_ID_HERE"* ]]; then
+    echo "❌ WARNING: Using placeholder API endpoint. Set GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL for actual testing."
+fi
 
 echo "🎯 Testing enhanced file size capabilities:"
 echo "   • Previous limit: 2MB per file (combined ~1MB for GET)"
