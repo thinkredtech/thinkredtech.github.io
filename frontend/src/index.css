@@ -38,11 +38,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--browser-theme-color, #e4093e) 80%,
-    black
-  );
+  background-color: color-mix(in srgb, var(--browser-theme-color, #e4093e) 80%, black);
 }
 
 /* Firefox scrollbar theming */
@@ -191,8 +187,7 @@ h6 {
 }
 
 code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 /* Custom utility classes */
@@ -813,8 +808,7 @@ code {
     transform: scale(1.005) translateY(-1px) rotate(0.2deg) translateX(0.5px);
   }
   30% {
-    transform: scale(1.012) translateY(-2.5px) rotate(-0.1deg)
-      translateX(-0.3px);
+    transform: scale(1.012) translateY(-2.5px) rotate(-0.1deg) translateX(-0.3px);
   }
   45% {
     transform: scale(1.008) translateY(-1.8px) rotate(0.4deg) translateX(0.8px);
@@ -826,8 +820,7 @@ code {
     transform: scale(1.007) translateY(-1.2px) rotate(0.25deg) translateX(0.4px);
   }
   90% {
-    transform: scale(1.003) translateY(-0.5px) rotate(-0.1deg)
-      translateX(-0.1px);
+    transform: scale(1.003) translateY(-0.5px) rotate(-0.1deg) translateX(-0.1px);
   }
 }
 
@@ -892,8 +885,7 @@ code {
 
 /* Shrink phase - bubble shrinks to center like genie going back into lamp */
 .message-shrink {
-  animation: bubbleShrinkGenie 0.33s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-    forwards;
+  animation: bubbleShrinkGenie 0.33s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
   transform-origin: center center;
 }
 
@@ -914,8 +906,7 @@ code {
 
 /* Grow phase with genie-like effects - emerging from center like genie from lamp */
 .message-grow-pop {
-  animation: bubbleGrowGeniePopPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    forwards;
+  animation: bubbleGrowGeniePopPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
@@ -939,8 +930,7 @@ code {
 }
 
 .message-grow-bounce {
-  animation: bubbleGrowGenieBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
-    forwards;
+  animation: bubbleGrowGenieBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   transform-origin: center center;
 }
 
@@ -968,8 +958,7 @@ code {
 }
 
 .message-grow-wiggle {
-  animation: bubbleGrowGenieWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    forwards;
+  animation: bubbleGrowGenieWiggle 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   transform-origin: center center;
 }
 
@@ -997,8 +986,7 @@ code {
 }
 
 .message-grow-zoom {
-  animation: bubbleGrowGenieZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    forwards;
+  animation: bubbleGrowGenieZoom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
@@ -1018,14 +1006,12 @@ code {
 }
 
 .message-grow-subtle {
-  animation: bubbleGrowGenieSubtle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    forwards;
+  animation: bubbleGrowGenieSubtle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   transform-origin: center center;
 }
 
 .message-grow-explode {
-  animation: bubbleGrowGenieExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    forwards;
+  animation: bubbleGrowGenieExplode 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   transform-origin: center center;
 }
 
@@ -1385,19 +1371,16 @@ code {
 
 /* Avatar animations that sync with bubble grow phases - improved consistency */
 .genie-container.excited .avatar-image {
-  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    ease-in-out;
+  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
 
 /* Avatar animations for specific bubble sync - standardized timing */
 .genie-container.excited-pop .avatar-image {
-  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    ease-in-out;
+  animation: genieExcited 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
 
 .genie-container.excited-bounce .avatar-image {
-  animation: genieExcited 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)
-    ease-in-out;
+  animation: genieExcited 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
 }
 
 .genie-container.excited-wiggle .avatar-image {
@@ -1405,13 +1388,11 @@ code {
 }
 
 .genie-container.excited-zoom .avatar-image {
-  animation: genieExcited 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    ease-in-out;
+  animation: genieExcited 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
 
 .genie-container.excited-explode .avatar-image {
-  animation: genieExcited 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    ease-in-out;
+  animation: genieExcited 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ease-in-out;
 }
 
 .genie-container .avatar-image {
@@ -1985,8 +1966,7 @@ code {
 
 /* Genie-style message bubble pop animation */
 .message-bubble-pop {
-  animation: messageBubblePop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-    forwards;
+  animation: messageBubblePop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 @keyframes messageBubblePop {

@@ -16,15 +16,11 @@ jest.mock('./pages/ServicesPage', () => () => <div>Services Page</div>);
 jest.mock('./pages/PortfolioPage', () => () => <div>Portfolio Page</div>);
 jest.mock('./pages/ContactPage', () => () => <div>Contact Page</div>);
 jest.mock('./pages/BlogPage', () => () => <div>Blog Page</div>);
-jest.mock('./components/ui/AvatarAssistant', () => () => (
-  <div>Avatar Assistant</div>
-));
+jest.mock('./components/ui/AvatarAssistant', () => () => <div>Avatar Assistant</div>);
 
 // Mock react-router-dom
 jest.mock('react-router-dom', () => ({
-  BrowserRouter: ({ children }: { children?: ReactNode }) => (
-    <div>{children}</div>
-  ),
+  BrowserRouter: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Routes: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
   Route: ({ path, element }: { path: string; element: ReactNode }) => (
     <div data-testid={`route-${path}`}>{element}</div>

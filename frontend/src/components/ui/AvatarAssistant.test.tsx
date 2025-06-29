@@ -38,18 +38,14 @@ describe('AvatarAssistant Component', () => {
     render(<AvatarAssistant />);
 
     // Initially the message should not be visible
-    expect(
-      screen.queryByText(/Hello! I'm ThinkRED's assistant/)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/Hello! I'm ThinkRED's assistant/)).not.toBeInTheDocument();
 
     // Click the assistant
     const assistantButton = screen.getByRole('button', { name: '' });
     fireEvent.click(assistantButton);
 
     // Message should now be visible
-    expect(
-      screen.getByText(/Hello! I'm ThinkRED's assistant/)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Hello! I'm ThinkRED's assistant/)).toBeInTheDocument();
 
     // Close button should be available
     const closeButton = screen.getByText('Close');
@@ -59,8 +55,6 @@ describe('AvatarAssistant Component', () => {
     fireEvent.click(closeButton);
 
     // Message should be hidden again
-    expect(
-      screen.queryByText(/Hello! I'm ThinkRED's assistant/)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/Hello! I'm ThinkRED's assistant/)).not.toBeInTheDocument();
   });
 });

@@ -6,15 +6,7 @@ import Footer from './Footer';
 // Mock the navigation links
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  Link: ({
-    to,
-    children,
-    className,
-  }: {
-    to: string;
-    children: ReactNode;
-    className?: string;
-  }) => (
+  Link: ({ to, children, className }: { to: string; children: ReactNode; className?: string }) => (
     <a href={to} className={className} data-testid={`link-${to}`}>
       {children}
     </a>
@@ -34,17 +26,11 @@ describe('Footer Component', () => {
     expect(logo).toBeInTheDocument();
 
     // Check if company description is rendered
-    expect(
-      screen.getByText(/ThinkRED Technologies simplifies technology/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/ThinkRED Technologies simplifies technology/i)).toBeInTheDocument();
 
     // Check if copyright notice is rendered
     const currentYear = new Date().getFullYear();
-    expect(
-      screen.getByText(
-        new RegExp(`© ${currentYear} ThinkRED Technologies LLP`, 'i')
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`© ${currentYear} ThinkRED Technologies LLP`, 'i'))).toBeInTheDocument();
   });
 
   test('renders all footer sections and links', () => {
@@ -67,15 +53,9 @@ describe('Footer Component', () => {
     expect(screen.getByTestId('link-/contact')).toBeInTheDocument();
 
     // Check social links
-    expect(
-      screen.getByTestId('link-https://github.com/thinkred-tech')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId('link-https://linkedin.com/company/thinkred-tech')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId('link-https://twitter.com/thinkred_tech')
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('link-https://github.com/thinkred-tech')).toBeInTheDocument();
+    expect(screen.getByTestId('link-https://linkedin.com/company/thinkred-tech')).toBeInTheDocument();
+    expect(screen.getByTestId('link-https://twitter.com/thinkred_tech')).toBeInTheDocument();
   });
 
   test('renders legal links', () => {

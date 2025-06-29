@@ -8,15 +8,7 @@ const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
-  Link: ({
-    to,
-    children,
-    className,
-  }: {
-    to: string;
-    children: ReactNode;
-    className?: string;
-  }) => (
+  Link: ({ to, children, className }: { to: string; children: ReactNode; className?: string }) => (
     <a href={to} className={className} data-testid={`link-${to}`}>
       {children}
     </a>
