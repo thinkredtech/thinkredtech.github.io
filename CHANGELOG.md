@@ -20,6 +20,37 @@ For component-specific adventures, check out:
 
 ---
 
+## [1.1.0] - 2025-06-29
+
+### 🚀 **Enhanced Deployment & Infrastructure Improvements**
+
+#### 🔧 **Deployment Infrastructure**
+
+- **SSH Deployment Scripts**: Added comprehensive SSH deployment automation with connection testing and password authentication disabled
+- **Automated Deployment Management**: Implemented advanced deployment management system with backup and cleanup features
+- **GitHub Actions Enhancements**: Fixed and optimized CI/CD pipeline workflows for backend deployment
+- **Environment Management**: Enhanced centralized environment variable management system
+
+#### 🔨 **Development Experience**
+
+- **Documentation Restructure**: Comprehensive reorganization of README.md and documentation structure for improved clarity
+- **Icon System Improvements**: Updated reset button icon SVG path for better visual representation
+- **Code Quality**: Enhanced linting configurations and format compliance across the codebase
+- **CORS Handling**: Improved CORS handling and payload submission methods to avoid preflight issues
+
+#### 📊 **Repository Organization**
+
+- **Documentation Organization**: Reorganized Google Apps Script API fix documentation and security reports into proper directory structure
+- **Gitignore Updates**: Added hostinger-deploy and thinkred-website.zip to .gitignore for cleaner repository management
+- **Badge System**: Continued automated quality and security status badge updates
+
+#### 🔗 **Component Updates**
+
+- **Frontend**: Updated to version 1.0.6 with deployment infrastructure improvements and UI enhancements
+- **Backend**: Maintained at version 1.0.0 with enhanced deployment configurations and API endpoint updates
+
+---
+
 ## [1.0.0] - 2025-06-26
 
 ### 🎉 **Initial Monorepo Release**
@@ -80,12 +111,14 @@ thinkredtech.github.io/
 
 ### 📝 **Component Summaries**
 
-#### Frontend [1.0.4]
+#### Frontend [1.0.6]
 
 - React 19 application with Vite build system
+- Enhanced deployment infrastructure with SSH automation
+- Critical security incident resolution and infrastructure hardening
+- Enhanced Content Security Policy (CSP) implementation
 - Comprehensive UI component library with performance monitoring
-- Advanced security features including CSP and input validation
-- Responsive design with accessibility compliance
+- Advanced security features including input validation and environment variable management
 
 #### Backend [1.0.0]
 

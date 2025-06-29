@@ -9,6 +9,58 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 
 ---
 
+## [1.0.6] - 2025-06-29
+
+### 🚀 **Deployment Infrastructure & UI Improvements**
+
+#### 🔧 **Enhanced Deployment System**
+
+- **SSH Deployment Scripts**: Added comprehensive SSH deployment automation with connection testing and enhanced security
+- **Password Authentication**: Disabled password authentication in SSH connection tests for improved security
+- **Deployment Documentation**: Updated README with detailed deployment commands and infrastructure setup
+- **Google Apps Script Configuration**: Enhanced configuration with improved messaging (changed warnings to info level)
+
+#### 🎨 **User Interface Enhancements**
+
+- **Reset Button Icon**: Updated reset icon SVG path for improved visual representation and consistency
+- **Code Formatting**: Resolved TypeScript linting errors in `environment.ts` configuration file
+- **Google Apps Script Integration**: Fixed deployment ID and environment variable configuration issues
+
+#### 📚 **Documentation Organization**
+
+- **README Restructure**: Comprehensive restructuring of README.md for improved clarity and organization
+- **API Documentation**: Properly organized Google Apps Script API fix documentation for better accessibility
+- **Security Documentation**: Enhanced organization of security-related documentation and troubleshooting guides
+
+#### 🔄 **Configuration Management**
+
+- **Environment Variables**: Resolved remaining Google Apps Script deployment ID configuration issues
+- **Lint Compliance**: Ensured all code changes pass ESLint and Prettier formatting requirements
+- **Quality Assurance**: Maintained automated quality and security status badge updates
+
+#### 🎯 **Files Modified**
+
+**Infrastructure:**
+- `scripts/deploy/` - New SSH deployment automation scripts
+- `README.md` - Comprehensive restructure and deployment documentation
+- `frontend/src/config/environment.ts` - Formatting fixes and configuration improvements
+
+**UI Components:**
+- Reset button icon SVG path updates for improved visual consistency
+
+**Documentation:**
+- `docs/` - Reorganized Google Apps Script API documentation
+- Various security and troubleshooting documentation improvements
+
+#### ✅ **Impact**
+
+- ✅ **Enhanced Deployment**: Streamlined and secure deployment process with comprehensive automation
+- ✅ **Improved UX**: Better visual consistency and user interface elements
+- ✅ **Better Documentation**: Clearer organization and more accessible documentation structure
+- ✅ **Configuration Reliability**: Resolved environment variable and deployment configuration issues
+
+---
+
 ## [1.0.5] - 2025-06-29
 
 ### 🔒 **Critical Security Incident Resolution & Infrastructure Hardening**

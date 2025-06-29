@@ -1,6 +1,6 @@
 {
   "name": "thinkred-monorepo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "ThinkRED monorepo containing frontend React app and Google Apps Script backend",
   "private": true,
   "workspaces": [
