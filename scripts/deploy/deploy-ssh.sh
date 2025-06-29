@@ -28,7 +28,7 @@ echo -e "${BLUE}🚀 Starting SSH Deployment to Hostinger...${NC}"
 # Function to test SSH connection
 test_ssh_connection() {
     echo -e "${YELLOW}🔗 Testing SSH connection...${NC}"
-    if ssh -p "$SSH_PORT" -o ConnectTimeout=10 -o BatchMode=yes "$SSH_CONNECTION" "echo 'SSH connection successful'" 2>/dev/null; then
+    if ssh -p "$SSH_PORT" -o ConnectTimeout=10 -o PasswordAuthentication=no "$SSH_CONNECTION" "echo 'SSH connection successful'" 2>/dev/null; then
         echo -e "${GREEN}✅ SSH connection successful${NC}"
         return 0
     else
