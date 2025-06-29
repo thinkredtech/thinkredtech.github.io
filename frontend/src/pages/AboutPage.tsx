@@ -12,7 +12,8 @@ const AboutPage = () => {
     ...SEOConfigs.about,
     url: `${window.location.origin}/about`,
   });
- // Add breadcrumb structured data
+
+  // Add breadcrumb structured data
   useStructuredData(
     StructuredDataSchemas.breadcrumb([
       { name: 'Home', url: window.location.origin },

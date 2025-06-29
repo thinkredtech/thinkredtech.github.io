@@ -10,7 +10,8 @@ import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '..
 const HomePage = () => {
   // Apply SEO configuration for home page
   useSEO(SEOConfigs.home);
- // Add structured data for organization and website
+
+  // Add structured data for organization and website
   useStructuredData(StructuredDataSchemas.organization);
   useStructuredData(StructuredDataSchemas.website);
 
