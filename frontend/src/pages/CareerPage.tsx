@@ -122,12 +122,7 @@ const CareerPage = () => {
   const benefits = [
     {
       icon: (
-        <svg
-          className="w-8 h-8 text-primary"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -137,17 +132,11 @@ const CareerPage = () => {
         </svg>
       ),
       title: 'Competitive Compensation',
-      description:
-        'Market-competitive salaries with performance-based bonuses and equity options.',
+      description: 'Market-competitive salaries with performance-based bonuses and equity options.',
     },
     {
       icon: (
-        <svg
-          className="w-8 h-8 text-primary"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -157,37 +146,20 @@ const CareerPage = () => {
         </svg>
       ),
       title: 'Remote-First Culture',
-      description:
-        'Work from anywhere with flexible hours and a focus on work-life balance.',
+      description: 'Work from anywhere with flexible hours and a focus on work-life balance.',
     },
     {
       icon: (
-        <svg
-          className="w-8 h-8 text-primary"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-          />
+        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
         </svg>
       ),
       title: 'Growth Opportunities',
-      description:
-        'Continuous learning resources, conference attendance, and career development programs.',
+      description: 'Continuous learning resources, conference attendance, and career development programs.',
     },
     {
       icon: (
-        <svg
-          className="w-8 h-8 text-primary"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -197,8 +169,7 @@ const CareerPage = () => {
         </svg>
       ),
       title: 'Collaborative Team',
-      description:
-        'Work with passionate professionals in an inclusive, supportive environment.',
+      description: 'Work with passionate professionals in an inclusive, supportive environment.',
     },
   ];
 
@@ -231,8 +202,7 @@ const CareerPage = () => {
           <div className="text-center mb-16">
             <h2 className="display-2 mb-4 text-dark">Open Positions</h2>
             <p className="text-secondary max-w-3xl mx-auto">
-              Explore our current openings and find the perfect role to advance
-              your career with ThinkRED Technologies.
+              Explore our current openings and find the perfect role to advance your career with ThinkRED Technologies.
             </p>
           </div>
 
@@ -246,19 +216,12 @@ const CareerPage = () => {
                   <div className="flex-grow">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                       <h3 className="heading-1 text-dark">{position.title}</h3>
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
-                        {position.type}
-                      </span>
+                      <span className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">{position.type}</span>
                     </div>
 
                     <div className="flex flex-wrap gap-4 text-sm text-secondary mb-4">
                       <div className="flex items-center">
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -275,12 +238,7 @@ const CareerPage = () => {
                         {position.location}
                       </div>
                       <div className="flex items-center">
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -292,14 +250,10 @@ const CareerPage = () => {
                       </div>
                     </div>
 
-                    <p className="text-secondary mb-6">
-                      {position.description}
-                    </p>
+                    <p className="text-secondary mb-6">{position.description}</p>
 
                     <div className="mb-6">
-                      <h4 className="body-1-semibold text-dark mb-3">
-                        Requirements:
-                      </h4>
+                      <h4 className="body-1-semibold text-dark mb-3">Requirements:</h4>
                       <ul className="space-y-2">
                         {position.requirements.map((req, index) => (
                           <li key={index} className="flex items-start">
@@ -322,10 +276,7 @@ const CareerPage = () => {
 
                     <div className="flex flex-wrap gap-2 mb-6">
                       {position.skills.map((skill, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-accent1/10 text-accent1 text-sm rounded-full"
-                        >
+                        <span key={index} className="px-3 py-1 bg-accent1/10 text-accent1 text-sm rounded-full">
                           {skill}
                         </span>
                       ))}
@@ -334,16 +285,10 @@ const CareerPage = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    to={`/apply/${position.slug}`}
-                    className="btn btn-primary flex-1 text-center"
-                  >
+                  <Link to={`/apply/${position.slug}`} className="btn btn-primary flex-1 text-center">
                     Apply Now
                   </Link>
-                  <button
-                    onClick={() => handleLearnMore(position)}
-                    className="btn btn-secondary flex-1"
-                  >
+                  <button onClick={() => handleLearnMore(position)} className="btn btn-secondary flex-1">
                     Learn More
                   </button>
                 </div>
@@ -354,12 +299,10 @@ const CareerPage = () => {
           {/* No positions available fallback */}
           {openPositions.length === 0 && (
             <div className="text-center py-16">
-              <h3 className="heading-1 text-dark mb-4">
-                No Open Positions Right Now
-              </h3>
+              <h3 className="heading-1 text-dark mb-4">No Open Positions Right Now</h3>
               <p className="body-1-medium text-secondary mb-8">
-                We're not actively hiring at the moment, but we're always
-                interested in connecting with talented individuals.
+                We're not actively hiring at the moment, but we're always interested in connecting with talented
+                individuals.
               </p>
               <Link to="/contact" className="btn btn-primary">
                 Send Us Your Resume
@@ -375,9 +318,8 @@ const CareerPage = () => {
           <div className="text-center mb-16">
             <h2 className="display-2 mb-4 text-dark">Why Join ThinkRED?</h2>
             <p className="body-1-medium text-secondary max-w-3xl mx-auto">
-              We believe in creating an environment where our team can thrive,
-              grow, and make meaningful contributions to cutting-edge technology
-              projects.
+              We believe in creating an environment where our team can thrive, grow, and make meaningful contributions
+              to cutting-edge technology projects.
             </p>
           </div>
 
@@ -395,12 +337,9 @@ const CareerPage = () => {
                         {benefit.icon}
                       </div>
                       <div>
-                        <h3 className="heading-2 text-dark mb-3">
-                          {benefit.title}
-                        </h3>
+                        <h3 className="heading-2 text-dark mb-3">{benefit.title}</h3>
                         <p className="text-secondary leading-relaxed">
-                          Continuous learning resources, conference attendance,
-                          and career development programs.
+                          Continuous learning resources, conference attendance, and career development programs.
                         </p>
                       </div>
                     </div>
@@ -417,12 +356,8 @@ const CareerPage = () => {
                       {benefit.icon}
                     </div>
                     <div>
-                      <h3 className="heading-2 text-dark mb-3">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-secondary leading-relaxed">
-                        {benefit.description}
-                      </p>
+                      <h3 className="heading-2 text-dark mb-3">{benefit.title}</h3>
+                      <p className="text-secondary leading-relaxed">{benefit.description}</p>
                     </div>
                   </div>
                 </div>
@@ -439,18 +374,15 @@ const CareerPage = () => {
             <div>
               <h2 className="display-2 mb-6 text-dark">Our Culture & Values</h2>
               <p className="body-1-medium text-secondary mb-6 leading-relaxed">
-                At ThinkRED, we foster a culture of innovation, collaboration,
-                and continuous learning. We believe in the power of diverse
-                perspectives and inclusive teamwork to drive exceptional
-                results.
+                At ThinkRED, we foster a culture of innovation, collaboration, and continuous learning. We believe in
+                the power of diverse perspectives and inclusive teamwork to drive exceptional results.
               </p>
 
               <div className="space-y-4">
                 {[
                   {
                     title: 'Innovation First',
-                    description:
-                      'We encourage creative thinking and embrace new technologies',
+                    description: 'We encourage creative thinking and embrace new technologies',
                   },
                   {
                     title: 'Work-Life Balance',
@@ -458,44 +390,34 @@ const CareerPage = () => {
                   },
                   {
                     title: 'Professional Growth',
-                    description:
-                      'Training and development opportunities to advance your career',
+                    description: 'Training and development opportunities to advance your career',
                   },
                   {
                     title: 'Open Communication',
-                    description:
-                      'Transparent, honest feedback and open-door policy',
+                    description: 'Transparent, honest feedback and open-door policy',
                   },
                   {
                     title: 'Open Source Heritage',
-                    description:
-                      'Deep roots in open source communities and collaborative development',
+                    description: 'Deep roots in open source communities and collaborative development',
                   },
                   {
                     title: 'Engineering Excellence',
-                    description:
-                      'Commitment to high-quality code and best practices',
+                    description: 'Commitment to high-quality code and best practices',
                   },
                   {
                     title: 'Global Perspective',
-                    description:
-                      'Experience working with international clients and diverse teams',
+                    description: 'Experience working with international clients and diverse teams',
                   },
                   {
                     title: 'Continuous Learning',
-                    description:
-                      'Stay current with latest technologies and industry trends',
+                    description: 'Stay current with latest technologies and industry trends',
                   },
                 ].map((value, index) => (
                   <div key={index} className="flex items-start">
                     <div className="w-2 h-2 bg-primary rounded-full mr-4 mt-2 flex-shrink-0"></div>
                     <div>
-                      <h4 className="font-semibold text-dark mb-1">
-                        {value.title}
-                      </h4>
-                      <p className="text-secondary text-sm">
-                        {value.description}
-                      </p>
+                      <h4 className="font-semibold text-dark mb-1">{value.title}</h4>
+                      <p className="text-secondary text-sm">{value.description}</p>
                     </div>
                   </div>
                 ))}
@@ -507,12 +429,7 @@ const CareerPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg
-                        className="w-8 h-8 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -521,9 +438,7 @@ const CareerPage = () => {
                         />
                       </svg>
                     </div>
-                    <div className="heading-2 text-primary mb-2">
-                      Open Source
-                    </div>
+                    <div className="heading-2 text-primary mb-2">Open Source</div>
                     <div className="text-sm text-secondary">
                       Community-driven development and collaborative innovation
                     </div>
@@ -531,12 +446,7 @@ const CareerPage = () => {
 
                   <div className="text-center">
                     <div className="w-16 h-16 bg-accent1 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg
-                        className="w-8 h-8 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -545,22 +455,13 @@ const CareerPage = () => {
                         />
                       </svg>
                     </div>
-                    <div className="heading-2 text-accent1 mb-2">
-                      Innovation
-                    </div>
-                    <div className="text-sm text-secondary">
-                      Cutting-edge technologies and creative problem solving
-                    </div>
+                    <div className="heading-2 text-accent1 mb-2">Innovation</div>
+                    <div className="text-sm text-secondary">Cutting-edge technologies and creative problem solving</div>
                   </div>
 
                   <div className="text-center">
                     <div className="w-16 h-16 bg-accent2 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg
-                        className="w-8 h-8 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -569,12 +470,8 @@ const CareerPage = () => {
                         />
                       </svg>
                     </div>
-                    <div className="heading-2 text-accent2 mb-2">
-                      Collaboration
-                    </div>
-                    <div className="text-sm text-secondary">
-                      Cross-functional teamwork and knowledge sharing
-                    </div>
+                    <div className="heading-2 text-accent2 mb-2">Collaboration</div>
+                    <div className="text-sm text-secondary">Cross-functional teamwork and knowledge sharing</div>
                   </div>
                 </div>
               </div>
@@ -587,18 +484,13 @@ const CareerPage = () => {
       <section className="py-16 md:py-24 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto text-white">
-            <h2 className="font-comfortaa display-2 mb-6">
-              Ready to Join Our Team?
-            </h2>
+            <h2 className="font-comfortaa display-2 mb-6">Ready to Join Our Team?</h2>
             <p className="body-1-medium mb-8 opacity-90">
-              Don't see a perfect match? We're always looking for exceptional
-              talent. Send us your resume and let's start a conversation.
+              Don't see a perfect match? We're always looking for exceptional talent. Send us your resume and let's
+              start a conversation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/contact"
-                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 body-1-semibold"
-              >
+              <Link to="/contact" className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 body-1-semibold">
                 Get In Touch
               </Link>
               <Link

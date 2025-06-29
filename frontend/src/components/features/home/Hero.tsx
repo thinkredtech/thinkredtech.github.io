@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import {
-  useScrollAnimation,
-  useStaggeredAnimation,
-} from '../../../hooks/useScrollAnimation';
+import { useScrollAnimation, useStaggeredAnimation } from '../../../hooks/useScrollAnimation';
 
 const Hero = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
@@ -11,8 +8,7 @@ const Hero = () => {
 
   // Scroll-triggered animations
   const { elementRef: heroRef, isInView: heroInView } = useScrollAnimation();
-  const { elementRef: ctaRef, visibleItems: animatedCTAItems } =
-    useStaggeredAnimation(2, 200);
+  const { elementRef: ctaRef, visibleItems: animatedCTAItems } = useStaggeredAnimation(2, 200);
 
   const taglines = [
     'Simplify Technology & Experience',
@@ -60,16 +56,11 @@ const Hero = () => {
     <section className="relative min-h-screen flex flex-col bg-backgroundAlt overflow-hidden">
       <div className="container mx-auto px-4 py-16 md:py-24 relative z-10 flex-1 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-          <div
-            className="text-center lg:text-left space-y-8"
-            ref={heroRef as React.RefObject<HTMLDivElement>}
-          >
+          <div className="text-center lg:text-left space-y-8" ref={heroRef as React.RefObject<HTMLDivElement>}>
             {/* Animated tagline */}
             <div
               className={`min-h-[120px] md:min-h-[140px] lg:min-h-[160px] flex items-center transition-all duration-1000 ${
-                heroInView
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
+                heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               <h1 className="display-2">
@@ -98,30 +89,23 @@ const Hero = () => {
 
             <div className="space-y-6">
               <p className="text-secondary max-w-lg mx-auto lg:mx-0">
-                We're a team of passionate engineers who specialize in
-                transforming complex challenges into elegant solutions. From
-                startups to enterprises, we build technology that matters.
+                We're a team of passionate engineers who specialize in transforming complex challenges into elegant
+                solutions. From startups to enterprises, we build technology that matters.
               </p>
 
               {/* Key differentiators */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm">
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-secondary font-medium">
-                    Full-Stack Expertise
-                  </span>
+                  <span className="text-secondary font-medium">Full-Stack Expertise</span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-accent1 rounded-full"></div>
-                  <span className="text-secondary font-medium">
-                    Quality-Driven Development
-                  </span>
+                  <span className="text-secondary font-medium">Quality-Driven Development</span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/10">
                   <div className="w-2 h-2 bg-accent2 rounded-full"></div>
-                  <span className="text-secondary font-medium">
-                    Open Source Heritage
-                  </span>
+                  <span className="text-secondary font-medium">Open Source Heritage</span>
                 </div>
               </div>
             </div>
@@ -133,9 +117,7 @@ const Hero = () => {
               <Link
                 to="/contact"
                 className={`btn btn-primary px-8 py-4 group relative overflow-hidden transition-all duration-1000 delay-200 ${
-                  animatedCTAItems.includes(0)
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-8'
+                  animatedCTAItems.includes(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
                 <span className="relative z-10">Start Your Project</span>
@@ -144,9 +126,7 @@ const Hero = () => {
               <Link
                 to="/portfolio"
                 className={`btn btn-secondary px-8 py-4 group transition-all duration-1000 delay-400 ${
-                  animatedCTAItems.includes(1)
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-8'
+                  animatedCTAItems.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
                 View Our Work
@@ -156,12 +136,7 @@ const Hero = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
             </div>
@@ -214,9 +189,7 @@ const Hero = () => {
       {/* Enhanced scroll indicator */}
       <div
         className={`relative z-10 pb-8 flex justify-center transition-all duration-500 ${
-          showScrollIndicator
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-4 pointer-events-none'
+          showScrollIndicator ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
         <button
@@ -228,18 +201,8 @@ const Hero = () => {
             <span>Scroll to learn more</span>
           </div>
           <div className="flex justify-center">
-            <svg
-              className="w-6 h-6 text-primary animate-bounce"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
+            <svg className="w-6 h-6 text-primary animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </div>
         </button>

@@ -39,9 +39,7 @@ export interface ContactFormData {
   message: string;
 }
 
-export const submitContactForm = async (
-  formData: ContactFormData
-): Promise<void> => {
+export const submitContactForm = async (formData: ContactFormData): Promise<void> => {
   try {
     // Try POST first (proper RESTful approach)
     try {
@@ -63,11 +61,7 @@ export const submitContactForm = async (
     }
 
     // Log failed submission
-    logFormSubmission(
-      'contactForm',
-      false,
-      error instanceof Error ? error.message : String(error)
-    );
+    logFormSubmission('contactForm', false, error instanceof Error ? error.message : String(error));
 
     throw error;
   }
@@ -77,9 +71,7 @@ export const submitContactForm = async (
  * Fallback submission method using GET request with URL parameters
  * This works around CORS preflight issues with Google Apps Script
  */
-const submitContactFormGet = async (
-  formData: ContactFormData
-): Promise<void> => {
+const submitContactFormGet = async (formData: ContactFormData): Promise<void> => {
   try {
     const params = new URLSearchParams({
       action: 'submitContactForm',
@@ -112,11 +104,7 @@ const submitContactFormGet = async (
     }
 
     // Log failed submission
-    logFormSubmission(
-      'contactForm',
-      false,
-      error instanceof Error ? error.message : String(error)
-    );
+    logFormSubmission('contactForm', false, error instanceof Error ? error.message : String(error));
 
     throw error;
   }
@@ -135,9 +123,7 @@ export interface JobApplicationData {
   coverLetterFile?: File;
 }
 
-export const submitJobApplication = async (
-  applicationData: JobApplicationData
-): Promise<void> => {
+export const submitJobApplication = async (applicationData: JobApplicationData): Promise<void> => {
   try {
     // Increased file size limits - 10MB per file for better user experience
     if (!validateFileSize(applicationData.resumeFile, 10)) {
@@ -148,10 +134,7 @@ export const submitJobApplication = async (
       );
     }
 
-    if (
-      applicationData.coverLetterFile &&
-      !validateFileSize(applicationData.coverLetterFile, 10)
-    ) {
+    if (applicationData.coverLetterFile && !validateFileSize(applicationData.coverLetterFile, 10)) {
       throw new Error(
         `Cover letter file is too large (${getFileSizeString(
           applicationData.coverLetterFile.size
@@ -184,10 +167,7 @@ export const submitJobApplication = async (
       if (!isPayloadTooLargeForGet(payload)) {
         if (process.env.NODE_ENV === 'development') {
           // eslint-disable-next-line no-console
-          console.warn(
-            'POST failed, trying GET method for smaller payload:',
-            postError
-          );
+          console.warn('POST failed, trying GET method for smaller payload:', postError);
         }
         await submitJobApplicationGet(payload);
       } else {
@@ -204,11 +184,7 @@ export const submitJobApplication = async (
     }
 
     // Log failed submission
-    logFormSubmission(
-      'jobApplication',
-      false,
-      error instanceof Error ? error.message : String(error)
-    );
+    logFormSubmission('jobApplication', false, error instanceof Error ? error.message : String(error));
 
     throw error;
   }
@@ -300,11 +276,7 @@ const submitJobApplicationPost = async (payload: {
     logFormSubmission('jobApplication', true);
   } catch (error) {
     // Log failed submission
-    logFormSubmission(
-      'jobApplication',
-      false,
-      error instanceof Error ? error.message : String(error)
-    );
+    logFormSubmission('jobApplication', false, error instanceof Error ? error.message : String(error));
     throw error;
   }
 };
@@ -312,11 +284,7 @@ const submitJobApplicationPost = async (payload: {
 /**
  * Log form submission analytics (for monitoring and improvement)
  */
-export const logFormSubmission = (
-  formType: string,
-  success: boolean,
-  error?: string
-): void => {
+export const logFormSubmission = (formType: string, success: boolean, error?: string): void => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-console
     console.log(`[Form Analytics] ${formType}:`, {
@@ -342,10 +310,7 @@ export const validateHoneypot = (honeypotValue: string): boolean => {
  */
 const submissionTimestamps = new Map<string, number>();
 
-export const checkRateLimit = (
-  identifier: string,
-  cooldownMs: number = 5000
-): boolean => {
+export const checkRateLimit = (identifier: string, cooldownMs: number = 5000): boolean => {
   const now = Date.now();
   const lastSubmission = submissionTimestamps.get(identifier);
 
@@ -379,10 +344,7 @@ const isPayloadTooLargeForGet = (payload: object): boolean => {
  * Validate file size before submission
  * Helps prevent issues with large payloads
  */
-export const validateFileSize = (
-  file: File,
-  maxSizeMB: number = 10
-): boolean => {
+export const validateFileSize = (file: File, maxSizeMB: number = 10): boolean => {
   const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to bytes
   return file.size <= maxSizeBytes;
 };
@@ -403,9 +365,7 @@ export const getFileSizeString = (bytes: number): string => {
 /**
  * Submit contact form using POST method (proper RESTful approach)
  */
-const submitContactFormPost = async (
-  formData: ContactFormData
-): Promise<void> => {
+const submitContactFormPost = async (formData: ContactFormData): Promise<void> => {
   const requestBody = {
     action: 'submitContactForm',
     data: formData,
@@ -424,9 +384,7 @@ const submitContactFormPost = async (
   // Check if we got an HTML response (indicates redirect issue)
   const contentType = response.headers.get('content-type');
   if (contentType && contentType.includes('text/html')) {
-    throw new Error(
-      'POST request redirected to HTML page - falling back to GET'
-    );
+    throw new Error('POST request redirected to HTML page - falling back to GET');
   }
 
   if (!response.ok) {

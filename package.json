@@ -10,8 +10,8 @@
   "scripts": {
     "start": "cd frontend && npm run dev",
     "dev": "npm start",
-    "build": "cd frontend && npm run build && cp -r build ../",
-    "clean": "npm run clean:frontend && npm run clean:backend",
+    "build": "cd frontend && npm run build && cp -r dist ../build",
+    "clean": "npm run clean:frontend && npm run clean:backend && rm -rf build temp",
     "clean:frontend": "cd frontend && npm run clean",
     "clean:backend": "rm -rf backend/node_modules backend/.clasp.json.bak",
     "test": "cd frontend && npm run test",
@@ -24,7 +24,7 @@
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
-    "deploy": "node scripts/deploy.js",
+    "deploy": "node scripts/deploy/deploy.js",
     "release": "npm run deploy"
   },
   "devDependencies": {

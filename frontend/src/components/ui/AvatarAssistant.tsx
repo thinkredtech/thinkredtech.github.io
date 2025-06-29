@@ -113,9 +113,7 @@ const AvatarAssistant = () => {
   const [message, setMessage] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [animationType, setAnimationType] = useState<
-    'pulse' | 'wiggle' | 'bounce' | 'enhanced' | 'heartbeat'
-  >('pulse');
+  const [animationType, setAnimationType] = useState<'pulse' | 'wiggle' | 'bounce' | 'enhanced' | 'heartbeat'>('pulse');
   const [isBreathingEnhanced, setIsBreathingEnhanced] = useState(false);
   const [attentionSeekingActive, setAttentionSeekingActive] = useState(false);
   const [avatarAnimationState, setAvatarAnimationState] = useState<
@@ -191,8 +189,7 @@ const AvatarAssistant = () => {
   // Function to change message with shrink-then-grow animation - Enhanced with error handling
   const changeMessageWithAnimation = useCallback(
     (newMessage: string) => {
-      if (newMessage === message || isMessageChanging || isUnmountedRef.current)
-        return;
+      if (newMessage === message || isMessageChanging || isUnmountedRef.current) return;
 
       // Clear any existing timeouts to prevent conflicts
       cleanupTimers();
@@ -202,21 +199,14 @@ const AvatarAssistant = () => {
 
       if (useComicAnimation) {
         // Choose a random grow animation style
-        const growAnimations: (
-          | 'grow-pop'
-          | 'grow-bounce'
-          | 'grow-wiggle'
-          | 'grow-zoom'
-          | 'grow-explode'
-        )[] = [
+        const growAnimations: ('grow-pop' | 'grow-bounce' | 'grow-wiggle' | 'grow-zoom' | 'grow-explode')[] = [
           'grow-pop',
           'grow-bounce',
           'grow-wiggle',
           'grow-zoom',
           'grow-explode',
         ];
-        const randomGrowAnimation =
-          growAnimations[Math.floor(Math.random() * growAnimations.length)];
+        const randomGrowAnimation = growAnimations[Math.floor(Math.random() * growAnimations.length)];
 
         // Phase 1: Start shrinking
         setIsMessageChanging(true);
@@ -243,19 +233,14 @@ const AvatarAssistant = () => {
                 setAttentionSeekingActive(false);
 
                 // Now animate avatar in sync with specific bubble growth
-                const animationMap: Record<
-                  string,
-                  typeof avatarAnimationState
-                > = {
+                const animationMap: Record<string, typeof avatarAnimationState> = {
                   'grow-pop': 'excited-pop',
                   'grow-bounce': 'excited-bounce',
                   'grow-wiggle': 'excited-wiggle',
                   'grow-zoom': 'excited-zoom',
                   'grow-explode': 'excited-explode',
                 };
-                setAvatarAnimationState(
-                  animationMap[randomGrowAnimation] || 'excited'
-                );
+                setAvatarAnimationState(animationMap[randomGrowAnimation] || 'excited');
                 setAnimationType('bounce');
                 setIsAnimating(true);
               },
@@ -337,9 +322,7 @@ const AvatarAssistant = () => {
 
         // Don't automatically clear the message - let it persist
       } else if (pageVisitCount >= 5 && userInteractionCount === 0) {
-        changeMessageWithAnimation(
-          "👋 Hey there! I'm here if you need any guidance navigating our site."
-        );
+        changeMessageWithAnimation("👋 Hey there! I'm here if you need any guidance navigating our site.");
         // Don't automatically clear this message - let it persist
       }
     };
@@ -348,12 +331,7 @@ const AvatarAssistant = () => {
     if (pageVisitCount > 0) {
       showEngagementMessage();
     }
-  }, [
-    userInteractionCount,
-    pageVisitCount,
-    hasShownSpecialMessage,
-    changeMessageWithAnimation,
-  ]);
+  }, [userInteractionCount, pageVisitCount, hasShownSpecialMessage, changeMessageWithAnimation]);
 
   // Add seasonal and special occasion messages - Enhanced with safe date handling
   const getSpecialOccasionMessage = () => {
@@ -399,10 +377,7 @@ const AvatarAssistant = () => {
   };
 
   // Calculate optimal bubble width based on message length and screen size
-  const calculateBubbleWidth = (
-    text: string,
-    isExpandedContent: boolean = false
-  ) => {
+  const calculateBubbleWidth = (text: string, isExpandedContent: boolean = false) => {
     if (isExpandedContent) {
       // For expanded menu with enhanced layout, use wider responsive sizes
       return 'w-80 sm:w-96 lg:w-[26rem]';
@@ -437,12 +412,9 @@ const AvatarAssistant = () => {
     // Time-based greetings (cached by hour to prevent constant recreation)
     const getTimeBasedGreeting = () => {
       const hour = new Date().getHours();
-      if (hour >= 5 && hour < 12)
-        return '🌅 Good morning! Ready to build something amazing today?';
-      if (hour >= 12 && hour < 17)
-        return "☀️ Good afternoon! Let's explore what ThinkRED can do for you.";
-      if (hour >= 17 && hour < 22)
-        return '🌆 Good evening! Discover our innovative tech solutions.';
+      if (hour >= 5 && hour < 12) return '🌅 Good morning! Ready to build something amazing today?';
+      if (hour >= 12 && hour < 17) return "☀️ Good afternoon! Let's explore what ThinkRED can do for you.";
+      if (hour >= 17 && hour < 22) return '🌆 Good evening! Discover our innovative tech solutions.';
       return '🌙 Working late? Our team is passionate about what we do too!';
     };
 
@@ -557,15 +529,14 @@ const AvatarAssistant = () => {
         setIsAnimating(true);
 
         // Enhanced animation variety with more options
-        const animations: (
-          | 'pulse'
-          | 'wiggle'
-          | 'bounce'
-          | 'enhanced'
-          | 'heartbeat'
-        )[] = ['pulse', 'wiggle', 'bounce', 'enhanced', 'heartbeat'];
-        const randomAnimation =
-          animations[Math.floor(Math.random() * animations.length)];
+        const animations: ('pulse' | 'wiggle' | 'bounce' | 'enhanced' | 'heartbeat')[] = [
+          'pulse',
+          'wiggle',
+          'bounce',
+          'enhanced',
+          'heartbeat',
+        ];
+        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
         setAnimationType(randomAnimation);
 
         // Set avatar state to excited during message changes
@@ -587,14 +558,7 @@ const AvatarAssistant = () => {
     };
 
     // Set initial message only if visible and not sleeping
-    if (
-      isVisible &&
-      !isSleeping &&
-      !isGoingToSleep &&
-      !isWakingUp &&
-      !isManualSleep &&
-      messages.length > 0
-    ) {
+    if (isVisible && !isSleeping && !isGoingToSleep && !isWakingUp && !isManualSleep && messages.length > 0) {
       // Only set initial message if no message is currently displayed
       if (!message) {
         const randomIndex = Math.floor(Math.random() * messages.length);
@@ -602,13 +566,7 @@ const AvatarAssistant = () => {
       }
       // Start the interval for message changes
       startMessageInterval();
-    } else if (
-      isSleeping ||
-      isGoingToSleep ||
-      isWakingUp ||
-      isManualSleep ||
-      !isVisible
-    ) {
+    } else if (isSleeping || isGoingToSleep || isWakingUp || isManualSleep || !isVisible) {
       // Only clear message and stop interval when going to sleep or becoming invisible
       if (isSleeping || isGoingToSleep || isManualSleep) {
         setMessage('');
@@ -666,9 +624,7 @@ const AvatarAssistant = () => {
 
       if (idleTime > twoMinutes && !isSleeping && !isManualSleep && isVisible) {
         // Show encouragement after 2 minutes of no interaction
-        changeMessageWithAnimation(
-          "💡 Still browsing? I can help you find exactly what you're looking for!"
-        );
+        changeMessageWithAnimation("💡 Still browsing? I can help you find exactly what you're looking for!");
         setIsAnimating(true);
         setAnimationType('heartbeat');
         setAvatarAnimationState('attention');
@@ -678,34 +634,16 @@ const AvatarAssistant = () => {
           setAvatarAnimationState('floating');
           // Don't clear the message automatically
         }, MESSAGE_TIMINGS.IDLE_ENCOURAGEMENT_DURATION);
-      } else if (
-        idleTime > thirtySeconds &&
-        userInteractionCount === 0 &&
-        !isSleeping &&
-        !isManualSleep &&
-        isVisible
-      ) {
+      } else if (idleTime > thirtySeconds && userInteractionCount === 0 && !isSleeping && !isManualSleep && isVisible) {
         // Show gentle nudge for new users after 30 seconds
-        changeMessageWithAnimation(
-          '👋 New here? Click on me for quick navigation!'
-        );
+        changeMessageWithAnimation('👋 New here? Click on me for quick navigation!');
         // Don't automatically clear this message
       }
     };
 
-    const idleInterval = setInterval(
-      checkIdleTime,
-      MESSAGE_TIMINGS.IDLE_CHECK_INTERVAL
-    ); // Check for idle status
+    const idleInterval = setInterval(checkIdleTime, MESSAGE_TIMINGS.IDLE_CHECK_INTERVAL); // Check for idle status
     return () => clearInterval(idleInterval);
-  }, [
-    lastInteractionTime,
-    userInteractionCount,
-    isSleeping,
-    isManualSleep,
-    isVisible,
-    changeMessageWithAnimation,
-  ]);
+  }, [lastInteractionTime, userInteractionCount, isSleeping, isManualSleep, isVisible, changeMessageWithAnimation]);
 
   // Handle scroll events to put avatar to sleep/wake up - Enhanced with safe DOM access
   useEffect(() => {
@@ -723,12 +661,7 @@ const AvatarAssistant = () => {
       }
 
       // Put assistant to sleep when scrolled down more than random distance, wake up when back up
-      if (
-        scrollY > sleepScrollDistance &&
-        !isSleeping &&
-        !isGoingToSleep &&
-        !isWakingUp
-      ) {
+      if (scrollY > sleepScrollDistance && !isSleeping && !isGoingToSleep && !isWakingUp) {
         // Debounce the sleep transition to prevent jank
         scrollTimeout = setTimeout(() => {
           if (isUnmountedRef.current) return;
@@ -755,12 +688,7 @@ const AvatarAssistant = () => {
             }, 400);
           }, 150);
         }, 100); // Small debounce to prevent rapid state changes
-      } else if (
-        scrollY <= sleepScrollDistance &&
-        (isSleeping || isGoingToSleep) &&
-        !isManualSleep &&
-        !isWakingUp
-      ) {
+      } else if (scrollY <= sleepScrollDistance && (isSleeping || isGoingToSleep) && !isManualSleep && !isWakingUp) {
         // Debounce the wake transition
         scrollTimeout = setTimeout(() => {
           if (isUnmountedRef.current) return;
@@ -795,14 +723,7 @@ const AvatarAssistant = () => {
         clearTimeout(scrollTimeout);
       }
     };
-  }, [
-    isSleeping,
-    isManualSleep,
-    isGoingToSleep,
-    isWakingUp,
-    sleepScrollDistance,
-    cleanupTimers,
-  ]);
+  }, [isSleeping, isManualSleep, isGoingToSleep, isWakingUp, sleepScrollDistance, cleanupTimers]);
 
   // Add attention-seeking behavior
   useEffect(() => {
@@ -834,10 +755,7 @@ const AvatarAssistant = () => {
           '💡 I can help you navigate!',
           '🚀 Ready for a quick tour?',
         ];
-        const randomMsg =
-          attentionMessages[
-            Math.floor(Math.random() * attentionMessages.length)
-          ];
+        const randomMsg = attentionMessages[Math.floor(Math.random() * attentionMessages.length)];
         changeMessageWithAnimation(randomMsg);
 
         setTimeout(() => {
@@ -870,32 +788,25 @@ const AvatarAssistant = () => {
 
       switch (currentPath) {
         case '/':
-          welcomeMessage =
-            'Welcome to ThinkRED Technologies! Ready to explore our innovative solutions?';
+          welcomeMessage = 'Welcome to ThinkRED Technologies! Ready to explore our innovative solutions?';
           break;
         case '/services':
-          welcomeMessage =
-            'Discover our comprehensive technology services - from web development to AI solutions!';
+          welcomeMessage = 'Discover our comprehensive technology services - from web development to AI solutions!';
           break;
         case '/portfolio':
-          welcomeMessage =
-            'Check out our amazing portfolio of successful projects and satisfied clients!';
+          welcomeMessage = 'Check out our amazing portfolio of successful projects and satisfied clients!';
           break;
         case '/blog':
-          welcomeMessage =
-            'Explore our latest tech insights, best practices, and thought leadership articles!';
+          welcomeMessage = 'Explore our latest tech insights, best practices, and thought leadership articles!';
           break;
         case '/careers':
-          welcomeMessage =
-            'Interested in joining our innovative team? Explore exciting career opportunities!';
+          welcomeMessage = 'Interested in joining our innovative team? Explore exciting career opportunities!';
           break;
         case '/contact':
-          welcomeMessage =
-            "Ready to start your project? Let's discuss how we can help you succeed!";
+          welcomeMessage = "Ready to start your project? Let's discuss how we can help you succeed!";
           break;
         case '/about':
-          welcomeMessage =
-            'Learn about our journey from open source roots to enterprise solutions!';
+          welcomeMessage = 'Learn about our journey from open source roots to enterprise solutions!';
           break;
         default:
           return; // Don't show welcome for other pages
@@ -943,10 +854,7 @@ const AvatarAssistant = () => {
     }
 
     // 4. Attention-seeking takes fourth priority (but not during other animations)
-    if (
-      (avatarAnimationState === 'attention' || attentionSeekingActive) &&
-      !isAnimating
-    ) {
+    if ((avatarAnimationState === 'attention' || attentionSeekingActive) && !isAnimating) {
       return 'show-assistant-float';
     }
 
@@ -956,10 +864,7 @@ const AvatarAssistant = () => {
     }
 
     // 6. Active animation types during interactions
-    if (
-      isAnimating &&
-      (animationType === 'bounce' || animationType === 'enhanced')
-    ) {
+    if (isAnimating && (animationType === 'bounce' || animationType === 'enhanced')) {
       return 'animate-bounce';
     }
 
@@ -989,18 +894,8 @@ const AvatarAssistant = () => {
 
     // Use enhanced animations for user interactions
     const interactionAnimations = ['wiggle', 'enhanced', 'heartbeat'];
-    const randomInteractionAnim =
-      interactionAnimations[
-        Math.floor(Math.random() * interactionAnimations.length)
-      ];
-    setAnimationType(
-      randomInteractionAnim as
-        | 'pulse'
-        | 'wiggle'
-        | 'bounce'
-        | 'enhanced'
-        | 'heartbeat'
-    );
+    const randomInteractionAnim = interactionAnimations[Math.floor(Math.random() * interactionAnimations.length)];
+    setAnimationType(randomInteractionAnim as 'pulse' | 'wiggle' | 'bounce' | 'enhanced' | 'heartbeat');
 
     // Set avatar to bouncing state for user interactions
     setAvatarAnimationState('bouncing');
@@ -1074,10 +969,7 @@ const AvatarAssistant = () => {
       icon: React.ReactNode;
     }[] = [];
 
-    if (
-      currentMessage.includes('services') ||
-      currentMessage.includes('comprehensive')
-    ) {
+    if (currentMessage.includes('services') || currentMessage.includes('comprehensive')) {
       options = [
         {
           label: 'View All Services',
@@ -1100,10 +992,7 @@ const AvatarAssistant = () => {
           icon: <AIIcon size="sm" className="text-current" />,
         },
       ];
-    } else if (
-      currentMessage.includes('portfolio') ||
-      currentMessage.includes('projects')
-    ) {
+    } else if (currentMessage.includes('portfolio') || currentMessage.includes('projects')) {
       options = [
         {
           label: 'View Portfolio',
@@ -1165,10 +1054,7 @@ const AvatarAssistant = () => {
           icon: <InsightIcon size="sm" className="text-current" />,
         },
       ];
-    } else if (
-      currentMessage.includes('contact') ||
-      currentMessage.includes('consultation')
-    ) {
+    } else if (currentMessage.includes('contact') || currentMessage.includes('consultation')) {
       options = [
         {
           label: 'Contact Us',
@@ -1186,10 +1072,7 @@ const AvatarAssistant = () => {
           icon: <AboutIcon size="sm" className="text-current" />,
         },
       ];
-    } else if (
-      currentMessage.includes('technology') ||
-      currentMessage.includes('delightful')
-    ) {
+    } else if (currentMessage.includes('technology') || currentMessage.includes('delightful')) {
       options = [
         {
           label: 'Our Approach',
@@ -1207,10 +1090,7 @@ const AvatarAssistant = () => {
           icon: <LearnIcon size="sm" className="text-current" />,
         },
       ];
-    } else if (
-      currentMessage.includes('DevOps') ||
-      currentMessage.includes('platforms')
-    ) {
+    } else if (currentMessage.includes('DevOps') || currentMessage.includes('platforms')) {
       options = [
         {
           label: 'DevOps Services',
@@ -1228,10 +1108,7 @@ const AvatarAssistant = () => {
           icon: <QuoteIcon size="sm" className="text-current" />,
         },
       ];
-    } else if (
-      currentMessage.includes('animations') ||
-      currentMessage.includes('interactions')
-    ) {
+    } else if (currentMessage.includes('animations') || currentMessage.includes('interactions')) {
       options = [
         {
           label: 'See More Animations',
@@ -1262,9 +1139,7 @@ const AvatarAssistant = () => {
               setAnimationType('pulse');
               setAvatarAnimationState('floating');
               setIsBreathingEnhanced(false);
-              changeMessageWithAnimation(
-                '✨ Amazing animations, right? I love showing off!'
-              );
+              changeMessageWithAnimation('✨ Amazing animations, right? I love showing off!');
               // Let the message persist
             }, 2500);
           },
@@ -1446,9 +1321,7 @@ const AvatarAssistant = () => {
     return (
       <div
         className={`w-full h-full relative overflow-hidden genie-container ${
-          avatarAnimationState === 'excited' ||
-          avatarAnimationState.startsWith('excited-') ||
-          isAnimating
+          avatarAnimationState === 'excited' || avatarAnimationState.startsWith('excited-') || isAnimating
             ? avatarAnimationState
             : ''
         } ${avatarAnimationState === 'anticipating' ? 'anticipating' : ''} ${
@@ -1491,10 +1364,7 @@ const AvatarAssistant = () => {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-none">
       {/* Extended backdrop area for floating elements */}
-      <div
-        className="absolute -inset-16 pointer-events-none"
-        aria-hidden="true"
-      />
+      <div className="absolute -inset-16 pointer-events-none" aria-hidden="true" />
 
       {isSleeping ? (
         /* Sleeping Avatar - show when assistant is put to sleep by user */
@@ -1528,9 +1398,7 @@ const AvatarAssistant = () => {
         !isManualSleep && (
           <div
             className={`relative ${
-              justWokeUp || isAnimating || hasBeenRenderedRef.current
-                ? ''
-                : 'animate-smooth-fade-in'
+              justWokeUp || isAnimating || hasBeenRenderedRef.current ? '' : 'animate-smooth-fade-in'
             }`}
             ref={() => {
               hasBeenRenderedRef.current = true;
@@ -1541,11 +1409,7 @@ const AvatarAssistant = () => {
               <div
                 ref={messageRef}
                 className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/90 backdrop-blur-lg shadow-2xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? 'Quick Actions menu' : showContextualOptions ? 'Contextual options' : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? 'animate-smooth-fade-out pointer-events-none' : 'message-bubble-pop'} ${!isExpanded && !showContextualOptions ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl' : ''}`}
-                onClick={
-                  !isExpanded && !showContextualOptions
-                    ? handleMessageBubbleClick
-                    : undefined
-                }
+                onClick={!isExpanded && !showContextualOptions ? handleMessageBubbleClick : undefined}
               >
                 <div className="text-sm text-secondary font-medium">
                   {isExpanded ? (
@@ -1556,12 +1420,8 @@ const AvatarAssistant = () => {
                           <TechIcon size="sm" className="text-white" />
                         </div>
                         <div>
-                          <p className="font-bold text-[#E4093E] text-base">
-                            Quick Actions
-                          </p>
-                          <p className="text-xs text-secondary/70 font-normal">
-                            Choose what you'd like to do
-                          </p>
+                          <p className="font-bold text-[#E4093E] text-base">Quick Actions</p>
+                          <p className="text-xs text-secondary/70 font-normal">Choose what you'd like to do</p>
                         </div>
                       </div>
 
@@ -1576,12 +1436,8 @@ const AvatarAssistant = () => {
                               <ContactIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-red-700 group-hover:text-red-800">
-                                Contact Us
-                              </p>
-                              <p className="text-xs text-red-600/80 font-normal">
-                                Get in touch with our team
-                              </p>
+                              <p className="font-semibold text-red-700 group-hover:text-red-800">Contact Us</p>
+                              <p className="text-xs text-red-600/80 font-normal">Get in touch with our team</p>
                             </div>
                             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                               <svg
@@ -1590,12 +1446,7 @@ const AvatarAssistant = () => {
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                           </div>
@@ -1610,12 +1461,8 @@ const AvatarAssistant = () => {
                               <RocketIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-blue-700 group-hover:text-blue-800">
-                                View Portfolio
-                              </p>
-                              <p className="text-xs text-blue-600/80 font-normal">
-                                See our amazing projects
-                              </p>
+                              <p className="font-semibold text-blue-700 group-hover:text-blue-800">View Portfolio</p>
+                              <p className="text-xs text-blue-600/80 font-normal">See our amazing projects</p>
                             </div>
                             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                               <svg
@@ -1624,12 +1471,7 @@ const AvatarAssistant = () => {
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                           </div>
@@ -1644,12 +1486,8 @@ const AvatarAssistant = () => {
                               <DevOpsIcon size="sm" className="text-white" />
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-purple-700 group-hover:text-purple-800">
-                                Our Services
-                              </p>
-                              <p className="text-xs text-purple-600/80 font-normal">
-                                Discover what we offer
-                              </p>
+                              <p className="font-semibold text-purple-700 group-hover:text-purple-800">Our Services</p>
+                              <p className="text-xs text-purple-600/80 font-normal">Discover what we offer</p>
                             </div>
                             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                               <svg
@@ -1658,12 +1496,7 @@ const AvatarAssistant = () => {
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                           </div>
@@ -1701,8 +1534,7 @@ const AvatarAssistant = () => {
                         </button>
                       </div>
                     </div>
-                  ) : showContextualOptions &&
-                    getContextualOptions(message).length > 0 ? (
+                  ) : showContextualOptions && getContextualOptions(message).length > 0 ? (
                     <div className="space-y-4">
                       {/* Header for contextual options */}
                       <div className="flex items-center gap-3 pb-3 border-b border-gray-200/60">
@@ -1710,15 +1542,9 @@ const AvatarAssistant = () => {
                           <InsightIcon size="sm" className="text-white" />
                         </div>
                         <div>
-                          <p className="font-bold text-[#E4093E] text-base">
-                            Smart Suggestions
-                          </p>
+                          <p className="font-bold text-[#E4093E] text-base">Smart Suggestions</p>
                           <p className="text-xs text-secondary/70 font-normal">
-                            Tailored for "
-                            {message.length > 25
-                              ? `${message.substring(0, 25)}...`
-                              : message}
-                            "
+                            Tailored for "{message.length > 25 ? `${message.substring(0, 25)}...` : message}"
                           </p>
                         </div>
                       </div>
@@ -1730,73 +1556,55 @@ const AvatarAssistant = () => {
                           const colorThemes = [
                             {
                               bg: 'from-emerald-50 to-emerald-100/50',
-                              hoverBg:
-                                'hover:from-emerald-100 hover:to-emerald-200/60',
-                              border:
-                                'border-emerald-200/60 hover:border-emerald-300/80',
+                              hoverBg: 'hover:from-emerald-100 hover:to-emerald-200/60',
+                              border: 'border-emerald-200/60 hover:border-emerald-300/80',
                               iconBg: 'from-emerald-500 to-emerald-600',
-                              textColor:
-                                'text-emerald-700 group-hover:text-emerald-800',
+                              textColor: 'text-emerald-700 group-hover:text-emerald-800',
                               descColor: 'text-emerald-600/80',
                               arrowColor: 'text-emerald-600',
                             },
                             {
                               bg: 'from-blue-50 to-blue-100/50',
-                              hoverBg:
-                                'hover:from-blue-100 hover:to-blue-200/60',
-                              border:
-                                'border-blue-200/60 hover:border-blue-300/80',
+                              hoverBg: 'hover:from-blue-100 hover:to-blue-200/60',
+                              border: 'border-blue-200/60 hover:border-blue-300/80',
                               iconBg: 'from-blue-500 to-blue-600',
-                              textColor:
-                                'text-blue-700 group-hover:text-blue-800',
+                              textColor: 'text-blue-700 group-hover:text-blue-800',
                               descColor: 'text-blue-600/80',
                               arrowColor: 'text-blue-600',
                             },
                             {
                               bg: 'from-purple-50 to-purple-100/50',
-                              hoverBg:
-                                'hover:from-purple-100 hover:to-purple-200/60',
-                              border:
-                                'border-purple-200/60 hover:border-purple-300/80',
+                              hoverBg: 'hover:from-purple-100 hover:to-purple-200/60',
+                              border: 'border-purple-200/60 hover:border-purple-300/80',
                               iconBg: 'from-purple-500 to-purple-600',
-                              textColor:
-                                'text-purple-700 group-hover:text-purple-800',
+                              textColor: 'text-purple-700 group-hover:text-purple-800',
                               descColor: 'text-purple-600/80',
                               arrowColor: 'text-purple-600',
                             },
                             {
                               bg: 'from-orange-50 to-orange-100/50',
-                              hoverBg:
-                                'hover:from-orange-100 hover:to-orange-200/60',
-                              border:
-                                'border-orange-200/60 hover:border-orange-300/80',
+                              hoverBg: 'hover:from-orange-100 hover:to-orange-200/60',
+                              border: 'border-orange-200/60 hover:border-orange-300/80',
                               iconBg: 'from-orange-500 to-orange-600',
-                              textColor:
-                                'text-orange-700 group-hover:text-orange-800',
+                              textColor: 'text-orange-700 group-hover:text-orange-800',
                               descColor: 'text-orange-600/80',
                               arrowColor: 'text-orange-600',
                             },
                             {
                               bg: 'from-teal-50 to-teal-100/50',
-                              hoverBg:
-                                'hover:from-teal-100 hover:to-teal-200/60',
-                              border:
-                                'border-teal-200/60 hover:border-teal-300/80',
+                              hoverBg: 'hover:from-teal-100 hover:to-teal-200/60',
+                              border: 'border-teal-200/60 hover:border-teal-300/80',
                               iconBg: 'from-teal-500 to-teal-600',
-                              textColor:
-                                'text-teal-700 group-hover:text-teal-800',
+                              textColor: 'text-teal-700 group-hover:text-teal-800',
                               descColor: 'text-teal-600/80',
                               arrowColor: 'text-teal-600',
                             },
                             {
                               bg: 'from-indigo-50 to-indigo-100/50',
-                              hoverBg:
-                                'hover:from-indigo-100 hover:to-indigo-200/60',
-                              border:
-                                'border-indigo-200/60 hover:border-indigo-300/80',
+                              hoverBg: 'hover:from-indigo-100 hover:to-indigo-200/60',
+                              border: 'border-indigo-200/60 hover:border-indigo-300/80',
                               iconBg: 'from-indigo-500 to-indigo-600',
-                              textColor:
-                                'text-indigo-700 group-hover:text-indigo-800',
+                              textColor: 'text-indigo-700 group-hover:text-indigo-800',
                               descColor: 'text-indigo-600/80',
                               arrowColor: 'text-indigo-600',
                             },
@@ -1806,69 +1614,31 @@ const AvatarAssistant = () => {
 
                           // Generate contextual descriptions for better UX
                           const getDescription = (label: string) => {
-                            if (
-                              label.includes('Services') ||
-                              label.includes('All Services')
-                            )
+                            if (label.includes('Services') || label.includes('All Services'))
                               return 'Explore our comprehensive offerings';
-                            if (
-                              label.includes('Portfolio') ||
-                              label.includes('Projects')
-                            )
+                            if (label.includes('Portfolio') || label.includes('Projects'))
                               return 'See our successful work';
-                            if (
-                              label.includes('Contact') ||
-                              label.includes('Quote')
-                            )
+                            if (label.includes('Contact') || label.includes('Quote'))
                               return 'Get personalized assistance';
-                            if (
-                              label.includes('Career') ||
-                              label.includes('Team') ||
-                              label.includes('Join')
-                            )
+                            if (label.includes('Career') || label.includes('Team') || label.includes('Join'))
                               return 'Build your future with us';
-                            if (
-                              label.includes('Blog') ||
-                              label.includes('Articles')
-                            )
+                            if (label.includes('Blog') || label.includes('Articles'))
                               return 'Stay informed and inspired';
-                            if (
-                              label.includes('About') ||
-                              label.includes('Learn')
-                            )
-                              return 'Discover our story';
-                            if (
-                              label.includes('Platform') ||
-                              label.includes('Engineering')
-                            )
+                            if (label.includes('About') || label.includes('Learn')) return 'Discover our story';
+                            if (label.includes('Platform') || label.includes('Engineering'))
                               return 'Scalable infrastructure solutions';
-                            if (
-                              label.includes('Web') ||
-                              label.includes('Development')
-                            )
+                            if (label.includes('Web') || label.includes('Development'))
                               return 'Modern web applications';
-                            if (
-                              label.includes('AI') ||
-                              label.includes('Solutions')
-                            )
+                            if (label.includes('AI') || label.includes('Solutions'))
                               return 'Intelligent automation tools';
-                            if (label.includes('Featured'))
-                              return 'Our most impressive work';
-                            if (label.includes('Case Studies'))
-                              return 'Detailed project insights';
-                            if (label.includes('Open Positions'))
-                              return 'Current opportunities';
-                            if (label.includes('Latest'))
-                              return 'Recent articles and updates';
-                            if (
-                              label.includes('Tech') ||
-                              label.includes('Insights')
-                            )
+                            if (label.includes('Featured')) return 'Our most impressive work';
+                            if (label.includes('Case Studies')) return 'Detailed project insights';
+                            if (label.includes('Open Positions')) return 'Current opportunities';
+                            if (label.includes('Latest')) return 'Recent articles and updates';
+                            if (label.includes('Tech') || label.includes('Insights'))
                               return 'Industry knowledge and trends';
-                            if (label.includes('DevOps'))
-                              return 'Deployment and operations';
-                            if (label.includes('Technologies'))
-                              return 'Our technical expertise';
+                            if (label.includes('DevOps')) return 'Deployment and operations';
+                            if (label.includes('Technologies')) return 'Our technical expertise';
                             return 'Click to explore more';
                           };
 
@@ -1888,14 +1658,8 @@ const AvatarAssistant = () => {
                                   {option.icon}
                                 </div>
                                 <div className="text-left flex-1">
-                                  <p
-                                    className={`font-semibold ${theme.textColor}`}
-                                  >
-                                    {option.label}
-                                  </p>
-                                  <p
-                                    className={`text-xs ${theme.descColor} font-normal`}
-                                  >
+                                  <p className={`font-semibold ${theme.textColor}`}>{option.label}</p>
+                                  <p className={`text-xs ${theme.descColor} font-normal`}>
                                     {getDescription(option.label)}
                                   </p>
                                 </div>
@@ -1926,12 +1690,7 @@ const AvatarAssistant = () => {
                         >
                           <div className="flex items-center gap-3 justify-center">
                             <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-200">
-                              <svg
-                                className="w-4 h-4 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -1941,12 +1700,8 @@ const AvatarAssistant = () => {
                               </svg>
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-gray-700 group-hover:text-gray-800">
-                                Back to Message
-                              </p>
-                              <p className="text-xs text-gray-600/80 font-normal">
-                                Return to the main message
-                              </p>
+                              <p className="font-semibold text-gray-700 group-hover:text-gray-800">Back to Message</p>
+                              <p className="text-xs text-gray-600/80 font-normal">Return to the main message</p>
                             </div>
                           </div>
                         </button>
@@ -1954,29 +1709,18 @@ const AvatarAssistant = () => {
                     </div>
                   ) : (
                     <div
-                      className={`relative transition-all duration-200 ${
-                        isMessageHovered ? 'scale-[1.02]' : ''
-                      }`}
+                      className={`relative transition-all duration-200 ${isMessageHovered ? 'scale-[1.02]' : ''}`}
                       onMouseEnter={handleMessageHover}
                       onMouseLeave={handleMessageUnhover}
                     >
-                      <p className="text-secondary leading-relaxed font-medium text-sm mb-2">
-                        {message}
-                      </p>
+                      <p className="text-secondary leading-relaxed font-medium text-sm mb-2">{message}</p>
                       <div className="flex items-center justify-between mt-3 pt-2 border-t border-gray-200/50">
                         <div
                           className={`flex items-center gap-1 body-3 transition-colors duration-200 ${
-                            isMessageHovered
-                              ? 'text-[#E4093E]'
-                              : 'text-[#E4093E]/80'
+                            isMessageHovered ? 'text-[#E4093E]' : 'text-[#E4093E]/80'
                           }`}
                         >
-                          <svg
-                            className="w-3 h-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -1987,12 +1731,7 @@ const AvatarAssistant = () => {
                           <span>Click here for quick help</span>
                         </div>
                         <div className="flex items-center gap-1 text-xs text-secondary/70">
-                          <svg
-                            className="w-3 h-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"

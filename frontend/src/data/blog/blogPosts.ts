@@ -246,8 +246,7 @@ Cybersecurity is not a one-time effort but an ongoing process. By implementing t
   {
     id: 'web-development-trends',
     title: 'Web Development Trends to Watch in 2025',
-    excerpt:
-      'Discover the latest trends and technologies shaping the future of web development and design.',
+    excerpt: 'Discover the latest trends and technologies shaping the future of web development and design.',
     content: `
 # Web Development Trends to Watch in 2025
 

@@ -52,11 +52,7 @@ export const validateURL = (url: string): boolean => {
 };
 
 // Text length validation with SQL injection basic protection
-export const validateTextLength = (
-  text: string,
-  maxLength: number,
-  minLength: number = 0
-): boolean => {
+export const validateTextLength = (text: string, maxLength: number, minLength: number = 0): boolean => {
   if (typeof text !== 'string') return false;
 
   const trimmedText = text.trim();
@@ -68,15 +64,9 @@ export const validateTextLength = (
     /(\bOR\b.*=.*\bOR\b|\bAND\b.*=.*\bAND\b)/i,
   ];
 
-  const hasSQLInjection = sqlInjectionPatterns.some(pattern =>
-    pattern.test(text)
-  );
+  const hasSQLInjection = sqlInjectionPatterns.some(pattern => pattern.test(text));
 
-  return (
-    !hasSQLInjection &&
-    trimmedText.length >= minLength &&
-    trimmedText.length <= maxLength
-  );
+  return !hasSQLInjection && trimmedText.length >= minLength && trimmedText.length <= maxLength;
 };
 
 // File validation for uploads
@@ -122,9 +112,7 @@ export const validateFile = (
     .filter(Boolean);
 
   const fileName = file.name.toLowerCase();
-  const hasValidExtension = allowedExtensions.some(ext =>
-    fileName.endsWith(ext)
-  );
+  const hasValidExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
   const hasValidMimeType = allowedTypes.includes(file.type);
 
   if (!hasValidMimeType || !hasValidExtension) {
@@ -193,9 +181,7 @@ export const generateCSPNonce = (): string => {
 };
 
 // Password strength validation
-export const validatePasswordStrength = (
-  password: string
-): { isValid: boolean; score: number; feedback: string[] } => {
+export const validatePasswordStrength = (password: string): { isValid: boolean; score: number; feedback: string[] } => {
   const feedback: string[] = [];
   let score = 0;
 
@@ -340,19 +326,14 @@ export const DEFAULT_CSP_DIRECTIVES: CSPDirectives = {
 /**
  * Generate CSP header string from directives
  */
-export function generateCSPHeader(
-  directives: Partial<CSPDirectives> = {}
-): string {
+export function generateCSPHeader(directives: Partial<CSPDirectives> = {}): string {
   const mergedDirectives = { ...DEFAULT_CSP_DIRECTIVES, ...directives };
 
   const cspParts: string[] = [];
 
   // Add directive-based rules
   Object.entries(mergedDirectives).forEach(([directive, values]) => {
-    if (
-      directive === 'upgrade-insecure-requests' ||
-      directive === 'block-all-mixed-content'
-    ) {
+    if (directive === 'upgrade-insecure-requests' || directive === 'block-all-mixed-content') {
       if (values) {
         cspParts.push(directive.replace(/([A-Z])/g, '-$1').toLowerCase());
       }
@@ -375,9 +356,7 @@ export function generateNonce(): string {
   }
 
   // Fallback for environments without crypto.getRandomValues
-  return btoa(
-    Math.random().toString(36).substring(2) + Date.now().toString(36)
-  );
+  return btoa(Math.random().toString(36).substring(2) + Date.now().toString(36));
 }
 
 /**
@@ -389,8 +368,7 @@ export const SECURITY_HEADERS = {
   'X-Frame-Options': 'DENY',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy':
-    'geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()',
+  'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
 } as const;
 
@@ -432,9 +410,7 @@ export function validateCSPConfig(): {
 
   // Check for unsafe directives
   if (DEFAULT_CSP_DIRECTIVES['script-src'].includes("'unsafe-inline'")) {
-    warnings.push(
-      "script-src contains 'unsafe-inline' - consider using nonces or hashes"
-    );
+    warnings.push("script-src contains 'unsafe-inline' - consider using nonces or hashes");
   }
 
   if (DEFAULT_CSP_DIRECTIVES['script-src'].includes("'unsafe-eval'")) {

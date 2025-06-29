@@ -75,11 +75,7 @@ const SitemapPage = () => {
                 <ul className="space-y-1 text-base">
                   {cat.links.map(link => (
                     <li key={link.path}>
-                      <Link
-                        to={link.path}
-                        className="hover:underline text-primary"
-                        aria-label={link.name}
-                      >
+                      <Link to={link.path} className="hover:underline text-primary" aria-label={link.name}>
                         {link.name}
                       </Link>
                     </li>
@@ -91,8 +87,7 @@ const SitemapPage = () => {
         </div>
       </div>
       <footer className="mt-16 text-center text-secondary/70 text-sm">
-        &copy; {new Date().getFullYear()} ThinkRED Technologies LLP. All rights
-        reserved.
+        &copy; {new Date().getFullYear()} ThinkRED Technologies LLP. All rights reserved.
       </footer>
     </div>
   );

@@ -19,12 +19,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   icon,
 }) => {
   const defaultIcon = (
-    <svg
-      className="w-5 h-5 text-secondary/60"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
+    <svg className="w-5 h-5 text-secondary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -36,10 +31,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
   return (
     <div className={className}>
-      <label
-        htmlFor="search-input"
-        className="block label-1 text-secondary mb-2 flex items-center"
-      >
+      <label htmlFor="search-input" className="block label-1 text-secondary mb-2 flex items-center">
         {label}
       </label>
       <div className="relative">
@@ -51,9 +43,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
           onChange={e => onChange(e.target.value)}
           className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"
         />
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-          {icon || defaultIcon}
-        </div>
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2">{icon || defaultIcon}</div>
       </div>
     </div>
   );

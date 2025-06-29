@@ -14,8 +14,7 @@ export const usePerformanceMonitor = () => {
     // Monitor memory usage if available
     const updateMemoryUsage = () => {
       if ('memory' in performance) {
-        const memory = (performance as { memory?: { usedJSHeapSize: number } })
-          .memory;
+        const memory = (performance as { memory?: { usedJSHeapSize: number } }).memory;
         if (memory) {
           setMetrics(prev => ({
             ...prev,
@@ -61,13 +60,9 @@ export const useAccessibility = () => {
     // Add focus management for modals and overlays
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        const activeModal = document.querySelector(
-          '[role="dialog"]:not([hidden])'
-        );
+        const activeModal = document.querySelector('[role="dialog"]:not([hidden])');
         if (activeModal) {
-          const closeButton = activeModal.querySelector(
-            '[data-close]'
-          ) as HTMLElement;
+          const closeButton = activeModal.querySelector('[data-close]') as HTMLElement;
           if (closeButton) {
             closeButton.click();
           }
@@ -80,9 +75,7 @@ export const useAccessibility = () => {
     // Add aria-labels to elements that need them
     const addAriaLabels = () => {
       // Add to buttons without text
-      const buttons = document.querySelectorAll(
-        'button:not([aria-label]):not(:has(span,div))'
-      );
+      const buttons = document.querySelectorAll('button:not([aria-label]):not(:has(span,div))');
       buttons.forEach((button, index) => {
         if (!button.textContent?.trim()) {
           button.setAttribute('aria-label', `Action button ${index + 1}`);
@@ -90,9 +83,7 @@ export const useAccessibility = () => {
       });
 
       // Add to links without text
-      const links = document.querySelectorAll(
-        'a:not([aria-label]):not(:has(span,div))'
-      );
+      const links = document.querySelectorAll('a:not([aria-label]):not(:has(span,div))');
       links.forEach((link, index) => {
         if (!link.textContent?.trim()) {
           link.setAttribute('aria-label', `Link ${index + 1}`);
@@ -184,9 +175,7 @@ export const useFocusTrap = (isActive: boolean) => {
 
     const focusableElements = container.querySelectorAll(focusableSelectors);
     const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[
-      focusableElements.length - 1
-    ] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {

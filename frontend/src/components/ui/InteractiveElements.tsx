@@ -7,12 +7,7 @@ interface TooltipProps {
   className?: string;
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({
-  content,
-  position = 'top',
-  children,
-  className = '',
-}) => {
+export const Tooltip: React.FC<TooltipProps> = ({ content, position = 'top', children, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const positionClasses = {
@@ -59,13 +54,7 @@ interface ModalProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  size = 'md',
-}) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 'md' }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -91,10 +80,7 @@ export const Modal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         {/* Backdrop */}
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose} />
 
         {/* Modal */}
         <div
@@ -110,19 +96,8 @@ export const Modal: React.FC<ModalProps> = ({
                 title="Close modal"
               >
                 <span className="sr-only">Close</span>
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -178,9 +153,7 @@ export const Notification: React.FC<NotificationProps> = ({
 
   return (
     <div className="fixed top-4 right-4 z-50 animate-slide-down">
-      <div
-        className={`max-w-sm w-full border rounded-lg shadow-lg ${typeStyles[type]}`}
-      >
+      <div className={`max-w-sm w-full border rounded-lg shadow-lg ${typeStyles[type]}`}>
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">
@@ -196,11 +169,7 @@ export const Notification: React.FC<NotificationProps> = ({
                 className="rounded-md inline-flex text-current hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
               >
                 <span className="sr-only">Close</span>
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
+                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -227,11 +196,7 @@ interface TabsProps {
   className?: string;
 }
 
-export const Tabs: React.FC<TabsProps> = ({
-  tabs,
-  defaultTab,
-  className = '',
-}) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, defaultTab, className = '' }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id);
 
   return (
@@ -243,9 +208,7 @@ export const Tabs: React.FC<TabsProps> = ({
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-              activeTab === tab.id
-                ? 'bg-white text-primary shadow-sm'
-                : 'text-secondary hover:text-secondary'
+              activeTab === tab.id ? 'bg-white text-primary shadow-sm' : 'text-secondary hover:text-secondary'
             }`}
           >
             {tab.icon && <span className="mr-2">{tab.icon}</span>}
@@ -255,9 +218,7 @@ export const Tabs: React.FC<TabsProps> = ({
       </div>
 
       {/* Tab Content */}
-      <div className="mt-6">
-        {tabs.find(tab => tab.id === activeTab)?.content}
-      </div>
+      <div className="mt-6">{tabs.find(tab => tab.id === activeTab)?.content}</div>
     </div>
   );
 };
@@ -275,18 +236,12 @@ interface AccordionProps {
   className?: string;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
-  items,
-  allowMultiple = false,
-  className = '',
-}) => {
+export const Accordion: React.FC<AccordionProps> = ({ items, allowMultiple = false, className = '' }) => {
   const [openItems, setOpenItems] = useState<string[]>([]);
 
   const toggleItem = (id: string) => {
     if (allowMultiple) {
-      setOpenItems(prev =>
-        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-      );
+      setOpenItems(prev => (prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]));
     } else {
       setOpenItems(prev => (prev.includes(id) ? [] : [id]));
     }
@@ -297,10 +252,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       {items.map(item => {
         const isOpen = openItems.includes(item.id);
         return (
-          <div
-            key={item.id}
-            className="border border-gray-200 rounded-lg overflow-hidden"
-          >
+          <div key={item.id} className="border border-gray-200 rounded-lg overflow-hidden">
             <button
               onClick={() => toggleItem(item.id)}
               className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex items-center justify-between"
@@ -317,19 +269,10 @@ export const Accordion: React.FC<AccordionProps> = ({
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {isOpen && (
-              <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                {item.content}
-              </div>
-            )}
+            {isOpen && <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">{item.content}</div>}
           </div>
         );
       })}

@@ -28,7 +28,7 @@ export default defineConfig({
     allowedHosts: true,
   },
   build: {
-    outDir: 'build',
+    outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
       output: {

@@ -13,9 +13,7 @@ export const generateJobId = (): number => {
   // Use timestamp + random to ensure uniqueness
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 1000);
-  return parseInt(
-    `${timestamp.toString().slice(-6)}${random.toString().padStart(3, '0')}`
-  );
+  return parseInt(`${timestamp.toString().slice(-6)}${random.toString().padStart(3, '0')}`);
 };
 
 /**
@@ -37,9 +35,7 @@ export const generateSlug = (title: string): string => {
  * @param jobData - Job data without ID, slug, and timestamps
  * @returns Complete Position object
  */
-export const createJobPosition = (
-  jobData: Omit<Position, 'id' | 'slug' | 'createdAt' | 'updatedAt'>
-): Position => {
+export const createJobPosition = (jobData: Omit<Position, 'id' | 'slug' | 'createdAt' | 'updatedAt'>): Position => {
   const id = generateJobId();
   const slug = generateSlug(jobData.title);
   const now = new Date().toISOString();
@@ -86,9 +82,7 @@ export const saveJobsToStorage = (jobs: Position[]): void => {
  * @param jobData - Job data without ID, slug, and timestamps
  * @returns Created job position
  */
-export const addJobPosition = (
-  jobData: Omit<Position, 'id' | 'slug' | 'createdAt' | 'updatedAt'>
-): Position => {
+export const addJobPosition = (jobData: Omit<Position, 'id' | 'slug' | 'createdAt' | 'updatedAt'>): Position => {
   const newJob = createJobPosition(jobData);
   const existingJobs = getStoredJobs();
   const updatedJobs = [...existingJobs, newJob];
@@ -102,10 +96,7 @@ export const addJobPosition = (
  * @param updates - Partial job data to update
  * @returns Updated job position or null if not found
  */
-export const updateJobPosition = (
-  jobId: number,
-  updates: Partial<Position>
-): Position | null => {
+export const updateJobPosition = (jobId: number, updates: Partial<Position>): Position | null => {
   const jobs = getStoredJobs();
   const jobIndex = jobs.findIndex(job => job.id === jobId);
 
@@ -142,9 +133,7 @@ export const deleteJobPosition = (jobId: number): boolean => {
  * @param hardcodedJobs - Array of hardcoded job positions
  * @returns Combined array of all job positions
  */
-export const getAllJobPositions = (
-  hardcodedJobs: Position[] = []
-): Position[] => {
+export const getAllJobPositions = (hardcodedJobs: Position[] = []): Position[] => {
   const storedJobs = getStoredJobs();
   return [...hardcodedJobs, ...storedJobs].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()

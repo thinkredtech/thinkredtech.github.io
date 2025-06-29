@@ -27,15 +27,7 @@ const PortfolioPage = () => {
       description:
         "A revamped, WordPress-based platform that seamlessly integrates OfficePro Inc's technology training, certification, and AV staffing services.",
       image: '/assets/portfolio/projects/officepro.png',
-      technologies: [
-        'WordPress',
-        'LearnPress',
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'PHP',
-        'MySQL',
-      ],
+      technologies: ['WordPress', 'LearnPress', 'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
       category: 'Web Application',
       client: 'OfficePro Inc.',
       link: 'https://officepro.on.thinkred.tech/',
@@ -46,15 +38,7 @@ const PortfolioPage = () => {
       description:
         'A WordPress plugin that seamlessly synchronizes LearnPress courses with data from the Epic Learning Network API. It provides a robust, secure, and user-friendly way to manage course content while ensuring data integrity and performance.',
       image: '/assets/portfolio/projects/epic-learning-sync.png',
-      technologies: [
-        'WordPress',
-        'LearnPress',
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'PHP',
-        'MySQL',
-      ],
+      technologies: ['WordPress', 'LearnPress', 'HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
       category: 'WordPress Plugin',
       client: 'OfficePro Inc.',
       link: 'https://github.com/thinkredtech/epic-learning-sync',
@@ -78,12 +62,8 @@ const PortfolioPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   // Extract unique technologies and categories for filter options
-  const technologies = Array.from(
-    new Set(portfolioItems.flatMap(item => item.technologies))
-  );
-  const categories = Array.from(
-    new Set(portfolioItems.map(item => item.category))
-  );
+  const technologies = Array.from(new Set(portfolioItems.flatMap(item => item.technologies)));
+  const categories = Array.from(new Set(portfolioItems.map(item => item.category)));
 
   // Filter portfolio items based on search term and filters
   const filteredItems = portfolioItems.filter(item => {
@@ -93,10 +73,8 @@ const PortfolioPage = () => {
       item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.client.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesTech =
-      selectedTech === '' || item.technologies.includes(selectedTech);
-    const matchesCategory =
-      selectedCategory === '' || item.category === selectedCategory;
+    const matchesTech = selectedTech === '' || item.technologies.includes(selectedTech);
+    const matchesCategory = selectedCategory === '' || item.category === selectedCategory;
 
     return matchesSearch && matchesTech && matchesCategory;
   });
@@ -160,12 +138,7 @@ const PortfolioPage = () => {
                 placeholder="All Technologies"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg
-                    className="w-5 h-5 inline"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -188,12 +161,7 @@ const PortfolioPage = () => {
                 placeholder="All Categories"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg
-                    className="w-5 h-5 inline"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -206,14 +174,8 @@ const PortfolioPage = () => {
 
               {/* Enhanced Reset Button */}
               <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
-                <label className="block label-1 text-secondary mb-2">
-                  Actions
-                </label>
-                <ResetButton
-                  onReset={resetFilters}
-                  className="w-full max-w-[60px]"
-                  title="Reset all filters"
-                />
+                <label className="block label-1 text-secondary mb-2">Actions</label>
+                <ResetButton onReset={resetFilters} className="w-full max-w-[60px]" title="Reset all filters" />
               </div>
             </div>
           </FilterContainer>
@@ -227,31 +189,20 @@ const PortfolioPage = () => {
                   className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
                 >
                   <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="object-cover w-full h-full"
-                    />
+                    <img src={item.image} alt={item.title} className="object-cover w-full h-full" />
                   </div>
                   <div className="p-6">
                     <h3 className="heading-2 mb-2">{item.title}</h3>
                     <p className="text-secondary mb-4">{item.description}</p>
 
                     <div className="mb-4">
-                      <p className="text-sm text-secondary/70 mb-1">
-                        Client: {item.client}
-                      </p>
-                      <p className="text-sm text-secondary/70">
-                        Category: {item.category}
-                      </p>
+                      <p className="text-sm text-secondary/70 mb-1">Client: {item.client}</p>
+                      <p className="text-sm text-secondary/70">Category: {item.category}</p>
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-4">
                       {item.technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full"
-                        >
+                        <span key={index} className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
                           {tech}
                         </span>
                       ))}
@@ -264,12 +215,7 @@ const PortfolioPage = () => {
                       className="text-primary hover:underline font-medium inline-flex items-center"
                     >
                       View Project
-                      <svg
-                        className="w-4 h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -284,9 +230,7 @@ const PortfolioPage = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="body-1-medium text-secondary mb-4">
-                No projects match your search criteria.
-              </p>
+              <p className="body-1-medium text-secondary mb-4">No projects match your search criteria.</p>
               <button onClick={resetFilters} className="btn btn-primary">
                 Reset Filters
               </button>
@@ -297,8 +241,8 @@ const PortfolioPage = () => {
           <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
             <h2 className="heading-1 mb-4">Ready to Start Your Project?</h2>
             <p className="text-secondary mb-6 max-w-2xl mx-auto">
-              Let's discuss how ThinkRED can help bring your vision to life with
-              our expertise in web development, platform engineering, and more.
+              Let's discuss how ThinkRED can help bring your vision to life with our expertise in web development,
+              platform engineering, and more.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link to="/contact" className="btn btn-primary">

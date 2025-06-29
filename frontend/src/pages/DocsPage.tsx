@@ -19,9 +19,7 @@ const DocsPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Reconstruct the full path - default to 'website-overview' if no path specified
-  const fullDocPath = wildcard
-    ? `${docPath}/${wildcard}`
-    : docPath || 'website-overview';
+  const fullDocPath = wildcard ? `${docPath}/${wildcard}` : docPath || 'website-overview';
 
   // Custom link component to handle internal docs links
   const LinkRenderer = (
@@ -34,12 +32,9 @@ const DocsPage = () => {
     // Check if it's an internal docs link
     if (href && href.startsWith('/docs/')) {
       // Normalize the path (convert underscores to hyphens for consistency)
-      const normalizedHref = href.replace(
-        /\/docs\/(.+)/,
-        (_match: string, path: string) => {
-          return `/docs/${path.replace(/_/g, '-')}`;
-        }
-      );
+      const normalizedHref = href.replace(/\/docs\/(.+)/, (_match: string, path: string) => {
+        return `/docs/${path.replace(/_/g, '-')}`;
+      });
 
       return (
         <Link to={normalizedHref} {...otherProps}>
@@ -80,9 +75,7 @@ const DocsPage = () => {
       ];
 
       // Remove duplicates using filter
-      const uniqueVariants = variants.filter(
-        (variant, index, arr) => arr.indexOf(variant) === index
-      );
+      const uniqueVariants = variants.filter((variant, index, arr) => arr.indexOf(variant) === index);
 
       // Try each variant
       for (const variant of uniqueVariants) {
@@ -105,9 +98,7 @@ const DocsPage = () => {
         }
       }
 
-      throw new Error(
-        `Document not found: ${basePath} (tried variants: ${uniqueVariants.join(', ')})`
-      );
+      throw new Error(`Document not found: ${basePath} (tried variants: ${uniqueVariants.join(', ')})`);
     };
 
     tryMultiplePaths(fullDocPath)
@@ -120,17 +111,11 @@ const DocsPage = () => {
   }, [fullDocPath, docPath, wildcard]);
 
   if (error) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center text-red-600">
-        {error}
-      </div>
-    );
+    return <div className="container mx-auto px-4 py-16 text-center text-red-600">{error}</div>;
   }
 
   if (!content) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">Loading...</div>
-    );
+    return <div className="container mx-auto px-4 py-16 text-center">Loading...</div>;
   }
 
   return (

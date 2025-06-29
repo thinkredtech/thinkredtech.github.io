@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  sanitizeInput,
-  validateEmail,
-  validatePhone,
-  validateTextLength,
-} from '../../utils/security';
-import {
-  submitContactForm,
-  checkRateLimit,
-  validateHoneypot,
-} from '../../utils/api';
+import { sanitizeInput, validateEmail, validatePhone, validateTextLength } from '../../utils/security';
+import { submitContactForm, checkRateLimit, validateHoneypot } from '../../utils/api';
 
 // Discovery Call component
 const DiscoveryCallScheduler = () => {
@@ -34,11 +25,7 @@ const DiscoveryCallScheduler = () => {
   const [submitError, setSubmitError] = useState('');
 
   // Handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -93,9 +80,7 @@ const DiscoveryCallScheduler = () => {
       }
 
       if (!validateTextLength(formData.additionalInfo, 500, 0)) {
-        setSubmitError(
-          'Additional information must be less than 500 characters.'
-        );
+        setSubmitError('Additional information must be less than 500 characters.');
         setIsSubmitting(false);
         return;
       }
@@ -131,9 +116,7 @@ const DiscoveryCallScheduler = () => {
       });
     } catch {
       // Error scheduling discovery call - handled gracefully
-      setSubmitError(
-        'There was an error scheduling your call. Please try again later.'
-      );
+      setSubmitError('There was an error scheduling your call. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -208,12 +191,7 @@ const DiscoveryCallScheduler = () => {
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
           <div className="flex items-center mb-4">
-            <svg
-              className="w-8 h-8 text-green-500 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -224,31 +202,23 @@ const DiscoveryCallScheduler = () => {
             <h3 className="heading-2">Discovery Call Scheduled!</h3>
           </div>
           <p className="mb-4">
-            Thank you for scheduling a discovery call with ThinkRED
-            Technologies. We'll confirm your appointment shortly via email.
+            Thank you for scheduling a discovery call with ThinkRED Technologies. We'll confirm your appointment shortly
+            via email.
           </p>
-          <button
-            onClick={() => setSubmitSuccess(false)}
-            className="btn btn-primary"
-          >
+          <button onClick={() => setSubmitSuccess(false)} className="btn btn-primary">
             Schedule Another Call
           </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
           {submitError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-              {submitError}
-            </div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{submitError}</div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
             <div>
-              <label
-                htmlFor="dc-name"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-name" className="block body-2 text-secondary mb-1">
                 Name *
               </label>
               <input
@@ -264,10 +234,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Email */}
             <div>
-              <label
-                htmlFor="dc-email"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-email" className="block body-2 text-secondary mb-1">
                 Email *
               </label>
               <input
@@ -283,10 +250,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Company */}
             <div>
-              <label
-                htmlFor="dc-company"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-company" className="block body-2 text-secondary mb-1">
                 Company
               </label>
               <input
@@ -301,10 +265,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Phone */}
             <div>
-              <label
-                htmlFor="dc-phone"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-phone" className="block body-2 text-secondary mb-1">
                 Phone
               </label>
               <input
@@ -319,10 +280,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Project Type */}
             <div>
-              <label
-                htmlFor="dc-projectType"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-projectType" className="block body-2 text-secondary mb-1">
                 Project Type *
               </label>
               <select
@@ -344,10 +302,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Timezone */}
             <div>
-              <label
-                htmlFor="dc-timezone"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-timezone" className="block body-2 text-secondary mb-1">
                 Your Timezone *
               </label>
               <select
@@ -369,10 +324,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Preferred Date */}
             <div>
-              <label
-                htmlFor="dc-preferredDate"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-preferredDate" className="block body-2 text-secondary mb-1">
                 Preferred Date *
               </label>
               <input
@@ -389,10 +341,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Preferred Time */}
             <div>
-              <label
-                htmlFor="dc-preferredTime"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-preferredTime" className="block body-2 text-secondary mb-1">
                 Preferred Time *
               </label>
               <select
@@ -414,10 +363,7 @@ const DiscoveryCallScheduler = () => {
 
             {/* Additional Information */}
             <div className="md:col-span-2">
-              <label
-                htmlFor="dc-additionalInfo"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="dc-additionalInfo" className="block body-2 text-secondary mb-1">
                 Additional Information
               </label>
               <textarea
@@ -439,15 +385,9 @@ const DiscoveryCallScheduler = () => {
               required
               className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
             />
-            <label
-              htmlFor="dc-privacy"
-              className="ml-2 block text-sm text-secondary"
-            >
+            <label htmlFor="dc-privacy" className="ml-2 block text-sm text-secondary">
               I agree to the{' '}
-              <Link
-                to="/privacy-policy"
-                className="text-primary hover:underline"
-              >
+              <Link to="/privacy-policy" className="text-primary hover:underline">
                 Privacy Policy
               </Link>
             </label>
@@ -455,9 +395,7 @@ const DiscoveryCallScheduler = () => {
 
           {/* Honeypot field - hidden from users to prevent spam */}
           <div className="hidden">
-            <label htmlFor="dc-website">
-              Website (leave blank if you're human)
-            </label>
+            <label htmlFor="dc-website">Website (leave blank if you're human)</label>
             <input
               type="text"
               id="dc-website"
@@ -533,11 +471,7 @@ const QuoteRequestForm = () => {
   const [submitError, setSubmitError] = useState('');
 
   // Handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -592,9 +526,7 @@ const QuoteRequestForm = () => {
       }
 
       if (!validateTextLength(formData.projectDescription, 500, 10)) {
-        setSubmitError(
-          'Project description must be between 10 and 500 characters.'
-        );
+        setSubmitError('Project description must be between 10 and 500 characters.');
         setIsSubmitting(false);
         return;
       }
@@ -637,9 +569,7 @@ const QuoteRequestForm = () => {
       });
     } catch {
       // Error requesting quote - handled gracefully
-      setSubmitError(
-        'There was an error submitting your quote request. Please try again later.'
-      );
+      setSubmitError('There was an error submitting your quote request. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -666,22 +596,9 @@ const QuoteRequestForm = () => {
     '$100,000+',
   ];
 
-  const timelineOptions = [
-    'Less than 1 month',
-    '1-3 months',
-    '3-6 months',
-    '6+ months',
-    'Ongoing support',
-  ];
+  const timelineOptions = ['Less than 1 month', '1-3 months', '3-6 months', '6+ months', 'Ongoing support'];
 
-  const referralSources = [
-    'Google Search',
-    'Social Media',
-    'Referral',
-    'Blog/Article',
-    'Conference/Event',
-    'Other',
-  ];
+  const referralSources = ['Google Search', 'Social Media', 'Referral', 'Blog/Article', 'Conference/Event', 'Other'];
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
@@ -690,12 +607,7 @@ const QuoteRequestForm = () => {
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
           <div className="flex items-center mb-4">
-            <svg
-              className="w-8 h-8 text-green-500 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -706,32 +618,23 @@ const QuoteRequestForm = () => {
             <h3 className="heading-2">Quote Request Received!</h3>
           </div>
           <p className="mb-4">
-            Thank you for your interest in ThinkRED Technologies. We'll review
-            your project details and get back to you with a customized quote
-            within 2 business days.
+            Thank you for your interest in ThinkRED Technologies. We'll review your project details and get back to you
+            with a customized quote within 2 business days.
           </p>
-          <button
-            onClick={() => setSubmitSuccess(false)}
-            className="btn btn-primary"
-          >
+          <button onClick={() => setSubmitSuccess(false)} className="btn btn-primary">
             Submit Another Request
           </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
           {submitError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-              {submitError}
-            </div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{submitError}</div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
             <div>
-              <label
-                htmlFor="qr-name"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-name" className="block body-2 text-secondary mb-1">
                 Name *
               </label>
               <input
@@ -747,10 +650,7 @@ const QuoteRequestForm = () => {
 
             {/* Email */}
             <div>
-              <label
-                htmlFor="qr-email"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-email" className="block body-2 text-secondary mb-1">
                 Email *
               </label>
               <input
@@ -766,10 +666,7 @@ const QuoteRequestForm = () => {
 
             {/* Company */}
             <div>
-              <label
-                htmlFor="qr-company"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-company" className="block body-2 text-secondary mb-1">
                 Company
               </label>
               <input
@@ -784,10 +681,7 @@ const QuoteRequestForm = () => {
 
             {/* Phone */}
             <div>
-              <label
-                htmlFor="qr-phone"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-phone" className="block body-2 text-secondary mb-1">
                 Phone
               </label>
               <input
@@ -802,10 +696,7 @@ const QuoteRequestForm = () => {
 
             {/* Project Type */}
             <div>
-              <label
-                htmlFor="qr-projectType"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-projectType" className="block body-2 text-secondary mb-1">
                 Project Type *
               </label>
               <select
@@ -827,10 +718,7 @@ const QuoteRequestForm = () => {
 
             {/* Budget */}
             <div>
-              <label
-                htmlFor="qr-budget"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-budget" className="block body-2 text-secondary mb-1">
                 Budget *
               </label>
               <select
@@ -852,10 +740,7 @@ const QuoteRequestForm = () => {
 
             {/* Timeline */}
             <div>
-              <label
-                htmlFor="qr-timeline"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-timeline" className="block body-2 text-secondary mb-1">
                 Timeline *
               </label>
               <select
@@ -877,10 +762,7 @@ const QuoteRequestForm = () => {
 
             {/* How did you hear about us */}
             <div>
-              <label
-                htmlFor="qr-hearAboutUs"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-hearAboutUs" className="block body-2 text-secondary mb-1">
                 How did you hear about us?
               </label>
               <select
@@ -901,10 +783,7 @@ const QuoteRequestForm = () => {
 
             {/* Project Description */}
             <div className="md:col-span-2">
-              <label
-                htmlFor="qr-projectDescription"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-projectDescription" className="block body-2 text-secondary mb-1">
                 Project Description *
               </label>
               <textarea
@@ -921,10 +800,7 @@ const QuoteRequestForm = () => {
 
             {/* Specific Requirements */}
             <div className="md:col-span-2">
-              <label
-                htmlFor="qr-requirements"
-                className="block body-2 text-secondary mb-1"
-              >
+              <label htmlFor="qr-requirements" className="block body-2 text-secondary mb-1">
                 Specific Requirements
               </label>
               <textarea
@@ -946,15 +822,9 @@ const QuoteRequestForm = () => {
               required
               className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
             />
-            <label
-              htmlFor="qr-privacy"
-              className="ml-2 block text-sm text-secondary"
-            >
+            <label htmlFor="qr-privacy" className="ml-2 block text-sm text-secondary">
               I agree to the{' '}
-              <Link
-                to="/privacy-policy"
-                className="text-primary hover:underline"
-              >
+              <Link to="/privacy-policy" className="text-primary hover:underline">
                 Privacy Policy
               </Link>
             </label>
@@ -962,9 +832,7 @@ const QuoteRequestForm = () => {
 
           {/* Honeypot field - hidden from users to prevent spam */}
           <div className="hidden">
-            <label htmlFor="qr-website">
-              Website (leave blank if you're human)
-            </label>
+            <label htmlFor="qr-website">Website (leave blank if you're human)</label>
             <input
               type="text"
               id="qr-website"

@@ -21,22 +21,17 @@ const AboutPage = () => {
             <div>
               <h2 className="heading-1 mb-6 text-secondary">Our Journey</h2>
               <p className="body-1 mb-6 text-secondary">
-                ThinkRED Technologies was founded by engineers with a passion
-                for simplifying technology and creating exceptional user
-                experiences. Our journey began in open source communities like
-                Mozilla and Fedora, where we learned the value of collaboration
-                and innovation.
+                ThinkRED Technologies was founded by engineers with a passion for simplifying technology and creating
+                exceptional user experiences. Our journey began in open source communities like Mozilla and Fedora,
+                where we learned the value of collaboration and innovation.
               </p>
               <p className="body-1 mb-6 text-secondary">
-                After years of experience at Red Hat and working with global
-                clients through platforms like Upwork, we established ThinkRED
-                Technologies to bring enterprise-grade solutions to businesses
-                of all sizes.
+                After years of experience at Red Hat and working with global clients through platforms like Upwork, we
+                established ThinkRED Technologies to bring enterprise-grade solutions to businesses of all sizes.
               </p>
               <p className="body-1 text-secondary">
-                Today, we help organizations transform their digital presence
-                and operations through custom web development, platform
-                engineering, and infrastructure automation.
+                Today, we help organizations transform their digital presence and operations through custom web
+                development, platform engineering, and infrastructure automation.
               </p>
 
               {/* Interactive stats */}
@@ -45,17 +40,13 @@ const AboutPage = () => {
                   <div className="heading-1 text-primary group-hover:scale-110 transition-transform duration-300">
                     500+
                   </div>
-                  <div className="text-sm text-secondary">
-                    Open Source Contributions
-                  </div>
+                  <div className="text-sm text-secondary">Open Source Contributions</div>
                 </div>
                 <div className="group">
                   <div className="heading-1 text-primary group-hover:scale-110 transition-transform duration-300">
                     95%
                   </div>
-                  <div className="text-sm text-secondary">
-                    Client Satisfaction
-                  </div>
+                  <div className="text-sm text-secondary">Client Satisfaction</div>
                 </div>
               </div>
             </div>
@@ -106,16 +97,10 @@ const AboutPage = () => {
                     >
                       <div
                         className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center mr-6 transition-all duration-300 ${
-                          item.active
-                            ? 'bg-primary shadow-lg'
-                            : 'bg-primary/10 group-hover:bg-primary/20'
+                          item.active ? 'bg-primary shadow-lg' : 'bg-primary/10 group-hover:bg-primary/20'
                         }`}
                       >
-                        <span
-                          className={`font-bold body-1-medium ${
-                            item.active ? 'text-white' : 'text-primary'
-                          }`}
-                        >
+                        <span className={`font-bold body-1-medium ${item.active ? 'text-white' : 'text-primary'}`}>
                           {item.step}
                         </span>
                       </div>
@@ -123,20 +108,14 @@ const AboutPage = () => {
                         <div className="flex items-center gap-3 mb-2">
                           <h3
                             className={`font-bold body-1-medium transition-colors duration-300 ${
-                              item.active
-                                ? 'text-primary'
-                                : 'text-dark group-hover:text-primary'
+                              item.active ? 'text-primary' : 'text-dark group-hover:text-primary'
                             }`}
                           >
                             {item.title}
                           </h3>
-                          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                            {item.year}
-                          </span>
+                          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{item.year}</span>
                         </div>
-                        <p className="text-secondary text-sm leading-relaxed">
-                          {item.description}
-                        </p>
+                        <p className="text-secondary text-sm leading-relaxed">{item.description}</p>
                       </div>
                     </div>
                   ))}
@@ -155,8 +134,8 @@ const AboutPage = () => {
           <div className="text-center mb-16">
             <h2 className="heading-1 mb-4 text-secondary">Our Philosophy</h2>
             <p className="max-w-3xl mx-auto text-secondary">
-              At ThinkRED, we believe in simplifying technology to create
-              exceptional experiences that drive meaningful business outcomes.
+              At ThinkRED, we believe in simplifying technology to create exceptional experiences that drive meaningful
+              business outcomes.
             </p>
           </div>
 
@@ -165,12 +144,7 @@ const AboutPage = () => {
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-primary/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg
-                    className="w-8 h-8 text-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -184,9 +158,8 @@ const AboutPage = () => {
                 Innovation-Led
               </h3>
               <p className="text-secondary">
-                We constantly explore new technologies and approaches to solve
-                complex problems in elegant ways, staying ahead of industry
-                trends.
+                We constantly explore new technologies and approaches to solve complex problems in elegant ways, staying
+                ahead of industry trends.
               </p>
               <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span>Learn More</span>
@@ -196,12 +169,7 @@ const AboutPage = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
             </div>
@@ -210,12 +178,7 @@ const AboutPage = () => {
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-accent1/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-accent1/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg
-                    className="w-8 h-8 text-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -229,8 +192,8 @@ const AboutPage = () => {
                 Engineering Excellence
               </h3>
               <p className="text-secondary">
-                We prioritize code quality, performance, and maintainability in
-                everything we build, ensuring long-term success.
+                We prioritize code quality, performance, and maintainability in everything we build, ensuring long-term
+                success.
               </p>
               <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span>Learn More</span>
@@ -240,12 +203,7 @@ const AboutPage = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
             </div>
@@ -254,12 +212,7 @@ const AboutPage = () => {
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-accent2/10 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative w-16 h-16 rounded-xl bg-accent2/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg
-                    className="w-8 h-8 text-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -273,8 +226,8 @@ const AboutPage = () => {
                 Client Partnership
               </h3>
               <p className="text-secondary">
-                We work closely with our clients to understand their needs and
-                deliver solutions that exceed expectations and drive growth.
+                We work closely with our clients to understand their needs and deliver solutions that exceed
+                expectations and drive growth.
               </p>
               <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span>Learn More</span>
@@ -284,12 +237,7 @@ const AboutPage = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
             </div>
@@ -301,12 +249,10 @@ const AboutPage = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="heading-1 mb-4 text-secondary">
-              Technology Expertise
-            </h2>
+            <h2 className="heading-1 mb-4 text-secondary">Technology Expertise</h2>
             <p className="max-w-3xl mx-auto text-secondary">
-              We leverage cutting-edge technologies and frameworks to deliver
-              scalable, high-performance solutions that drive business growth.
+              We leverage cutting-edge technologies and frameworks to deliver scalable, high-performance solutions that
+              drive business growth.
             </p>
           </div>
 
@@ -323,9 +269,7 @@ const AboutPage = () => {
                   })}
                 </div>
               </div>
-              <h3 className="heading-3 text-center mb-3 text-secondary">
-                Frontend
-              </h3>
+              <h3 className="heading-3 text-center mb-3 text-secondary">Frontend</h3>
               <div className="text-center space-y-1">
                 <p className="body-3 text-secondary">React • TypeScript</p>
                 <p className="body-3 text-secondary">Next.js • Vite</p>
@@ -345,9 +289,7 @@ const AboutPage = () => {
                   })}
                 </div>
               </div>
-              <h3 className="heading-3 text-center mb-3 text-secondary">
-                Backend
-              </h3>
+              <h3 className="heading-3 text-center mb-3 text-secondary">Backend</h3>
               <div className="text-center space-y-1">
                 <p className="body-3 text-secondary">Node.js • Python</p>
                 <p className="body-3 text-secondary">Express • FastAPI</p>
@@ -367,9 +309,7 @@ const AboutPage = () => {
                   })}
                 </div>
               </div>
-              <h3 className="heading-3 text-center mb-3 text-secondary">
-                Database
-              </h3>
+              <h3 className="heading-3 text-center mb-3 text-secondary">Database</h3>
               <div className="text-center space-y-1">
                 <p className="body-3 text-secondary">PostgreSQL • MongoDB</p>
                 <p className="body-3 text-secondary">Redis • Elasticsearch</p>
@@ -389,9 +329,7 @@ const AboutPage = () => {
                   })}
                 </div>
               </div>
-              <h3 className="heading-3 text-center mb-3 text-secondary">
-                DevOps
-              </h3>
+              <h3 className="heading-3 text-center mb-3 text-secondary">DevOps</h3>
               <div className="text-center space-y-1">
                 <p className="body-3 text-secondary">Docker • AWS</p>
                 <p className="body-3 text-secondary">Kubernetes • Terraform</p>
@@ -401,26 +339,11 @@ const AboutPage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <p className="text-secondary mb-6">
-              And many more technologies tailored to your project needs
-            </p>
-            <Link
-              to="/services"
-              className="btn btn-primary inline-flex items-center gap-2"
-            >
+            <p className="text-secondary mb-6">And many more technologies tailored to your project needs</p>
+            <Link to="/services" className="btn btn-primary inline-flex items-center gap-2">
               <span>Explore Our Services</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
           </div>
@@ -439,9 +362,8 @@ const AboutPage = () => {
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="display-2-white mb-6">Join Our Team</h2>
             <p className="body-2-white mb-8 opacity-90">
-              We're always looking for talented individuals who are passionate
-              about technology and innovation. Be part of our journey to
-              transform the digital landscape.
+              We're always looking for talented individuals who are passionate about technology and innovation. Be part
+              of our journey to transform the digital landscape.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -463,18 +385,8 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white/90">
               <div className="text-center">
                 <div className="flex justify-center mb-3">
-                  <svg
-                    className="w-12 h-12 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <div className="font-semibold mb-1">Innovation First</div>
@@ -482,12 +394,7 @@ const AboutPage = () => {
               </div>
               <div className="text-center">
                 <div className="flex justify-center mb-3">
-                  <svg
-                    className="w-12 h-12 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -497,18 +404,11 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div className="font-semibold mb-1">Collaborative Culture</div>
-                <div className="text-sm">
-                  Remote-first, inclusive environment
-                </div>
+                <div className="text-sm">Remote-first, inclusive environment</div>
               </div>
               <div className="text-center">
                 <div className="flex justify-center mb-3">
-                  <svg
-                    className="w-12 h-12 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -518,9 +418,7 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div className="font-semibold mb-1">Growth Opportunities</div>
-                <div className="text-sm">
-                  Continuous learning and development
-                </div>
+                <div className="text-sm">Continuous learning and development</div>
               </div>
             </div>
           </div>

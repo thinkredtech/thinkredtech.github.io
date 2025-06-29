@@ -7,11 +7,7 @@ interface UseScrollAnimationOptions {
 }
 
 export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
-  const {
-    threshold = 0.1,
-    triggerOnce = true,
-    rootMargin = '0px 0px -50px 0px',
-  } = options;
+  const { threshold = 0.1, triggerOnce = true, rootMargin = '0px 0px -50px 0px' } = options;
 
   const [isInView, setIsInView] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -48,10 +44,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   return { elementRef, isInView };
 };
 
-export const useStaggeredAnimation = (
-  itemCount: number,
-  delay: number = 100
-) => {
+export const useStaggeredAnimation = (itemCount: number, delay: number = 100) => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const { elementRef, isInView } = useScrollAnimation();
 

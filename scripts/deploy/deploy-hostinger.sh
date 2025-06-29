@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-BUILD_DIR="build"
+BUILD_DIR="dist"
 DEPLOY_DIR="hostinger-deploy"
 ZIP_FILE="thinkred-website.zip"
 

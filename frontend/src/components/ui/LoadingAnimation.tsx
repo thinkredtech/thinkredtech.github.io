@@ -27,18 +27,9 @@ export const LoadingAnimation: React.FC<LoadingAnimationProps> = ({
 
   if (type === 'spinner') {
     return (
-      <div
-        className={`${sizeClasses[size]} ${colorClasses[color]} animate-spin ${className}`}
-      >
+      <div className={`${sizeClasses[size]} ${colorClasses[color]} animate-spin ${className}`}>
         <svg className="w-full h-full" fill="none" viewBox="0 0 24 24">
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path
             className="opacity-75"
             fill="currentColor"
@@ -65,55 +56,36 @@ export const LoadingAnimation: React.FC<LoadingAnimationProps> = ({
 
   if (type === 'pulse') {
     return (
-      <div
-        className={`${sizeClasses[size]} ${colorClasses[color]} ${className}`}
-      >
+      <div className={`${sizeClasses[size]} ${colorClasses[color]} ${className}`}>
         <div className="w-full h-full bg-current rounded-full animate-ping opacity-75" />
       </div>
     );
   }
 
   if (type === 'skeleton') {
-    return (
-      <div
-        className={`skeleton rounded ${className}`}
-        style={{ width: '100%', height: '20px' }}
-      />
-    );
+    return <div className={`skeleton rounded ${className}`} style={{ width: '100%', height: '20px' }} />;
   }
 
   return null;
 };
 
-export const PageLoader: React.FC<{ message?: string }> = ({
-  message = 'Loading...',
-}) => {
+export const PageLoader: React.FC<{ message?: string }> = ({ message = 'Loading...' }) => {
   return (
     <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="text-center">
-        <LoadingAnimation
-          type="spinner"
-          size="lg"
-          color="primary"
-          className="mx-auto mb-4"
-        />
+        <LoadingAnimation type="spinner" size="lg" color="primary" className="mx-auto mb-4" />
         <p className="body-1-medium text-secondary font-medium">{message}</p>
       </div>
     </div>
   );
 };
 
-export const ContentLoader: React.FC<{ className?: string }> = ({
-  className = '',
-}) => {
+export const ContentLoader: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`animate-pulse ${className}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {[1, 2, 3, 4, 5, 6].map(i => (
-          <div
-            key={i}
-            className="bg-white rounded-lg shadow-lg overflow-hidden"
-          >
+          <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="h-48 bg-gray-200 skeleton"></div>
             <div className="p-6 space-y-3">
               <div className="h-6 bg-gray-200 skeleton rounded"></div>
@@ -137,13 +109,7 @@ export const ProgressBar: React.FC<{
   height?: 'sm' | 'md' | 'lg';
   animated?: boolean;
   className?: string;
-}> = ({
-  progress,
-  color = 'primary',
-  height = 'md',
-  animated = true,
-  className = '',
-}) => {
+}> = ({ progress, color = 'primary', height = 'md', animated = true, className = '' }) => {
   const heightClasses = {
     sm: 'h-1',
     md: 'h-2',
@@ -157,14 +123,10 @@ export const ProgressBar: React.FC<{
   };
 
   return (
-    <div
-      className={`w-full bg-gray-200 rounded-full overflow-hidden ${heightClasses[height]} ${className}`}
-    >
+    <div className={`w-full bg-gray-200 rounded-full overflow-hidden ${heightClasses[height]} ${className}`}>
       <div
         className={`${heightClasses[height]} ${colorClasses[color]} rounded-full transition-all duration-500 ${
-          animated
-            ? 'bg-gradient-to-r from-current to-current bg-size-200 animate-gradient'
-            : ''
+          animated ? 'bg-gradient-to-r from-current to-current bg-size-200 animate-gradient' : ''
         }`}
         style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
       />

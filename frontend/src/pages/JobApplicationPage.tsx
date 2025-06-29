@@ -12,11 +12,7 @@ import {
   validateTextLength,
   validateFile,
 } from '../utils/security';
-import {
-  submitJobApplication,
-  checkRateLimit,
-  validateHoneypot,
-} from '../utils/api';
+import { submitJobApplication, checkRateLimit, validateHoneypot } from '../utils/api';
 
 const JobApplicationPage = () => {
   const { jobId } = useParams<{ jobId: string }>();
@@ -54,19 +50,13 @@ const JobApplicationPage = () => {
 
   useEffect(() => {
     const allJobs = getAllJobPositions(hardcodedPositions);
-    const foundJob = allJobs.find(
-      (p: Position) => p.id.toString() === jobId || p.slug === jobId
-    );
+    const foundJob = allJobs.find((p: Position) => p.id.toString() === jobId || p.slug === jobId);
     if (foundJob) {
       setJob(foundJob);
     }
   }, [jobId]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -81,10 +71,7 @@ const JobApplicationPage = () => {
     }
   };
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    fileType: 'resume' | 'coverLetterFile'
-  ) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'resume' | 'coverLetterFile') => {
     const file = e.target.files?.[0] || null;
     if (file) {
       // Use centralized file validation
@@ -94,11 +81,7 @@ const JobApplicationPage = () => {
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       ];
 
-      const validationResult = validateFile(
-        file,
-        allowedTypes,
-        10 * 1024 * 1024
-      ); // 10MB limit (increased from 5MB)
+      const validationResult = validateFile(file, allowedTypes, 10 * 1024 * 1024); // 10MB limit (increased from 5MB)
 
       if (!validationResult.isValid) {
         setErrors(prev => ({
@@ -255,9 +238,7 @@ const JobApplicationPage = () => {
         applicant: {
           ...sanitizedFormData,
           resume: files.resume ? files.resume.name : undefined,
-          coverLetterFile: files.coverLetterFile
-            ? files.coverLetterFile.name
-            : undefined,
+          coverLetterFile: files.coverLetterFile ? files.coverLetterFile.name : undefined,
         },
         status: 'submitted',
         submittedAt: new Date().toISOString(),
@@ -265,16 +246,12 @@ const JobApplicationPage = () => {
       };
 
       // Store in localStorage for demo purposes
-      localStorage.setItem(
-        `application_${applicationId}`,
-        JSON.stringify(applicationData)
-      );
+      localStorage.setItem(`application_${applicationId}`, JSON.stringify(applicationData));
 
       setIsSubmitted(true);
     } catch (error) {
       // Handle error appropriately with better error message
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error occurred';
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       setErrors(prev => ({
         ...prev,
         general: `Error submitting application: ${errorMessage}. Please try again.`,
@@ -303,35 +280,19 @@ const JobApplicationPage = () => {
   if (isSubmitted) {
     return (
       <div>
-        <PageHero
-          title="Application Submitted!"
-          subtitle={`Thank you for applying for the ${job.title} position`}
-        />
+        <PageHero title="Application Submitted!" subtitle={`Thank you for applying for the ${job.title} position`} />
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4 max-w-2xl text-center">
             <div className="bg-green-50 border border-green-200 rounded-xl p-8">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg
-                  className="w-8 h-8 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="heading-1 text-secondary mb-4">
-                Application Received
-              </h2>
+              <h2 className="heading-1 text-secondary mb-4">Application Received</h2>
               <p className="body-1 text-secondary mb-6">
-                We have received your application for the{' '}
-                <strong>{job.title}</strong> position. Our team will review your
-                application and get back to you within 5-7 business days.
+                We have received your application for the <strong>{job.title}</strong> position. Our team will review
+                your application and get back to you within 5-7 business days.
               </p>
               <p className="body-2 text-secondary mb-8">
                 If you have any questions, please don't hesitate to contact us.
@@ -364,9 +325,7 @@ const JobApplicationPage = () => {
             {/* Job Summary Sidebar */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-xl shadow-lg p-6 sticky top-6">
-                <h3 className="heading-2 text-secondary mb-4">
-                  Position Summary
-                </h3>
+                <h3 className="heading-2 text-secondary mb-4">Position Summary</h3>
                 <div className="space-y-4">
                   <div>
                     <span className="body-3 text-secondary/70">Position:</span>
@@ -378,17 +337,11 @@ const JobApplicationPage = () => {
                   </div>
                   <div>
                     <span className="body-3 text-secondary/70">Location:</span>
-                    <p className="body-1-medium text-secondary">
-                      {job.location}
-                    </p>
+                    <p className="body-1-medium text-secondary">{job.location}</p>
                   </div>
                   <div>
-                    <span className="body-3 text-secondary/70">
-                      Experience:
-                    </span>
-                    <p className="body-1-medium text-secondary">
-                      {job.experience}
-                    </p>
+                    <span className="body-3 text-secondary/70">Experience:</span>
+                    <p className="body-1-medium text-secondary">{job.experience}</p>
                   </div>
                 </div>
 
@@ -406,9 +359,7 @@ const JobApplicationPage = () => {
             {/* Application Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-xl shadow-lg p-8">
-                <h2 className="heading-1 text-secondary mb-6">
-                  Application Form
-                </h2>
+                <h2 className="heading-1 text-secondary mb-6">Application Form</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* General Error Message */}
@@ -420,67 +371,45 @@ const JobApplicationPage = () => {
 
                   {/* Personal Information */}
                   <div>
-                    <h3 className="heading-3 text-secondary mb-4">
-                      Personal Information
-                    </h3>
+                    <h3 className="heading-3 text-secondary mb-4">Personal Information</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          First Name *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">First Name *</label>
                         <input
                           type="text"
                           name="firstName"
                           value={formData.firstName}
                           onChange={handleInputChange}
                           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 ${
-                            errors.firstName
-                              ? 'border-red-500'
-                              : 'border-gray-200'
+                            errors.firstName ? 'border-red-500' : 'border-gray-200'
                           }`}
                           placeholder="John"
                         />
-                        {errors.firstName && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.firstName}
-                          </p>
-                        )}
+                        {errors.firstName && <p className="text-red-500 body-3 mt-1">{errors.firstName}</p>}
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Last Name *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Last Name *</label>
                         <input
                           type="text"
                           name="lastName"
                           value={formData.lastName}
                           onChange={handleInputChange}
                           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 ${
-                            errors.lastName
-                              ? 'border-red-500'
-                              : 'border-gray-200'
+                            errors.lastName ? 'border-red-500' : 'border-gray-200'
                           }`}
                           placeholder="Doe"
                         />
-                        {errors.lastName && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.lastName}
-                          </p>
-                        )}
+                        {errors.lastName && <p className="text-red-500 body-3 mt-1">{errors.lastName}</p>}
                       </div>
                     </div>
                   </div>
 
                   {/* Contact Information */}
                   <div>
-                    <h3 className="heading-3 text-secondary mb-4">
-                      Contact Information
-                    </h3>
+                    <h3 className="heading-3 text-secondary mb-4">Contact Information</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Email Address *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Email Address *</label>
                         <input
                           type="email"
                           name="email"
@@ -491,16 +420,10 @@ const JobApplicationPage = () => {
                           }`}
                           placeholder="john.doe@example.com"
                         />
-                        {errors.email && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.email}
-                          </p>
-                        )}
+                        {errors.email && <p className="text-red-500 body-3 mt-1">{errors.email}</p>}
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Phone Number *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Phone Number *</label>
                         <input
                           type="tel"
                           name="phone"
@@ -511,16 +434,10 @@ const JobApplicationPage = () => {
                           }`}
                           placeholder="+1 (555) 123-4567"
                         />
-                        {errors.phone && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.phone}
-                          </p>
-                        )}
+                        {errors.phone && <p className="text-red-500 body-3 mt-1">{errors.phone}</p>}
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          LinkedIn Profile
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">LinkedIn Profile</label>
                         <input
                           type="url"
                           name="linkedIn"
@@ -531,9 +448,7 @@ const JobApplicationPage = () => {
                         />
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Portfolio/Website
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Portfolio/Website</label>
                         <input
                           type="url"
                           name="portfolio"
@@ -551,10 +466,7 @@ const JobApplicationPage = () => {
                     <h3 className="heading-3 text-secondary mb-4">Documents</h3>
                     <div className="space-y-6">
                       <div>
-                        <label
-                          htmlFor="resume-upload"
-                          className="block body-2 text-secondary mb-2"
-                        >
+                        <label htmlFor="resume-upload" className="block body-2 text-secondary mb-2">
                           Resume/CV *
                         </label>
                         <div className="relative">
@@ -567,25 +479,15 @@ const JobApplicationPage = () => {
                           />
                           {files.resume && (
                             <p className="text-sm text-green-600 mt-2">
-                              ✓ {files.resume.name} (
-                              {Math.round(files.resume.size / 1024)}KB)
+                              ✓ {files.resume.name} ({Math.round(files.resume.size / 1024)}KB)
                             </p>
                           )}
-                          {errors.resume && (
-                            <p className="text-red-500 body-3 mt-1">
-                              {errors.resume}
-                            </p>
-                          )}
+                          {errors.resume && <p className="text-red-500 body-3 mt-1">{errors.resume}</p>}
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          PDF, DOC, or DOCX format. Max 10MB.
-                        </p>
+                        <p className="text-xs text-gray-500 mt-1">PDF, DOC, or DOCX format. Max 10MB.</p>
                       </div>
                       <div>
-                        <label
-                          htmlFor="cover-letter-upload"
-                          className="block body-2 text-secondary mb-2"
-                        >
+                        <label htmlFor="cover-letter-upload" className="block body-2 text-secondary mb-2">
                           Cover Letter File (Optional)
                         </label>
                         <div className="relative">
@@ -593,97 +495,68 @@ const JobApplicationPage = () => {
                             id="cover-letter-upload"
                             type="file"
                             accept=".pdf,.doc,.docx"
-                            onChange={e =>
-                              handleFileChange(e, 'coverLetterFile')
-                            }
+                            onChange={e => handleFileChange(e, 'coverLetterFile')}
                             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
                           />
                           {files.coverLetterFile && (
                             <p className="text-sm text-green-600 mt-2">
-                              ✓ {files.coverLetterFile.name} (
-                              {Math.round(files.coverLetterFile.size / 1024)}KB)
+                              ✓ {files.coverLetterFile.name} ({Math.round(files.coverLetterFile.size / 1024)}KB)
                             </p>
                           )}
                           {errors.coverLetterFile && (
-                            <p className="text-red-500 body-3 mt-1">
-                              {errors.coverLetterFile}
-                            </p>
+                            <p className="text-red-500 body-3 mt-1">{errors.coverLetterFile}</p>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          PDF, DOC, or DOCX format. Max 10MB.
-                        </p>
+                        <p className="text-xs text-gray-500 mt-1">PDF, DOC, or DOCX format. Max 10MB.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Application Details */}
                   <div>
-                    <h3 className="heading-3 text-secondary mb-4">
-                      Application Details
-                    </h3>
+                    <h3 className="heading-3 text-secondary mb-4">Application Details</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Cover Letter *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Cover Letter *</label>
                         <textarea
                           name="coverLetter"
                           value={formData.coverLetter}
                           onChange={handleInputChange}
                           rows={6}
                           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 resize-vertical ${
-                            errors.coverLetter
-                              ? 'border-red-500'
-                              : 'border-gray-200'
+                            errors.coverLetter ? 'border-red-500' : 'border-gray-200'
                           }`}
                           placeholder="Tell us why you're interested in this position and how your skills and experience make you a great fit..."
                         />
-                        {errors.coverLetter && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.coverLetter}
-                          </p>
-                        )}
+                        {errors.coverLetter && <p className="text-red-500 body-3 mt-1">{errors.coverLetter}</p>}
                         <p className="body-3 text-secondary/70 mt-1">
                           Minimum 100 characters ({formData.coverLetter.length}
                           /100)
                         </p>
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Relevant Experience *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Relevant Experience *</label>
                         <textarea
                           name="experience"
                           value={formData.experience}
                           onChange={handleInputChange}
                           rows={4}
                           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 resize-vertical ${
-                            errors.experience
-                              ? 'border-red-500'
-                              : 'border-gray-200'
+                            errors.experience ? 'border-red-500' : 'border-gray-200'
                           }`}
                           placeholder="Describe your relevant work experience, projects, and achievements..."
                         />
-                        {errors.experience && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.experience}
-                          </p>
-                        )}
+                        {errors.experience && <p className="text-red-500 body-3 mt-1">{errors.experience}</p>}
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Availability *
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Availability *</label>
                         <select
                           name="availability"
                           value={formData.availability}
                           onChange={handleInputChange}
                           aria-label="Availability"
                           className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 ${
-                            errors.availability
-                              ? 'border-red-500'
-                              : 'border-gray-200'
+                            errors.availability ? 'border-red-500' : 'border-gray-200'
                           }`}
                         >
                           <option value="">Select your availability</option>
@@ -693,25 +566,17 @@ const JobApplicationPage = () => {
                           <option value="2months">2 months notice</option>
                           <option value="3months">3+ months</option>
                         </select>
-                        {errors.availability && (
-                          <p className="text-red-500 body-3 mt-1">
-                            {errors.availability}
-                          </p>
-                        )}
+                        {errors.availability && <p className="text-red-500 body-3 mt-1">{errors.availability}</p>}
                       </div>
                     </div>
                   </div>
 
                   {/* Additional Information */}
                   <div>
-                    <h3 className="heading-3 text-secondary mb-4">
-                      Additional Information
-                    </h3>
+                    <h3 className="heading-3 text-secondary mb-4">Additional Information</h3>
                     <div className="space-y-4">
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          Salary Expectation
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">Salary Expectation</label>
                         <input
                           type="text"
                           name="salaryExpectation"
@@ -739,9 +604,7 @@ const JobApplicationPage = () => {
                         </select>
                       </div>
                       <div>
-                        <label className="block body-2 text-secondary mb-2">
-                          References
-                        </label>
+                        <label className="block body-2 text-secondary mb-2">References</label>
                         <textarea
                           name="references"
                           value={formData.references}
@@ -756,17 +619,13 @@ const JobApplicationPage = () => {
 
                   {/* Honeypot field - hidden from users to prevent spam */}
                   <div className="hidden">
-                    <label htmlFor="website">
-                      Website (leave blank if you're human)
-                    </label>
+                    <label htmlFor="website">Website (leave blank if you're human)</label>
                     <input
                       type="text"
                       id="website"
                       name="website"
                       value={formData.honeypot}
-                      onChange={e =>
-                        setFormData({ ...formData, honeypot: e.target.value })
-                      }
+                      onChange={e => setFormData({ ...formData, honeypot: e.target.value })}
                       tabIndex={-1}
                       autoComplete="off"
                     />
@@ -781,11 +640,7 @@ const JobApplicationPage = () => {
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center">
-                          <svg
-                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                             <circle
                               className="opacity-25"
                               cx="12"

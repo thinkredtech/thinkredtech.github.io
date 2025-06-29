@@ -17,9 +17,7 @@ const BlogPage = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   // Extract unique categories and tags for filter options
-  const categories = Array.from(
-    new Set(blogPosts.flatMap(post => post.categories))
-  );
+  const categories = Array.from(new Set(blogPosts.flatMap(post => post.categories)));
   const tags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 
   // Filter blog posts based on search term and filters
@@ -30,8 +28,7 @@ const BlogPage = () => {
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesCategory =
-      selectedCategory === '' || post.categories.includes(selectedCategory);
+    const matchesCategory = selectedCategory === '' || post.categories.includes(selectedCategory);
     const matchesTag = selectedTag === '' || post.tags.includes(selectedTag);
 
     return matchesSearch && matchesCategory && matchesTag;
@@ -95,12 +92,7 @@ const BlogPage = () => {
                 placeholder="All Categories"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg
-                    className="w-5 h-5 inline"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -120,12 +112,7 @@ const BlogPage = () => {
                 placeholder="All Tags"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg
-                    className="w-5 h-5 inline"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -138,27 +125,15 @@ const BlogPage = () => {
 
               {/* View Mode Toggle and Reset */}
               <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
-                <label className="block label-1 text-secondary mb-2">
-                  Actions
-                </label>
+                <label className="block label-1 text-secondary mb-2">Actions</label>
                 <div className="flex gap-1">
                   <ViewToggle
                     viewMode={viewMode}
-                    onToggle={() =>
-                      setViewMode(viewMode === 'grid' ? 'list' : 'grid')
-                    }
+                    onToggle={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
                     className="flex-1 max-w-[25px]"
-                    title={
-                      viewMode === 'grid'
-                        ? 'Switch to List View'
-                        : 'Switch to Grid View'
-                    }
+                    title={viewMode === 'grid' ? 'Switch to List View' : 'Switch to Grid View'}
                   />
-                  <ResetButton
-                    onReset={resetFilters}
-                    className="flex-1 max-w-[25px]"
-                    title="Reset all filters"
-                  />
+                  <ResetButton onReset={resetFilters} className="flex-1 max-w-[25px]" title="Reset all filters" />
                 </div>
               </div>
             </div>
@@ -174,21 +149,13 @@ const BlogPage = () => {
                     className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
                   >
                     <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="object-cover w-full h-60 md:h-48 lg:h-60"
-                      />
+                      <img src={post.image} alt={post.title} className="object-cover w-full h-60 md:h-48 lg:h-60" />
                     </div>
                     <div className="p-6">
                       <div className="flex items-center mb-3">
-                        <span className="text-sm text-secondary/70">
-                          {post.date}
-                        </span>
+                        <span className="text-sm text-secondary/70">{post.date}</span>
                         <span className="mx-2 text-gray-300">•</span>
-                        <span className="text-sm text-secondary/70">
-                          {post.author}
-                        </span>
+                        <span className="text-sm text-secondary/70">{post.author}</span>
                       </div>
 
                       <h3 className="heading-2 mb-2">{post.title}</h3>
@@ -196,10 +163,7 @@ const BlogPage = () => {
 
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.categories.map((category, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
-                          >
+                          <span key={index} className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full">
                             {category}
                           </span>
                         ))}
@@ -207,10 +171,7 @@ const BlogPage = () => {
 
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full"
-                          >
+                          <span key={index} className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full">
                             #{tag}
                           </span>
                         ))}
@@ -221,12 +182,7 @@ const BlogPage = () => {
                         className="text-primary hover:underline font-medium inline-flex items-center"
                       >
                         Read More
-                        <svg
-                          className="w-4 h-4 ml-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -248,49 +204,31 @@ const BlogPage = () => {
                   >
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-1/3">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="object-cover w-full h-48 md:h-full"
-                        />
+                        <img src={post.image} alt={post.title} className="object-cover w-full h-48 md:h-full" />
                       </div>
                       <div className="md:w-2/3 p-6">
                         <div className="flex items-center mb-3">
-                          <span className="text-sm text-secondary/70">
-                            {post.date}
-                          </span>
+                          <span className="text-sm text-secondary/70">{post.date}</span>
                           <span className="mx-2 text-gray-300">•</span>
-                          <span className="text-sm text-secondary/70">
-                            {post.author}
-                          </span>
+                          <span className="text-sm text-secondary/70">{post.author}</span>
                         </div>
 
                         <h3 className="heading-2 mb-3">{post.title}</h3>
-                        <p className="text-secondary mb-4 line-clamp-3">
-                          {post.excerpt}
-                        </p>
+                        <p className="text-secondary mb-4 line-clamp-3">{post.excerpt}</p>
 
                         <div className="flex flex-wrap gap-2 mb-4">
                           {post.categories.map((category, index) => (
-                            <span
-                              key={index}
-                              className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
-                            >
+                            <span key={index} className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full">
                               {category}
                             </span>
                           ))}
                           {post.tags.slice(0, 3).map((tag, index) => (
-                            <span
-                              key={index}
-                              className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full"
-                            >
+                            <span key={index} className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full">
                               #{tag}
                             </span>
                           ))}
                           {post.tags.length > 3 && (
-                            <span className="text-xs text-secondary/70">
-                              +{post.tags.length - 3} more
-                            </span>
+                            <span className="text-xs text-secondary/70">+{post.tags.length - 3} more</span>
                           )}
                         </div>
 
@@ -299,12 +237,7 @@ const BlogPage = () => {
                           className="text-primary hover:underline font-medium inline-flex items-center"
                         >
                           Read More
-                          <svg
-                            className="w-4 h-4 ml-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -321,9 +254,7 @@ const BlogPage = () => {
             )
           ) : (
             <div className="text-center py-12">
-              <p className="body-1-medium text-secondary mb-4">
-                No articles match your search criteria.
-              </p>
+              <p className="body-1-medium text-secondary mb-4">No articles match your search criteria.</p>
               <button onClick={resetFilters} className="btn btn-primary">
                 Reset Filters
               </button>
@@ -334,8 +265,7 @@ const BlogPage = () => {
           <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
             <h2 className="heading-1 mb-4">Stay Updated with Our Newsletter</h2>
             <p className="body-1-medium text-secondary mb-6 max-w-2xl mx-auto">
-              Subscribe to receive the latest insights, articles, and resources
-              directly to your inbox.
+              Subscribe to receive the latest insights, articles, and resources directly to your inbox.
             </p>
             <div className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row gap-3">
@@ -344,13 +274,9 @@ const BlogPage = () => {
                   placeholder="Your email address"
                   className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
-                <button className="btn btn-primary whitespace-nowrap">
-                  Subscribe
-                </button>
+                <button className="btn btn-primary whitespace-nowrap">Subscribe</button>
               </div>
-              <p className="text-xs text-secondary/70 mt-3">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
+              <p className="text-xs text-secondary/70 mt-3">We respect your privacy. Unsubscribe at any time.</p>
             </div>
           </div>
         </div>

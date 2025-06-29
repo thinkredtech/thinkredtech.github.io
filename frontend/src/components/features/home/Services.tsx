@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom';
-import {
-  useScrollAnimation,
-  useStaggeredAnimation,
-} from '../../../hooks/useScrollAnimation';
+import { useScrollAnimation, useStaggeredAnimation } from '../../../hooks/useScrollAnimation';
 
 const Services = () => {
-  const { elementRef: headerRef, isInView: headerVisible } =
-    useScrollAnimation();
-  const { elementRef: servicesRef, visibleItems: visibleServices } =
-    useStaggeredAnimation(6, 150);
+  const { elementRef: headerRef, isInView: headerVisible } = useScrollAnimation();
+  const { elementRef: servicesRef, visibleItems: visibleServices } = useStaggeredAnimation(6, 150);
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
   const servicesList = [
     {
@@ -145,30 +140,22 @@ const Services = () => {
         <div
           ref={headerRef}
           className={`text-center mb-16 transition-all duration-1000 ease-out ${
-            headerVisible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-8'
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <h2 className="heading-1 mb-4 text-secondary">Our Services</h2>
           <p className="max-w-2xl mx-auto text-secondary">
-            Comprehensive technology solutions designed to accelerate your
-            digital transformation.
+            Comprehensive technology solutions designed to accelerate your digital transformation.
           </p>
         </div>
 
         {/* Featured Services Grid */}
-        <div
-          ref={servicesRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12"
-        >
+        <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {servicesList.map((service, index) => (
             <div
               key={index}
               className={`group bg-white p-6 lg:p-8 rounded-xl shadow-regular hover:shadow-lg transition-all duration-700 border border-gray-50 hover:border-primary/20 ${
-                visibleServices.includes(index)
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
+                visibleServices.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{
                 transitionDelay: `${index * 150}ms`,
@@ -182,9 +169,7 @@ const Services = () => {
                   <h3 className="heading-3 mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2 text-secondary">
                     {service.title}
                   </h3>
-                  <p className="line-clamp-5 text-secondary">
-                    {service.description}
-                  </p>
+                  <p className="line-clamp-5 text-secondary">{service.description}</p>
                 </div>
               </div>
             </div>
@@ -203,18 +188,8 @@ const Services = () => {
             className="btn btn-primary px-8 py-3 inline-flex items-center space-x-2 hover:transform hover:scale-105 transition-all duration-300"
           >
             <span>Explore All Services</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>

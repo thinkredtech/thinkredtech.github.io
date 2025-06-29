@@ -1,19 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import {
-  useScrollAnimation,
-  useStaggeredAnimation,
-} from '../../../hooks/useScrollAnimation';
-import {
-  FaReact,
-  FaVuejs,
-  FaNodeJs,
-  FaPython,
-  FaDocker,
-  FaAws,
-  FaGithub,
-} from 'react-icons/fa';
+import { useScrollAnimation, useStaggeredAnimation } from '../../../hooks/useScrollAnimation';
+import { FaReact, FaVuejs, FaNodeJs, FaPython, FaDocker, FaAws, FaGithub } from 'react-icons/fa';
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -38,14 +27,10 @@ import { renderIcon } from '../../../utils/iconUtils';
 const TechStack = () => {
   const [activeCategory, setActiveCategory] = useState(0);
 
-  const { elementRef: headerRef, isInView: headerVisible } =
-    useScrollAnimation();
-  const { elementRef: tabsRef, visibleItems: visibleTabs } =
-    useStaggeredAnimation(6, 100);
-  const { elementRef: activeRef, isInView: activeVisible } =
-    useScrollAnimation();
-  const { elementRef: overviewRef, visibleItems: visibleOverview } =
-    useStaggeredAnimation(6, 150);
+  const { elementRef: headerRef, isInView: headerVisible } = useScrollAnimation();
+  const { elementRef: tabsRef, visibleItems: visibleTabs } = useStaggeredAnimation(6, 100);
+  const { elementRef: activeRef, isInView: activeVisible } = useScrollAnimation();
+  const { elementRef: overviewRef, visibleItems: visibleOverview } = useStaggeredAnimation(6, 150);
   const { elementRef: ctaRef, isInView: ctaVisible } = useScrollAnimation();
 
   const technologies = [
@@ -229,25 +214,17 @@ const TechStack = () => {
         <div
           ref={headerRef as React.RefObject<HTMLDivElement>}
           className={`text-center mb-12 transition-all duration-1000 ease-out ${
-            headerVisible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-8'
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="heading-1 mb-4 text-secondary">
-            Our Technology Stack
-          </h2>
+          <h2 className="heading-1 mb-4 text-secondary">Our Technology Stack</h2>
           <p className="max-w-3xl mx-auto text-secondary">
-            We leverage modern technologies and frameworks to build robust,
-            scalable, and high-performance solutions.
+            We leverage modern technologies and frameworks to build robust, scalable, and high-performance solutions.
           </p>
         </div>
 
         {/* Interactive Category Tabs */}
-        <div
-          ref={tabsRef as React.RefObject<HTMLDivElement>}
-          className="flex flex-wrap justify-center gap-2 mb-8"
-        >
+        <div ref={tabsRef as React.RefObject<HTMLDivElement>} className="flex flex-wrap justify-center gap-2 mb-8">
           {technologies.map((category, index) => (
             <button
               key={index}
@@ -256,11 +233,7 @@ const TechStack = () => {
                 activeCategory === index
                   ? 'bg-primary text-white shadow-lg scale-105'
                   : 'bg-white text-secondary hover:bg-gray-50 hover:scale-102'
-              } ${
-                visibleTabs.includes(index)
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-4'
-              }`}
+              } ${visibleTabs.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               data-delay={index * 100}
             >
               {category.category}
@@ -272,21 +245,14 @@ const TechStack = () => {
         <div
           ref={activeRef as React.RefObject<HTMLDivElement>}
           className={`mb-8 transition-all duration-1000 ease-out ${
-            activeVisible
-              ? 'opacity-100 translate-y-0 scale-100'
-              : 'opacity-0 translate-y-8 scale-95'
+            activeVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
           }`}
         >
           <div className="bg-white rounded-lg p-6 md:p-8 shadow-lg">
-            <h3 className="heading-2 text-center mb-6 text-primary">
-              {technologies[activeCategory].category}
-            </h3>
+            <h3 className="heading-2 text-center mb-6 text-primary">{technologies[activeCategory].category}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {technologies[activeCategory].techs.map((tech, techIndex) => (
-                <div
-                  key={techIndex}
-                  className="flex flex-col items-center group cursor-pointer"
-                >
+                <div key={techIndex} className="flex flex-col items-center group cursor-pointer">
                   <div className="w-14 h-14 mb-3 flex items-center justify-center bg-gray-50 rounded-xl shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:scale-110 group-hover:bg-white">
                     {tech.icon}
                   </div>
@@ -300,30 +266,19 @@ const TechStack = () => {
         </div>
 
         {/* Quick Overview Grid - Show all categories at once in compact form */}
-        <div
-          ref={overviewRef as React.RefObject<HTMLDivElement>}
-          className="mb-8"
-        >
-          <h3 className="body-1-semibold text-center mb-6 text-secondary">
-            Complete Technology Overview
-          </h3>
+        <div ref={overviewRef as React.RefObject<HTMLDivElement>} className="mb-8">
+          <h3 className="body-1-semibold text-center mb-6 text-secondary">Complete Technology Overview</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {technologies.map((category, index) => (
               <div
                 key={index}
                 className={`bg-white rounded-xl p-4 shadow-sm transition-all duration-700 cursor-pointer hover:shadow-md ${
                   activeCategory === index ? 'ring-2 ring-primary' : ''
-                } ${
-                  visibleOverview.includes(index)
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-8'
-                }`}
+                } ${visibleOverview.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 data-delay={index * 150}
                 onClick={() => setActiveCategory(index)}
               >
-                <h4 className="font-semibold text-sm text-secondary mb-3 text-center">
-                  {category.category}
-                </h4>
+                <h4 className="font-semibold text-sm text-secondary mb-3 text-center">{category.category}</h4>
                 <div className="flex flex-wrap justify-center gap-2">
                   {category.techs.slice(0, 6).map((tech, techIndex) => (
                     <div
@@ -359,18 +314,8 @@ const TechStack = () => {
             className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
           >
             Learn About Our Technical Expertise
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>

@@ -6,8 +6,7 @@ export const useReadingProgress = () => {
   useEffect(() => {
     const calculateProgress = () => {
       const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
       setProgress(Math.min(Math.max(scrollPercent, 0), 100));
     };
@@ -27,11 +26,7 @@ export const useReadingProgress = () => {
   return progress;
 };
 
-export const useIntersectionObserver = (
-  elementRef: React.RefObject<Element>,
-  threshold = 0.1,
-  rootMargin = '0px'
-) => {
+export const useIntersectionObserver = (elementRef: React.RefObject<Element>, threshold = 0.1, rootMargin = '0px') => {
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
@@ -56,9 +51,7 @@ export const useIntersectionObserver = (
 };
 
 export const useScrollDirection = () => {
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(
-    null
-  );
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {

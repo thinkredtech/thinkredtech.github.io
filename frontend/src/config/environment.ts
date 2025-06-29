@@ -73,10 +73,7 @@ export interface AppConfig {
 /**
  * Parse boolean environment variables
  */
-const parseBoolean = (
-  value: string | undefined,
-  defaultValue: boolean = false
-): boolean => {
+const parseBoolean = (value: string | undefined, defaultValue: boolean = false): boolean => {
   if (!value) return defaultValue;
   return value.toLowerCase() === 'true' || value === '1';
 };
@@ -84,10 +81,7 @@ const parseBoolean = (
 /**
  * Parse number environment variables
  */
-const parseNumber = (
-  value: string | undefined,
-  defaultValue: number
-): number => {
+const parseNumber = (value: string | undefined, defaultValue: number): number => {
   if (!value) return defaultValue;
   const parsed = parseInt(value, 10);
   return isNaN(parsed) ? defaultValue : parsed;
@@ -96,10 +90,7 @@ const parseNumber = (
 /**
  * Parse comma-separated string to array
  */
-const parseArray = (
-  value: string | undefined,
-  defaultValue: string[] = []
-): string[] => {
+const parseArray = (value: string | undefined, defaultValue: string[] = []): string[] => {
   if (!value) return defaultValue;
   return value
     .split(',')
@@ -138,15 +129,10 @@ const getEnvVar = (key: string, fallback?: string): string => {
  */
 const getDeploymentId = (): string => {
   // Get environment from env vars first
-  const environment = getEnvVar('NODE_ENV', 'production') as
-    | 'development'
-    | 'staging'
-    | 'production';
+  const environment = getEnvVar('NODE_ENV', 'production') as 'development' | 'staging' | 'production';
 
   // Try environment-specific deployment ID first
-  const envSpecificId = getEnvVar(
-    `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`
-  );
+  const envSpecificId = getEnvVar(`GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`);
   if (envSpecificId) {
     return envSpecificId;
   }
@@ -168,10 +154,7 @@ export const config: AppConfig = {
   googleAppsScript: {
     projectId: getEnvVar('GOOGLE_APPS_SCRIPT_ID', ''),
     deploymentId: getDeploymentId(),
-    baseUrl: getEnvVar(
-      'GOOGLE_APPS_SCRIPT_BASE_URL',
-      'https://script.google.com/macros/s'
-    ),
+    baseUrl: getEnvVar('GOOGLE_APPS_SCRIPT_BASE_URL', 'https://script.google.com/macros/s'),
     get apiEndpoint() {
       return `${this.baseUrl}/${this.deploymentId}/exec`;
     },
@@ -179,17 +162,11 @@ export const config: AppConfig = {
 
   api: {
     timeout: parseNumber(getEnvVar('API_TIMEOUT'), 30000),
-    enableDebug: parseBoolean(
-      getEnvVar('ENABLE_API_DEBUG'),
-      import.meta.env.DEV
-    ),
+    enableDebug: parseBoolean(getEnvVar('ENABLE_API_DEBUG'), import.meta.env.DEV),
   },
 
   app: {
-    environment: getEnvVar(
-      'NODE_ENV',
-      'development'
-    ) as AppConfig['app']['environment'],
+    environment: getEnvVar('NODE_ENV', 'development') as AppConfig['app']['environment'],
     baseUrl: getEnvVar('FRONTEND_BASE_URL', 'https://thinkredtech.github.io'),
     buildOutputDir: getEnvVar('BUILD_OUTPUT_DIR', 'build'),
     adminPassword: getEnvVar('ADMIN_PASSWORD'),
@@ -219,30 +196,15 @@ export const config: AppConfig = {
   },
 
   development: {
-    enableDevLogging: parseBoolean(
-      getEnvVar('ENABLE_DEV_LOGGING'),
-      import.meta.env.DEV
-    ),
+    enableDevLogging: parseBoolean(getEnvVar('ENABLE_DEV_LOGGING'), import.meta.env.DEV),
     devServerPort: parseNumber(getEnvVar('DEV_SERVER_PORT'), 3000),
   },
 
   build: {
-    enableProdSourceMaps: parseBoolean(
-      getEnvVar('ENABLE_PROD_SOURCE_MAPS'),
-      false
-    ),
-    enableBundleAnalysis: parseBoolean(
-      getEnvVar('ENABLE_BUNDLE_ANALYSIS'),
-      false
-    ),
-    enableCssMinification: parseBoolean(
-      getEnvVar('ENABLE_CSS_MINIFICATION'),
-      true
-    ),
-    enableJsMinification: parseBoolean(
-      getEnvVar('ENABLE_JS_MINIFICATION'),
-      true
-    ),
+    enableProdSourceMaps: parseBoolean(getEnvVar('ENABLE_PROD_SOURCE_MAPS'), false),
+    enableBundleAnalysis: parseBoolean(getEnvVar('ENABLE_BUNDLE_ANALYSIS'), false),
+    enableCssMinification: parseBoolean(getEnvVar('ENABLE_CSS_MINIFICATION'), true),
+    enableJsMinification: parseBoolean(getEnvVar('ENABLE_JS_MINIFICATION'), true),
   },
 };
 
@@ -296,16 +258,7 @@ export const logConfig = (): void => {
 /**
  * Export individual configuration sections for convenience
  */
-export const {
-  googleAppsScript,
-  api,
-  app,
-  features,
-  security,
-  analytics,
-  development,
-  build,
-} = config;
+export const { googleAppsScript, api, app, features, security, analytics, development, build } = config;
 
 // Log configuration in development
 logConfig();

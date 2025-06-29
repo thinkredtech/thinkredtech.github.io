@@ -53,13 +53,7 @@ interface PageHeroProps {
  * @param props - The component props
  * @returns JSX element representing the hero section
  */
-const PageHero: React.FC<PageHeroProps> = ({
-  title,
-  subtitle,
-  variant = 'default',
-  className = '',
-  children,
-}) => {
+const PageHero: React.FC<PageHeroProps> = ({ title, subtitle, variant = 'default', className = '', children }) => {
   // State for controlling entrance animations
   const [animateInView, setAnimateInView] = useState(false);
 
@@ -115,9 +109,7 @@ const PageHero: React.FC<PageHeroProps> = ({
   };
 
   return (
-    <section
-      className={`relative pt-32 pb-8 md:pt-40 md:pb-12 overflow-hidden ${className}`}
-    >
+    <section className={`relative pt-32 pb-8 md:pt-40 md:pb-12 overflow-hidden ${className}`}>
       {/* Animated background elements */}
       {getBackgroundElements()}
 
@@ -126,18 +118,14 @@ const PageHero: React.FC<PageHeroProps> = ({
         <div className="max-w-4xl mx-auto text-center">
           <h1
             className={`font-comfortaa display-2 mb-6 text-primary transition-all duration-1000 ${
-              animateInView
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
+              animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
             {title}
           </h1>
           <p
             className={`body-1-medium md:text-2xl text-secondary mb-8 leading-relaxed transition-all duration-1000 delay-300 ${
-              animateInView
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
+              animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
             {subtitle}
@@ -147,9 +135,7 @@ const PageHero: React.FC<PageHeroProps> = ({
           {children && (
             <div
               className={`transition-all duration-1000 delay-500 ${
-                animateInView
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
+                animateInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               {children}

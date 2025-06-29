@@ -489,13 +489,7 @@ export interface JobApplication {
     coverLetterFile?: File | string; // File object or file path/URL
   };
   /** Current status of the application */
-  status:
-    | 'submitted'
-    | 'under_review'
-    | 'interviewing'
-    | 'offer_extended'
-    | 'accepted'
-    | 'rejected';
+  status: 'submitted' | 'under_review' | 'interviewing' | 'offer_extended' | 'accepted' | 'rejected';
   /** ISO timestamp when the application was submitted */
   submittedAt: string;
   /** ISO timestamp when the application was last updated */
