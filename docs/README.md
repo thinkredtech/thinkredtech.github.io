@@ -23,6 +23,7 @@ The ThinkRED website is a modern React-based company website with a Google Apps 
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Technical architecture overview | Developers, Technical leads |
 | [API.md](./API.md) | Backend API documentation | Frontend developers |
 | [DEPLOYMENT.md](./DEPLOYMENT.md) | Deployment processes and CI/CD | DevOps, Developers |
+| [SEO_ENHANCEMENT_REPORT.md](./SEO_ENHANCEMENT_REPORT.md) | Comprehensive SEO implementation guide | Developers, Marketing |
 
 ### Configuration and Environment
 

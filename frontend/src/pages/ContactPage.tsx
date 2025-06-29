@@ -4,8 +4,93 @@ import PageHero from '../components/ui/PageHero';
 import { DiscoveryCallScheduler, QuoteRequestForm } from '../components/forms/ContactForms';
 import { submitContactForm, checkRateLimit, validateHoneypot } from '../utils/api';
 import { sanitizeInput, validateEmail, validatePhone, validateTextLength } from '../utils/security';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 const ContactPage = () => {
+  // Apply SEO configuration for contact page
+  useSEO({
+    ...SEOConfigs.contact,
+    url: `${window.location.origin}/contact`,
+  });
+
+  // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'Contact', url: `${window.location.origin}/contact` },
+    ])
+  );
+
+  // Add LocalBusiness structured data for local SEO
+  useStructuredData({
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://thinkred.tech/#organization',
+    name: 'ThinkRED Technologies LLP',
+    alternateName: 'ThinkRED Technologies',
+    description:
+      'Expert web development, mobile app development, DevOps automation, and technology consultation services.',
+    url: 'https://thinkred.tech',
+    logo: 'https://thinkred.tech/assets/logos/thinkRED-logo.png',
+    image: 'https://thinkred.tech/assets/logos/thinkRED-og-image.png',
+    telephone: '+91-XXXXXXXXXX', // Replace with actual phone number
+    email: 'hello@thinkred.tech',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IN',
+      addressRegion: 'India',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '20.5937', // India center coordinates as placeholder
+      longitude: '78.9629',
+    },
+    areaServed: ['India', 'United States', 'Europe', 'Asia', 'Worldwide'],
+    serviceArea: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: '20.5937',
+        longitude: '78.9629',
+      },
+      geoRadius: '10000000', // Global service radius
+    },
+    openingHours: 'Mo-Fr 09:00-18:00',
+    paymentAccepted: 'Credit Card, Bank Transfer, Online Payment',
+    currenciesAccepted: 'INR, USD, EUR',
+    priceRange: '$$-$$$',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Technology Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Web Application Development',
+            description: 'Custom web application development using modern technologies',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Mobile App Development',
+            description: 'Native and cross-platform mobile application development',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'DevOps & Infrastructure Automation',
+            description: 'DevOps services and cloud infrastructure automation',
+          },
+        },
+      ],
+    },
+    sameAs: ['https://github.com/thinkredtech', 'https://www.linkedin.com/company/thinkred-technologies'],
+  });
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<'contact' | 'discovery' | 'quote'>('contact');
 

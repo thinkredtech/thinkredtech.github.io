@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import PageHero from '../components/ui/PageHero';
 import { Position } from '../types'; // Import Position from types
 import { getAllJobPositions } from '../utils/jobUtils';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 // Export hardcoded positions (kept for backward compatibility)
 export const hardcodedPositions: Position[] = [
@@ -103,6 +104,20 @@ export const getOpenPositions = (): Position[] => {
 export const openPositions = hardcodedPositions;
 
 const CareerPage = () => {
+  // Apply SEO configuration for careers page
+  useSEO({
+    ...SEOConfigs.careers,
+    url: `${window.location.origin}/careers`,
+  });
+
+  // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'Careers', url: `${window.location.origin}/careers` },
+    ])
+  );
+
   const navigate = useNavigate();
   const [allPositions, setAllPositions] = useState<Position[]>([]);
 

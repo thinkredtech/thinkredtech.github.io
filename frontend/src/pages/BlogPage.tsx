@@ -8,8 +8,22 @@ import SearchInput from '../components/ui/SearchInput';
 import ViewToggle from '../components/ui/ViewToggle';
 import ResetButton from '../components/ui/ResetButton';
 import FilterContainer from '../components/ui/FilterContainer';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 const BlogPage = () => {
+  // Apply SEO configuration for blog page
+  useSEO({
+    ...SEOConfigs.blog,
+    url: `${window.location.origin}/blog`,
+  });
+
+  // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'Blog', url: `${window.location.origin}/blog` },
+    ])
+  );
   // State for filters and search
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');

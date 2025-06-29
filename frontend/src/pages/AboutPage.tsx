@@ -4,8 +4,22 @@ import PageHero from '../components/ui/PageHero';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaAws } from 'react-icons/fa';
 import { SiTypescript, SiPostgresql, SiMongodb } from 'react-icons/si';
 import { renderIcon } from '../utils/iconUtils';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 const AboutPage = () => {
+  // Apply SEO configuration for about page
+  useSEO({
+    ...SEOConfigs.about,
+    url: `${window.location.origin}/about`,
+  });
+ // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'About', url: `${window.location.origin}/about` },
+    ])
+  );
+
   return (
     <div>
       {/* Enhanced Hero Section */}

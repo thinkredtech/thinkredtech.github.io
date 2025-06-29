@@ -1,7 +1,32 @@
 import { Link } from 'react-router-dom';
 import PageHero from '../components/ui/PageHero';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 const ServicesPage = () => {
+  // Apply SEO configuration for services page
+  useSEO({
+    ...SEOConfigs.services,
+    url: `${window.location.origin}/services`,
+  });
+
+  // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'Services', url: `${window.location.origin}/services` },
+    ])
+  );
+
+  // Add service-specific structured data
+  useStructuredData(
+    StructuredDataSchemas.service({
+      name: 'Web & Mobile Application Development',
+      description:
+        'Custom web and mobile solutions tailored to your business needs with modern technologies and responsive design.',
+      provider: 'ThinkRED Technologies LLP',
+      serviceType: 'Software Development',
+    })
+  );
   const services = [
     {
       title: 'Web & Mobile Application Development',

@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
+import { useSEO, useStructuredData, StructuredDataSchemas } from '../hooks/useSEO';
 
 // Import sample blog posts data (this would typically come from an API)
 import { blogPosts, BlogPost } from '../data/blog/blogPosts';
@@ -19,6 +20,58 @@ const BlogPostPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [heroRef, setHeroRef] = useState<HTMLDivElement | null>(null);
+
+  // Apply SEO for the found blog post
+  useSEO(
+    post
+      ? {
+          title: `${post.title} | ThinkRED Technologies Blog`,
+          description: post.excerpt,
+          keywords: `${post.tags.join(', ')}, web development, technology, programming`,
+          type: 'article' as const,
+          author: post.author,
+          publishedTime: post.date,
+          url: `${window.location.origin}/blog/${post.id}`,
+          image: post.image,
+          tags: post.tags,
+        }
+      : {
+          title: 'Blog Post | ThinkRED Technologies',
+          description: 'Loading blog post...',
+          keywords: 'blog, technology, web development',
+          type: 'article' as const,
+        }
+  );
+
+  // Add structured data for article (only when post is available)
+  useStructuredData(
+    post
+      ? StructuredDataSchemas.article({
+          headline: post.title,
+          description: post.excerpt,
+          author: post.author,
+          datePublished: post.date,
+          dateModified: post.date,
+          image: post.image,
+          url: `${window.location.origin}/blog/${post.id}`,
+          keywords: post.tags,
+        })
+      : { '@context': 'https://schema.org', '@type': 'Article' }
+  );
+
+  // Add breadcrumb structured data (only when post is available)
+  useStructuredData(
+    post
+      ? StructuredDataSchemas.breadcrumb([
+          { name: 'Home', url: window.location.origin },
+          { name: 'Blog', url: `${window.location.origin}/blog` },
+          { name: post.title, url: `${window.location.origin}/blog/${post.id}` },
+        ])
+      : StructuredDataSchemas.breadcrumb([
+          { name: 'Home', url: window.location.origin },
+          { name: 'Blog', url: `${window.location.origin}/blog` },
+        ])
+  );
 
   useEffect(() => {
     // Simulate fetching post data

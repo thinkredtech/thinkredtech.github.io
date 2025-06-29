@@ -1,8 +1,75 @@
 import React from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
 import { renderIcon } from '../utils/iconUtils';
+import { useSEO, useStructuredData } from '../hooks/useSEO';
 
 const FAQPage = () => {
+  // Apply SEO for FAQ page
+  useSEO({
+    title: 'Frequently Asked Questions | ThinkRED Technologies - Web Development & Technology Solutions',
+    description:
+      'Find answers to common questions about ThinkRED Technologies web development, mobile app development, DevOps, platform engineering, and technology consultation services.',
+    keywords:
+      'FAQ, frequently asked questions, web development questions, mobile app development FAQ, DevOps consulting questions, platform engineering FAQ, technology consultation questions, project process, timelines, support, pricing, technologies',
+    type: 'website' as const,
+    url: `${window.location.origin}/faq`,
+  });
+
+  // Add FAQ structured data
+  useStructuredData({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is your typical project process?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our process typically includes discovery and planning, design and development, testing and refinement, and deployment and support phases. We work closely with clients throughout the process to ensure their needs are met.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does a typical project take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Project timelines vary based on complexity and scope. Simple websites might take 4-6 weeks, while complex applications can take 3-6 months or more. We provide a detailed timeline during the discovery phase.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you provide ongoing support after launch?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, we offer various support and maintenance packages to ensure your solution continues to perform optimally after launch. These can include regular updates, performance monitoring, and technical support.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What technologies do you specialize in?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We specialize in modern web technologies including React, Node.js, TypeScript, Python, and cloud platforms like AWS. We also have expertise in mobile development, DevOps, and enterprise automation.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do you handle project communication?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We maintain regular communication through scheduled meetings, progress reports, and collaborative tools. You will have direct access to your project team and regular updates on project status.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What makes ThinkRED Technologies different?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our team combines open source heritage with enterprise expertise, focusing on engineering excellence and innovation. We deliver scalable, maintainable solutions using modern technologies and best practices.',
+        },
+      },
+    ],
+  });
   return (
     <div>
       <section className="py-8 md:py-16">

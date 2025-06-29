@@ -5,6 +5,7 @@ import Filter from '../components/ui/Filter';
 import SearchInput from '../components/ui/SearchInput';
 import ResetButton from '../components/ui/ResetButton';
 import FilterContainer from '../components/ui/FilterContainer';
+import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
 
 // Define portfolio item type
 interface PortfolioItem {
@@ -19,6 +20,19 @@ interface PortfolioItem {
 }
 
 const PortfolioPage = () => {
+  // Apply SEO configuration for portfolio page
+  useSEO({
+    ...SEOConfigs.portfolio,
+    url: `${window.location.origin}/portfolio`,
+  });
+
+  // Add breadcrumb structured data
+  useStructuredData(
+    StructuredDataSchemas.breadcrumb([
+      { name: 'Home', url: window.location.origin },
+      { name: 'Portfolio', url: `${window.location.origin}/portfolio` },
+    ])
+  );
   // Sample portfolio data
   const portfolioItems: PortfolioItem[] = [
     {
