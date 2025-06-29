@@ -38,11 +38,15 @@ function doGet(e) {
 
 // Handle OPTIONS requests for CORS preflight
 function doOptions(e) {
-  // Google Apps Script doesn't support custom headers for OPTIONS
-  // but we can return a proper response structure
+  // Google Apps Script doesn't support custom headers in the traditional way
+  // But we can return a proper JSON response that indicates CORS is handled
+  // The actual CORS handling is done by the deployment configuration
   return createCorsResponse({ 
     success: true, 
-    message: 'CORS preflight handled by Google Apps Script' 
+    message: 'CORS preflight handled',
+    origin: 'https://thinkredtech.github.io',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    headers: ['Content-Type', 'Authorization', 'X-Requested-With']
   });
 }
 
@@ -50,10 +54,32 @@ function doPost(e) {
   try {
     // Handle larger payloads for file uploads
     let payload;
-    try {
-      payload = JSON.parse(e.postData.contents);
-    } catch (parseError) {
-      return createErrorResponse('Invalid JSON payload');
+    
+    // Check if this is FormData or JSON payload
+    if (e.postData && e.postData.contents) {
+      try {
+        // Try to parse as JSON first (legacy support)
+        payload = JSON.parse(e.postData.contents);
+      } catch (parseError) {
+        // If JSON parsing fails, check if it's form data
+        if (e.parameter && e.parameter.action && e.parameter.data) {
+          // Handle FormData submissions
+          payload = {
+            action: e.parameter.action,
+            data: JSON.parse(e.parameter.data)
+          };
+        } else {
+          return createErrorResponse('Invalid payload format. Expected JSON or FormData.');
+        }
+      }
+    } else if (e.parameter && e.parameter.action && e.parameter.data) {
+      // Handle FormData submissions directly
+      payload = {
+        action: e.parameter.action,
+        data: JSON.parse(e.parameter.data)
+      };
+    } else {
+      return createErrorResponse('Missing payload data');
     }
     
     // Validate payload structure
@@ -301,11 +327,15 @@ function createCorsResponse(data) {
   const output = ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
   
-  // Google Apps Script does not support custom headers for CORS
-  // CORS is automatically handled when the web app is deployed with:
-  // - Execute as: Me (or User accessing the web app)  
+  // Google Apps Script automatically handles CORS when deployed with proper settings:
+  // - Execute as: Me (script owner)
   // - Who has access: Anyone
-  // The deployment settings handle CORS automatically
+  // 
+  // However, we need to ensure the web app deployment is configured correctly.
+  // If CORS issues persist, verify:
+  // 1. Web app is deployed with "Who has access: Anyone"
+  // 2. The script deployment ID matches the one in frontend API calls
+  // 3. The Google Apps Script project has appropriate permissions
   
   return output;
 }

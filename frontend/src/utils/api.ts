@@ -238,7 +238,7 @@ const submitJobApplicationGet = async (payload: {
 };
 
 /**
- * Submit job application using POST method (better for larger files)
+ * Submit job application using POST method with form-encoded data (avoids CORS preflight)
  */
 const submitJobApplicationPost = async (payload: {
   jobId: string;
@@ -250,16 +250,15 @@ const submitJobApplicationPost = async (payload: {
   coverLetterBase64?: string;
 }): Promise<void> => {
   try {
+    // Use form-encoded data instead of JSON to avoid CORS preflight
+    const formData = new FormData();
+    formData.append('action', 'submitJobApplication');
+    formData.append('data', JSON.stringify(payload));
+
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'submitJobApplication',
-        data: payload,
-      }),
+      body: formData, // FormData with simple content-type avoids preflight
     });
 
     if (!response.ok) {
@@ -363,20 +362,17 @@ export const getFileSizeString = (bytes: number): string => {
 };
 
 /**
- * Submit contact form using POST method (proper RESTful approach)
+ * Submit contact form using POST method with form-encoded data (avoids CORS preflight)
  */
 const submitContactFormPost = async (formData: ContactFormData): Promise<void> => {
-  const requestBody = {
-    action: 'submitContactForm',
-    data: formData,
-  };
+  // Use FormData instead of JSON to avoid CORS preflight
+  const formBody = new FormData();
+  formBody.append('action', 'submitContactForm');
+  formBody.append('data', JSON.stringify(formData));
 
   const response = await fetch(API_ENDPOINT, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(requestBody),
+    body: formBody, // FormData with simple content-type avoids preflight
     mode: 'cors',
     redirect: 'follow',
   });
