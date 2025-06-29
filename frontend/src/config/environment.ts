@@ -145,7 +145,7 @@ const getDeploymentId = (): string => {
 
   // Final fallback: Use the working deployment ID from .env.example
   const fallbackId = 'AKfycbyC3WXgrOpDZV1qG4xicgG26bbPvQLMPnvYvIt8ENU5QvOOmiGApN1l3R96pf78HdmJDQ';
-  
+
   // In development, warn about using fallback
   if (import.meta.env.DEV) {
     // eslint-disable-next-line no-console
