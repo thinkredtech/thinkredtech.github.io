@@ -295,8 +295,8 @@ const ContactPage = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Enhanced Contact Information */}
-            <div className="lg:col-span-1">
+            {/* Enhanced Contact Information - Shown after forms on mobile */}
+            <div className="lg:col-span-1 order-2 lg:order-1">
               <div className="bg-white rounded-lg shadow-xl p-8 sticky top-24">
                 <h2 className="heading-1 mb-6 text-dark">Get in Touch</h2>
 
@@ -430,8 +430,8 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Contact Forms */}
-            <div className="lg:col-span-2">
+            {/* Contact Forms - Shown first on mobile */}
+            <div className="lg:col-span-2 order-1 lg:order-2">
               {activeTab === 'contact' && (
                 <div className="bg-white rounded-lg shadow-md p-8">
                   <h2 className="heading-1 mb-6">Talk to Us</h2>
