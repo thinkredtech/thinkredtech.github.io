@@ -9,6 +9,82 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 
 ---
 
+## [1.0.5] - 2025-06-29
+
+### 🔒 **Critical Security Incident Resolution & Infrastructure Hardening**
+
+#### 🚨 **Security Vulnerability Remediation**
+
+- **Hardcoded Secrets Elimination**: Removed all hardcoded Google Apps Script deployment IDs and admin password patterns from codebase
+- **Environment Variable System**: Implemented comprehensive environment variable configuration for all sensitive data
+- **Repository Security**: Enhanced `.gitignore` to prevent accidental commit of sensitive files (`.env`, `.env.local`, API keys)
+- **Secret Detection**: Added patterns to prevent future hardcoded credentials and sensitive data exposure
+
+#### 🛡️ **Content Security Policy (CSP) Enhancement**
+
+- **Job Application Fix**: Resolved CSP violations affecting job application functionality by adding
+  `script.googleusercontent.com` to `connect-src` and `form-action` directives
+- **Enhanced CSP Rules**: Added `'unsafe-eval'` for Google Apps Script compatibility while maintaining security
+- **Domain Whitelist**: Included Google Apps Script domains (`script.google.com`, `script.googleusercontent.com`) in CSP configuration
+- **Security Headers**: Implemented Strict-Transport-Security (HSTS) headers for enhanced transport security
+
+#### 🔧 **Configuration Refactoring**
+
+- **Environment Configuration**: Refactored `frontend/src/config/environment.ts` to use environment variables exclusively
+- **Development Setup**: Created `.env.example` template and `frontend/.env.local` for local development
+- **Test Script Updates**: Updated test scripts (`test-cors-api.sh`, `test-file-sizes.sh`) to require environment variables
+- **Build Configuration**: Ensured all builds pass with new environment variable system
+
+#### 📊 **Security Documentation & Reporting**
+
+- **Security Documentation**: Created comprehensive `docs/SECURITY.md` with security practices and incident response procedures
+- **Incident Reports**: Generated detailed security resolution reports in `reports/security/` directory:
+  - `2025-06-29-001-security-incident-resolution.md` - Complete incident analysis and remediation steps
+  - `2025-06-29-002-security-verification-complete.md` - Security verification and testing results
+- **Troubleshooting Guide**: Created `CSP_JOB_APPLICATION_FIX.md` for CSP-related issue resolution
+- **Reports Index**: Updated `reports/README.md` to include new security reports
+
+#### 🔍 **Security Validation & Testing**
+
+- **Code Quality**: All security changes passed lint, type-check, and build validation
+- **CSP Testing**: Verified job application functionality with enhanced CSP configuration
+- **Environment Testing**: Confirmed environment variable system works across development and production
+- **Deployment Verification**: Ensured secure deployment configuration with proper headers
+
+#### 🎯 **Files Modified**
+
+**Security Configuration:**
+- `frontend/src/config/environment.ts` - Refactored for environment variables
+- `frontend/index.html` - Enhanced CSP and security headers
+- `build/_headers` - Updated HTTP security headers
+- `.env.example` - New environment variable template
+- `frontend/.env.local` - Local development environment (not committed)
+- `.gitignore` - Enhanced security patterns
+
+**Scripts & Testing:**
+- `scripts/dev/test-cors-api.sh` - Environment variable usage
+- `scripts/utils/test-file-sizes.sh` - Environment variable usage
+
+**Documentation:**
+- `docs/SECURITY.md` - New security documentation
+- `reports/security/2025-06-29-001-security-incident-resolution.md` - Incident report
+- `reports/security/2025-06-29-002-security-verification-complete.md` - Verification report
+- `reports/README.md` - Updated security reports index
+- `CSP_JOB_APPLICATION_FIX.md` - CSP troubleshooting guide
+
+#### ✅ **Security Impact**
+
+This critical security release ensures:
+
+- ✅ **Zero Hardcoded Secrets**: Complete elimination of sensitive data from codebase
+- ✅ **Environment Security**: Proper environment variable management with secure defaults
+- ✅ **CSP Compliance**: Enhanced Content Security Policy without breaking functionality
+- ✅ **Transport Security**: HSTS implementation for secure communication
+- ✅ **Documentation**: Comprehensive security documentation and incident response procedures
+- ✅ **Future Prevention**: Enhanced patterns and validation to prevent future security issues
+
+---
+
 ## [1.0.4] - 2025-06-20
 
 ### 🔧 **CI/CD Pipeline Stabilization & Reliability Enhancement**
