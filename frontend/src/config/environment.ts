@@ -143,25 +143,24 @@ const getDeploymentId = (): string => {
     return generalId;
   }
 
-  // Final fallback: Try to get from environment or fail gracefully
-  // Note: Google Apps Script deployment IDs are public URLs, but we avoid hardcoding
-  const fallbackId = getEnvVar('GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_FALLBACK');
-  if (fallbackId) {
+  // Final fallback: Use the working deployment ID from .env.example
+  const fallbackId = 'AKfycbyC3WXgrOpDZV1qG4xicgG26bbPvQLMPnvYvIt8ENU5QvOOmiGApN1l3R96pf78HdmJDQ';
+  
+  // In development, warn about using fallback
+  if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Using fallback Google Apps Script deployment ID. Set VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID for production.'
+    );
     return fallbackId;
   }
-  // If no deployment ID is available, throw an error in development
-  if (import.meta.env.DEV) {
-    throw new Error(
-      'GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID environment variable is required. ' +
-        'Please set it in your environment or .env file.'
-    );
-  }
 
-  // In production, return empty string to prevent app crash
-  // This will cause API calls to fail gracefully
+  // In production, use fallback but warn
   // eslint-disable-next-line no-console
-  console.warn('Google Apps Script deployment ID not configured. API calls will fail.');
-  return '';
+  console.warn(
+    'Google Apps Script deployment ID not configured, using fallback. Set GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID secret.'
+  );
+  return fallbackId;
 };
 
 /**
