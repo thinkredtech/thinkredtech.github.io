@@ -1,5 +1,8 @@
 <div a[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](h| 📊 **Health Reports** | Monitoring and status dashboard management | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md) |
+| 🎛️ **Task Management** | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
+| 📋 **Report Formatting** | Markdown table formatting and professional report layout | [REPORT_FORMATTING.md](docs/REPORT_FORMATTING.md) |
+| 🔍 **Troubleshooting** | Common issues and solutions | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |s://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 

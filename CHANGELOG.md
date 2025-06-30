@@ -20,6 +20,71 @@ For component-specific adventures, check out:
 
 ---
 
+## [1.2.2] - 2025-06-30
+
+### 🔄 **Major Report Formatting Migration to Markdown Tables**
+
+#### 🎯 **Markdown Table Implementation**
+
+- **Complete Migration**: Migrated all auto-generated reports from ASCII art to clean Markdown tables
+- **Universal Compatibility**: Reports now render perfectly across GitHub, VS Code, and all Markdown viewers
+- **Enhanced Readability**: Professional table formatting with consistent alignment and spacing
+- **Progress Bar Integration**: Preserved visual progress indicators within Markdown table cells
+- **Responsive Design**: Tables automatically adapt to different screen sizes and viewer widths
+
+#### 🛠️ **Updated Components**
+
+- **Report Generator**: `scripts/utils/generate-visual-reports.cjs` - Complete rewrite for Markdown tables
+- **Formatting Utilities**: `scripts/utils/report-formatter.js` - New Markdown table generation functions
+- **Documentation**: Updated `docs/REPORT_FORMATTING.md` with Markdown table standards and examples
+
+#### 📊 **Enhanced Reports**
+
+- **Health Report**: Clean tabular layout with embedded progress bars
+- **Status Dashboard**: Professional service monitoring with standardized table structure
+- **Repository Analytics**: Key metrics organized in easy-to-scan tables
+- **Trend Analysis**: Historical data presented in clean, aligned columns
+
+#### ✅ **Benefits Achieved**
+
+- 🎯 **Perfect Alignment**: No more spacing or column alignment issues
+- 🌐 **Cross-Platform**: Identical rendering across all Markdown platforms
+- 📱 **Mobile-Friendly**: Responsive tables that work on all screen sizes
+- 🔧 **Maintainable**: Clean Markdown syntax that's easy to read and edit
+- 🚀 **Future-Proof**: Standard Markdown format ensures long-term compatibility
+
+---
+
+## [1.2.1] - 2025-06-30
+
+### 📊 **Legacy Report Formatting & Table Alignment Enhancement**
+
+#### 🎯 **ASCII Table Formatting Improvements (Superseded by v1.2.2)**
+
+- **Fixed Table Margins**: Resolved spacing issues in auto-generated report tables that caused misalignment
+- **Consistent Column Widths**: Implemented fixed-width column system for uniform table presentation
+- **Enhanced Formatting Utilities**: Integrated dedicated `report-formatter.js` utilities for consistent ASCII table generation
+- **Improved Readability**: Better alignment and truncation handling for professional report appearance
+
+#### 🔧 **Technical Implementations**
+
+- **Report Generator Updates**: Modified `generate-visual-reports.cjs` to use formatting utilities instead of manual formatting
+- **Path Corrections**: Fixed report generation path from `/scripts/reports/automated/` to `/reports/automated/`
+- **Task Runner Integration**: Updated task runner to properly execute status dashboard generation
+- **Column Optimization**: Refined column widths for icons (3), labels (16), status bars (20), metrics (9), and details (11)
+
+#### 📚 **Documentation & Guidelines**
+
+- **New Guide**: Added comprehensive `docs/REPORT_FORMATTING.md` with formatting standards and customization options
+- **Before/After Examples**: Documented visual improvements with clear comparison examples
+- **Technical Reference**: Included configuration parameters and usage instructions
+
+#### 🧹 **Code Quality & Maintenance**
+
+- **Removed Duplicated Code**: Eliminated redundant formatting functions in favor of centralized utilities
+- **Improved Maintainability**: All table formatting now uses reusable, configurable components
+- **Error Prevention**: Consistent formatting reduces manual alignment errors
+
 ## [1.2.0] - 2025-06-30
 
 ### 🎛️ **Major Developer Experience Enhancement Release**

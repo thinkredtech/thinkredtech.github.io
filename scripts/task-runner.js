@@ -221,11 +221,9 @@ const TASKS = {
   },
   'reports:status': {
     description: 'Generate status dashboard',
-    workspaces: ['root'],
+    workspaces: ['frontend'],
     parallel: false,
-    customCommand: async () => {
-      await runCommand('Generating status dashboard...', 'echo "Status dashboard generation would run here - integrate with monitoring system"');
-    }
+    script: 'reports:generate'
   },
   'reports:generate': {
     description: 'Generate all reports',
