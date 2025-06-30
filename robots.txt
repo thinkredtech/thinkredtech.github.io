@@ -1,6 +1,9 @@
 # robots.txt for ThinkRED Technologies LLP
 # https://thinkred.tech
 
+# Sitemap location
+Sitemap: https://thinkred.tech/sitemap.xml
+
 # Allow all crawlers
 User-agent: *
 Allow: /
