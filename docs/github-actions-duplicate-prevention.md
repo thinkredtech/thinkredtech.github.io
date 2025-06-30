@@ -66,28 +66,31 @@ sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 const existingOpenIssues = await github.rest.issues.listForRepo({
   owner: context.repo.owner,
   repo: context.repo.repo,
-  labels: ['security', 'vulnerability'],
-  state: 'open',
+  labels: ["security", "vulnerability"],
+  state: "open",
 });
 
 const existingClosedIssues = await github.rest.issues.listForRepo({
   owner: context.repo.owner,
   repo: context.repo.repo,
-  labels: ['security', 'vulnerability'],
-  state: 'closed',
+  labels: ["security", "vulnerability"],
+  state: "closed",
   since: sevenDaysAgo.toISOString(),
 });
 
-const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
+const allRelevantIssues = [
+  ...existingOpenIssues.data,
+  ...existingClosedIssues.data,
+];
 
-const issueExists = allRelevantIssues.some(issue =>
-  issue.title.includes('Security Vulnerabilities Detected')
+const issueExists = allRelevantIssues.some((issue) =>
+  issue.title.includes("Security Vulnerabilities Detected"),
 );
 
 if (!issueExists) {
   // Create new issue
 } else {
-  console.log('Issue already exists or was recently closed, skipping creation');
+  console.log("Issue already exists or was recently closed, skipping creation");
 }
 ```
 

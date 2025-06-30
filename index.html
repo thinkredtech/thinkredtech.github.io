@@ -1,105 +1,148 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <!-- Theme and appearance -->
-        <meta name="theme-color" content="#E4093E" />
-        <meta name="msapplication-navbutton-color" content="#E4093E" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="msapplication-TileColor" content="#E4093E" />
+    <!-- Theme and appearance -->
+    <meta name="theme-color" content="#E4093E" />
+    <meta name="msapplication-navbutton-color" content="#E4093E" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-TileColor" content="#E4093E" />
 
-        <!-- Security Headers (frame-ancestors and X-Frame-Options moved to HTTP headers) -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;" />
-        <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-        <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-        <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-        <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()" />
+    <!-- Security Headers (frame-ancestors and X-Frame-Options moved to HTTP headers) -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=()"
+    />
 
-        <!-- Note: Additional security headers should be set by the web server -->
+    <!-- Note: Additional security headers should be set by the web server -->
 
-        <!-- SEO Meta Tags -->
-        <title>ThinkRED Technologies | Simplify Technology & Experience</title>
-        <meta name="description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
-        <meta name="keywords" content="ThinkRED, Technology, Web Applications, Platforms, Infrastructure Solutions, DevOps, Cloud Computing, React, TypeScript" />
-        <meta name="author" content="ThinkRED Technologies" />
-        <meta name="robots" content="index, follow" />
+    <!-- SEO Meta Tags -->
+    <title>ThinkRED Technologies | Simplify Technology & Experience</title>
+    <meta
+      name="description"
+      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
+    />
+    <meta
+      name="keywords"
+      content="ThinkRED, Technology, Web Applications, Platforms, Infrastructure Solutions, DevOps, Cloud Computing, React, TypeScript"
+    />
+    <meta name="author" content="ThinkRED Technologies" />
+    <meta name="robots" content="index, follow" />
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
-        <meta property="og:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
-        <meta property="og:image" content="/assets/logos/thinkRED-np.svg" />
-        <meta property="og:url" content="https://thinkredtech.github.io" />
-        <meta property="og:type" content="website" />
+    <!-- Open Graph / Facebook -->
+    <meta
+      property="og:title"
+      content="ThinkRED Technologies | Simplify Technology & Experience"
+    />
+    <meta
+      property="og:description"
+      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
+    />
+    <meta property="og:image" content="/assets/logos/thinkRED-np.svg" />
+    <meta property="og:url" content="https://thinkredtech.github.io" />
+    <meta property="og:type" content="website" />
 
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ThinkRED Technologies | Simplify Technology & Experience" />
-        <meta name="twitter:description" content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users." />
-        <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="ThinkRED Technologies | Simplify Technology & Experience"
+    />
+    <meta
+      name="twitter:description"
+      content="ThinkRED Technologies - We build cutting-edge web applications, platforms, and infrastructure solutions that transform businesses and delight users."
+    />
+    <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
 
-        <!-- Icons -->
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/assets/icons/thinkred/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/icons/thinkred/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/manifest.json" />
 
-        <!-- Preload critical fonts -->
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" /></noscript>
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    /></noscript>
 
-        <!-- GitHub Pages SPA redirect handling -->
-        <script type="text/javascript">
-            // Handle GitHub Pages SPA routing
-            (function (l) {
-                if (l.search[1] === '/') {
-                    var decoded = l.search
-                        .slice(1)
-                        .split('&')
-                        .map(function (s) {
-                            return s.replace(/~and~/g, '&');
-                        })
-                        .join('?');
-                    window.history.replaceState(
-                        null,
-                        null,
-                        l.pathname.slice(0, -1) + decoded + l.hash
-                    );
-                }
-            })(window.location);
-        </script>
-      <script type="module" crossorigin src="/assets/index-D-p5gzih.js"></script>
-      <link rel="modulepreload" crossorigin href="/assets/vendors-CX-AtO5K.js">
-      <link rel="modulepreload" crossorigin href="/assets/react-core-TFpcIGCL.js">
-      <link rel="modulepreload" crossorigin href="/assets/react-router-BY0luY0s.js">
-      <link rel="stylesheet" crossorigin href="/assets/index-D1KVV0Sd.css">
-    </head>
-    <body>
-        <noscript>
-            <div
-                style="
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100vh;
-                    text-align: center;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    background-color: #f5f5f5;
-                    color: #333;
-                    padding: 20px;
-                "
-            >
-                <h1 style="margin-bottom: 20px;">JavaScript Required</h1>
-                <p style="max-width: 600px; line-height: 1.6;">
-                    This website requires JavaScript to function properly. Please enable
-                    JavaScript in your browser and refresh the page.
-                </p>
-            </div>
-        </noscript>
-        <div id="root"></div>
-    </body>
+    <!-- GitHub Pages SPA redirect handling -->
+    <script type="text/javascript">
+      // Handle GitHub Pages SPA routing
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+    <script type="module" crossorigin src="/assets/index-MKVZuBTH.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendors-CX-AtO5K.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-core-TFpcIGCL.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-router-BY0luY0s.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-D1KVV0Sd.css">
+  </head>
+  <body>
+    <noscript>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          text-align: center;
+          font-family:
+            &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f5f5f5;
+          color: #333;
+          padding: 20px;
+        "
+      >
+        <h1 style="margin-bottom: 20px">JavaScript Required</h1>
+        <p style="max-width: 600px; line-height: 1.6">
+          This website requires JavaScript to function properly. Please enable
+          JavaScript in your browser and refresh the page.
+        </p>
+      </div>
+    </noscript>
+    <div id="root"></div>
+  </body>
 </html>
