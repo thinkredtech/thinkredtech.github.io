@@ -348,32 +348,39 @@ const BlogPage = () => {
               </button>
             </div>
           )}
+        </div>
+      </div>
 
-          {/* Newsletter Signup */}
-          <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
-            <h2 className="heading-1 mb-4">Stay Updated with Our Newsletter</h2>
-            <p className="body-1-medium text-secondary mb-6 max-w-2xl mx-auto">
+      {/* Newsletter Signup Section */}
+      <section className="py-16 md:py-24 bg-primary">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-5xl mx-auto text-white">
+            <h2 className="font-comfortaa display-2 mb-6">
+              Stay Updated with Our Newsletter
+            </h2>
+            <p className="body-1-medium mb-8 opacity-90">
               Subscribe to receive the latest insights, articles, and resources
-              directly to your inbox.
+              directly to your inbox. Join our community of developers and
+              technology enthusiasts.
             </p>
             <div className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="flex-grow px-4 py-3 border-2 border-white/20 bg-white/10 rounded-lg text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white focus:border-white/50 backdrop-blur-sm"
                 />
-                <button className="btn btn-primary whitespace-nowrap">
+                <button className="btn bg-white text-primary hover:bg-white/90 px-6 py-3 body-1-semibold whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
-              <p className="text-xs text-secondary/70 mt-3">
+              <p className="text-sm text-white/70 mt-4">
                 We respect your privacy. Unsubscribe at any time.
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
