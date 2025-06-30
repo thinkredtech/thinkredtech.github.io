@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useReadingProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -6,7 +6,8 @@ export const useReadingProgress = () => {
   useEffect(() => {
     const calculateProgress = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
       setProgress(Math.min(Math.max(scrollPercent, 0), 100));
     };
@@ -15,18 +16,22 @@ export const useReadingProgress = () => {
       requestAnimationFrame(calculateProgress);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     calculateProgress(); // Initial calculation
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return progress;
 };
 
-export const useIntersectionObserver = (elementRef: React.RefObject<Element>, threshold = 0.1, rootMargin = '0px') => {
+export const useIntersectionObserver = (
+  elementRef: React.RefObject<Element>,
+  threshold = 0.1,
+  rootMargin = "0px",
+) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export const useIntersectionObserver = (elementRef: React.RefObject<Element>, th
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(element);
@@ -51,7 +56,9 @@ export const useIntersectionObserver = (elementRef: React.RefObject<Element>, th
 };
 
 export const useScrollDirection = () => {
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(
+    null,
+  );
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -59,18 +66,18 @@ export const useScrollDirection = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY) {
-        setScrollDirection('down');
+        setScrollDirection("down");
       } else if (currentScrollY < lastScrollY) {
-        setScrollDirection('up');
+        setScrollDirection("up");
       }
 
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
 

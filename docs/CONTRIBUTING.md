@@ -152,7 +152,7 @@ interface UserProps {
 // Use functional components with hooks
 const UserCard: React.FC<UserProps> = ({ name, email, isActive }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
       <h3 className="text-lg font-semibold">{name}</h3>
@@ -175,19 +175,19 @@ function processFormSubmission(formData) {
   try {
     // Validate input data
     if (!formData || !formData.email) {
-      throw new Error('Invalid form data');
+      throw new Error("Invalid form data");
     }
-    
+
     // Process the data
     const result = {
       success: true,
-      message: 'Form processed successfully',
-      timestamp: new Date().toISOString()
+      message: "Form processed successfully",
+      timestamp: new Date().toISOString(),
     };
-    
+
     return result;
   } catch (error) {
-    Logger.log('Error processing form: ' + error.toString());
+    Logger.log("Error processing form: " + error.toString());
     throw error;
   }
 }
@@ -236,20 +236,24 @@ npm run test:watch
 
 ```markdown
 ## 🎯 Description
+
 Brief description of changes
 
 ## 🔧 Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
 - [ ] Refactoring
 
 ## 🧪 Testing
+
 - [ ] Unit tests added/updated
 - [ ] Integration tests pass
 - [ ] Manual testing completed
 
 ## 📋 Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -330,6 +334,7 @@ Ready to contribute? Here are some good first issues:
 ### **🎯 Find Your First Issue**
 
 Look for issues labeled:
+
 - `good-first-issue`
 - `help-wanted`
 - `documentation`
@@ -346,7 +351,7 @@ Look for issues labeled:
 
 ---
 
-*Thank you for making ThinkRED awesome! 🚀*
+_Thank you for making ThinkRED awesome! 🚀_
 
 **Together, we Think Different. Together, we Think RED.** ✨
 

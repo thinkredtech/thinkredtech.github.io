@@ -17,29 +17,29 @@ The ThinkRED website is a modern React-based company website with a Google Apps 
 
 ### Core Development Guides
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [DEVELOPMENT.md](./DEVELOPMENT.md) | Local development setup and workflow | Developers |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | Technical architecture overview | Developers, Technical leads |
-| [API.md](./API.md) | Backend API documentation | Frontend developers |
-| [DEPLOYMENT.md](./DEPLOYMENT.md) | Deployment processes and CI/CD | DevOps, Developers |
-| [SEO_ENHANCEMENT_REPORT.md](./SEO_ENHANCEMENT_REPORT.md) | Comprehensive SEO implementation guide | Developers, Marketing |
+| Document                                                 | Purpose                                | Audience                    |
+| -------------------------------------------------------- | -------------------------------------- | --------------------------- |
+| [DEVELOPMENT.md](./DEVELOPMENT.md)                       | Local development setup and workflow   | Developers                  |
+| [ARCHITECTURE.md](./ARCHITECTURE.md)                     | Technical architecture overview        | Developers, Technical leads |
+| [API.md](./API.md)                                       | Backend API documentation              | Frontend developers         |
+| [DEPLOYMENT.md](./DEPLOYMENT.md)                         | Deployment processes and CI/CD         | DevOps, Developers          |
+| [SEO_ENHANCEMENT_REPORT.md](./SEO_ENHANCEMENT_REPORT.md) | Comprehensive SEO implementation guide | Developers, Marketing       |
 
 ### Configuration and Environment
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [ENVIRONMENT.md](./ENVIRONMENT.md) | Environment configuration | Developers, DevOps |
-| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common issues and solutions | Developers |
+| Document                                             | Purpose                        | Audience           |
+| ---------------------------------------------------- | ------------------------------ | ------------------ |
+| [ENVIRONMENT.md](./ENVIRONMENT.md)                   | Environment configuration      | Developers, DevOps |
+| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)           | Common issues and solutions    | Developers         |
 | [GIT_BUILD_PREVENTION.md](./GIT_BUILD_PREVENTION.md) | Git build artifacts prevention | Developers, DevOps |
 
 ### Process and Guidelines
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [WORKFLOW.md](./WORKFLOW.md) | Development workflow and Git practices | Developers |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines | Contributors |
-| [STYLE_GUIDE.md](./STYLE_GUIDE.md) | Code style and conventions | Developers |
+| Document                             | Purpose                                | Audience     |
+| ------------------------------------ | -------------------------------------- | ------------ |
+| [WORKFLOW.md](./WORKFLOW.md)         | Development workflow and Git practices | Developers   |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines                | Contributors |
+| [STYLE_GUIDE.md](./STYLE_GUIDE.md)   | Code style and conventions             | Developers   |
 
 ## Getting Started
 
@@ -70,6 +70,7 @@ The ThinkRED website consists of:
 ### Repository Documentation (`/docs/`)
 
 This directory contains developer-focused documentation:
+
 - Technical architecture and implementation details
 - Development setup and deployment procedures
 - API documentation and troubleshooting guides
@@ -78,6 +79,7 @@ This directory contains developer-focused documentation:
 ### Frontend Documentation (`/frontend/docs/`)
 
 This directory contains user-facing documentation that is publicly accessible via the website:
+
 - Company information and brand guidelines
 - Service descriptions and FAQ
 - Privacy policy and terms of service
@@ -86,6 +88,7 @@ This directory contains user-facing documentation that is publicly accessible vi
 ### Documentation Updates
 
 When updating documentation:
+
 1. Ensure content is factually accurate
 2. Maintain professional tone and clarity
 3. Test all links and references
@@ -94,6 +97,7 @@ When updating documentation:
 ## Support
 
 For technical questions or issues:
+
 1. Check the relevant documentation first
 2. Review the troubleshooting guide
 3. Create a detailed issue if the problem persists
@@ -101,6 +105,7 @@ For technical questions or issues:
 ## Contribution Guidelines
 
 Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed information about:
+
 - Code standards and conventions
 - Development workflow
 - Pull request process
@@ -108,10 +113,10 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed information about:
 
 Production deployment and maintenance:
 
-| 📖 **Guide** | ⏱️ **Time** | 🎯 **Best For** |
-|-------------|-------------|-----------------|
-| [🚢 Deployment Guide](./DEPLOYMENT.md) | 10 min | Production deployment |
-| [🔧 Troubleshooting](./TROUBLESHOOTING.md) | 5 min | Fixing issues quickly |
+| 📖 **Guide**                               | ⏱️ **Time** | 🎯 **Best For**       |
+| ------------------------------------------ | ----------- | --------------------- |
+| [🚢 Deployment Guide](./DEPLOYMENT.md)     | 10 min      | Production deployment |
+| [🔧 Troubleshooting](./TROUBLESHOOTING.md) | 5 min       | Fixing issues quickly |
 
 ---
 
@@ -260,7 +265,7 @@ Found an issue or want to improve the documentation?
 
 ---
 
-*Maintained with ❤️ by the ThinkRED community*
+_Maintained with ❤️ by the ThinkRED community_
 
 **Think Different. Think RED. Think Documentation.** ✨
 

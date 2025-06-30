@@ -63,16 +63,19 @@ The backend runs on Google Apps Script and doesn't require local setup for most 
 ### For Backend Development
 
 1. **Install CLASP globally:**
+
    ```bash
    npm install -g @google/clasp
    ```
 
 2. **Login to Google Apps Script:**
+
    ```bash
    clasp login
    ```
 
 3. **Navigate to backend directory:**
+
    ```bash
    cd backend
    ```
@@ -158,10 +161,12 @@ npm test
 ### Frontend Deployment
 
 **GitHub Pages (Automatic):**
+
 - Push to main branch triggers automatic deployment
 - Site is available at `https://thinkredtech.github.io`
 
 **Manual Deployment:**
+
 ```bash
 cd frontend
 npm run build
@@ -180,6 +185,7 @@ npm run deploy
 ### Node Version Issues
 
 If you encounter Node.js version issues:
+
 ```bash
 # Using nvm (recommended)
 nvm install 18
@@ -189,6 +195,7 @@ nvm use 18
 ### Permission Issues
 
 If you get permission errors:
+
 ```bash
 # For npm global installs
 npm config set prefix ~/.npm-global
@@ -198,6 +205,7 @@ export PATH=~/.npm-global/bin:$PATH
 ### Build Issues
 
 If the build fails:
+
 1. Clear node_modules: `rm -rf node_modules`
 2. Clear package-lock: `rm package-lock.json`
 3. Reinstall: `npm install`
@@ -215,6 +223,7 @@ If the build fails:
 ### VS Code Settings
 
 Create `.vscode/settings.json`:
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -237,6 +246,7 @@ Create `.vscode/settings.json`:
 ### Support
 
 For development questions or issues:
+
 1. Check existing documentation in `/docs/`
 2. Search closed issues on GitHub
 3. Create a new issue with detailed description

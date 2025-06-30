@@ -21,7 +21,7 @@ you're in or which npm scripts to run!
 # Show all available commands
 npm run help
 
-# Show workspace status  
+# Show workspace status
 npm run status
 
 # Start frontend development
@@ -155,6 +155,7 @@ npm run deploy            # Runs deployment steps in order
 ### Workspace Detection
 
 The task runner automatically:
+
 - ✅ Detects which workspace has the required script
 - ✅ Warns if a script is missing
 - ✅ Runs commands in the correct directory
@@ -171,7 +172,7 @@ The task runner automatically:
 The system uses color-coded output to show workspace activity:
 
 - 🌳 **Root** (Green): Monorepo-level tasks
-- ⚛️ **Frontend** (Cyan): React application tasks  
+- ⚛️ **Frontend** (Cyan): React application tasks
 - 🔧 **Backend** (Yellow): Google Apps Script tasks
 
 ## 📊 Examples

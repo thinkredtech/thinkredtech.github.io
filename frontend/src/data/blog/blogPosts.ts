@@ -20,10 +20,10 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    id: 'ai-revolution-in-tech',
-    title: 'The AI Revolution in Modern Technology',
+    id: "ai-revolution-in-tech",
+    title: "The AI Revolution in Modern Technology",
     excerpt:
-      'Exploring how artificial intelligence is transforming industries and creating new opportunities for innovation.',
+      "Exploring how artificial intelligence is transforming industries and creating new opportunities for innovation.",
     content: `
 # The AI Revolution in Modern Technology
 
@@ -103,26 +103,26 @@ The AI revolution is just beginning. As these technologies mature and become mor
         <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Register Now</button>
 </div>
                 `,
-    author: 'Sayak Sarkar',
-    authorImage: '/assets/portfolio/clients/sayak.jpg',
+    author: "Sayak Sarkar",
+    authorImage: "/assets/portfolio/clients/sayak.jpg",
     authorBio:
-      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
-    authorFacebook: 'https://www.facebook.com/16.sayak',
-    authorGitHub: 'https://github.com/sayak-sarkar',
-    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
-    authorTwitter: 'https://twitter.com/sayak_sarkar',
-    authorWebsite: 'https://sayak.in',
-    date: 'May 28, 2025',
-    readTime: '8 min read',
-    image: 'https://images.unsplash.com/photo-1716436329836-208bea5a55e6',
-    categories: ['Technology', 'Artificial Intelligence'],
-    tags: ['AI', 'Machine Learning', 'Innovation', 'Future Tech'],
+      "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
+    authorFacebook: "https://www.facebook.com/16.sayak",
+    authorGitHub: "https://github.com/sayak-sarkar",
+    authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
+    authorTwitter: "https://twitter.com/sayak_sarkar",
+    authorWebsite: "https://sayak.in",
+    date: "May 28, 2025",
+    readTime: "8 min read",
+    image: "https://images.unsplash.com/photo-1716436329836-208bea5a55e6",
+    categories: ["Technology", "Artificial Intelligence"],
+    tags: ["AI", "Machine Learning", "Innovation", "Future Tech"],
   },
   {
-    id: 'cybersecurity-best-practices',
-    title: 'Essential Cybersecurity Best Practices for 2025',
+    id: "cybersecurity-best-practices",
+    title: "Essential Cybersecurity Best Practices for 2025",
     excerpt:
-      'Learn the most important cybersecurity measures to protect your business and personal data in an increasingly connected world.',
+      "Learn the most important cybersecurity measures to protect your business and personal data in an increasingly connected world.",
     content: `
 # Essential Cybersecurity Best Practices for 2025
 
@@ -228,25 +228,26 @@ Cybersecurity is not a one-time effort but an ongoing process. By implementing t
         <a href="/contact" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Contact Our Security Team</a>
 </div>
                 `,
-    author: 'Sayak Sarkar',
-    authorImage: '/assets/portfolio/clients/sayak.jpg',
+    author: "Sayak Sarkar",
+    authorImage: "/assets/portfolio/clients/sayak.jpg",
     authorBio:
-      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
-    authorFacebook: 'https://www.facebook.com/16.sayak',
-    authorGitHub: 'https://github.com/sayak-sarkar',
-    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
-    authorTwitter: 'https://twitter.com/sayak_sarkar',
-    authorWebsite: 'https://sayak.in',
-    date: 'May 15, 2025',
-    readTime: '10 min read',
-    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7',
-    categories: ['Technology', 'Cybersecurity'],
-    tags: ['Security', 'Data Protection', 'Zero Trust', 'MFA'],
+      "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
+    authorFacebook: "https://www.facebook.com/16.sayak",
+    authorGitHub: "https://github.com/sayak-sarkar",
+    authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
+    authorTwitter: "https://twitter.com/sayak_sarkar",
+    authorWebsite: "https://sayak.in",
+    date: "May 15, 2025",
+    readTime: "10 min read",
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7",
+    categories: ["Technology", "Cybersecurity"],
+    tags: ["Security", "Data Protection", "Zero Trust", "MFA"],
   },
   {
-    id: 'web-development-trends',
-    title: 'Web Development Trends to Watch in 2025',
-    excerpt: 'Discover the latest trends and technologies shaping the future of web development and design.',
+    id: "web-development-trends",
+    title: "Web Development Trends to Watch in 2025",
+    excerpt:
+      "Discover the latest trends and technologies shaping the future of web development and design.",
     content: `
 # Web Development Trends to Watch in 2025
 
@@ -385,19 +386,19 @@ The web development landscape of 2025 is characterized by technologies that prio
         <a href="/contact" class="inline-block mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">Get in Touch</a>
 </div>
                 `,
-    author: 'Sayak Sarkar',
-    authorImage: '/assets/portfolio/clients/sayak.jpg',
+    author: "Sayak Sarkar",
+    authorImage: "/assets/portfolio/clients/sayak.jpg",
     authorBio:
-      'Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.',
-    authorFacebook: 'https://www.facebook.com/16.sayak',
-    authorGitHub: 'https://github.com/sayak-sarkar',
-    authorLinkedIn: 'https://www.linkedin.com/in/sayaksarkar',
-    authorTwitter: 'https://twitter.com/sayak_sarkar',
-    authorWebsite: 'https://sayak.in',
-    date: 'April 22, 2025',
-    readTime: '7 min read',
-    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166',
-    categories: ['Technology', 'Web Development'],
-    tags: ['Frontend', 'JavaScript', 'PWA', 'WebAssembly'],
+      "Director, Technology & Engineering at ThinkRED Technologies LLP. Sayak leads technology, engineering, and client delivery at ThinkRED Technologies LLP, bringing over 14 years of experience in building scalable platforms, leading high-performing distributed teams, and delivering impactful digital solutions. At ThinkRED, he drives the strategic vision of evolving the company from a client-focused development studio to a product-first infrastructure automation company. He actively oversees architecture, product direction, and execution across all engagements, while nurturing client relationships and internal talent.",
+    authorFacebook: "https://www.facebook.com/16.sayak",
+    authorGitHub: "https://github.com/sayak-sarkar",
+    authorLinkedIn: "https://www.linkedin.com/in/sayaksarkar",
+    authorTwitter: "https://twitter.com/sayak_sarkar",
+    authorWebsite: "https://sayak.in",
+    date: "April 22, 2025",
+    readTime: "7 min read",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166",
+    categories: ["Technology", "Web Development"],
+    tags: ["Frontend", "JavaScript", "PWA", "WebAssembly"],
   },
 ];

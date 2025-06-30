@@ -24,6 +24,7 @@ ssh-copy-id -p 65002 u468045938@147.93.109.69
 **Alternative method if ssh-copy-id doesn't work:**
 
 1. Copy your public key content:
+
    ```bash
    cat ~/.ssh/id_rsa.pub
    ```
@@ -111,10 +112,11 @@ Then you can connect with: `ssh hostinger-thinkred`
 ### SSH Connection Issues
 
 1. **Permission denied (publickey)**
+
    ```bash
    # Check if your SSH key is loaded
    ssh-add -l
-   
+
    # If empty, add your key
    ssh-add ~/.ssh/id_rsa
    ```

@@ -13,7 +13,7 @@
  * ```
  */
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from "react";
 
 interface PerformanceWrapperProps {
   /** Unique identifier for this performance measurement */
@@ -39,7 +39,7 @@ interface PerformanceMetrics {
 const PerformanceWrapper: React.FC<PerformanceWrapperProps> = ({
   name,
   children,
-  logMetrics = process.env.NODE_ENV === 'development',
+  logMetrics = process.env.NODE_ENV === "development",
   slowThreshold = 100,
 }) => {
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
@@ -61,7 +61,7 @@ const PerformanceWrapper: React.FC<PerformanceWrapperProps> = ({
 
     // Log performance metrics in development
     if (logMetrics) {
-      const emoji = isSlowComponent ? '🐌' : '⚡';
+      const emoji = isSlowComponent ? "🐌" : "⚡";
       // eslint-disable-next-line no-console
       console.group(`${emoji} Performance: ${name}`);
       // eslint-disable-next-line no-console
@@ -77,7 +77,7 @@ const PerformanceWrapper: React.FC<PerformanceWrapperProps> = ({
     }
 
     // Report to analytics/monitoring service (if configured)
-    if (typeof window !== 'undefined' && 'performance' in window) {
+    if (typeof window !== "undefined" && "performance" in window) {
       // Future: Send metrics to monitoring service
       // Example: sendMetricsToService(performanceMetrics);
     }
@@ -86,9 +86,9 @@ const PerformanceWrapper: React.FC<PerformanceWrapperProps> = ({
   // Add performance data attributes for testing/debugging
   const dataAttributes = metrics
     ? {
-        'data-performance-name': metrics.componentName,
-        'data-performance-mount-time': metrics.mountTime,
-        'data-performance-slow': metrics.isSlowComponent,
+        "data-performance-name": metrics.componentName,
+        "data-performance-mount-time": metrics.mountTime,
+        "data-performance-slow": metrics.isSlowComponent,
       }
     : {};
 
@@ -123,7 +123,7 @@ export const usePerformanceTracker = (operationName: string) => {
     const endTime = performance.now();
     const duration = Math.round((endTime - startTime) * 100) / 100;
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // eslint-disable-next-line no-console
       console.log(`⏱️ ${operationName}: ${duration}ms`);
     }

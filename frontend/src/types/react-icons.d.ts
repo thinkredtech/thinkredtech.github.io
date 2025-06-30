@@ -7,111 +7,111 @@
  * @see https://react-icons.github.io/react-icons/
  */
 
-import { ComponentType, SVGProps } from 'react';
+import { ComponentType, SVGProps } from "react";
 
 // Generic module declaration for all react-icons packages
-declare module 'react-icons/*' {
+declare module "react-icons/*" {
   const content: ComponentType<SVGProps<SVGSVGElement>>;
   export = content;
 }
 
 // Specific module declarations for main icon families
-declare module 'react-icons/fa' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/fa" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/fa6' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/fa6" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/si' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/si" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/md' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/md" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/hi' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/hi" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/hi2' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/hi2" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/io' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/io" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/io5' {
-  import { ComponentType, SVGProps } from 'react';
+declare module "react-icons/io5" {
+  import { ComponentType, SVGProps } from "react";
   const content: { [key: string]: ComponentType<SVGProps<SVGSVGElement>> };
   export = content;
 }
 
-declare module 'react-icons/bs' {
-  export * from 'react-icons/bs';
+declare module "react-icons/bs" {
+  export * from "react-icons/bs";
 }
 
-declare module 'react-icons/ai' {
-  export * from 'react-icons/ai';
+declare module "react-icons/ai" {
+  export * from "react-icons/ai";
 }
 
-declare module 'react-icons/fi' {
-  export * from 'react-icons/fi';
+declare module "react-icons/fi" {
+  export * from "react-icons/fi";
 }
 
-declare module 'react-icons/gi' {
-  export * from 'react-icons/gi';
+declare module "react-icons/gi" {
+  export * from "react-icons/gi";
 }
 
-declare module 'react-icons/go' {
-  export * from 'react-icons/go';
+declare module "react-icons/go" {
+  export * from "react-icons/go";
 }
 
-declare module 'react-icons/gr' {
-  export * from 'react-icons/gr';
+declare module "react-icons/gr" {
+  export * from "react-icons/gr";
 }
 
-declare module 'react-icons/ri' {
-  export * from 'react-icons/ri';
+declare module "react-icons/ri" {
+  export * from "react-icons/ri";
 }
 
-declare module 'react-icons/tb' {
-  export * from 'react-icons/tb';
+declare module "react-icons/tb" {
+  export * from "react-icons/tb";
 }
 
-declare module 'react-icons/ti' {
-  export * from 'react-icons/ti';
+declare module "react-icons/ti" {
+  export * from "react-icons/ti";
 }
 
-declare module 'react-icons/vsc' {
-  export * from 'react-icons/vsc';
+declare module "react-icons/vsc" {
+  export * from "react-icons/vsc";
 }
 
-declare module 'react-icons/wi' {
-  export * from 'react-icons/wi';
+declare module "react-icons/wi" {
+  export * from "react-icons/wi";
 }
 
-declare module 'react-icons/cg' {
-  export * from 'react-icons/cg';
+declare module "react-icons/cg" {
+  export * from "react-icons/cg";
 }
 
-declare module 'react-icons/im' {
-  export * from 'react-icons/im';
+declare module "react-icons/im" {
+  export * from "react-icons/im";
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface FilterOption {
   label: string;
@@ -22,8 +22,8 @@ const Filter: React.FC<FilterProps> = ({
   options,
   value,
   onChange,
-  placeholder = 'All',
-  className = '',
+  placeholder = "All",
+  className = "",
 }) => {
   return (
     <div className={`flex flex-col ${className}`}>
@@ -33,7 +33,7 @@ const Filter: React.FC<FilterProps> = ({
       </label>
       <select
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         aria-label={label}
         title={label}
         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"

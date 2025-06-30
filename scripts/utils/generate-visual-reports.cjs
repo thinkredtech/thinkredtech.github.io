@@ -5,19 +5,19 @@
  * Generates visually appealing health reports and status dashboards
  */
 
-const fs = require('fs');
-const path = require('path');
-const { 
-  generateMarkdownTable, 
-  generateProgressBar, 
-  generateMetricsDashboard, 
-  generateStatusBoard, 
-  generateTrendChart 
-} = require('./report-formatter');
+const fs = require("fs");
+const path = require("path");
+const {
+  generateMarkdownTable,
+  generateProgressBar,
+  generateMetricsDashboard,
+  generateStatusBoard,
+  generateTrendChart,
+} = require("./report-formatter");
 
 class VisualReportGenerator {
   constructor() {
-    this.reportsDir = path.join(__dirname, '..', '..', 'reports', 'automated');
+    this.reportsDir = path.join(__dirname, "..", "..", "reports", "automated");
     this.currentDate = new Date().toISOString();
   }
 
@@ -26,73 +26,108 @@ class VisualReportGenerator {
    */
   generateHealthReport() {
     const timestamp = new Date().toUTCString();
-    
+
     // Use the formatting utilities for consistent tables
     const systemHealthServices = [
       {
-        icon: '🏗️',
-        name: 'Repository Health',
-        status: '🟢',
+        icon: "🏗️",
+        name: "Repository Health",
+        status: "🟢",
         health: 100,
-        metric: '100%',
-        details: 'EXCELLENT'
+        metric: "100%",
+        details: "EXCELLENT",
       },
       {
-        icon: '⚡',
-        name: 'Performance Score',
-        status: '🟢',
+        icon: "⚡",
+        name: "Performance Score",
+        status: "🟢",
         health: 100,
-        metric: '100%',
-        details: 'OPTIMIZED'
+        metric: "100%",
+        details: "OPTIMIZED",
       },
       {
-        icon: '📦',
-        name: 'Dependencies',
-        status: '🟢',
+        icon: "📦",
+        name: "Dependencies",
+        status: "🟢",
         health: 98,
-        metric: '98%',
-        details: 'HEALTHY'
+        metric: "98%",
+        details: "HEALTHY",
       },
       {
-        icon: '📚',
-        name: 'Documentation',
-        status: '🟢',
+        icon: "📚",
+        name: "Documentation",
+        status: "🟢",
         health: 100,
-        metric: '100%',
-        details: 'COMPLETE'
+        metric: "100%",
+        details: "COMPLETE",
       },
       {
-        icon: '🔒',
-        name: 'Security Status',
-        status: '🟢',
+        icon: "🔒",
+        name: "Security Status",
+        status: "🟢",
         health: 100,
-        metric: '100%',
-        details: 'SECURE'
-      }
+        metric: "100%",
+        details: "SECURE",
+      },
     ];
 
     const performanceMetrics = [
-      { label: 'Overall Score', percentage: 100, value: '100/100', status: '🟢' },
-      { label: 'Bundle Optimization', percentage: 95, value: '95/100', status: '🟢' },
-      { label: 'Code Splitting', percentage: 100, value: '100/100', status: '🟢' },
-      { label: 'Load Time', percentage: 92, value: '92/100', status: '🟢' }
+      {
+        label: "Overall Score",
+        percentage: 100,
+        value: "100/100",
+        status: "🟢",
+      },
+      {
+        label: "Bundle Optimization",
+        percentage: 95,
+        value: "95/100",
+        status: "🟢",
+      },
+      {
+        label: "Code Splitting",
+        percentage: 100,
+        value: "100/100",
+        status: "🟢",
+      },
+      { label: "Load Time", percentage: 92, value: "92/100", status: "🟢" },
     ];
 
     const dependencyMetrics = [
-      { label: 'Production Deps', percentage: 70, value: '14 packages', status: '🟢' },
-      { label: 'Development Deps', percentage: 100, value: '18 packages', status: '🟢' },
-      { label: 'Security Issues', percentage: 0, value: '0 vulns', status: '🟢' },
-      { label: 'Outdated Packages', percentage: 15, value: '2 minor', status: '🟡' }
+      {
+        label: "Production Deps",
+        percentage: 70,
+        value: "14 packages",
+        status: "🟢",
+      },
+      {
+        label: "Development Deps",
+        percentage: 100,
+        value: "18 packages",
+        status: "🟢",
+      },
+      {
+        label: "Security Issues",
+        percentage: 0,
+        value: "0 vulns",
+        status: "🟢",
+      },
+      {
+        label: "Outdated Packages",
+        percentage: 15,
+        value: "2 minor",
+        status: "🟡",
+      },
     ];
 
     const gitActivityData = [
-      { period: 'Mon', percentage: 90, value: '18', status: '🟢' },
-      { period: 'Tue', percentage: 60, value: '12', status: '🟢' },
-      { period: 'Wed', percentage: 80, value: '16', status: '🟢' },
-      { period: 'Thu', percentage: 40, value: '8', status: '🟢' },
-      { period: 'Fri', percentage: 75, value: '15', status: '🟢' },
-      { period: 'Sat', percentage: 10, value: '2', status: '🟢' },
-      { period: 'Sun', percentage: 20, value: '4', status: '🟢' }
+      { period: "Mon", percentage: 90, value: "18", status: "🟢" },
+      { period: "Tue", percentage: 60, value: "12", status: "🟢" },
+      { period: "Wed", percentage: 80, value: "16", status: "🟢" },
+      { period: "Thu", percentage: 40, value: "8", status: "🟢" },
+      { period: "Fri", percentage: 75, value: "15", status: "🟢" },
+      { period: "Sat", percentage: 10, value: "2", status: "🟢" },
+      { period: "Sun", percentage: 20, value: "4", status: "🟢" },
     ];
 
     const template = `# 📊 Repository Health Report
@@ -105,16 +140,16 @@ class VisualReportGenerator {
 ### 📊 Health Score Progress
 ${generateProgressBar(100, 40)} **100%** EXCELLENT
 
-${generateStatusBoard(systemHealthServices, 'System Health Overview')}
+${generateStatusBoard(systemHealthServices, "System Health Overview")}
 
 ### 📊 Performance Metrics
-${generateMetricsDashboard(performanceMetrics, 'Performance Dashboard')}
+${generateMetricsDashboard(performanceMetrics, "Performance Dashboard")}
 
 ### 📦 Dependencies Analysis
-${generateMetricsDashboard(dependencyMetrics, 'Dependencies Health')}
+${generateMetricsDashboard(dependencyMetrics, "Dependencies Health")}
 
 ### 📈 Weekly Development Activity
-${generateTrendChart(gitActivityData, 'Git Commit Activity (Last 7 days)', ' commits')}
+${generateTrendChart(gitActivityData, "Git Commit Activity (Last 7 days)", " commits")}
 
 ### � Repository Analytics
 
@@ -171,83 +206,134 @@ ${generateTrendChart(gitActivityData, 'Git Commit Activity (Last 7 days)', ' com
    * Generates status dashboard with enhanced visualizations
    */
   generateStatusDashboard() {
-    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
-    
+    const timestamp =
+      new Date().toISOString().replace("T", " ").slice(0, 19) + " UTC";
+
     const systemServices = [
       {
-        icon: '🌐',
-        name: 'Website',
-        status: '🟢',
+        icon: "🌐",
+        name: "Website",
+        status: "🟢",
         health: 95,
-        metric: '850ms',
-        details: 'OPERATIONAL'
+        metric: "850ms",
+        details: "OPERATIONAL",
       },
       {
-        icon: '🏗️',
-        name: 'Build Pipeline',
-        status: '🟢',
+        icon: "🏗️",
+        name: "Build Pipeline",
+        status: "🟢",
         health: 100,
-        metric: '2m15s',
-        details: 'HEALTHY'
+        metric: "2m15s",
+        details: "HEALTHY",
       },
       {
-        icon: '⚡',
-        name: 'Performance',
-        status: '🟢',
+        icon: "⚡",
+        name: "Performance",
+        status: "🟢",
         health: 88,
-        metric: '986KB',
-        details: 'OPTIMIZED'
+        metric: "986KB",
+        details: "OPTIMIZED",
       },
       {
-        icon: '🛡️',
-        name: 'Security',
-        status: '🟢',
+        icon: "🛡️",
+        name: "Security",
+        status: "🟢",
         health: 100,
-        metric: '0 vuln',
-        details: 'SECURE'
+        metric: "0 vuln",
+        details: "SECURE",
       },
       {
-        icon: '📊',
-        name: 'Monitoring',
-        status: '🟢',
+        icon: "📊",
+        name: "Monitoring",
+        status: "🟢",
         health: 100,
-        metric: 'Real-time',
-        details: 'ACTIVE'
-      }
+        metric: "Real-time",
+        details: "ACTIVE",
+      },
     ];
 
     const performanceMetrics = [
-      { label: 'Response Time', percentage: 85, value: '850ms', status: '🟢 FAST' },
-      { label: 'Bundle Size', percentage: 98, value: '986KB', status: '🟢 OPTIMAL' },
-      { label: 'Build Time', percentage: 75, value: '135s', status: '🟢 GOOD' },
-      { label: 'Error Rate', percentage: 100, value: '0%', status: '🟢 PERFECT' },
-      { label: 'Uptime', percentage: 99, value: '99.9%', status: '🟢 EXCELLENT' }
+      {
+        label: "Response Time",
+        percentage: 85,
+        value: "850ms",
+        status: "🟢 FAST",
+      },
+      {
+        label: "Bundle Size",
+        percentage: 98,
+        value: "986KB",
+        status: "🟢 OPTIMAL",
+      },
+      { label: "Build Time", percentage: 75, value: "135s", status: "🟢 GOOD" },
+      {
+        label: "Error Rate",
+        percentage: 100,
+        value: "0%",
+        status: "🟢 PERFECT",
+      },
+      {
+        label: "Uptime",
+        percentage: 99,
+        value: "99.9%",
+        status: "🟢 EXCELLENT",
+      },
     ];
 
     const kpiMetrics = [
-      { label: 'Load Speed', percentage: 85, value: '850ms', status: '🎯 Target: <1s' },
-      { label: 'Bundle Size', percentage: 98, value: '986KB', status: '🎯 Target: <1MB' },
-      { label: 'Code Splitting', percentage: 100, value: '27', status: '🎯 Optimized' },
-      { label: 'Build Health', percentage: 100, value: '100%', status: '🎯 All Pass' },
-      { label: 'Security Score', percentage: 100, value: '100/100', status: '🎯 Zero Vuln' },
-      { label: 'Performance', percentage: 88, value: '88/100', status: '🎯 Excellent' }
+      {
+        label: "Load Speed",
+        percentage: 85,
+        value: "850ms",
+        status: "🎯 Target: <1s",
+      },
+      {
+        label: "Bundle Size",
+        percentage: 98,
+        value: "986KB",
+        status: "🎯 Target: <1MB",
+      },
+      {
+        label: "Code Splitting",
+        percentage: 100,
+        value: "27",
+        status: "🎯 Optimized",
+      },
+      {
+        label: "Build Health",
+        percentage: 100,
+        value: "100%",
+        status: "🎯 All Pass",
+      },
+      {
+        label: "Security Score",
+        percentage: 100,
+        value: "100/100",
+        status: "🎯 Zero Vuln",
+      },
+      {
+        label: "Performance",
+        percentage: 88,
+        value: "88/100",
+        status: "🎯 Excellent",
+      },
     ];
 
     const uptimeData = [
-      { period: 'Week 1', percentage: 99.8, value: '99.8', status: '🟢' },
-      { period: 'Week 2', percentage: 99.9, value: '99.9', status: '🟢' },
-      { period: 'Week 3', percentage: 100.0, value: '100.0', status: '🟢' },
-      { period: 'Week 4', percentage: 99.9, value: '99.9', status: '🟢' }
+      { period: "Week 1", percentage: 99.8, value: "99.8", status: "🟢" },
+      { period: "Week 2", percentage: 99.9, value: "99.9", status: "🟢" },
+      { period: "Week 3", percentage: 100.0, value: "100.0", status: "🟢" },
+      { period: "Week 4", percentage: 99.9, value: "99.9", status: "🟢" },
     ];
 
     const responseTimeData = [
-      { period: 'Mon', percentage: 82, value: '820ms', status: '🟢' },
-      { period: 'Tue', percentage: 85, value: '850ms', status: '🟢' },
-      { period: 'Wed', percentage: 84, value: '840ms', status: '🟢' },
-      { period: 'Thu', percentage: 86, value: '860ms', status: '🟢' },
-      { period: 'Fri', percentage: 85, value: '850ms', status: '🟢' },
-      { period: 'Sat', percentage: 83, value: '830ms', status: '🟢' },
-      { period: 'Sun', percentage: 85, value: '845ms', status: '🟢' }
+      { period: "Mon", percentage: 82, value: "820ms", status: "🟢" },
+      { period: "Tue", percentage: 85, value: "850ms", status: "🟢" },
+      { period: "Wed", percentage: 84, value: "840ms", status: "🟢" },
+      { period: "Thu", percentage: 86, value: "860ms", status: "🟢" },
+      { period: "Fri", percentage: 85, value: "850ms", status: "🟢" },
+      { period: "Sat", percentage: 83, value: "830ms", status: "🟢" },
+      { period: "Sun", percentage: 85, value: "845ms", status: "🟢" },
     ];
 
     const template = `# 📊 ThinkRED System Status Dashboard
@@ -260,19 +346,19 @@ ${generateTrendChart(gitActivityData, 'Git Commit Activity (Last 7 days)', ' com
 ### 🎯 System Health Status
 ${generateProgressBar(100, 40)} **100%** ALL SYSTEMS OPERATIONAL
 
-${generateStatusBoard(systemServices, 'Service Status Overview')}
+${generateStatusBoard(systemServices, "Service Status Overview")}
 
 ### 📊 Performance Metrics
-${generateMetricsDashboard(performanceMetrics, 'Real-Time Performance')}
+${generateMetricsDashboard(performanceMetrics, "Real-Time Performance")}
 
 ### 🎯 Key Performance Indicators
-${generateMetricsDashboard(kpiMetrics, 'KPI Dashboard')}
+${generateMetricsDashboard(kpiMetrics, "KPI Dashboard")}
 
 ### � System Uptime Trends
-${generateTrendChart(uptimeData, 'Monthly Uptime History', '%')}
+${generateTrendChart(uptimeData, "Monthly Uptime History", "%")}
 
 ### ⚡ Response Time Analytics
-${generateTrendChart(responseTimeData, 'Daily Response Times (Last 7 days)', 'ms')}
+${generateTrendChart(responseTimeData, "Daily Response Times (Last 7 days)", "ms")}
 
 ### � Build & Bundle Analysis
 
@@ -350,22 +436,22 @@ ${generateTrendChart(responseTimeData, 'Daily Response Times (Last 7 days)', 'ms
       // Generate and write health report
       const healthReport = this.generateHealthReport();
       fs.writeFileSync(
-        path.join(this.reportsDir, 'health-report.md'),
-        healthReport
+        path.join(this.reportsDir, "health-report.md"),
+        healthReport,
       );
 
       // Generate and write status dashboard
       const statusDashboard = this.generateStatusDashboard();
       fs.writeFileSync(
-        path.join(this.reportsDir, 'status-dashboard.md'),
-        statusDashboard
+        path.join(this.reportsDir, "status-dashboard.md"),
+        statusDashboard,
       );
 
-      console.log('✅ Enhanced reports generated successfully!');
-      console.log('📁 Location:', this.reportsDir);
-      console.log('📊 Files: health-report.md, status-dashboard.md');
+      console.log("✅ Enhanced reports generated successfully!");
+      console.log("📁 Location:", this.reportsDir);
+      console.log("📊 Files: health-report.md, status-dashboard.md");
     } catch (error) {
-      console.error('❌ Error generating reports:', error.message);
+      console.error("❌ Error generating reports:", error.message);
       process.exit(1);
     }
   }

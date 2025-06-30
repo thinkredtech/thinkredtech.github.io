@@ -79,7 +79,7 @@
 }
 
 .prose ol > li::before {
-  content: counter(list-counter) '.';
+  content: counter(list-counter) ".";
   position: absolute;
   font-weight: 400;
   color: #6b7280;

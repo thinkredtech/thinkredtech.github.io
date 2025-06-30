@@ -10,11 +10,12 @@ All **legendary changes** to the ThinkRED monorepo are documented in this file! 
 
 </div>
 
-*Based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)*
+_Based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html)_
 
 This changelog covers **monorepo-wide changes** including infrastructure, tooling, and cross-component updates.
 
 For component-specific adventures, check out:
+
 - **🎨 [Frontend CHANGELOG.md](./frontend/CHANGELOG.md)** - Frontend application changes
 - **⚙️ [Backend CHANGELOG.md](./backend/CHANGELOG.md)** - Backend API and services changes
 

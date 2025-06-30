@@ -4,16 +4,16 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'README.md'
-      - 'docs/**'
-      - '.github/workflows/**'
-      - '*.md'
+      - "README.md"
+      - "docs/**"
+      - ".github/workflows/**"
+      - "*.md"
   workflow_dispatch:
     inputs:
       version_type:
-        description: 'Version bump type'
+        description: "Version bump type"
         required: true
-        default: 'auto'
+        default: "auto"
         type: choice
         options:
           - auto
@@ -22,13 +22,13 @@ on:
           - major
           - prerelease
       force_release:
-        description: 'Force create release regardless of conditions'
+        description: "Force create release regardless of conditions"
         required: false
         default: false
         type: boolean
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
 
 jobs:
   # Analyze changes to determine version bump type
@@ -268,7 +268,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: |
@@ -362,7 +362,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Configure Git
         run: |

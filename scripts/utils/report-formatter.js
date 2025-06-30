@@ -2,7 +2,7 @@
 
 /**
  * Report Formatting Utilities
- * 
+ *
  * Utilities for generating consistently formatted Markdown tables and progress bars
  * for health reports and status dashboards.
  */
@@ -14,32 +14,35 @@
  * @param {Array} alignments - Array of alignment options ('left', 'center', 'right')
  */
 function generateMarkdownTable(headers, rows, alignments = []) {
-  if (!headers || !rows || headers.length === 0) return '';
-  
+  if (!headers || !rows || headers.length === 0) return "";
+
   // Create header row
-  let table = '| ' + headers.join(' | ') + ' |\n';
-  
+  let table = "| " + headers.join(" | ") + " |\n";
+
   // Create separator row with alignments
   const separators = headers.map((_, index) => {
-    const align = alignments[index] || 'left';
+    const align = alignments[index] || "left";
     switch (align) {
-      case 'center': return ':---:';
-      case 'right': return '---:';
-      default: return '---';
+      case "center":
+        return ":---:";
+      case "right":
+        return "---:";
+      default:
+        return "---";
     }
   });
-  table += '| ' + separators.join(' | ') + ' |\n';
-  
+  table += "| " + separators.join(" | ") + " |\n";
+
   // Add data rows
-  rows.forEach(row => {
+  rows.forEach((row) => {
     // Ensure row has same number of columns as headers
     const paddedRow = [...row];
     while (paddedRow.length < headers.length) {
-      paddedRow.push('');
+      paddedRow.push("");
     }
-    table += '| ' + paddedRow.slice(0, headers.length).join(' | ') + ' |\n';
+    table += "| " + paddedRow.slice(0, headers.length).join(" | ") + " |\n";
   });
-  
+
   return table;
 }
 
@@ -51,10 +54,10 @@ function generateMarkdownTable(headers, rows, alignments = []) {
 function generateProgressBar(percentage, width = 20) {
   const filled = Math.round((percentage / 100) * width);
   const empty = width - filled;
-  
-  const fullBlocks = '█'.repeat(filled);
-  const emptyBlocks = '▒'.repeat(empty);
-  
+
+  const fullBlocks = "█".repeat(filled);
+  const emptyBlocks = "▒".repeat(empty);
+
   return fullBlocks + emptyBlocks;
 }
 
@@ -62,18 +65,18 @@ function generateProgressBar(percentage, width = 20) {
  * Generates a metrics dashboard using Markdown table
  */
 function generateMetricsDashboard(metrics, title = "Metrics Dashboard") {
-  if (!metrics || metrics.length === 0) return '';
-  
-  const headers = ['📊 Metric', 'Progress', 'Value', 'Status'];
-  const alignments = ['left', 'left', 'center', 'left'];
-  
-  const rows = metrics.map(metric => [
+  if (!metrics || metrics.length === 0) return "";
+
+  const headers = ["📊 Metric", "Progress", "Value", "Status"];
+  const alignments = ["left", "left", "center", "left"];
+
+  const rows = metrics.map((metric) => [
     metric.label,
     `\`${generateProgressBar(metric.percentage, 20)}\``,
     metric.value,
-    metric.status
+    metric.status,
   ]);
-  
+
   return `### ${title}\n\n${generateMarkdownTable(headers, rows, alignments)}`;
 }
 
@@ -81,19 +84,19 @@ function generateMetricsDashboard(metrics, title = "Metrics Dashboard") {
  * Generates a status board using Markdown table
  */
 function generateStatusBoard(services, title = "System Status Board") {
-  if (!services || services.length === 0) return '';
-  
-  const headers = ['🎯 Service', 'Status', 'Health', 'Metric', 'Details'];
-  const alignments = ['left', 'center', 'left', 'center', 'left'];
-  
-  const rows = services.map(service => [
+  if (!services || services.length === 0) return "";
+
+  const headers = ["🎯 Service", "Status", "Health", "Metric", "Details"];
+  const alignments = ["left", "center", "left", "center", "left"];
+
+  const rows = services.map((service) => [
     `${service.icon} ${service.name}`,
     service.status,
     `\`${generateProgressBar(service.health, 15)}\``,
     service.metric,
-    service.details
+    service.details,
   ]);
-  
+
   return `### ${title}\n\n${generateMarkdownTable(headers, rows, alignments)}`;
 }
 
@@ -101,29 +104,25 @@ function generateStatusBoard(services, title = "System Status Board") {
  * Generates historical trend charts using Markdown table
  */
 function generateTrendChart(data, title, unit = "") {
-  if (!data || data.length === 0) return '';
-  
-  const headers = ['📅 Period', 'Trend', 'Value', 'Status'];
-  const alignments = ['left', 'left', 'center', 'center'];
-  
-  const rows = data.map(item => [
+  if (!data || data.length === 0) return "";
+
+  const headers = ["📅 Period", "Trend", "Value", "Status"];
+  const alignments = ["left", "left", "center", "center"];
+
+  const rows = data.map((item) => [
     item.period,
     `\`${generateProgressBar(item.percentage, 20)}\``,
     `${item.value}${unit}`,
-    item.status
+    item.status,
   ]);
-  
+
   // Add summary row if data exists
   if (data.length > 0) {
-    const avgValue = data.reduce((sum, item) => sum + parseFloat(item.value), 0) / data.length;
-    rows.push([
-      '**Average**',
-      '',
-      `**${avgValue.toFixed(1)}${unit}**`,
-      ''
-    ]);
+    const avgValue =
+      data.reduce((sum, item) => sum + parseFloat(item.value), 0) / data.length;
+    rows.push(["**Average**", "", `**${avgValue.toFixed(1)}${unit}**`, ""]);
   }
-  
+
   return `### ${title}\n\n${generateMarkdownTable(headers, rows, alignments)}`;
 }
 
@@ -131,16 +130,13 @@ function generateTrendChart(data, title, unit = "") {
  * Creates a simple summary table for key metrics
  */
 function generateSummaryTable(metrics) {
-  if (!metrics || metrics.length === 0) return '';
-  
-  const headers = ['Metric', 'Value'];
-  const alignments = ['left', 'right'];
-  
-  const rows = metrics.map(metric => [
-    `**${metric.label}**`,
-    metric.value
-  ]);
-  
+  if (!metrics || metrics.length === 0) return "";
+
+  const headers = ["Metric", "Value"];
+  const alignments = ["left", "right"];
+
+  const rows = metrics.map((metric) => [`**${metric.label}**`, metric.value]);
+
   return generateMarkdownTable(headers, rows, alignments);
 }
 
@@ -151,7 +147,7 @@ function replaceTemplateVariables(template, variables) {
   let result = template;
   Object.entries(variables).forEach(([key, value]) => {
     const placeholder = `{{${key}}}`;
-    result = result.replace(new RegExp(placeholder, 'g'), value);
+    result = result.replace(new RegExp(placeholder, "g"), value);
   });
   return result;
 }
@@ -162,62 +158,74 @@ function replaceTemplateVariables(template, variables) {
 function generateExampleStatusDashboard() {
   const services = [
     {
-      icon: '🌐',
-      name: 'Website',
-      status: '🟢 Operational',
+      icon: "🌐",
+      name: "Website",
+      status: "🟢 Operational",
       health: 95,
-      metric: '850ms',
-      details: 'Main site accessibility'
+      metric: "850ms",
+      details: "Main site accessibility",
     },
     {
-      icon: '🏗️',
-      name: 'Build Pipeline',
-      status: '🟢 Healthy',
+      icon: "🏗️",
+      name: "Build Pipeline",
+      status: "🟢 Healthy",
       health: 100,
-      metric: '2m15s',
-      details: 'Automated deployment'
+      metric: "2m15s",
+      details: "Automated deployment",
     },
     {
-      icon: '⚡',
-      name: 'Performance',
-      status: '🟢 Optimized',
+      icon: "⚡",
+      name: "Performance",
+      status: "🟢 Optimized",
       health: 88,
-      metric: '986KB',
-      details: 'Bundle optimization'
+      metric: "986KB",
+      details: "Bundle optimization",
     },
     {
-      icon: '🛡️',
-      name: 'Security',
-      status: '🟢 Secure',
+      icon: "🛡️",
+      name: "Security",
+      status: "🟢 Secure",
       health: 100,
-      metric: '0 vuln',
-      details: 'Vulnerability monitoring'
-    }
+      metric: "0 vuln",
+      details: "Vulnerability monitoring",
+    },
   ];
-  
+
   const metrics = [
-    { label: 'Response Time', percentage: 85, value: '850ms', status: '🟢 Fast' },
-    { label: 'Bundle Size', percentage: 98, value: '986KB', status: '🟢 Optimal' },
-    { label: 'Build Time', percentage: 75, value: '135s', status: '🟢 Good' },
-    { label: 'Error Rate', percentage: 100, value: '0%', status: '🟢 Perfect' },
-    { label: 'Uptime', percentage: 99, value: '99.9%', status: '🟢 Excellent' }
+    {
+      label: "Response Time",
+      percentage: 85,
+      value: "850ms",
+      status: "🟢 Fast",
+    },
+    {
+      label: "Bundle Size",
+      percentage: 98,
+      value: "986KB",
+      status: "🟢 Optimal",
+    },
+    { label: "Build Time", percentage: 75, value: "135s", status: "🟢 Good" },
+    { label: "Error Rate", percentage: 100, value: "0%", status: "🟢 Perfect" },
+    { label: "Uptime", percentage: 99, value: "99.9%", status: "🟢 Excellent" },
   ];
-  
+
   const trendData = [
-    { period: 'Week 1', percentage: 99.8, value: '99.8', status: '🟢' },
-    { period: 'Week 2', percentage: 99.9, value: '99.9', status: '🟢' },
-    { period: 'Week 3', percentage: 100.0, value: '100.0', status: '🟢' },
-    { period: 'Week 4', percentage: 99.9, value: '99.9', status: '🟢' }
+    { period: "Week 1", percentage: 99.8, value: "99.8", status: "🟢" },
+    { period: "Week 2", percentage: 99.9, value: "99.9", status: "🟢" },
+    { period: "Week 3", percentage: 100.0, value: "100.0", status: "🟢" },
+    { period: "Week 4", percentage: 99.9, value: "99.9", status: "🟢" },
   ];
-  
-  console.log('## 🚀 System Status Example\n');
-  console.log('🟢 ALL SYSTEMS OPERATIONAL');
+
+  console.log("## 🚀 System Status Example\n");
+  console.log("🟢 ALL SYSTEMS OPERATIONAL");
   console.log(`\`${generateProgressBar(100, 40)}\` 100% HEALTHY\n`);
   console.log(generateStatusBoard(services));
   console.log();
-  console.log(generateMetricsDashboard(metrics, 'Performance Dashboard'));
+  console.log(generateMetricsDashboard(metrics, "Performance Dashboard"));
   console.log();
-  console.log(generateTrendChart(trendData, '30-Day Performance History', '% uptime'));
+  console.log(
+    generateTrendChart(trendData, "30-Day Performance History", "% uptime"),
+  );
 }
 
 module.exports = {
@@ -228,7 +236,7 @@ module.exports = {
   generateTrendChart,
   generateSummaryTable,
   replaceTemplateVariables,
-  generateExampleStatusDashboard
+  generateExampleStatusDashboard,
 };
 
 // Run example if called directly

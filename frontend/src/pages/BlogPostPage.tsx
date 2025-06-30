@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
-import remarkGfm from 'remark-gfm';
-import { useSEO, useStructuredData, StructuredDataSchemas } from '../hooks/useSEO';
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
+import {
+  useSEO,
+  useStructuredData,
+  StructuredDataSchemas,
+} from "../hooks/useSEO";
 
 // Import sample blog posts data (this would typically come from an API)
-import { blogPosts, BlogPost } from '../data/blog/blogPosts';
+import { blogPosts, BlogPost } from "../data/blog/blogPosts";
 
 interface BlogPostParams {
   postId: string;
@@ -27,8 +31,8 @@ const BlogPostPage = () => {
       ? {
           title: `${post.title} | ThinkRED Technologies Blog`,
           description: post.excerpt,
-          keywords: `${post.tags.join(', ')}, web development, technology, programming`,
-          type: 'article' as const,
+          keywords: `${post.tags.join(", ")}, web development, technology, programming`,
+          type: "article" as const,
           author: post.author,
           publishedTime: post.date,
           url: `${window.location.origin}/blog/${post.id}`,
@@ -36,11 +40,11 @@ const BlogPostPage = () => {
           tags: post.tags,
         }
       : {
-          title: 'Blog Post | ThinkRED Technologies',
-          description: 'Loading blog post...',
-          keywords: 'blog, technology, web development',
-          type: 'article' as const,
-        }
+          title: "Blog Post | ThinkRED Technologies",
+          description: "Loading blog post...",
+          keywords: "blog, technology, web development",
+          type: "article" as const,
+        },
   );
 
   // Add structured data for article (only when post is available)
@@ -56,21 +60,24 @@ const BlogPostPage = () => {
           url: `${window.location.origin}/blog/${post.id}`,
           keywords: post.tags,
         })
-      : { '@context': 'https://schema.org', '@type': 'Article' }
+      : { "@context": "https://schema.org", "@type": "Article" },
   );
 
   // Add breadcrumb structured data (only when post is available)
   useStructuredData(
     post
       ? StructuredDataSchemas.breadcrumb([
-          { name: 'Home', url: window.location.origin },
-          { name: 'Blog', url: `${window.location.origin}/blog` },
-          { name: post.title, url: `${window.location.origin}/blog/${post.id}` },
+          { name: "Home", url: window.location.origin },
+          { name: "Blog", url: `${window.location.origin}/blog` },
+          {
+            name: post.title,
+            url: `${window.location.origin}/blog/${post.id}`,
+          },
         ])
       : StructuredDataSchemas.breadcrumb([
-          { name: 'Home', url: window.location.origin },
-          { name: 'Blog', url: `${window.location.origin}/blog` },
-        ])
+          { name: "Home", url: window.location.origin },
+          { name: "Blog", url: `${window.location.origin}/blog` },
+        ]),
   );
 
   useEffect(() => {
@@ -78,16 +85,16 @@ const BlogPostPage = () => {
     // In a real application, this would be an API call
     setTimeout(() => {
       try {
-        const foundPost = blogPosts.find(p => p.id === postId);
+        const foundPost = blogPosts.find((p) => p.id === postId);
         if (foundPost) {
           setPost(foundPost);
           setLoading(false);
         } else {
-          setError('Blog post not found');
+          setError("Blog post not found");
           setLoading(false);
         }
       } catch {
-        setError('Error loading blog post');
+        setError("Error loading blog post");
         setLoading(false);
       }
     }, 300); // Simulate network delay
@@ -96,7 +103,7 @@ const BlogPostPage = () => {
   // Set CSS custom property for background image to avoid inline styles
   useEffect(() => {
     if (post?.image && heroRef) {
-      heroRef.style.setProperty('--hero-bg-image', `url(${post.image})`);
+      heroRef.style.setProperty("--hero-bg-image", `url(${post.image})`);
     }
   }, [post?.image, heroRef]);
 
@@ -114,8 +121,12 @@ const BlogPostPage = () => {
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
-          <h1 className="heading-1 text-secondary mb-4">{error || 'Post not found'}</h1>
-          <p className="text-secondary mb-8">The blog post you're looking for doesn't seem to exist.</p>
+          <h1 className="heading-1 text-secondary mb-4">
+            {error || "Post not found"}
+          </h1>
+          <p className="text-secondary mb-8">
+            The blog post you're looking for doesn't seem to exist.
+          </p>
           <Link to="/blog" className="btn btn-primary">
             Back to Blog
           </Link>
@@ -127,13 +138,19 @@ const BlogPostPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div ref={setHeroRef} className="w-full md:mt-20 mt-14 h-96 bg-cover bg-center relative hero-background">
+      <div
+        ref={setHeroRef}
+        className="w-full md:mt-20 mt-14 h-96 bg-cover bg-center relative hero-background"
+      >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end">
           <div className="container mx-auto px-4 py-16">
             <div className="max-w-4xl">
               <div className="flex flex-wrap gap-2 mb-4">
                 {post.categories.map((category: string, index: number) => (
-                  <span key={index} className="px-3 py-1 bg-accent1/80 text-white text-sm rounded-full">
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-accent1/80 text-white text-sm rounded-full"
+                  >
                     {category}
                   </span>
                 ))}
@@ -142,7 +159,9 @@ const BlogPostPage = () => {
               <div className="flex items-center text-white">
                 <div className="flex items-center">
                   <img
-                    src={post.authorImage || '/assets/avatars/default-avatar.png'}
+                    src={
+                      post.authorImage || "/assets/avatars/default-avatar.png"
+                    }
                     alt={post.author}
                     className="w-10 h-10 rounded-full mr-3 object-cover"
                   />
@@ -151,7 +170,7 @@ const BlogPostPage = () => {
                 <span className="mx-3">•</span>
                 <span>{post.date}</span>
                 <span className="mx-3">•</span>
-                <span>{post.readTime || '5 min read'}</span>
+                <span>{post.readTime || "5 min read"}</span>
               </div>
             </div>
           </div>
@@ -164,7 +183,10 @@ const BlogPostPage = () => {
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-10">
             {/* Markdown Content with HTML support */}
             <div className="prose prose-lg max-w-none overflow-hidden">
-              <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeSanitize]} remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown
+                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                remarkPlugins={[remarkGfm]}
+              >
                 {post.content}
               </ReactMarkdown>
             </div>
@@ -174,7 +196,10 @@ const BlogPostPage = () => {
               <h3 className="body-1-semibold mb-3">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag: string, index: number) => (
-                  <span key={index} className="px-3 py-1 bg-gray-100 text-secondary text-sm rounded-full">
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-gray-100 text-secondary text-sm rounded-full"
+                  >
                     #{tag}
                   </span>
                 ))}
@@ -189,12 +214,12 @@ const BlogPostPage = () => {
                   const url = window.location.href;
                   const title = post.title;
                   const author = post.author;
-                  const readTime = post.readTime || '5 min read';
+                  const readTime = post.readTime || "5 min read";
                   const firstLine =
                     post.content
-                      .split('\n')
+                      .split("\n")
                       .find((line: string) => line.trim())
-                      ?.trim() || '';
+                      ?.trim() || "";
                   const summary = `Check out "${title}" by ${author} (${readTime}): ${firstLine}`;
 
                   return (
@@ -208,12 +233,16 @@ const BlogPostPage = () => {
                           // Facebook no longer supports prefilled text via URL params. Only the URL will be shared.
                           window.open(
                             `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-                            '_blank',
-                            'noopener,noreferrer'
+                            "_blank",
+                            "noopener,noreferrer",
                           );
                         }}
                       >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                         </svg>
                       </button>
@@ -225,12 +254,16 @@ const BlogPostPage = () => {
                         onClick={() => {
                           window.open(
                             `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${summary} ${url}`)}`,
-                            '_blank',
-                            'noopener,noreferrer'
+                            "_blank",
+                            "noopener,noreferrer",
                           );
                         }}
                       >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.054 10.054 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                         </svg>
                       </button>
@@ -243,12 +276,16 @@ const BlogPostPage = () => {
                           // LinkedIn no longer supports prefilled summary/title via URL params. Only the URL will be shared.
                           window.open(
                             `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-                            '_blank',
-                            'noopener,noreferrer'
+                            "_blank",
+                            "noopener,noreferrer",
                           );
                         }}
                       >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                       </button>
@@ -263,7 +300,7 @@ const BlogPostPage = () => {
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 mt-8">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <img
-                src={post.authorImage || '/assets/avatars/default-avatar.png'}
+                src={post.authorImage || "/assets/avatars/default-avatar.png"}
                 alt={post.author}
                 className="w-24 h-24 rounded-full object-cover"
               />
@@ -271,7 +308,7 @@ const BlogPostPage = () => {
                 <h3 className="heading-2 mb-2">{post.author}</h3>
                 <p className="text-secondary mb-4">
                   {post.authorBio ||
-                    'Technology enthusiast and writer at ThinkRED Technologies. Passionate about sharing knowledge and exploring new technologies.'}
+                    "Technology enthusiast and writer at ThinkRED Technologies. Passionate about sharing knowledge and exploring new technologies."}
                 </p>
                 <div className="flex space-x-4">
                   {post.authorWebsite && (
@@ -283,8 +320,20 @@ const BlogPostPage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        />
                         <path
                           d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"
                           stroke="currentColor"
@@ -300,7 +349,11 @@ const BlogPostPage = () => {
                       aria-label={`${post.author}'s Facebook Profile`}
                       title={`${post.author}'s Facebook Profile`}
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                       </svg>
                     </a>
@@ -312,7 +365,11 @@ const BlogPostPage = () => {
                       aria-label={`${post.author}'s Twitter Profile`}
                       title={`${post.author}'s Twitter Profile`}
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.054 10.054 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                       </svg>
                     </a>
@@ -324,7 +381,11 @@ const BlogPostPage = () => {
                       aria-label={`${post.author}'s LinkedIn Profile`}
                       title={`${post.author}'s LinkedIn Profile`}
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                       </svg>
                     </a>
@@ -338,7 +399,11 @@ const BlogPostPage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.221-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.338 1.909-1.295 2.748-1.025 2.748-1.025.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.847-2.337 4.695-4.566 4.944.359.309.678.919.678 1.853 0 1.336-.012 2.415-.012 2.744 0 .267.18.579.688.481C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z" />
                       </svg>
                     </a>
@@ -354,24 +419,41 @@ const BlogPostPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts
                 .filter(
-                  relatedPost =>
-                    relatedPost.id !== postId && relatedPost.categories.some(cat => post.categories.includes(cat))
+                  (relatedPost) =>
+                    relatedPost.id !== postId &&
+                    relatedPost.categories.some((cat) =>
+                      post.categories.includes(cat),
+                    ),
                 )
                 .slice(0, 3)
-                .map(relatedPost => (
-                  <div key={relatedPost.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                .map((relatedPost) => (
+                  <div
+                    key={relatedPost.id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden"
+                  >
                     <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                      <img src={relatedPost.image} alt={relatedPost.title} className="object-cover w-full h-48" />
+                      <img
+                        src={relatedPost.image}
+                        alt={relatedPost.title}
+                        className="object-cover w-full h-48"
+                      />
                     </div>
                     <div className="p-6">
                       <h3 className="heading-3 mb-2">{relatedPost.title}</h3>
-                      <p className="text-secondary mb-4 line-clamp-2">{relatedPost.excerpt}</p>
+                      <p className="text-secondary mb-4 line-clamp-2">
+                        {relatedPost.excerpt}
+                      </p>
                       <Link
                         to={`/blog/${relatedPost.id}`}
                         className="text-primary hover:underline font-medium inline-flex items-center"
                       >
                         Read More
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 ml-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -388,9 +470,22 @@ const BlogPostPage = () => {
 
           {/* Back to Blog */}
           <div className="mt-12 text-center">
-            <Link to="/blog" className="inline-flex items-center text-primary hover:underline font-medium">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <Link
+              to="/blog"
+              className="inline-flex items-center text-primary hover:underline font-medium"
+            >
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               Back to Blog
             </Link>

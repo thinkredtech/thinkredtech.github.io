@@ -13,6 +13,7 @@ The frontend is automatically deployed to GitHub Pages whenever changes are push
 **Deployment URL**: `https://thinkredtech.github.io`
 
 **Process**:
+
 1. Push changes to the main branch
 2. GitHub Actions workflow is triggered
 3. Application is built using `npm run build`
@@ -29,6 +30,7 @@ npm run deploy:hostinger
 ```
 
 This runs the deployment script that:
+
 1. Builds the application
 2. Uploads files to Hostinger via FTP/SFTP
 3. Updates the production website
@@ -36,12 +38,14 @@ This runs the deployment script that:
 ### Build Process
 
 The frontend build process:
+
 ```bash
 cd frontend
 npm run build
 ```
 
 This command:
+
 - Compiles TypeScript to JavaScript
 - Bundles and minifies assets
 - Copies documentation from `docs/` to `build/docs/`
@@ -54,6 +58,7 @@ This command:
 The backend is deployed to Google Apps Script using CLASP (Command Line Apps Script Projects).
 
 **Prerequisites**:
+
 - Google account with Apps Script access
 - CLASP CLI tool installed globally
 - Authentication with Google Apps Script
@@ -61,11 +66,13 @@ The backend is deployed to Google Apps Script using CLASP (Command Line Apps Scr
 ### Deployment Steps
 
 1. **Install CLASP globally**:
+
    ```bash
    npm install -g @google/clasp
    ```
 
 2. **Login to Google Apps Script**:
+
    ```bash
    clasp login
    ```
@@ -79,6 +86,7 @@ The backend is deployed to Google Apps Script using CLASP (Command Line Apps Scr
 ### Backend Deployment Script
 
 The deployment script (`backend/deploy.sh`) performs:
+
 1. Pushes code to Google Apps Script
 2. Creates a new deployment
 3. Configures the web app permissions
@@ -87,6 +95,7 @@ The deployment script (`backend/deploy.sh`) performs:
 ### Manual Deployment Options
 
 **Using CLASP directly**:
+
 ```bash
 cd backend
 clasp push
@@ -94,6 +103,7 @@ clasp deploy
 ```
 
 **Using Node.js script**:
+
 ```bash
 cd backend
 npm run deploy:node
@@ -104,6 +114,7 @@ npm run deploy:node
 ### Frontend Environment Variables
 
 Create `.env` in the frontend directory:
+
 ```env
 VITE_API_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
 ```
@@ -111,6 +122,7 @@ VITE_API_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
 ### Backend Configuration
 
 Backend configuration is managed through Google Apps Script Properties:
+
 - `CONTACT_FORM_SHEET_ID`: Google Sheets ID for contact forms
 - `JOB_APPLICATION_SHEET_ID`: Google Sheets ID for job applications
 - `RESUME_PARENT_FOLDER_ID`: Google Drive folder ID for resumes
@@ -127,10 +139,12 @@ The repository includes GitHub Actions for automated deployment:
 **Workflow File**: `.github/workflows/deploy.yml`
 
 **Triggers**:
+
 - Push to main branch
 - Manual workflow dispatch
 
 **Process**:
+
 1. Checkout code
 2. Setup Node.js environment
 3. Install dependencies
@@ -141,11 +155,13 @@ The repository includes GitHub Actions for automated deployment:
 ### Deployment Monitoring
 
 **Frontend Monitoring**:
+
 - GitHub Actions provides build status
 - GitHub Pages provides hosting status
 - Browser console for runtime errors
 
 **Backend Monitoring**:
+
 - Google Apps Script execution logs
 - Email delivery confirmations
 - Google Sheets data validation
@@ -155,11 +171,13 @@ The repository includes GitHub Actions for automated deployment:
 ### Frontend Rollback
 
 **GitHub Pages**:
+
 1. Identify the previous working commit
 2. Revert the problematic commit
 3. Push the revert to trigger a new deployment
 
 **Hostinger**:
+
 1. Access the hosting control panel
 2. Restore from the previous backup
 3. Or manually upload the previous build files
@@ -167,6 +185,7 @@ The repository includes GitHub Actions for automated deployment:
 ### Backend Rollback
 
 **Google Apps Script**:
+
 1. Access the Google Apps Script dashboard
 2. Select a previous version from the version history
 3. Deploy the previous version
@@ -177,11 +196,13 @@ The repository includes GitHub Actions for automated deployment:
 ### Common Frontend Issues
 
 **Build Failures**:
+
 - Check Node.js version compatibility
 - Verify all dependencies are installed
 - Review build logs for specific errors
 
 **Deployment Failures**:
+
 - Verify GitHub Actions permissions
 - Check repository settings for GitHub Pages
 - Ensure `gh-pages` branch exists and is configured
@@ -189,16 +210,19 @@ The repository includes GitHub Actions for automated deployment:
 ### Common Backend Issues
 
 **CLASP Authentication**:
+
 ```bash
 clasp login --creds credentials.json
 ```
 
 **Permission Errors**:
+
 - Verify Google Apps Script API is enabled
 - Check project permissions in Google Cloud Console
 - Ensure proper OAuth scopes are configured
 
 **Deployment Timeouts**:
+
 - Large projects may need to be deployed in parts
 - Use `clasp push --force` if necessary
 - Check file size limits (Google Apps Script has limits)
@@ -322,7 +346,7 @@ name: Deploy Frontend
 on:
   push:
     branches: [main]
-    paths: ['frontend/**']
+    paths: ["frontend/**"]
 
 jobs:
   deploy:
@@ -332,7 +356,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
       - name: Install and Build
         run: |
           cd frontend
@@ -483,7 +507,7 @@ name: Deploy Backend
 on:
   push:
     branches: [main]
-    paths: ['backend/**']
+    paths: ["backend/**"]
 
 jobs:
   deploy:
@@ -491,31 +515,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Install CLASP
         run: npm install -g @google/clasp
-        
+
       - name: Setup CLASP credentials
         run: echo "$CLASP_CREDENTIALS" > ~/.clasprc.json
         env:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
-          
+
       - name: Deploy to Google Apps Script
         run: |
           cd backend
           clasp push -f
           deployment_id=$(clasp deploy --description "Auto-deploy from GitHub Actions" | grep -oP 'AK[a-zA-Z0-9_-]+')
           echo "DEPLOYMENT_ID=$deployment_id" >> $GITHUB_ENV
-          
+
       - name: Update frontend configuration
         run: |
           ./scripts/update-deployment-id.sh $DEPLOYMENT_ID
-          
+
       - name: Commit configuration updates
         run: |
           git config --local user.email "action@github.com"
@@ -533,7 +557,7 @@ name: Deploy Frontend
 on:
   push:
     branches: [main]
-    paths: ['frontend/**', '.env']
+    paths: ["frontend/**", ".env"]
 
 jobs:
   deploy:
@@ -541,30 +565,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
           cache-dependency-path: frontend/package-lock.json
-          
+
       - name: Install dependencies
         run: |
           cd frontend
           npm ci
-          
+
       - name: Build frontend
         run: |
           cd frontend
           npm run build
-          
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/build
-          
+
       - name: Health check
         run: |
           sleep 30
@@ -874,7 +898,7 @@ npm run test:performance # Performance tests
 
 ### 🎉 **Deploy with Confidence! Ship with Style! ⚡**
 
-*"Great deployments are not accidents, they are the result of great preparation and automation!"*
+_"Great deployments are not accidents, they are the result of great preparation and automation!"_
 
 [![Back to Main](https://img.shields.io/badge/←%20Back%20to%20Main-README-blue?style=for-the-badge)](../README.md)
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)

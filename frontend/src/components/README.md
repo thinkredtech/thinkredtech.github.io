@@ -18,8 +18,8 @@ environments.
 ### Basic Usage
 
 ```tsx
-import PerformanceWrapper from './components/PerformanceWrapper';
-import HomePage from './pages/HomePage';
+import PerformanceWrapper from "./components/PerformanceWrapper";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -33,7 +33,11 @@ function App() {
 ### Advanced Usage
 
 ```tsx
-<PerformanceWrapper name="ComplexComponent" logMetrics={true} slowThreshold={50}>
+<PerformanceWrapper
+  name="ComplexComponent"
+  logMetrics={true}
+  slowThreshold={50}
+>
   <ComplexComponent />
 </PerformanceWrapper>
 ```
@@ -43,12 +47,12 @@ function App() {
 Use the `usePerformanceTracker` hook for custom performance measurements:
 
 ```tsx
-import { usePerformanceTracker } from './components/PerformanceWrapper';
+import { usePerformanceTracker } from "./components/PerformanceWrapper";
 
 function DataProcessingComponent() {
-  const tracker = usePerformanceTracker('DataProcessing');
+  const tracker = usePerformanceTracker("DataProcessing");
 
-  const processData = async data => {
+  const processData = async (data) => {
     tracker.start();
 
     // Your data processing logic
@@ -103,9 +107,9 @@ The component adds data attributes that can be used in tests:
 
 ```tsx
 // Test example
-const element = screen.getByTestId('my-component');
-expect(element).toHaveAttribute('data-performance-name', 'MyComponent');
-expect(element).toHaveAttribute('data-performance-slow', 'false');
+const element = screen.getByTestId("my-component");
+expect(element).toHaveAttribute("data-performance-name", "MyComponent");
+expect(element).toHaveAttribute("data-performance-slow", "false");
 ```
 
 ### Extending for Monitoring Services
@@ -115,7 +119,7 @@ expect(element).toHaveAttribute('data-performance-slow', 'false');
 const PerformanceWrapper = ({ name, children }) => {
   useEffect(() => {
     // Send metrics to your monitoring service
-    if (metrics && typeof window !== 'undefined') {
+    if (metrics && typeof window !== "undefined") {
       // analytics.track('component_performance', metrics);
       // datadog.increment('component.mount_time', metrics.mountTime);
       // newrelic.recordMetric('Custom/Component/MountTime', metrics.mountTime);

@@ -11,6 +11,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Development server fails to start
 
 **Symptoms**:
+
 - `Error: EADDRINUSE` - Port already in use
 - Server crashes immediately after starting
 - Cannot access `http://localhost:5173`
@@ -18,15 +19,17 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Port Conflict**:
+
    ```bash
    # Kill process using port 5173
    lsof -ti:5173 | xargs kill -9
-   
+
    # Or use a different port
    npm run dev -- --port 3000
    ```
 
 2. **Clear Development Cache**:
+
    ```bash
    rm -rf .vite
    npm run dev
@@ -43,6 +46,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: TypeScript compilation fails
 
 **Common Errors**:
+
 - Property does not exist on type
 - Cannot find module
 - Type errors in components
@@ -50,11 +54,13 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Check TypeScript Configuration**:
+
    ```bash
    npm run type-check
    ```
 
 2. **Update Type Definitions**:
+
    ```bash
    npm install --save-dev @types/react @types/react-dom
    ```
@@ -70,6 +76,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Frontend cannot connect to backend API
 
 **Symptoms**:
+
 - CORS errors in browser console
 - Network errors when submitting forms
 - 404 errors for API endpoints
@@ -77,12 +84,14 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Verify API URL**:
+
    ```bash
    # Check if API URL is correctly set
    echo $VITE_API_URL
    ```
 
 2. **Test API Directly**:
+
    ```bash
    curl -X POST "YOUR_API_URL" \
      -H "Content-Type: application/json" \
@@ -98,6 +107,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Production build fails
 
 **Common Errors**:
+
 - Out of memory errors
 - Module resolution failures
 - Asset optimization failures
@@ -105,17 +115,20 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Increase Memory Limit**:
+
    ```bash
    NODE_OPTIONS="--max-old-space-size=4096" npm run build
    ```
 
 2. **Clear Build Cache**:
+
    ```bash
    rm -rf build .vite
    npm run build
    ```
 
 3. **Check Dependencies**:
+
    ```bash
    npm audit
    ```
@@ -133,6 +146,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: CSS styles not applying correctly
 
 **Symptoms**:
+
 - Components look unstyled
 - Tailwind classes not working
 - Layout issues
@@ -140,12 +154,14 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Verify Tailwind Configuration**:
+
    ```bash
    # Check if tailwind.config.js exists and is properly configured
    ls -la tailwind.config.js
    ```
 
 2. **Rebuild CSS**:
+
    ```bash
    npm run build
    ```
@@ -161,6 +177,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Cannot deploy to Google Apps Script
 
 **Symptoms**:
+
 - CLASP authentication errors
 - Deployment timeouts
 - Permission denied errors
@@ -168,12 +185,14 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Re-authenticate CLASP**:
+
    ```bash
    clasp logout
    clasp login
    ```
 
 2. **Check Project Configuration**:
+
    ```bash
    # Verify appsscript.json exists
    cat backend/appsscript.json
@@ -189,6 +208,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Contact forms or job applications not working
 
 **Symptoms**:
+
 - Forms submit but no data is recorded
 - Email notifications not sent
 - Error responses from backend
@@ -215,6 +235,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Resume uploads fail in job applications
 
 **Symptoms**:
+
 - File upload progress but no file saved
 - Error messages about file size
 - Files not appearing in Google Drive
@@ -240,6 +261,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Environment variables not loading
 
 **Symptoms**:
+
 - API calls fail in production
 - Configuration values are undefined
 - Build-time variables not available
@@ -247,6 +269,7 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Verify Environment File**:
+
    ```bash
    # Check if .env file exists and is properly formatted
    cat frontend/.env
@@ -268,6 +291,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Backend configuration not working
 
 **Symptoms**:
+
 - Script properties returning null
 - Configuration values missing
 - Runtime errors about missing config
@@ -275,11 +299,12 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Set Script Properties**:
+
    ```javascript
    // In Google Apps Script editor
    PropertiesService.getScriptProperties().setProperties({
-     'CONTACT_FORM_SHEET_ID': 'your-sheet-id',
-     'EMAIL_TO': 'your-email@example.com'
+     CONTACT_FORM_SHEET_ID: "your-sheet-id",
+     EMAIL_TO: "your-email@example.com",
    });
    ```
 
@@ -294,6 +319,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: GitHub Pages deployment fails
 
 **Symptoms**:
+
 - GitHub Actions workflow fails
 - Site shows 404 error
 - Changes not reflected on live site
@@ -322,6 +348,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: CLASP deployment fails
 
 **Symptoms**:
+
 - Authentication errors
 - File upload failures
 - Version conflicts
@@ -329,11 +356,13 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Update CLASP**:
+
    ```bash
    npm update -g @google/clasp
    ```
 
 2. **Force Push Changes**:
+
    ```bash
    clasp push --force
    ```
@@ -351,6 +380,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: Website loads slowly
 
 **Symptoms**:
+
 - Long initial load times
 - Slow page transitions
 - Large bundle sizes
@@ -358,6 +388,7 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Analyze Bundle Size**:
+
    ```bash
    npm run build
    # Check bundle sizes in build output
@@ -378,6 +409,7 @@ This guide provides solutions to common issues encountered during development an
 **Problem**: High memory usage during development
 
 **Symptoms**:
+
 - Development server crashes
 - Browser becomes unresponsive
 - Out of memory errors
@@ -385,6 +417,7 @@ This guide provides solutions to common issues encountered during development an
 **Solutions**:
 
 1. **Increase Node Memory**:
+
    ```bash
    export NODE_OPTIONS="--max-old-space-size=4096"
    npm run dev
@@ -460,19 +493,19 @@ Include the following information:
    - Relevant code snippets
    - Configuration files
    - Recent changes made
-|-------|----------|-----------|
-| [CLASP deployment fails](#clasp-issues) | Authentication errors | [Fix CLASP auth](#clasp-troubleshooting) |
-| [Google Apps Script errors](#gas-issues) | Script execution fails | [Fix GAS problems](#gas-troubleshooting) |
-| [File upload issues](#upload-issues) | Large files won't upload | [Fix upload problems](#upload-troubleshooting) |
-| [Environment variables](#env-issues) | Configuration not loading | [Fix environment](#env-troubleshooting) |
+     |-------|----------|-----------|
+     | [CLASP deployment fails](#clasp-issues) | Authentication errors | [Fix CLASP auth](#clasp-troubleshooting) |
+     | [Google Apps Script errors](#gas-issues) | Script execution fails | [Fix GAS problems](#gas-troubleshooting) |
+     | [File upload issues](#upload-issues) | Large files won't upload | [Fix upload problems](#upload-troubleshooting) |
+     | [Environment variables](#env-issues) | Configuration not loading | [Fix environment](#env-troubleshooting) |
 
 ### **🚀 Deployment Issues**
 
-| Issue | Symptoms | Quick Fix |
-|-------|----------|-----------|
-| [GitHub Actions failing](#github-actions) | CI/CD pipeline errors | [Fix Actions](#actions-troubleshooting) |
-| [Deployment sync issues](#sync-issues) | Frontend/backend out of sync | [Fix sync](#sync-troubleshooting) |
-| [Environment management](#env-management) | Wrong environment active | [Fix environments](#environment-troubleshooting) |
+| Issue                                     | Symptoms                     | Quick Fix                                        |
+| ----------------------------------------- | ---------------------------- | ------------------------------------------------ |
+| [GitHub Actions failing](#github-actions) | CI/CD pipeline errors        | [Fix Actions](#actions-troubleshooting)          |
+| [Deployment sync issues](#sync-issues)    | Frontend/backend out of sync | [Fix sync](#sync-troubleshooting)                |
+| [Environment management](#env-management) | Wrong environment active     | [Fix environments](#environment-troubleshooting) |
 
 ---
 
@@ -483,6 +516,7 @@ Include the following information:
 #### **❌ Port Already in Use** {#port-conflicts}
 
 **Symptoms:**
+
 ```bash
 Error: EADDRINUSE: address already in use :::5173
 ```
@@ -501,6 +535,7 @@ pkill -f node
 ```
 
 **Pro Tip:** Add this alias to your shell for quick port killing:
+
 ```bash
 # Add to ~/.zshrc or ~/.bashrc
 alias killport='function _killport(){ lsof -ti:$1 | xargs kill -9; }; _killport'
@@ -510,6 +545,7 @@ alias killport='function _killport(){ lsof -ti:$1 | xargs kill -9; }; _killport'
 #### **❌ Module Not Found Errors**
 
 **Symptoms:**
+
 ```bash
 Cannot resolve module '@/components/Layout'
 ```
@@ -534,6 +570,7 @@ cat frontend/tsconfig.json | grep -A 5 "paths"
 #### **❌ Type Errors Everywhere** {#typescript-fixes}
 
 **Symptoms:**
+
 - Red squiggly lines in VS Code
 - Build fails with type errors
 - IntelliSense not working
@@ -560,19 +597,19 @@ npm ls @types/react
 ```typescript
 // Fix: Property 'children' does not exist on type
 interface Props {
-  children?: React.ReactNode;  // Add this
+  children?: React.ReactNode; // Add this
 }
 
 // Fix: Cannot find module or its corresponding type declarations
-declare module '*.svg' {
+declare module "*.svg" {
   const content: any;
   export default content;
 }
 
 // Fix: Object is possibly 'null'
-const element = document.getElementById('root')!;  // Add !
+const element = document.getElementById("root")!; // Add !
 // or
-const element = document.getElementById('root') as HTMLElement;
+const element = document.getElementById("root") as HTMLElement;
 ```
 
 ### **API Issues** {#api-issues}
@@ -580,8 +617,9 @@ const element = document.getElementById('root') as HTMLElement;
 #### **❌ CORS Errors** {#api-troubleshooting}
 
 **Symptoms:**
+
 ```bash
-Access to fetch at 'https://script.google.com/...' from origin 'http://localhost:5173' 
+Access to fetch at 'https://script.google.com/...' from origin 'http://localhost:5173'
 has been blocked by CORS policy
 ```
 
@@ -638,6 +676,7 @@ npm run deploy
 #### **❌ Build Process Crashes** {#build-troubleshooting}
 
 **Symptoms:**
+
 ```bash
 Building for production...
 ✖ Build failed in 2.3s
@@ -669,7 +708,7 @@ rm -rf frontend/.vite
 const component = await import(`./components/${name}.tsx`);
 
 // ✅ Good
-const component = await import('./components/SpecificComponent.tsx');
+const component = await import("./components/SpecificComponent.tsx");
 
 // Fix: Environment variables not available in build
 // Check frontend/vite.config.ts for env variable exposure
@@ -715,6 +754,7 @@ rm -rf frontend/.vite
 #### **❌ CLASP Authentication Fails** {#clasp-troubleshooting}
 
 **Symptoms:**
+
 ```bash
 Invalid credentials. Please run `clasp login`
 ```
@@ -739,6 +779,7 @@ clasp open
 #### **❌ Project Not Found**
 
 **Symptoms:**
+
 ```bash
 Could not read .clasp.json
 ```
@@ -774,7 +815,7 @@ function processLargeFile(data) {
   for (let i = 0; i < data.length; i += CHUNK_SIZE) {
     const chunk = data.slice(i, i + CHUNK_SIZE);
     processChunk(chunk);
-    
+
     // Yield control to prevent timeout
     if (i % 500 === 0) {
       Utilities.sleep(100);
@@ -799,6 +840,7 @@ function processLargeFile(data) {
 #### **❌ Large Files Won't Upload** {#upload-troubleshooting}
 
 **Symptoms:**
+
 - Files > 10MB fail to upload
 - Upload process hangs
 - Error messages about file size
@@ -883,8 +925,8 @@ npm run deploy
 - name: Setup Node.js
   uses: actions/setup-node@v4
   with:
-    node-version: '18'  # Use specific version
-    cache: 'npm'
+    node-version: "18" # Use specific version
+    cache: "npm"
 
 # Fix: Permission issues
 - name: Deploy
@@ -898,6 +940,7 @@ npm run deploy
 #### **❌ Frontend/Backend Out of Sync** {#sync-troubleshooting}
 
 **Symptoms:**
+
 - Frontend shows old data
 - API calls return 404
 - Forms not submitting
@@ -966,16 +1009,16 @@ npx vite-bundle-analyzer dist
 
 ```javascript
 // Check if environment variables are loaded
-console.log('Deployment ID:', window.GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID);
+console.log("Deployment ID:", window.GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID);
 
 // Test API manually
-fetch('https://script.google.com/macros/s/YOUR_ID/exec?action=test')
-  .then(r => r.json())
+fetch("https://script.google.com/macros/s/YOUR_ID/exec?action=test")
+  .then((r) => r.json())
   .then(console.log);
 
 // Check for JavaScript errors
-window.addEventListener('error', (e) => {
-  console.error('Global error:', e.error);
+window.addEventListener("error", (e) => {
+  console.error("Global error:", e.error);
 });
 ```
 
@@ -990,10 +1033,10 @@ function debugLog(message, data) {
 // Test functions in Apps Script editor
 function testFunction() {
   const result = doPost({
-    parameter: { action: 'test' },
-    postData: { contents: '{}' }
+    parameter: { action: "test" },
+    postData: { contents: "{}" },
   });
-  debugLog('Test result', result);
+  debugLog("Test result", result);
 }
 ```
 
@@ -1070,15 +1113,17 @@ When reporting issues, include:
 ## Bug Report
 
 **Environment:**
+
 - OS: [macOS/Windows/Linux]
 - Node.js version: [run `node --version`]
 - npm version: [run `npm --version`]
 - Browser: [Chrome/Firefox/Safari/Edge]
 
 **Steps to Reproduce:**
-1. 
-2. 
-3. 
+
+1.
+2.
+3.
 
 **Expected Behavior:**
 [What should happen]
@@ -1088,7 +1133,9 @@ When reporting issues, include:
 
 **Error Messages:**
 ```
+
 [Paste error messages here]
+
 ```
 
 **Additional Context:**
@@ -1136,7 +1183,7 @@ git status                 # Check what you're committing
 
 ### 🎉 **May Your Code Be Bug-Free and Your Deployments Smooth! ⚡**
 
-*"The best debugger ever written is a careful reading of the error message!"*
+_"The best debugger ever written is a careful reading of the error message!"_
 
 [![Back to Main](https://img.shields.io/badge/←%20Back%20to%20Main-README-blue?style=for-the-badge)](../README.md)
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)

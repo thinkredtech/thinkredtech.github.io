@@ -1,33 +1,46 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { sanitizeInput, validateEmail, validatePhone, validateTextLength } from '../../utils/security';
-import { submitContactForm, checkRateLimit, validateHoneypot } from '../../utils/api';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  sanitizeInput,
+  validateEmail,
+  validatePhone,
+  validateTextLength,
+} from "../../utils/security";
+import {
+  submitContactForm,
+  checkRateLimit,
+  validateHoneypot,
+} from "../../utils/api";
 
 // Discovery Call component
 const DiscoveryCallScheduler = () => {
   // Form state
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    projectType: '',
-    preferredDate: '',
-    preferredTime: '',
-    timezone: '',
-    additionalInfo: '',
-    honeypot: '', // Spam prevention field
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    projectType: "",
+    preferredDate: "",
+    preferredTime: "",
+    timezone: "",
+    additionalInfo: "",
+    honeypot: "", // Spam prevention field
   });
 
   // Form submission states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState("");
 
   // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -37,57 +50,59 @@ const DiscoveryCallScheduler = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitError('');
+    setSubmitError("");
 
     try {
       // Spam prevention: Check honeypot field
       if (!validateHoneypot(formData.honeypot)) {
-        setSubmitError('Spam detected. Please try again.');
+        setSubmitError("Spam detected. Please try again.");
         setIsSubmitting(false);
         return;
       }
 
       // Rate limiting: Check for rapid successive submissions
       if (!checkRateLimit(formData.email, 5000)) {
-        setSubmitError('Please wait before submitting another request.');
+        setSubmitError("Please wait before submitting another request.");
         setIsSubmitting(false);
         return;
       }
 
       // Input validation
       if (!validateEmail(formData.email)) {
-        setSubmitError('Please enter a valid email address.');
+        setSubmitError("Please enter a valid email address.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validatePhone(formData.phone)) {
-        setSubmitError('Please enter a valid phone number.');
+        setSubmitError("Please enter a valid phone number.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.name, 100, 1)) {
-        setSubmitError('Name must be between 1 and 100 characters.');
+        setSubmitError("Name must be between 1 and 100 characters.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.company, 100, 1)) {
-        setSubmitError('Company name must be between 1 and 100 characters.');
+        setSubmitError("Company name must be between 1 and 100 characters.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.additionalInfo, 500, 0)) {
-        setSubmitError('Additional information must be less than 500 characters.');
+        setSubmitError(
+          "Additional information must be less than 500 characters.",
+        );
         setIsSubmitting(false);
         return;
       }
 
       // Sanitize inputs
       const sanitizedData = {
-        formType: 'Discovery Call',
+        formType: "Discovery Call",
         name: sanitizeInput(formData.name),
         email: sanitizeInput(formData.email),
         company: sanitizeInput(formData.company),
@@ -103,20 +118,22 @@ const DiscoveryCallScheduler = () => {
 
       // Reset form
       setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        projectType: '',
-        preferredDate: '',
-        preferredTime: '',
-        timezone: '',
-        additionalInfo: '',
-        honeypot: '',
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        projectType: "",
+        preferredDate: "",
+        preferredTime: "",
+        timezone: "",
+        additionalInfo: "",
+        honeypot: "",
       });
     } catch {
       // Error scheduling discovery call - handled gracefully
-      setSubmitError('There was an error scheduling your call. Please try again later.');
+      setSubmitError(
+        "There was an error scheduling your call. Please try again later.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -124,64 +141,64 @@ const DiscoveryCallScheduler = () => {
 
   // Options for select inputs
   const projectTypes = [
-    'Web Application Development',
-    'Mobile Application Development',
-    'Platform Engineering',
-    'DevOps & Infrastructure Automation',
-    'Technology Consultation',
-    'Design & Branding',
-    'Data & AI Services',
-    'Other',
+    "Web Application Development",
+    "Mobile Application Development",
+    "Platform Engineering",
+    "DevOps & Infrastructure Automation",
+    "Technology Consultation",
+    "Design & Branding",
+    "Data & AI Services",
+    "Other",
   ];
 
   const timezones = [
-    'UTC-12:00',
-    'UTC-11:00',
-    'UTC-10:00',
-    'UTC-09:00',
-    'UTC-08:00 (PST)',
-    'UTC-07:00 (MST)',
-    'UTC-06:00 (CST)',
-    'UTC-05:00 (EST)',
-    'UTC-04:00',
-    'UTC-03:00',
-    'UTC-02:00',
-    'UTC-01:00',
-    'UTC+00:00 (GMT)',
-    'UTC+01:00 (CET)',
-    'UTC+02:00',
-    'UTC+03:00',
-    'UTC+04:00',
-    'UTC+05:00',
-    'UTC+05:30 (IST)',
-    'UTC+06:00',
-    'UTC+07:00',
-    'UTC+08:00',
-    'UTC+09:00 (JST)',
-    'UTC+10:00',
-    'UTC+11:00',
-    'UTC+12:00',
+    "UTC-12:00",
+    "UTC-11:00",
+    "UTC-10:00",
+    "UTC-09:00",
+    "UTC-08:00 (PST)",
+    "UTC-07:00 (MST)",
+    "UTC-06:00 (CST)",
+    "UTC-05:00 (EST)",
+    "UTC-04:00",
+    "UTC-03:00",
+    "UTC-02:00",
+    "UTC-01:00",
+    "UTC+00:00 (GMT)",
+    "UTC+01:00 (CET)",
+    "UTC+02:00",
+    "UTC+03:00",
+    "UTC+04:00",
+    "UTC+05:00",
+    "UTC+05:30 (IST)",
+    "UTC+06:00",
+    "UTC+07:00",
+    "UTC+08:00",
+    "UTC+09:00 (JST)",
+    "UTC+10:00",
+    "UTC+11:00",
+    "UTC+12:00",
   ];
 
   const timeSlots = [
-    '09:00 AM',
-    '09:30 AM',
-    '10:00 AM',
-    '10:30 AM',
-    '11:00 AM',
-    '11:30 AM',
-    '12:00 PM',
-    '12:30 PM',
-    '01:00 PM',
-    '01:30 PM',
-    '02:00 PM',
-    '02:30 PM',
-    '03:00 PM',
-    '03:30 PM',
-    '04:00 PM',
-    '04:30 PM',
-    '05:00 PM',
-    '05:30 PM',
+    "09:00 AM",
+    "09:30 AM",
+    "10:00 AM",
+    "10:30 AM",
+    "11:00 AM",
+    "11:30 AM",
+    "12:00 PM",
+    "12:30 PM",
+    "01:00 PM",
+    "01:30 PM",
+    "02:00 PM",
+    "02:30 PM",
+    "03:00 PM",
+    "03:30 PM",
+    "04:00 PM",
+    "04:30 PM",
+    "05:00 PM",
+    "05:30 PM",
   ];
 
   return (
@@ -191,7 +208,12 @@ const DiscoveryCallScheduler = () => {
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
           <div className="flex items-center mb-4">
-            <svg className="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-8 h-8 text-green-500 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -202,23 +224,31 @@ const DiscoveryCallScheduler = () => {
             <h3 className="heading-2">Discovery Call Scheduled!</h3>
           </div>
           <p className="mb-4">
-            Thank you for scheduling a discovery call with ThinkRED Technologies. We'll confirm your appointment shortly
-            via email.
+            Thank you for scheduling a discovery call with ThinkRED
+            Technologies. We'll confirm your appointment shortly via email.
           </p>
-          <button onClick={() => setSubmitSuccess(false)} className="btn btn-primary">
+          <button
+            onClick={() => setSubmitSuccess(false)}
+            className="btn btn-primary"
+          >
             Schedule Another Call
           </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
           {submitError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{submitError}</div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+              {submitError}
+            </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
             <div>
-              <label htmlFor="dc-name" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-name"
+                className="block body-2 text-secondary mb-1"
+              >
                 Name *
               </label>
               <input
@@ -234,7 +264,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Email */}
             <div>
-              <label htmlFor="dc-email" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-email"
+                className="block body-2 text-secondary mb-1"
+              >
                 Email *
               </label>
               <input
@@ -250,7 +283,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Company */}
             <div>
-              <label htmlFor="dc-company" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-company"
+                className="block body-2 text-secondary mb-1"
+              >
                 Company
               </label>
               <input
@@ -265,7 +301,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Phone */}
             <div>
-              <label htmlFor="dc-phone" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-phone"
+                className="block body-2 text-secondary mb-1"
+              >
                 Phone
               </label>
               <input
@@ -280,7 +319,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Project Type */}
             <div>
-              <label htmlFor="dc-projectType" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-projectType"
+                className="block body-2 text-secondary mb-1"
+              >
                 Project Type *
               </label>
               <select
@@ -302,7 +344,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Timezone */}
             <div>
-              <label htmlFor="dc-timezone" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-timezone"
+                className="block body-2 text-secondary mb-1"
+              >
                 Your Timezone *
               </label>
               <select
@@ -324,7 +369,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Preferred Date */}
             <div>
-              <label htmlFor="dc-preferredDate" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-preferredDate"
+                className="block body-2 text-secondary mb-1"
+              >
                 Preferred Date *
               </label>
               <input
@@ -334,14 +382,17 @@ const DiscoveryCallScheduler = () => {
                 value={formData.preferredDate}
                 onChange={handleChange}
                 required
-                min={new Date().toISOString().split('T')[0]}
+                min={new Date().toISOString().split("T")[0]}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
 
             {/* Preferred Time */}
             <div>
-              <label htmlFor="dc-preferredTime" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-preferredTime"
+                className="block body-2 text-secondary mb-1"
+              >
                 Preferred Time *
               </label>
               <select
@@ -363,7 +414,10 @@ const DiscoveryCallScheduler = () => {
 
             {/* Additional Information */}
             <div className="md:col-span-2">
-              <label htmlFor="dc-additionalInfo" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="dc-additionalInfo"
+                className="block body-2 text-secondary mb-1"
+              >
                 Additional Information
               </label>
               <textarea
@@ -385,9 +439,15 @@ const DiscoveryCallScheduler = () => {
               required
               className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
             />
-            <label htmlFor="dc-privacy" className="ml-2 block text-sm text-secondary">
-              I agree to the{' '}
-              <Link to="/privacy-policy" className="text-primary hover:underline">
+            <label
+              htmlFor="dc-privacy"
+              className="ml-2 block text-sm text-secondary"
+            >
+              I agree to the{" "}
+              <Link
+                to="/privacy-policy"
+                className="text-primary hover:underline"
+              >
                 Privacy Policy
               </Link>
             </label>
@@ -395,7 +455,9 @@ const DiscoveryCallScheduler = () => {
 
           {/* Honeypot field - hidden from users to prevent spam */}
           <div className="hidden">
-            <label htmlFor="dc-website">Website (leave blank if you're human)</label>
+            <label htmlFor="dc-website">
+              Website (leave blank if you're human)
+            </label>
             <input
               type="text"
               id="dc-website"
@@ -411,7 +473,7 @@ const DiscoveryCallScheduler = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`btn btn-primary ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`btn btn-primary ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             >
               {isSubmitting ? (
                 <>
@@ -438,7 +500,7 @@ const DiscoveryCallScheduler = () => {
                   Scheduling...
                 </>
               ) : (
-                'Schedule Call'
+                "Schedule Call"
               )}
             </button>
           </div>
@@ -452,28 +514,32 @@ const DiscoveryCallScheduler = () => {
 const QuoteRequestForm = () => {
   // Form state
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    projectType: '',
-    projectDescription: '',
-    budget: '',
-    timeline: '',
-    requirements: '',
-    hearAboutUs: '',
-    honeypot: '', // Spam prevention field
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    projectType: "",
+    projectDescription: "",
+    budget: "",
+    timeline: "",
+    requirements: "",
+    hearAboutUs: "",
+    honeypot: "", // Spam prevention field
   });
 
   // Form submission states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState("");
 
   // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -483,63 +549,65 @@ const QuoteRequestForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitError('');
+    setSubmitError("");
 
     try {
       // Spam prevention: Check honeypot field
       if (!validateHoneypot(formData.honeypot)) {
-        setSubmitError('Spam detected. Please try again.');
+        setSubmitError("Spam detected. Please try again.");
         setIsSubmitting(false);
         return;
       }
 
       // Rate limiting: Check for rapid successive submissions
       if (!checkRateLimit(formData.email, 5000)) {
-        setSubmitError('Please wait before submitting another request.');
+        setSubmitError("Please wait before submitting another request.");
         setIsSubmitting(false);
         return;
       }
 
       // Input validation
       if (!validateEmail(formData.email)) {
-        setSubmitError('Please enter a valid email address.');
+        setSubmitError("Please enter a valid email address.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validatePhone(formData.phone)) {
-        setSubmitError('Please enter a valid phone number.');
+        setSubmitError("Please enter a valid phone number.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.name, 100, 1)) {
-        setSubmitError('Name must be between 1 and 100 characters.');
+        setSubmitError("Name must be between 1 and 100 characters.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.company, 100, 1)) {
-        setSubmitError('Company name must be between 1 and 100 characters.');
+        setSubmitError("Company name must be between 1 and 100 characters.");
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.projectDescription, 500, 10)) {
-        setSubmitError('Project description must be between 10 and 500 characters.');
+        setSubmitError(
+          "Project description must be between 10 and 500 characters.",
+        );
         setIsSubmitting(false);
         return;
       }
 
       if (!validateTextLength(formData.requirements, 500, 0)) {
-        setSubmitError('Requirements must be less than 500 characters.');
+        setSubmitError("Requirements must be less than 500 characters.");
         setIsSubmitting(false);
         return;
       }
 
       // Sanitize inputs
       const sanitizedData = {
-        formType: 'Quote Request',
+        formType: "Quote Request",
         name: sanitizeInput(formData.name),
         email: sanitizeInput(formData.email),
         company: sanitizeInput(formData.company),
@@ -555,21 +623,23 @@ const QuoteRequestForm = () => {
 
       // Reset form
       setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        projectType: '',
-        projectDescription: '',
-        budget: '',
-        timeline: '',
-        requirements: '',
-        hearAboutUs: '',
-        honeypot: '',
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        projectType: "",
+        projectDescription: "",
+        budget: "",
+        timeline: "",
+        requirements: "",
+        hearAboutUs: "",
+        honeypot: "",
       });
     } catch {
       // Error requesting quote - handled gracefully
-      setSubmitError('There was an error submitting your quote request. Please try again later.');
+      setSubmitError(
+        "There was an error submitting your quote request. Please try again later.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -577,28 +647,41 @@ const QuoteRequestForm = () => {
 
   // Options for select inputs
   const projectTypes = [
-    'Web Application Development',
-    'Mobile Application Development',
-    'Platform Engineering',
-    'DevOps & Infrastructure Automation',
-    'Technology Consultation',
-    'Design & Branding',
-    'Data & AI Services',
-    'Other',
+    "Web Application Development",
+    "Mobile Application Development",
+    "Platform Engineering",
+    "DevOps & Infrastructure Automation",
+    "Technology Consultation",
+    "Design & Branding",
+    "Data & AI Services",
+    "Other",
   ];
 
   const budgetRanges = [
-    'Less than $1,000',
-    '$1,000 - $10,000',
-    '$10,000 - $25,000',
-    '$25,000 - $50,000',
-    '$50,000 - $100,000',
-    '$100,000+',
+    "Less than $1,000",
+    "$1,000 - $10,000",
+    "$10,000 - $25,000",
+    "$25,000 - $50,000",
+    "$50,000 - $100,000",
+    "$100,000+",
   ];
 
-  const timelineOptions = ['Less than 1 month', '1-3 months', '3-6 months', '6+ months', 'Ongoing support'];
+  const timelineOptions = [
+    "Less than 1 month",
+    "1-3 months",
+    "3-6 months",
+    "6+ months",
+    "Ongoing support",
+  ];
 
-  const referralSources = ['Google Search', 'Social Media', 'Referral', 'Blog/Article', 'Conference/Event', 'Other'];
+  const referralSources = [
+    "Google Search",
+    "Social Media",
+    "Referral",
+    "Blog/Article",
+    "Conference/Event",
+    "Other",
+  ];
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
@@ -607,7 +690,12 @@ const QuoteRequestForm = () => {
       {submitSuccess ? (
         <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-8 rounded-lg mb-6">
           <div className="flex items-center mb-4">
-            <svg className="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-8 h-8 text-green-500 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -618,23 +706,32 @@ const QuoteRequestForm = () => {
             <h3 className="heading-2">Quote Request Received!</h3>
           </div>
           <p className="mb-4">
-            Thank you for your interest in ThinkRED Technologies. We'll review your project details and get back to you
-            with a customized quote within 2 business days.
+            Thank you for your interest in ThinkRED Technologies. We'll review
+            your project details and get back to you with a customized quote
+            within 2 business days.
           </p>
-          <button onClick={() => setSubmitSuccess(false)} className="btn btn-primary">
+          <button
+            onClick={() => setSubmitSuccess(false)}
+            className="btn btn-primary"
+          >
             Submit Another Request
           </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
           {submitError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{submitError}</div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+              {submitError}
+            </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
             <div>
-              <label htmlFor="qr-name" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-name"
+                className="block body-2 text-secondary mb-1"
+              >
                 Name *
               </label>
               <input
@@ -650,7 +747,10 @@ const QuoteRequestForm = () => {
 
             {/* Email */}
             <div>
-              <label htmlFor="qr-email" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-email"
+                className="block body-2 text-secondary mb-1"
+              >
                 Email *
               </label>
               <input
@@ -666,7 +766,10 @@ const QuoteRequestForm = () => {
 
             {/* Company */}
             <div>
-              <label htmlFor="qr-company" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-company"
+                className="block body-2 text-secondary mb-1"
+              >
                 Company
               </label>
               <input
@@ -681,7 +784,10 @@ const QuoteRequestForm = () => {
 
             {/* Phone */}
             <div>
-              <label htmlFor="qr-phone" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-phone"
+                className="block body-2 text-secondary mb-1"
+              >
                 Phone
               </label>
               <input
@@ -696,7 +802,10 @@ const QuoteRequestForm = () => {
 
             {/* Project Type */}
             <div>
-              <label htmlFor="qr-projectType" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-projectType"
+                className="block body-2 text-secondary mb-1"
+              >
                 Project Type *
               </label>
               <select
@@ -718,7 +827,10 @@ const QuoteRequestForm = () => {
 
             {/* Budget */}
             <div>
-              <label htmlFor="qr-budget" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-budget"
+                className="block body-2 text-secondary mb-1"
+              >
                 Budget *
               </label>
               <select
@@ -740,7 +852,10 @@ const QuoteRequestForm = () => {
 
             {/* Timeline */}
             <div>
-              <label htmlFor="qr-timeline" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-timeline"
+                className="block body-2 text-secondary mb-1"
+              >
                 Timeline *
               </label>
               <select
@@ -762,7 +877,10 @@ const QuoteRequestForm = () => {
 
             {/* How did you hear about us */}
             <div>
-              <label htmlFor="qr-hearAboutUs" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-hearAboutUs"
+                className="block body-2 text-secondary mb-1"
+              >
                 How did you hear about us?
               </label>
               <select
@@ -783,7 +901,10 @@ const QuoteRequestForm = () => {
 
             {/* Project Description */}
             <div className="md:col-span-2">
-              <label htmlFor="qr-projectDescription" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-projectDescription"
+                className="block body-2 text-secondary mb-1"
+              >
                 Project Description *
               </label>
               <textarea
@@ -800,7 +921,10 @@ const QuoteRequestForm = () => {
 
             {/* Specific Requirements */}
             <div className="md:col-span-2">
-              <label htmlFor="qr-requirements" className="block body-2 text-secondary mb-1">
+              <label
+                htmlFor="qr-requirements"
+                className="block body-2 text-secondary mb-1"
+              >
                 Specific Requirements
               </label>
               <textarea
@@ -822,9 +946,15 @@ const QuoteRequestForm = () => {
               required
               className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
             />
-            <label htmlFor="qr-privacy" className="ml-2 block text-sm text-secondary">
-              I agree to the{' '}
-              <Link to="/privacy-policy" className="text-primary hover:underline">
+            <label
+              htmlFor="qr-privacy"
+              className="ml-2 block text-sm text-secondary"
+            >
+              I agree to the{" "}
+              <Link
+                to="/privacy-policy"
+                className="text-primary hover:underline"
+              >
                 Privacy Policy
               </Link>
             </label>
@@ -832,7 +962,9 @@ const QuoteRequestForm = () => {
 
           {/* Honeypot field - hidden from users to prevent spam */}
           <div className="hidden">
-            <label htmlFor="qr-website">Website (leave blank if you're human)</label>
+            <label htmlFor="qr-website">
+              Website (leave blank if you're human)
+            </label>
             <input
               type="text"
               id="qr-website"
@@ -848,7 +980,7 @@ const QuoteRequestForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`btn btn-primary ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`btn btn-primary ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             >
               {isSubmitting ? (
                 <>
@@ -875,7 +1007,7 @@ const QuoteRequestForm = () => {
                   Submitting...
                 </>
               ) : (
-                'Request Quote'
+                "Request Quote"
               )}
             </button>
           </div>

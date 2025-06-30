@@ -19,6 +19,7 @@ formatting, better readability, and universal compatibility across all Markdown 
 ### Previous ASCII Issues (Resolved)
 
 ❌ **Old Problems**:
+
 - Inconsistent column widths and spacing
 - Alignment issues across different terminals
 - Unicode character rendering problems
@@ -26,6 +27,7 @@ formatting, better readability, and universal compatibility across all Markdown 
 - Poor readability in some viewers
 
 ✅ **New Solution**:
+
 - Clean Markdown table syntax
 - Consistent column alignment
 - Progress bars preserved within table cells
@@ -39,6 +41,7 @@ formatting, better readability, and universal compatibility across all Markdown 
 **Location**: `scripts/utils/report-formatter.js`
 
 **Key Functions**:
+
 - `generateMarkdownTable()` - Creates properly formatted Markdown tables
 - `generateProgressBar()` - Generates progress bars for table cells
 - `generateMetricsDashboard()` - Structured metrics with Markdown tables
@@ -49,8 +52,8 @@ formatting, better readability, and universal compatibility across all Markdown 
 
 ```javascript
 // Standard table structure
-const headers = ['📊 Metric', 'Progress', 'Value', 'Status'];
-const alignments = ['left', 'left', 'center', 'left'];
+const headers = ["📊 Metric", "Progress", "Value", "Status"];
+const alignments = ["left", "left", "center", "left"];
 
 // Progress bars are embedded in table cells
 const progressCell = `\`${generateProgressBar(percentage, 20)}\``;
@@ -59,12 +62,14 @@ const progressCell = `\`${generateProgressBar(percentage, 20)}\``;
 ### 3. Consistent Table Formatting
 
 **Column Alignments**:
+
 - Labels: Left-aligned for readability
 - Progress bars: Left-aligned for visual consistency
 - Metrics/Values: Center-aligned for emphasis
 - Status: Left-aligned for clarity
 
 **Updated Files**:
+
 - `scripts/utils/generate-visual-reports.cjs` - Migrated to Markdown table generation
 - `scripts/utils/report-formatter.js` - Updated with Markdown table utilities
 - All auto-generated reports now use clean Markdown table format
@@ -84,13 +89,14 @@ const progressCell = `\`${generateProgressBar(percentage, 20)}\``;
 
 ### After (Clean Markdown Tables)
 
-| 🎯 Service | Status | Health | Metric | Details |
-| --- | :---: | --- | :---: | --- |
-| 🌐 Website | 🟢 | `██████████████▒` | 850ms | OPERATIONAL |
-| 🏗️ Build Pipeline | 🟢 | `███████████████` | 2m15s | HEALTHY |
-| ⚡ Performance | 🟢 | `█████████████▒▒` | 986KB | OPTIMIZED |
+| 🎯 Service        | Status | Health            | Metric | Details     |
+| ----------------- | :----: | ----------------- | :----: | ----------- |
+| 🌐 Website        |   🟢   | `██████████████▒` | 850ms  | OPERATIONAL |
+| 🏗️ Build Pipeline |   🟢   | `███████████████` | 2m15s  | HEALTHY     |
+| ⚡ Performance    |   🟢   | `█████████████▒▒` | 986KB  | OPTIMIZED   |
 
 **Advantages**:
+
 - ✅ Perfect alignment across all viewers
 - ✅ Consistent column widths
 - ✅ Professional appearance
@@ -232,10 +238,10 @@ code reports/automated/health-report.md
 
 ```javascript
 const tableConfig = {
-  defaultAlignments: ['left', 'center', 'right'],
+  defaultAlignments: ["left", "center", "right"],
   progressBarWidth: 20,
   maxCellContent: 50,
-  wrapLongContent: true
+  wrapLongContent: true,
 };
 ```
 
@@ -243,10 +249,10 @@ const tableConfig = {
 
 ```javascript
 const progressConfig = {
-  width: 20,         // Standard bar width
-  filledChar: '█',   // Filled sections
-  emptyChar: '▒',    // Empty sections
-  wrapInCode: true   // Wrap in backticks for Markdown
+  width: 20, // Standard bar width
+  filledChar: "█", // Filled sections
+  emptyChar: "▒", // Empty sections
+  wrapInCode: true, // Wrap in backticks for Markdown
 };
 ```
 
@@ -254,11 +260,11 @@ const progressConfig = {
 
 ```javascript
 const tableStandards = {
-  headerSeparator: '---',        // Column separator
-  centerAlign: ':---:',          // Center alignment
-  rightAlign: '---:',            // Right alignment
-  cellPadding: ' ',              // Space around content
-  maxColumns: 6                  // Recommended max columns
+  headerSeparator: "---", // Column separator
+  centerAlign: ":---:", // Center alignment
+  rightAlign: "---:", // Right alignment
+  cellPadding: " ", // Space around content
+  maxColumns: 6, // Recommended max columns
 };
 ```
 
@@ -267,25 +273,25 @@ const tableStandards = {
 ### Service Status Table
 
 ```markdown
-| 🎯 Service | Status | Health | Metric | Details |
-| --- | :---: | --- | :---: | --- |
-| 🌐 Website | 🟢 | `██████████████▒` | 850ms | OPERATIONAL |
+| 🎯 Service | Status | Health            | Metric | Details     |
+| ---------- | :----: | ----------------- | :----: | ----------- |
+| 🌐 Website |   🟢   | `██████████████▒` | 850ms  | OPERATIONAL |
 ```
 
 ### Metrics Dashboard Table
 
 ```markdown
-| 📊 Metric | Progress | Value | Status |
-| --- | --- | :---: | --- |
+| 📊 Metric  | Progress               | Value | Status  |
+| ---------- | ---------------------- | :---: | ------- |
 | Load Speed | `█████████████████▒▒▒` | 850ms | 🟢 FAST |
 ```
 
 ### Trend Analysis Table
 
 ```markdown
-| 📅 Period | Trend | Value | Status |
-| --- | --- | :---: | :---: |
-| Week 1 | `████████████████████` | 99.8% | 🟢 |
+| 📅 Period | Trend                  | Value | Status |
+| --------- | ---------------------- | :---: | :----: |
+| Week 1    | `████████████████████` | 99.8% |   🟢   |
 ```
 
 ---

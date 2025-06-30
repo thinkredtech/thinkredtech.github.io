@@ -71,7 +71,7 @@ backend/
 #### Contact Forms
 
 - `POST /contact` - General contact form submissions
-- `POST /quote` - Quote request submissions  
+- `POST /quote` - Quote request submissions
 - `POST /discovery` - Discovery call booking
 
 #### Job Applications

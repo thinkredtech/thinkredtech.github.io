@@ -52,6 +52,7 @@ chore(deps): update dependencies
 ```
 
 **Commit Types:**
+
 - `feat`: New features
 - `fix`: Bug fixes
 - `docs`: Documentation changes
@@ -155,6 +156,7 @@ npm run test:e2e
 #### Pull Request Guidelines
 
 **PR Title Format:**
+
 ```
 [TYPE] Brief description of changes
 
@@ -165,11 +167,14 @@ Examples:
 ```
 
 **PR Description Template:**
+
 ```markdown
 ## Description
+
 Brief description of what this PR does.
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
@@ -177,14 +182,17 @@ Brief description of what this PR does.
 - [ ] Performance improvement
 
 ## Testing
+
 - [ ] Unit tests added/updated
 - [ ] Manual testing completed
 - [ ] Responsive design verified
 
 ## Screenshots (if applicable)
+
 [Add screenshots for UI changes]
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -247,6 +255,7 @@ npm run build
 ### Automated Deployment
 
 Production deployments are triggered by:
+
 - **Push to `main`** - Automatic deployment to production
 - **Tagged releases** - Versioned deployments
 - **Manual triggers** - Emergency deployments
@@ -288,6 +297,7 @@ npm run security:build
 ### Versioning Strategy
 
 We use **Semantic Versioning** (SemVer):
+
 - **MAJOR** (1.0.0): Breaking changes
 - **MINOR** (1.1.0): New features, backward compatible
 - **PATCH** (1.1.1): Bug fixes, backward compatible
@@ -295,38 +305,41 @@ We use **Semantic Versioning** (SemVer):
 ### Release Process
 
 1. **Preparation**:
+
    ```bash
    # Create release branch
    git checkout -b release/v1.2.0
-   
+
    # Update version
    npm version minor
-   
+
    # Update CHANGELOG.md
    # Final testing
    ```
 
 2. **Release**:
+
    ```bash
    # Merge to main
    git checkout main
    git merge release/v1.2.0
-   
+
    # Tag release
    git tag v1.2.0
    git push origin main --tags
-   
+
    # Deploy to production
    npm run deploy:github
    ```
 
 3. **Post-Release**:
+
    ```bash
    # Merge back to develop
    git checkout develop
    git merge main
    git push origin develop
-   
+
    # Clean up
    git branch -d release/v1.2.0
    ```

@@ -23,7 +23,7 @@ form-action 'self';
 upgrade-insecure-requests;
 block-all-mixed-content;
 `
-  .replace(/\s+/g, ' ')
+  .replace(/\s+/g, " ")
   .trim();
 
 // Development CSP - More permissive for Vite dev server
@@ -46,7 +46,7 @@ form-action 'self';
 upgrade-insecure-requests;
 block-all-mixed-content;
 `
-  .replace(/\s+/g, ' ')
+  .replace(/\s+/g, " ")
   .trim();
 
 /**
@@ -54,7 +54,10 @@ block-all-mixed-content;
  * @param scriptNonce - Nonce for inline scripts
  * @param styleNonce - Nonce for inline styles
  */
-export function getCSPWithNonces(scriptNonce?: string, styleNonce?: string): string {
+export function getCSPWithNonces(
+  scriptNonce?: string,
+  styleNonce?: string,
+): string {
   const scriptSrc = scriptNonce ? `'self' 'nonce-${scriptNonce}'` : `'self'`;
   const styleSrc = styleNonce
     ? `'self' 'nonce-${styleNonce}' https://fonts.googleapis.com`
@@ -80,7 +83,7 @@ upgrade-insecure-requests;
 block-all-mixed-content;
 report-uri /csp-violation-report-endpoint/;
 `
-    .replace(/\s+/g, ' ')
+    .replace(/\s+/g, " ")
     .trim();
 }
 

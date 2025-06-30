@@ -1,28 +1,28 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/features/layout/Layout';
-import AvatarAssistant from './components/ui/AvatarAssistant';
-import ScrollToTop from './components/ui/ScrollToTop';
-import ScrollToTopOnRouteChange from './components/ui/ScrollToTopOnRouteChange';
-import './styles/components/LoadingScreen.css';
+import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/features/layout/Layout";
+import AvatarAssistant from "./components/ui/AvatarAssistant";
+import ScrollToTop from "./components/ui/ScrollToTop";
+import ScrollToTopOnRouteChange from "./components/ui/ScrollToTopOnRouteChange";
+import "./styles/components/LoadingScreen.css";
 
-const DocsPage = lazy(() => import('./pages/DocsPage'));
-const HomePage = lazy(() => import('./pages/HomePage'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-const ServicesPage = lazy(() => import('./pages/ServicesPage'));
-const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const BlogPage = lazy(() => import('./pages/BlogPage'));
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
-const FAQPage = lazy(() => import('./pages/FAQPage'));
-const SitemapPage = lazy(() => import('./pages/SitemapPage'));
-const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
-const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
-const CareerPage = lazy(() => import('./pages/CareerPage'));
-const JobDetailsPage = lazy(() => import('./pages/JobDetailsPage'));
-const JobApplicationPage = lazy(() => import('./pages/JobApplicationPage'));
-const AdminJobManagement = lazy(() => import('./pages/AdminJobManagement'));
-const BrandGuidelinesPage = lazy(() => import('./pages/BrandGuidelinesPage'));
+const DocsPage = lazy(() => import("./pages/DocsPage"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ServicesPage = lazy(() => import("./pages/ServicesPage"));
+const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const FAQPage = lazy(() => import("./pages/FAQPage"));
+const SitemapPage = lazy(() => import("./pages/SitemapPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const TermsOfServicePage = lazy(() => import("./pages/TermsOfServicePage"));
+const CareerPage = lazy(() => import("./pages/CareerPage"));
+const JobDetailsPage = lazy(() => import("./pages/JobDetailsPage"));
+const JobApplicationPage = lazy(() => import("./pages/JobApplicationPage"));
+const AdminJobManagement = lazy(() => import("./pages/AdminJobManagement"));
+const BrandGuidelinesPage = lazy(() => import("./pages/BrandGuidelinesPage"));
 
 function App() {
   return (

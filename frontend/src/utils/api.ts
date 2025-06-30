@@ -2,7 +2,7 @@
  * API utilities for form submissions and external service integrations
  */
 
-import { config } from '../config/environment';
+import { config } from "../config/environment";
 
 // Use centralized configuration for API endpoint
 const API_ENDPOINT = config.googleAppsScript.apiEndpoint;
@@ -15,15 +15,15 @@ export const fileToBase64 = (file: File): Promise<string> => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      if (typeof reader.result === 'string') {
+      if (typeof reader.result === "string") {
         // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
-        const base64 = reader.result.split(',')[1];
+        const base64 = reader.result.split(",")[1];
         resolve(base64);
       } else {
-        reject(new Error('Failed to convert file to base64'));
+        reject(new Error("Failed to convert file to base64"));
       }
     };
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 };
 
@@ -39,29 +39,35 @@ export interface ContactFormData {
   message: string;
 }
 
-export const submitContactForm = async (formData: ContactFormData): Promise<void> => {
+export const submitContactForm = async (
+  formData: ContactFormData,
+): Promise<void> => {
   try {
     // Try POST first (proper RESTful approach)
     try {
       await submitContactFormPost(formData);
     } catch (postError) {
       // If POST fails due to Google Apps Script limitations, fall back to GET
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         // eslint-disable-next-line no-console
-        console.warn('POST request failed, falling back to GET:', postError);
+        console.warn("POST request failed, falling back to GET:", postError);
       }
 
       await submitContactFormGet(formData);
     }
   } catch (error) {
     // Log error for debugging in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // eslint-disable-next-line no-console
-      console.error('Error submitting contact form:', error);
+      console.error("Error submitting contact form:", error);
     }
 
     // Log failed submission
-    logFormSubmission('contactForm', false, error instanceof Error ? error.message : String(error));
+    logFormSubmission(
+      "contactForm",
+      false,
+      error instanceof Error ? error.message : String(error),
+    );
 
     throw error;
   }
@@ -71,16 +77,18 @@ export const submitContactForm = async (formData: ContactFormData): Promise<void
  * Fallback submission method using GET request with URL parameters
  * This works around CORS preflight issues with Google Apps Script
  */
-const submitContactFormGet = async (formData: ContactFormData): Promise<void> => {
+const submitContactFormGet = async (
+  formData: ContactFormData,
+): Promise<void> => {
   try {
     const params = new URLSearchParams({
-      action: 'submitContactForm',
+      action: "submitContactForm",
       data: JSON.stringify(formData),
     });
 
     const response = await fetch(`${API_ENDPOINT}?${params.toString()}`, {
-      method: 'GET',
-      mode: 'cors',
+      method: "GET",
+      mode: "cors",
     });
 
     if (!response.ok) {
@@ -90,21 +98,25 @@ const submitContactFormGet = async (formData: ContactFormData): Promise<void> =>
     const result = await response.json();
 
     if (result.error) {
-      logFormSubmission('contactForm', false, result.error);
+      logFormSubmission("contactForm", false, result.error);
       throw new Error(result.error);
     }
 
     // Log successful submission
-    logFormSubmission('contactForm', true);
+    logFormSubmission("contactForm", true);
   } catch (error) {
     // Log error for debugging in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // eslint-disable-next-line no-console
-      console.error('Error submitting contact form (fallback):', error);
+      console.error("Error submitting contact form (fallback):", error);
     }
 
     // Log failed submission
-    logFormSubmission('contactForm', false, error instanceof Error ? error.message : String(error));
+    logFormSubmission(
+      "contactForm",
+      false,
+      error instanceof Error ? error.message : String(error),
+    );
 
     throw error;
   }
@@ -123,22 +135,27 @@ export interface JobApplicationData {
   coverLetterFile?: File;
 }
 
-export const submitJobApplication = async (applicationData: JobApplicationData): Promise<void> => {
+export const submitJobApplication = async (
+  applicationData: JobApplicationData,
+): Promise<void> => {
   try {
     // Increased file size limits - 10MB per file for better user experience
     if (!validateFileSize(applicationData.resumeFile, 10)) {
       throw new Error(
         `Resume file is too large (${getFileSizeString(
-          applicationData.resumeFile.size
-        )}). Maximum size allowed is 10MB.`
+          applicationData.resumeFile.size,
+        )}). Maximum size allowed is 10MB.`,
       );
     }
 
-    if (applicationData.coverLetterFile && !validateFileSize(applicationData.coverLetterFile, 10)) {
+    if (
+      applicationData.coverLetterFile &&
+      !validateFileSize(applicationData.coverLetterFile, 10)
+    ) {
       throw new Error(
         `Cover letter file is too large (${getFileSizeString(
-          applicationData.coverLetterFile.size
-        )}). Maximum size allowed is 10MB.`
+          applicationData.coverLetterFile.size,
+        )}). Maximum size allowed is 10MB.`,
       );
     }
 
@@ -165,26 +182,33 @@ export const submitJobApplication = async (applicationData: JobApplicationData):
     } catch (postError) {
       // If POST fails and payload is small enough for GET, try GET method
       if (!isPayloadTooLargeForGet(payload)) {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
           // eslint-disable-next-line no-console
-          console.warn('POST failed, trying GET method for smaller payload:', postError);
+          console.warn(
+            "POST failed, trying GET method for smaller payload:",
+            postError,
+          );
         }
         await submitJobApplicationGet(payload);
       } else {
         throw new Error(
-          'File submission failed. Your files may be too large or there may be a connection issue. Please try with smaller files or contact support.'
+          "File submission failed. Your files may be too large or there may be a connection issue. Please try with smaller files or contact support.",
         );
       }
     }
   } catch (error) {
     // Log error for debugging in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // eslint-disable-next-line no-console
-      console.error('Error submitting job application:', error);
+      console.error("Error submitting job application:", error);
     }
 
     // Log failed submission
-    logFormSubmission('jobApplication', false, error instanceof Error ? error.message : String(error));
+    logFormSubmission(
+      "jobApplication",
+      false,
+      error instanceof Error ? error.message : String(error),
+    );
 
     throw error;
   }
@@ -204,13 +228,13 @@ const submitJobApplicationGet = async (payload: {
 }): Promise<void> => {
   try {
     const params = new URLSearchParams({
-      action: 'submitJobApplication',
+      action: "submitJobApplication",
       data: JSON.stringify(payload),
     });
 
     const response = await fetch(`${API_ENDPOINT}?${params.toString()}`, {
-      method: 'GET',
-      mode: 'cors',
+      method: "GET",
+      mode: "cors",
     });
 
     if (!response.ok) {
@@ -220,17 +244,17 @@ const submitJobApplicationGet = async (payload: {
     const result = await response.json();
 
     if (result.error) {
-      logFormSubmission('jobApplication', false, result.error);
+      logFormSubmission("jobApplication", false, result.error);
       throw new Error(result.error);
     }
 
     // Log successful submission
-    logFormSubmission('jobApplication', true);
+    logFormSubmission("jobApplication", true);
   } catch (error) {
     // Log error for debugging in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // eslint-disable-next-line no-console
-      console.error('Error submitting job application (GET):', error);
+      console.error("Error submitting job application (GET):", error);
     }
 
     throw error;
@@ -252,12 +276,12 @@ const submitJobApplicationPost = async (payload: {
   try {
     // Use form-encoded data instead of JSON to avoid CORS preflight
     const formData = new FormData();
-    formData.append('action', 'submitJobApplication');
-    formData.append('data', JSON.stringify(payload));
+    formData.append("action", "submitJobApplication");
+    formData.append("data", JSON.stringify(payload));
 
     const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      mode: 'cors',
+      method: "POST",
+      mode: "cors",
       body: formData, // FormData with simple content-type avoids preflight
     });
 
@@ -272,10 +296,14 @@ const submitJobApplicationPost = async (payload: {
     }
 
     // Log successful submission
-    logFormSubmission('jobApplication', true);
+    logFormSubmission("jobApplication", true);
   } catch (error) {
     // Log failed submission
-    logFormSubmission('jobApplication', false, error instanceof Error ? error.message : String(error));
+    logFormSubmission(
+      "jobApplication",
+      false,
+      error instanceof Error ? error.message : String(error),
+    );
     throw error;
   }
 };
@@ -283,8 +311,12 @@ const submitJobApplicationPost = async (payload: {
 /**
  * Log form submission analytics (for monitoring and improvement)
  */
-export const logFormSubmission = (formType: string, success: boolean, error?: string): void => {
-  if (process.env.NODE_ENV === 'development') {
+export const logFormSubmission = (
+  formType: string,
+  success: boolean,
+  error?: string,
+): void => {
+  if (process.env.NODE_ENV === "development") {
     // eslint-disable-next-line no-console
     console.log(`[Form Analytics] ${formType}:`, {
       success,
@@ -301,7 +333,7 @@ export const logFormSubmission = (formType: string, success: boolean, error?: st
  * Basic honeypot field validation for spam prevention
  */
 export const validateHoneypot = (honeypotValue: string): boolean => {
-  return honeypotValue === '';
+  return honeypotValue === "";
 };
 
 /**
@@ -309,7 +341,10 @@ export const validateHoneypot = (honeypotValue: string): boolean => {
  */
 const submissionTimestamps = new Map<string, number>();
 
-export const checkRateLimit = (identifier: string, cooldownMs: number = 5000): boolean => {
+export const checkRateLimit = (
+  identifier: string,
+  cooldownMs: number = 5000,
+): boolean => {
   const now = Date.now();
   const lastSubmission = submissionTimestamps.get(identifier);
 
@@ -329,7 +364,7 @@ export const checkRateLimit = (identifier: string, cooldownMs: number = 5000): b
 const isPayloadTooLargeForGet = (payload: object): boolean => {
   const dataString = JSON.stringify(payload);
   const urlParams = new URLSearchParams({
-    action: 'submitJobApplication',
+    action: "submitJobApplication",
     data: dataString,
   });
   const fullUrl = `${API_ENDPOINT}?${urlParams.toString()}`;
@@ -343,7 +378,10 @@ const isPayloadTooLargeForGet = (payload: object): boolean => {
  * Validate file size before submission
  * Helps prevent issues with large payloads
  */
-export const validateFileSize = (file: File, maxSizeMB: number = 10): boolean => {
+export const validateFileSize = (
+  file: File,
+  maxSizeMB: number = 10,
+): boolean => {
   const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to bytes
   return file.size <= maxSizeBytes;
 };
@@ -352,10 +390,10 @@ export const validateFileSize = (file: File, maxSizeMB: number = 10): boolean =>
  * Get human-readable file size
  */
 export const getFileSizeString = (bytes: number): string => {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
 
   const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
@@ -364,23 +402,27 @@ export const getFileSizeString = (bytes: number): string => {
 /**
  * Submit contact form using POST method with form-encoded data (avoids CORS preflight)
  */
-const submitContactFormPost = async (formData: ContactFormData): Promise<void> => {
+const submitContactFormPost = async (
+  formData: ContactFormData,
+): Promise<void> => {
   // Use FormData instead of JSON to avoid CORS preflight
   const formBody = new FormData();
-  formBody.append('action', 'submitContactForm');
-  formBody.append('data', JSON.stringify(formData));
+  formBody.append("action", "submitContactForm");
+  formBody.append("data", JSON.stringify(formData));
 
   const response = await fetch(API_ENDPOINT, {
-    method: 'POST',
+    method: "POST",
     body: formBody, // FormData with simple content-type avoids preflight
-    mode: 'cors',
-    redirect: 'follow',
+    mode: "cors",
+    redirect: "follow",
   });
 
   // Check if we got an HTML response (indicates redirect issue)
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('text/html')) {
-    throw new Error('POST request redirected to HTML page - falling back to GET');
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("text/html")) {
+    throw new Error(
+      "POST request redirected to HTML page - falling back to GET",
+    );
   }
 
   if (!response.ok) {
@@ -390,10 +432,10 @@ const submitContactFormPost = async (formData: ContactFormData): Promise<void> =
   const result = await response.json();
 
   if (result.error) {
-    logFormSubmission('contactForm', false, result.error);
+    logFormSubmission("contactForm", false, result.error);
     throw new Error(result.error);
   }
 
   // Log successful submission
-  logFormSubmission('contactForm', true);
+  logFormSubmission("contactForm", true);
 };

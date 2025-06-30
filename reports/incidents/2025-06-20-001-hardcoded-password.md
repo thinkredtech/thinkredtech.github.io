@@ -23,7 +23,7 @@ and immediately resolved with environment-based authentication.
 
 ```typescript
 // VULNERABLE - Before fix
-const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
+const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || "ThinkRED2025!";
 ```
 
 ### Security Impact
@@ -48,7 +48,7 @@ const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD || 'ThinkRED2025!';
 const ADMIN_PASSWORD = process.env.REACT_APP_ADMIN_PASSWORD;
 
 if (!ADMIN_PASSWORD) {
-  console.error('REACT_APP_ADMIN_PASSWORD environment variable not set');
+  console.error("REACT_APP_ADMIN_PASSWORD environment variable not set");
 }
 ```
 

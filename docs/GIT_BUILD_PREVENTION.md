@@ -3,6 +3,7 @@
 ## Problem
 
 Git was picking up build files during build/deployment processes, causing:
+
 - Unintended tracking of temporary files
 - Repository bloat with build artifacts
 - Conflicts during deployment
@@ -13,6 +14,7 @@ Git was picking up build files during build/deployment processes, causing:
 ### 1. Enhanced .gitignore
 
 Updated `.gitignore` with comprehensive patterns for:
+
 - Build directories (`build/`, `dist/`, `hostinger-deploy/`)
 - Source maps (`*.map`)
 - Minified files (`*.min.js`, `*.min.css`)
@@ -46,6 +48,7 @@ Updated `.gitignore` with comprehensive patterns for:
 ### 3. Package.json Integration
 
 Added npm script hooks:
+
 - `prebuild`: Runs automatically before build
 - `postbuild`: Runs automatically after build
 - `clean:git`: Manual cleanup of Git artifacts
@@ -55,14 +58,17 @@ Added npm script hooks:
 ### Automatic (Recommended)
 
 Just run your normal build command:
+
 ```bash
 npm run build
 ```
+
 The pre/post scripts will run automatically.
 
 ### Manual Cleanup
 
 If you notice build files in Git:
+
 ```bash
 npm run clean:git
 ```
@@ -70,6 +76,7 @@ npm run clean:git
 ### Emergency Cleanup
 
 If build artifacts were committed:
+
 ```bash
 ./scripts/clean-git-build-artifacts.sh
 git commit -m "Remove build artifacts from tracking"
@@ -78,6 +85,7 @@ git commit -m "Remove build artifacts from tracking"
 ## Prevention Tips
 
 1. **Always check Git status before committing:**
+
    ```bash
    git status
    ```

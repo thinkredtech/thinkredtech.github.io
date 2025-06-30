@@ -29,6 +29,7 @@ Submit contact form data to be processed and stored.
 **POST /exec**
 
 **Request Body:**
+
 ```json
 {
   "action": "submitContactForm",
@@ -47,11 +48,13 @@ Submit contact form data to be processed and stored.
 ```
 
 **GET /exec (Alternative)**
+
 ```
 GET /exec?action=submitContactForm&data={"formType":"contact","name":"John Doe",...}
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -61,12 +64,14 @@ GET /exec?action=submitContactForm&data={"formType":"contact","name":"John Doe",
 ```
 
 **Required Fields:**
+
 - `formType`: Must be "contact"
 - `name`: Contact's full name
 - `email`: Valid email address
 - `message`: Contact message
 
 **Optional Fields:**
+
 - `phone`: Contact phone number
 - `company`: Company name
 - `projectType`: Type of project
@@ -80,6 +85,7 @@ Submit job application data with optional resume upload.
 **POST /exec**
 
 **Request Body:**
+
 ```json
 {
   "action": "submitJobApplication",
@@ -103,6 +109,7 @@ Submit job application data with optional resume upload.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -113,12 +120,14 @@ Submit job application data with optional resume upload.
 ```
 
 **Required Fields:**
+
 - `formType`: Must be "job-application"
 - `jobId`: ID of the job position
 - `name`: Applicant's full name
 - `email`: Valid email address
 
 **Optional Fields:**
+
 - `phone`: Contact phone number
 - `experience`: Years of experience
 - `skills`: Relevant skills
@@ -129,6 +138,7 @@ Submit job application data with optional resume upload.
 ## Error Responses
 
 ### Validation Errors
+
 ```json
 {
   "success": false,
@@ -137,6 +147,7 @@ Submit job application data with optional resume upload.
 ```
 
 ### Server Errors
+
 ```json
 {
   "success": false,
@@ -145,12 +156,14 @@ Submit job application data with optional resume upload.
 ```
 
 ### Common Error Codes
+
 - **400**: Bad Request - Invalid or missing data
 - **500**: Internal Server Error - Server-side processing error
 
 ## CORS Policy
 
 The API includes CORS headers to allow requests from authorized domains:
+
 - `thinkredtech.github.io`
 - `localhost:3000`
 - `localhost:5173`
@@ -162,11 +175,13 @@ Rate limiting is handled automatically by Google Apps Script infrastructure. No 
 ## Data Storage
 
 ### Contact Forms
+
 - **Storage**: Google Sheets
 - **Sheet Name**: "Form Responses"
 - **Fields**: Timestamp, Form Type, Name, Email, Phone, Company, Project Type, Budget, Timeline, Message
 
 ### Job Applications
+
 - **Storage**: Google Sheets
 - **Sheet Name**: "Job Applications"
 - **Resume Files**: Google Drive
@@ -175,11 +190,13 @@ Rate limiting is handled automatically by Google Apps Script infrastructure. No 
 ## Email Notifications
 
 ### Contact Form Notifications
+
 - **Recipients**: Configured email addresses
 - **Subject**: "New Contact Form Submission"
 - **Content**: Form data summary
 
 ### Job Application Notifications
+
 - **Recipients**: HR team and relevant managers
 - **Subject**: "New Job Application: [Position]"
 - **Content**: Application summary with resume attachment
@@ -187,17 +204,20 @@ Rate limiting is handled automatically by Google Apps Script infrastructure. No 
 ## Implementation Notes
 
 ### File Upload Handling
+
 - Files are base64 encoded in the request
 - Maximum file size: 50MB (Google Apps Script limit)
 - Supported formats: PDF, DOC, DOCX for resumes
 - Files are stored in Google Drive with organized folder structure
 
 ### Error Handling
+
 - All errors are logged to Google Apps Script console
 - User-friendly error messages are returned to frontend
 - Detailed error information is available in execution logs
 
 ### Performance Considerations
+
 - Execution time limit: 6 minutes (Google Apps Script)
 - Memory limit: 100MB per execution
 - Concurrent execution limit: 30 simultaneous executions
@@ -206,30 +226,31 @@ Rate limiting is handled automatically by Google Apps Script infrastructure. No 
 ## Testing
 
 ### Manual Testing
+
 1. Use the web interface to submit forms
 2. Check Google Sheets for data storage
 3. Verify email notifications are sent
 4. Confirm file uploads are stored in Google Drive
 
 ### API Testing Tools
+
 - Use Postman or similar tools for direct API testing
 - Test both GET and POST methods
 - Verify error handling with invalid data
 - Test file upload functionality with large files
 
 **Error Response:**
+
 ```json
 {
   "success": false,
   "error": "Validation failed",
-  "details": [
-    "Email format is invalid",
-    "Message is too long"
-  ]
+  "details": ["Email format is invalid", "Message is too long"]
 }
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `400` - Validation error
 - `429` - Rate limit exceeded
@@ -258,7 +279,7 @@ Content-Type: application/json
     "mimeType": "application/pdf"
   },
   "coverLetterFile": {
-    "name": "luffy_cover_letter.pdf", 
+    "name": "luffy_cover_letter.pdf",
     "data": "base64_encoded_file_data...",
     "mimeType": "application/pdf"
   }
@@ -267,27 +288,29 @@ Content-Type: application/json
 
 **Parameters:**
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `action` | string | ✅ | Must be "job-application" |
-| `position` | string | ✅ | Job position applying for |
-| `name` | string | ✅ | Full name |
-| `email` | string | ✅ | Email address |
-| `phone` | string | ✅ | Phone number |
-| `experience` | string | 🔶 | Years of experience |
-| `resumeFile` | object | ✅ | Resume file (max 10MB) |
-| `coverLetterFile` | object | 🔶 | Cover letter (max 10MB) |
+| Field             | Type   | Required | Description               |
+| ----------------- | ------ | -------- | ------------------------- |
+| `action`          | string | ✅       | Must be "job-application" |
+| `position`        | string | ✅       | Job position applying for |
+| `name`            | string | ✅       | Full name                 |
+| `email`           | string | ✅       | Email address             |
+| `phone`           | string | ✅       | Phone number              |
+| `experience`      | string | 🔶       | Years of experience       |
+| `resumeFile`      | object | ✅       | Resume file (max 10MB)    |
+| `coverLetterFile` | object | 🔶       | Cover letter (max 10MB)   |
 
 **File Object Structure:**
+
 ```typescript
 interface FileObject {
-  name: string;        // Original filename
-  data: string;        // Base64 encoded file data
-  mimeType: string;    // MIME type (e.g., "application/pdf")
+  name: string; // Original filename
+  data: string; // Base64 encoded file data
+  mimeType: string; // MIME type (e.g., "application/pdf")
 }
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -310,6 +333,7 @@ interface FileObject {
 ```
 
 **Supported File Types:**
+
 - **Documents**: PDF, DOC, DOCX
 - **Images**: JPG, JPEG, PNG, GIF
 - **Maximum Size**: 10MB per file
@@ -355,6 +379,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -366,7 +391,9 @@ Content-Type: application/json
       "name": "Naruto Uzumaki",
       "email": "naruto@konoha.com",
       "status": "new",
-      "data": { /* submission data */ }
+      "data": {
+        /* submission data */
+      }
     }
   ],
   "total": 150,
@@ -380,7 +407,7 @@ Content-Type: application/json
 ```json
 {
   "action": "admin",
-  "password": "your_admin_password", 
+  "password": "your_admin_password",
   "operation": "update-status",
   "submission_id": "contact_2024_001",
   "status": "reviewed",
@@ -423,10 +450,11 @@ This method is automatically used by the frontend when POST requests fail due to
 To prevent abuse, the API implements rate limiting:
 
 - **Contact Forms**: 5 submissions per hour per IP
-- **Job Applications**: 3 submissions per hour per IP  
+- **Job Applications**: 3 submissions per hour per IP
 - **Admin Operations**: 100 requests per hour per authenticated session
 
 **Rate Limit Headers:**
+
 ```http
 X-RateLimit-Limit: 5
 X-RateLimit-Remaining: 4
@@ -434,6 +462,7 @@ X-RateLimit-Reset: 1642248000
 ```
 
 **Rate Limit Exceeded Response:**
+
 ```json
 {
   "success": false,
@@ -457,16 +486,16 @@ const contactFormSchema = {
   name: {
     required: true,
     maxLength: 100,
-    pattern: /^[a-zA-Z\s]+$/
+    pattern: /^[a-zA-Z\s]+$/,
   },
   email: {
     required: true,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   message: {
     required: true,
-    maxLength: 2000
-  }
+    maxLength: 2000,
+  },
 };
 ```
 
@@ -483,14 +512,13 @@ The API properly handles CORS for web applications:
 
 ```javascript
 function createResponse(data, statusCode = 200) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
+  return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON)
     .setHttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400'
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Max-Age": "86400",
     });
 }
 ```
@@ -511,7 +539,7 @@ curl -X POST \
   -d '{
     "action": "contact",
     "name": "Test User",
-    "email": "test@example.com", 
+    "email": "test@example.com",
     "subject": "API Test",
     "message": "Testing the API"
   }' \
@@ -524,38 +552,38 @@ curl -X POST \
 // Health check
 const healthCheck = async () => {
   const response = await fetch(
-    'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec?action=health'
+    "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec?action=health",
   );
   const data = await response.json();
-  console.log('API Health:', data);
+  console.log("API Health:", data);
 };
 
 // Submit contact form
 const submitContact = async (formData) => {
   try {
     const response = await fetch(
-      'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
+      "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: 'contact',
-          ...formData
-        })
-      }
+          action: "contact",
+          ...formData,
+        }),
+      },
     );
-    
+
     const result = await response.json();
-    
+
     if (result.success) {
-      console.log('Form submitted successfully:', result);
+      console.log("Form submitted successfully:", result);
     } else {
-      console.error('Submission failed:', result.error);
+      console.error("Submission failed:", result.error);
     }
   } catch (error) {
-    console.error('Network error:', error);
+    console.error("Network error:", error);
   }
 };
 ```
@@ -579,16 +607,16 @@ curl -s "$(grep 'API_URL=' test-cors-api.sh | cut -d'=' -f2)?action=health" | jq
 
 ## 📊 **Response Codes Reference**
 
-| Code | Status | Description |
-|------|--------|-------------|
-| `200` | OK | Request succeeded |
-| `400` | Bad Request | Invalid request data |
-| `401` | Unauthorized | Invalid or missing authentication |
-| `403` | Forbidden | Access denied |
-| `404` | Not Found | Endpoint or resource not found |
-| `429` | Too Many Requests | Rate limit exceeded |
-| `500` | Internal Server Error | Server-side error |
-| `503` | Service Unavailable | Temporary service issue |
+| Code  | Status                | Description                       |
+| ----- | --------------------- | --------------------------------- |
+| `200` | OK                    | Request succeeded                 |
+| `400` | Bad Request           | Invalid request data              |
+| `401` | Unauthorized          | Invalid or missing authentication |
+| `403` | Forbidden             | Access denied                     |
+| `404` | Not Found             | Endpoint or resource not found    |
+| `429` | Too Many Requests     | Rate limit exceeded               |
+| `500` | Internal Server Error | Server-side error                 |
+| `503` | Service Unavailable   | Temporary service issue           |
 
 ---
 
@@ -677,14 +705,14 @@ const submitWithRetry = async (data, maxRetries = 3) => {
 const cache = new Map();
 const cachedApiCall = async (endpoint, data) => {
   const key = `${endpoint}_${JSON.stringify(data)}`;
-  
+
   if (cache.has(key)) {
     return cache.get(key);
   }
-  
+
   const response = await apiCall(endpoint, data);
   cache.set(key, response);
-  
+
   return response;
 };
 ```
@@ -693,16 +721,20 @@ const cachedApiCall = async (endpoint, data) => {
 
 ```javascript
 // Use caching for expensive operations
-const cachedResult = CacheService.getScriptCache().get('expensive_operation');
+const cachedResult = CacheService.getScriptCache().get("expensive_operation");
 if (!cachedResult) {
   const result = expensiveOperation();
-  CacheService.getScriptCache().put('expensive_operation', JSON.stringify(result), 3600);
+  CacheService.getScriptCache().put(
+    "expensive_operation",
+    JSON.stringify(result),
+    3600,
+  );
 }
 
 // Batch database operations
 const batchWriteToSheet = (data) => {
   const sheet = SpreadsheetApp.getActiveSheet();
-  const values = data.map(item => [item.name, item.email, item.message]);
+  const values = data.map((item) => [item.name, item.email, item.message]);
   sheet.getRange(sheet.getLastRow() + 1, 1, values.length, 3).setValues(values);
 };
 ```
@@ -716,46 +748,48 @@ const batchWriteToSheet = (data) => {
 ```typescript
 class ThinkRedAPI {
   private baseUrl: string;
-  
+
   constructor(deploymentId: string) {
     this.baseUrl = `https://script.google.com/macros/s/${deploymentId}/exec`;
   }
-  
+
   async healthCheck(): Promise<HealthResponse> {
     const response = await fetch(`${this.baseUrl}?action=health`);
     return response.json();
   }
-  
+
   async submitContact(data: ContactFormData): Promise<SubmissionResponse> {
-    return this.post({ action: 'contact', ...data });
+    return this.post({ action: "contact", ...data });
   }
-  
-  async submitJobApplication(data: JobApplicationData): Promise<SubmissionResponse> {
-    return this.post({ action: 'job-application', ...data });
+
+  async submitJobApplication(
+    data: JobApplicationData,
+  ): Promise<SubmissionResponse> {
+    return this.post({ action: "job-application", ...data });
   }
-  
+
   private async post(data: any): Promise<any> {
     const response = await fetch(this.baseUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
-    
+
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);
     }
-    
+
     return response.json();
   }
 }
 
 // Usage
-const api = new ThinkRedAPI('YOUR_DEPLOYMENT_ID');
+const api = new ThinkRedAPI("YOUR_DEPLOYMENT_ID");
 const result = await api.submitContact({
-  name: 'Goku',
-  email: 'goku@dragonball.com',
-  subject: 'Training Request',
-  message: 'I want to become stronger!'
+  name: "Goku",
+  email: "goku@dragonball.com",
+  subject: "Training Request",
+  message: "I want to become stronger!",
 });
 ```
 
@@ -768,17 +802,18 @@ const result = await api.submitContact({
 ```javascript
 // In your Google Apps Script
 function notifyWebhook(data) {
-  const webhookUrl = PropertiesService.getScriptProperties().getProperty('WEBHOOK_URL');
-  
+  const webhookUrl =
+    PropertiesService.getScriptProperties().getProperty("WEBHOOK_URL");
+
   if (webhookUrl) {
     UrlFetchApp.fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       payload: JSON.stringify({
-        event: 'form_submission',
+        event: "form_submission",
         timestamp: new Date().toISOString(),
-        data: data
-      })
+        data: data,
+      }),
     });
   }
 }
@@ -809,7 +844,7 @@ function notifyWebhook(data) {
 
 ### 🎉 **Master the API, Master the Universe! ⚡**
 
-*"With great API comes great responsibility!"*
+_"With great API comes great responsibility!"_
 
 [![Back to Main](https://img.shields.io/badge/←%20Back%20to%20Main-README-blue?style=for-the-badge)](../README.md)
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)

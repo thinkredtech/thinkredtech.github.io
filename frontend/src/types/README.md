@@ -72,7 +72,7 @@ export const FaNodeJs: ComponentType<SVGProps<SVGSVGElement>>;
 
 ```typescript
 // ❌ Loses type safety
-declare module 'react-icons/*' {
+declare module "react-icons/*" {
   const content: any;
   export = content;
 }
@@ -88,7 +88,7 @@ declare module 'react-icons/*' {
 
 ```typescript
 // ✅ Generic, scalable, and type-safe
-declare module 'react-icons/*' {
+declare module "react-icons/*" {
   const content: ComponentType<SVGProps<SVGSVGElement>>;
   export = content;
 }

@@ -9,6 +9,7 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ### Frontend Architecture
 
 **Technology Stack:**
+
 - React 19 with TypeScript
 - Vite build system
 - Tailwind CSS for styling
@@ -16,6 +17,7 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 - React Markdown for documentation rendering
 
 **Key Features:**
+
 - Single Page Application (SPA) design
 - Responsive design for all devices
 - Client-side routing
@@ -25,12 +27,14 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ### Backend Architecture
 
 **Technology Stack:**
+
 - Google Apps Script (JavaScript runtime)
 - Google Sheets for data storage
 - Google Drive for file storage
 - Gmail for email notifications
 
 **Key Features:**
+
 - Serverless execution model
 - Form processing (contact and job applications)
 - File upload handling
@@ -40,6 +44,7 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Data Flow
 
 ### Contact Form Submission
+
 1. User fills out contact form on frontend
 2. Frontend sends HTTP request to Google Apps Script endpoint
 3. Apps Script validates and processes the data
@@ -48,6 +53,7 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 6. Response is returned to frontend
 
 ### Job Application Process
+
 1. User completes job application form with optional resume upload
 2. Frontend sends application data to Apps Script
 3. Apps Script processes the application
@@ -59,12 +65,14 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Deployment Architecture
 
 ### Frontend Deployment
+
 - **Primary**: GitHub Pages (automated via GitHub Actions)
 - **Secondary**: Hostinger (manual deployment option)
 - **Build Process**: Vite optimizes and bundles the application
 - **Static Assets**: Served directly from the hosting platform
 
 ### Backend Deployment
+
 - **Platform**: Google Apps Script
 - **Deployment**: CLASP (Command Line Apps Script Projects)
 - **Access**: Public web app endpoint
@@ -73,12 +81,14 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Security Considerations
 
 ### Frontend Security
+
 - Input validation on all form fields
 - XSS prevention through proper sanitization
 - HTTPS enforcement
 - CSP headers configured
 
 ### Backend Security
+
 - CORS configuration for authorized domains
 - Input validation and sanitization
 - Rate limiting through Google's infrastructure
@@ -87,12 +97,14 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Performance Characteristics
 
 ### Frontend Performance
+
 - Code splitting for optimal loading
 - Lazy loading of route components
 - Optimized asset bundling
 - Responsive image loading
 
 ### Backend Performance
+
 - Serverless architecture eliminates server management
 - Automatic scaling based on demand
 - Google's global infrastructure for low latency
@@ -101,11 +113,13 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Monitoring and Maintenance
 
 ### Frontend Monitoring
+
 - GitHub Actions for build status
 - Browser console for client-side errors
 - User feedback through contact forms
 
 ### Backend Monitoring
+
 - Google Apps Script execution logs
 - Email delivery status
 - Google Sheets data integrity checks
@@ -113,12 +127,14 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Development Workflow
 
 ### Local Development
+
 1. Clone repository
 2. Install dependencies (`npm install`)
 3. Start development server (`npm run dev`)
 4. Access application at `http://localhost:5173`
 
 ### Deployment Process
+
 1. **Frontend**: Push to main branch triggers GitHub Actions deployment
 2. **Backend**: Use CLASP to push changes to Google Apps Script
 3. **Testing**: Verify functionality in staging environment
@@ -127,48 +143,51 @@ The ThinkRED Technologies website is a modern web application consisting of a Re
 ## Technology Trade-offs
 
 ### Benefits
+
 - **Cost-effective**: Minimal hosting costs with Google Apps Script
 - **Scalable**: Automatic scaling without infrastructure management
 - **Reliable**: Built on Google's infrastructure
 - **Simple**: Straightforward architecture with minimal complexity
 
 ### Limitations
+
 - **Vendor lock-in**: Dependent on Google's services
 - **Execution limits**: Google Apps Script has execution time limits
 - **Customization**: Limited backend customization compared to traditional servers
 - **Debugging**: Limited debugging capabilities in Apps Script environment
-│   └── ui/                      # UI primitives
-│       ├── Button.tsx          # Button variants
-│       ├── Modal.tsx           # Modal dialogs
-│       ├── Card.tsx            # Card containers
-│       └── Badge.tsx           # Status badges
-├── 📄 pages/                    # Route components
-│   ├── HomePage.tsx            # Landing page
-│   ├── AboutPage.tsx           # About us
-│   ├── BlogPage.tsx            # Blog listing
-│   ├── BlogPostPage.tsx        # Individual posts
-│   ├── ContactPage.tsx         # Contact form
-│   ├── JobsPage.tsx            # Career opportunities
-│   └── AdminPage.tsx           # Admin dashboard
-├── 🛠️ utils/                    # Utility functions
-│   ├── api.ts                  # API client
-│   ├── helpers.ts              # Helper functions
-│   ├── constants.ts            # App constants
-│   ├── validation.ts           # Form validation
-│   └── storage.ts              # Local storage
-├── 🔧 config/                   # Configuration
-│   ├── environment.ts          # Environment variables
-│   ├── routes.ts               # Route definitions
-│   └── theme.ts                # Theme configuration
-├── 🎨 styles/                   # Global styles
-│   ├── globals.css             # Global CSS
-│   ├── components.css          # Component styles
-│   └── utilities.css           # Utility classes
-└── 📊 types/                    # TypeScript types
-    ├── api.ts                  # API response types
-    ├── forms.ts                # Form data types
-    └── components.ts           # Component prop types
-```
+  │ └── ui/ # UI primitives
+  │ ├── Button.tsx # Button variants
+  │ ├── Modal.tsx # Modal dialogs
+  │ ├── Card.tsx # Card containers
+  │ └── Badge.tsx # Status badges
+  ├── 📄 pages/ # Route components
+  │ ├── HomePage.tsx # Landing page
+  │ ├── AboutPage.tsx # About us
+  │ ├── BlogPage.tsx # Blog listing
+  │ ├── BlogPostPage.tsx # Individual posts
+  │ ├── ContactPage.tsx # Contact form
+  │ ├── JobsPage.tsx # Career opportunities
+  │ └── AdminPage.tsx # Admin dashboard
+  ├── 🛠️ utils/ # Utility functions
+  │ ├── api.ts # API client
+  │ ├── helpers.ts # Helper functions
+  │ ├── constants.ts # App constants
+  │ ├── validation.ts # Form validation
+  │ └── storage.ts # Local storage
+  ├── 🔧 config/ # Configuration
+  │ ├── environment.ts # Environment variables
+  │ ├── routes.ts # Route definitions
+  │ └── theme.ts # Theme configuration
+  ├── 🎨 styles/ # Global styles
+  │ ├── globals.css # Global CSS
+  │ ├── components.css # Component styles
+  │ └── utilities.css # Utility classes
+  └── 📊 types/ # TypeScript types
+  ├── api.ts # API response types
+  ├── forms.ts # Form data types
+  └── components.ts # Component prop types
+
+````
 
 ### **🔄 State Management Strategy**
 
@@ -187,11 +206,11 @@ const UserContext = createContext<UserContextType>();
 const useApi = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  
+
   const fetchData = useCallback(async (endpoint: string) => {
     // API logic here
   }, []);
-  
+
   return { data, error, fetchData };
 };
 
@@ -199,7 +218,7 @@ const useApi = () => {
 const useLocalStorage = <T>(key: string, defaultValue: T) => {
   // Local storage hook implementation
 };
-```
+````
 
 ### **🎯 Component Design Patterns**
 
@@ -220,7 +239,7 @@ const useLocalStorage = <T>(key: string, defaultValue: T) => {
 </Card>
 
 // ❌ Avoid: Monolithic components
-<JobApplicationCard 
+<JobApplicationCard
   title="Job Application"
   showHeader={true}
   showFooter={true}
@@ -250,11 +269,11 @@ const useLocalStorage = <T>(key: string, defaultValue: T) => {
 const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
   return (props: P) => {
     const { isAuthenticated } = useAuth();
-    
+
     if (!isAuthenticated) {
       return <LoginPrompt />;
     }
-    
+
     return <Component {...props} />;
   };
 };
@@ -277,35 +296,35 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const action = data.action || e.parameter.action;
-    
+
     // Route to appropriate handler
     switch (action) {
-      case 'contact':
+      case "contact":
         return handleContactForm(data);
-      case 'job-application':
+      case "job-application":
         return handleJobApplication(data);
-      case 'admin':
+      case "admin":
         return handleAdminAction(data);
       default:
-        return createResponse({ error: 'Invalid action' }, 400);
+        return createResponse({ error: "Invalid action" }, 400);
     }
   } catch (error) {
-    console.error('Error in doPost:', error);
-    return createResponse({ error: 'Internal server error' }, 500);
+    console.error("Error in doPost:", error);
+    return createResponse({ error: "Internal server error" }, 500);
   }
 }
 
 // GET request handler
 function doGet(e) {
   const action = e.parameter.action;
-  
+
   switch (action) {
-    case 'health':
-      return createResponse({ status: 'healthy', timestamp: new Date() });
-    case 'test':
-      return createResponse({ message: 'API is working!' });
+    case "health":
+      return createResponse({ status: "healthy", timestamp: new Date() });
+    case "test":
+      return createResponse({ message: "API is working!" });
     default:
-      return handleFormSubmission(e);  // Fallback for large files
+      return handleFormSubmission(e); // Fallback for large files
   }
 }
 ```
@@ -318,7 +337,7 @@ function doGet(e) {
 │   ├── Timestamp, Name, Email, Subject, Message
 │   ├── Status, Response Date, Notes
 │   └── Auto-generated ID
-├── 💼 Job Applications Sheet  
+├── 💼 Job Applications Sheet
 │   ├── Timestamp, Position, Name, Email, Phone
 │   ├── Resume URL, Cover Letter URL, Status
 │   └── Interview Notes, Decision
@@ -341,37 +360,40 @@ class FileManager {
     this.resumeFolder = DriveApp.getFolderById(RESUME_PARENT_FOLDER_ID);
     this.maxFileSize = 10 * 1024 * 1024; // 10MB
   }
-  
+
   saveFile(fileData, fileName, mimeType) {
     try {
       // Create blob from base64 data
       const blob = Utilities.newBlob(
         Utilities.base64Decode(fileData),
         mimeType,
-        this.sanitizeFileName(fileName)
+        this.sanitizeFileName(fileName),
       );
-      
+
       // Save to Google Drive
       const file = this.resumeFolder.createFile(blob);
-      
+
       // Set sharing permissions
-      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-      
+      file.setSharing(
+        DriveApp.Access.ANYONE_WITH_LINK,
+        DriveApp.Permission.VIEW,
+      );
+
       return {
         id: file.getId(),
         url: file.getUrl(),
         downloadUrl: file.getDownloadUrl(),
-        size: blob.getBytes().length
+        size: blob.getBytes().length,
       };
     } catch (error) {
       throw new Error(`File save failed: ${error.message}`);
     }
   }
-  
+
   sanitizeFileName(fileName) {
     return fileName
-      .replace(/[^a-zA-Z0-9._-]/g, '_')
-      .replace(/_+/g, '_')
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .replace(/_+/g, "_")
       .substring(0, 100);
   }
 }
@@ -384,44 +406,45 @@ class FileManager {
 class SecurityManager {
   static validateInput(data, schema) {
     const errors = [];
-    
+
     for (const [field, rules] of Object.entries(schema)) {
       const value = data[field];
-      
+
       if (rules.required && !value) {
         errors.push(`${field} is required`);
       }
-      
+
       if (value && rules.maxLength && value.length > rules.maxLength) {
         errors.push(`${field} exceeds maximum length`);
       }
-      
+
       if (value && rules.pattern && !rules.pattern.test(value)) {
         errors.push(`${field} format is invalid`);
       }
     }
-    
+
     return errors;
   }
-  
+
   static sanitizeHtml(input) {
     return input
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27;')
-      .replace(/\//g, '&#x2F;');
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#x27;")
+      .replace(/\//g, "&#x2F;");
   }
-  
+
   static checkRateLimit(userIdentifier) {
     const cache = CacheService.getScriptCache();
     const key = `rate_limit_${userIdentifier}`;
     const count = cache.get(key) || 0;
-    
-    if (count > 10) { // 10 requests per hour
-      throw new Error('Rate limit exceeded');
+
+    if (count > 10) {
+      // 10 requests per hour
+      throw new Error("Rate limit exceeded");
     }
-    
+
     cache.put(key, parseInt(count) + 1, 3600); // 1 hour TTL
   }
 }
@@ -443,7 +466,7 @@ interface ApiEndpoints {
     subject: string;
     message: string;
   }
-  
+
   // Job application submission
   POST: '/job-application' => {
     position: string;
@@ -453,14 +476,14 @@ interface ApiEndpoints {
     resume: File;
     coverLetter?: File;
   }
-  
+
   // Health check
   GET: '/health' => {
     status: 'healthy' | 'degraded' | 'down';
     timestamp: string;
     version: string;
   }
-  
+
   // Admin operations
   POST: '/admin' => {
     action: 'get-submissions' | 'update-status' | 'export-data';
@@ -508,19 +531,18 @@ async function submitWithFallback(data: FormData) {
   try {
     // Attempt POST request first
     const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
-    
+
     if (response.ok) return response.json();
-    
+
     // If POST fails, try GET with URL parameters
-    console.log('POST failed, attempting GET fallback...');
+    console.log("POST failed, attempting GET fallback...");
     return await submitViaGet(data);
-    
   } catch (error) {
-    console.log('POST request failed, using GET fallback:', error);
+    console.log("POST request failed, using GET fallback:", error);
     return await submitViaGet(data);
   }
 }
@@ -528,8 +550,8 @@ async function submitWithFallback(data: FormData) {
 async function submitViaGet(data: FormData) {
   const params = new URLSearchParams(data as any);
   const url = `${API_ENDPOINT}?${params.toString()}`;
-  
-  const response = await fetch(url, { method: 'GET' });
+
+  const response = await fetch(url, { method: "GET" });
   return response.json();
 }
 ```
@@ -573,27 +595,27 @@ main                    # 🚀 Production-ready code
 
 ```typescript
 // Test pyramid structure
-describe('ThinkRED Application', () => {
+describe("ThinkRED Application", () => {
   // Unit Tests (70%)
-  describe('Utils', () => {
-    test('validates email format', () => {
-      expect(validateEmail('test@example.com')).toBe(true);
-      expect(validateEmail('invalid-email')).toBe(false);
+  describe("Utils", () => {
+    test("validates email format", () => {
+      expect(validateEmail("test@example.com")).toBe(true);
+      expect(validateEmail("invalid-email")).toBe(false);
     });
   });
-  
+
   // Integration Tests (20%)
-  describe('API Integration', () => {
-    test('submits contact form successfully', async () => {
+  describe("API Integration", () => {
+    test("submits contact form successfully", async () => {
       const response = await submitContactForm(mockFormData);
       expect(response.success).toBe(true);
     });
   });
-  
+
   // E2E Tests (10%)
-  describe('User Workflows', () => {
-    test('user can complete job application', async () => {
-      await page.goto('/careers');
+  describe("User Workflows", () => {
+    test("user can complete job application", async () => {
+      await page.goto("/careers");
       await page.click('[data-testid="apply-button"]');
       // ... test steps
     });
@@ -624,10 +646,10 @@ Commit Push ──────────────────────�
 │   └── ✅ Verify Deployment                             │
 │                                                         │
 └── Frontend Deployment (GitHub Pages/Hostinger)          │
-    ├── 📦 Build React App                                │
-    ├── 🔄 Update API Configuration                       │
-    ├── 🚀 Deploy Static Files                            │
-    └── ✅ Health Check                                   │
+├── 📦 Build React App                                │
+├── 🔄 Update API Configuration                       │
+├── 🚀 Deploy Static Files                            │
+└── ✅ Health Check                                   │
 ```
 
 ### **🌍 Multi-Environment Strategy**
@@ -643,14 +665,14 @@ Commit Push ──────────────────────�
     },
     "staging": {
       "frontend_url": "https://staging.thinkred.tech",
-      "backend_deployment_id": "staging-deployment-id", 
+      "backend_deployment_id": "staging-deployment-id",
       "database": "staging-sheets",
       "monitoring": "enhanced"
     },
     "production": {
       "frontend_url": "https://thinkred.tech",
       "backend_deployment_id": "prod-deployment-id",
-      "database": "prod-sheets", 
+      "database": "prod-sheets",
       "monitoring": "full"
     }
   }
@@ -683,7 +705,7 @@ const AppRouter = () => (
 
 // Image optimization
 const OptimizedImage = ({ src, alt, ...props }) => (
-  <img 
+  <img
     src={src}
     alt={alt}
     loading="lazy"
@@ -694,10 +716,10 @@ const OptimizedImage = ({ src, alt, ...props }) => (
 
 // Memoization for expensive operations
 const ExpensiveComponent = memo(({ data }) => {
-  const processedData = useMemo(() => 
+  const processedData = useMemo(() =>
     expensiveProcessing(data), [data]
   );
-  
+
   return <div>{processedData}</div>;
 });
 ```
@@ -708,20 +730,20 @@ const ExpensiveComponent = memo(({ data }) => {
 // Caching strategy
 class CacheManager {
   static cache = CacheService.getScriptCache();
-  
+
   static get(key, fallbackFn) {
     let data = this.cache.get(key);
-    
+
     if (!data) {
       data = fallbackFn();
       this.cache.put(key, JSON.stringify(data), 3600); // 1 hour
     } else {
       data = JSON.parse(data);
     }
-    
+
     return data;
   }
-  
+
   static invalidate(pattern) {
     // Invalidate cache entries matching pattern
   }
@@ -731,17 +753,17 @@ class CacheManager {
 function batchProcessSubmissions(submissions) {
   const batchSize = 100;
   const results = [];
-  
+
   for (let i = 0; i < submissions.length; i += batchSize) {
     const batch = submissions.slice(i, i + batchSize);
     results.push(...processBatch(batch));
-    
+
     // Yield control to prevent timeout
     if (i % 300 === 0) {
       Utilities.sleep(100);
     }
   }
-  
+
   return results;
 }
 ```
@@ -783,24 +805,24 @@ Phase 4: Advanced Features (18 months)
 // Potential future tech stack
 interface FutureTechStack {
   frontend: {
-    framework: 'React 20+' | 'Next.js' | 'Remix';
-    state: 'Zustand' | 'Jotai' | 'Valtio';
-    styling: 'Tailwind CSS' | 'CSS-in-JS' | 'Vanilla Extract';
-    bundler: 'Vite' | 'Turbopack' | 'esbuild';
+    framework: "React 20+" | "Next.js" | "Remix";
+    state: "Zustand" | "Jotai" | "Valtio";
+    styling: "Tailwind CSS" | "CSS-in-JS" | "Vanilla Extract";
+    bundler: "Vite" | "Turbopack" | "esbuild";
   };
-  
+
   backend: {
-    runtime: 'Node.js' | 'Deno' | 'Bun';
-    framework: 'Express' | 'Fastify' | 'Hono';
-    database: 'PostgreSQL' | 'MongoDB' | 'Supabase';
-    hosting: 'Vercel' | 'Railway' | 'Fly.io';
+    runtime: "Node.js" | "Deno" | "Bun";
+    framework: "Express" | "Fastify" | "Hono";
+    database: "PostgreSQL" | "MongoDB" | "Supabase";
+    hosting: "Vercel" | "Railway" | "Fly.io";
   };
-  
+
   infrastructure: {
-    containerization: 'Docker' | 'Podman';
-    orchestration: 'Kubernetes' | 'Docker Swarm';
-    monitoring: 'Grafana' | 'Datadog' | 'New Relic';
-    cicd: 'GitHub Actions' | 'GitLab CI' | 'Jenkins';
+    containerization: "Docker" | "Podman";
+    orchestration: "Kubernetes" | "Docker Swarm";
+    monitoring: "Grafana" | "Datadog" | "New Relic";
+    cicd: "GitHub Actions" | "GitLab CI" | "Jenkins";
   };
 }
 ```
@@ -846,12 +868,16 @@ class PayPalProcessor implements PaymentProcessor {
 class OrderService {
   constructor(
     private paymentProcessor: PaymentProcessor,
-    private emailService: EmailService
+    private emailService: EmailService,
   ) {}
-  
+
   async processOrder(order: Order) {
     await this.paymentProcessor.process(order.amount);
-    await this.emailService.sendEmail(order.email, 'Order Confirmed', 'Thank you!');
+    await this.emailService.sendEmail(
+      order.email,
+      "Order Confirmed",
+      "Thank you!",
+    );
   }
 }
 ```
@@ -886,7 +912,7 @@ class OrderService {
 
 ### 🎉 **Master the Architecture, Master the Code! ⚡**
 
-*"Good architecture is not about perfect code, it's about making the right trade-offs!"*
+_"Good architecture is not about perfect code, it's about making the right trade-offs!"_
 
 [![Back to Main](https://img.shields.io/badge/←%20Back%20to%20Main-README-blue?style=for-the-badge)](../README.md)
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)

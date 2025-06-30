@@ -13,7 +13,7 @@
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-failed-red)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
-*Complete monorepo for ThinkRED Technologies company website and infrastructure*
+_Complete monorepo for ThinkRED Technologies company website and infrastructure_
 
 </div>
 
@@ -46,6 +46,7 @@ founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**.
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat&logo=tailwind-css)
 
 **Modern Frontend Development**
+
 - React 19 with TypeScript
 - Vite for lightning-fast builds
 - Tailwind CSS for styling
@@ -62,6 +63,7 @@ founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**.
 ![Gmail](https://img.shields.io/badge/Gmail-API-EA4335?style=flat&logo=gmail)
 
 **Serverless Backend**
+
 - Google Apps Script runtime
 - Google Sheets for data storage
 - Google Drive for file storage
@@ -100,14 +102,14 @@ thinkred-monorepo/
 
 <div align="center">
 
-| Feature | Description | Status |
-|---------|-------------|--------|
-| 📱 **Responsive Design** | Optimized for all device sizes | ✅ Active |
-| 📝 **Form Processing** | Contact forms and job applications | ✅ Active |
-| 📎 **File Upload** | Resume uploads for job applications | ✅ Active |
-| 📧 **Email Notifications** | Automated email handling | ✅ Active |
+| Feature                     | Description                           | Status    |
+| --------------------------- | ------------------------------------- | --------- |
+| 📱 **Responsive Design**    | Optimized for all device sizes        | ✅ Active |
+| 📝 **Form Processing**      | Contact forms and job applications    | ✅ Active |
+| 📎 **File Upload**          | Resume uploads for job applications   | ✅ Active |
+| 📧 **Email Notifications**  | Automated email handling              | ✅ Active |
 | 📚 **Documentation System** | Markdown-based docs via web interface | ✅ Active |
-| 🔍 **SEO Optimized** | Built for search engine visibility | ✅ Active |
+| 🔍 **SEO Optimized**        | Built for search engine visibility    | ✅ Active |
 
 </div>
 
@@ -220,24 +222,24 @@ npm run backend:logs     # View backend logs
 
 ### 🎯 **For Users**
 
-| Documentation | Description | Access |
-|---------------|-------------|---------|
-| 🌐 **Website Overview** | Platform introduction and features | `/docs/website-overview` |
-| 🏢 **Company Information** | About ThinkRED Technologies | `/docs/company-info` |
-| 🎨 **Brand Guidelines** | Visual identity and style guide | `/docs/brand-guidelines` |
-| ❓ **FAQ** | Frequently asked questions | `/docs/faq` |
+| Documentation              | Description                        | Access                   |
+| -------------------------- | ---------------------------------- | ------------------------ |
+| 🌐 **Website Overview**    | Platform introduction and features | `/docs/website-overview` |
+| 🏢 **Company Information** | About ThinkRED Technologies        | `/docs/company-info`     |
+| 🎨 **Brand Guidelines**    | Visual identity and style guide    | `/docs/brand-guidelines` |
+| ❓ **FAQ**                 | Frequently asked questions         | `/docs/faq`              |
 
 ### 🛠️ **For Developers**
 
-| Documentation | Description | Link |
-|---------------|-------------|------|
-| 🔧 **Development Setup** | Local development environment | [DEVELOPMENT.md](docs/DEVELOPMENT.md) |
-| 🏗️ **Architecture Overview** | System design and technical details | [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| 📡 **API Documentation** | Backend API reference | [API.md](docs/API.md) |
-| 🚀 **Deployment Guide** | CI/CD and deployment procedures | [DEPLOYMENT.md](docs/DEPLOYMENT.md) |
-| � **Health Reports** | Monitoring and status dashboard management | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md) |
-| 🎛️ **Task Management** | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
-| �🔍 **Troubleshooting** | Common issues and solutions | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+| Documentation                | Description                                   | Link                                          |
+| ---------------------------- | --------------------------------------------- | --------------------------------------------- |
+| 🔧 **Development Setup**     | Local development environment                 | [DEVELOPMENT.md](docs/DEVELOPMENT.md)         |
+| 🏗️ **Architecture Overview** | System design and technical details           | [ARCHITECTURE.md](docs/ARCHITECTURE.md)       |
+| 📡 **API Documentation**     | Backend API reference                         | [API.md](docs/API.md)                         |
+| 🚀 **Deployment Guide**      | CI/CD and deployment procedures               | [DEPLOYMENT.md](docs/DEPLOYMENT.md)           |
+| � **Health Reports**         | Monitoring and status dashboard management    | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md)   |
+| 🎛️ **Task Management**       | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
+| �🔍 **Troubleshooting**      | Common issues and solutions                   | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
 
 </div>
 
@@ -324,6 +326,7 @@ For technical issues or questions:
 This project is licensed under a custom license that requires attribution to **ThinkRED Technologies LLP**.
 
 **Key Requirements:**
+
 - ✅ Attribution required for any use or derivative work
 - ✅ Credit must be given to ThinkRED Technologies LLP
 - ✅ Original license must be preserved
@@ -341,13 +344,13 @@ See the [LICENSE](LICENSE) file for complete terms and conditions.
 [![Website](https://img.shields.io/badge/Website-thinkred.tech-blue?style=flat&logo=globe)](https://thinkredtech.github.io)
 [![Email](https://img.shields.io/badge/Email-Contact%20Form-red?style=flat&logo=gmail)](https://thinkredtech.github.io/contact)
 
-*Contact us through our website contact form*
+_Contact us through our website contact form_
 
 ---
 
 <div align="center">
 
-*Built with ❤️ by the ThinkRED Technologies team*
+_Built with ❤️ by the ThinkRED Technologies team_
 
 **"Simplify Technology & Experience"**
 

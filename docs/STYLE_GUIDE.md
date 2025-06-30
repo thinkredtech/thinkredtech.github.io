@@ -53,7 +53,8 @@ const MAX_RETRY_ATTEMPTS = 3;
 
 ```typescript
 // Prefer arrow functions for simple operations
-const calculateTotal = (items: Item[]) => items.reduce((sum, item) => sum + item.price, 0);
+const calculateTotal = (items: Item[]) =>
+  items.reduce((sum, item) => sum + item.price, 0);
 
 // Use function declarations for complex operations
 function processFormSubmission(formData: FormData): Promise<SubmissionResult> {
@@ -84,7 +85,7 @@ interface ContactFormData {
 }
 
 // Use union types for enums
-type ProjectType = 'web' | 'mobile' | 'desktop' | 'api';
+type ProjectType = "web" | "mobile" | "desktop" | "api";
 
 // Use generic types when appropriate
 interface ApiResponse<T> {
@@ -98,24 +99,24 @@ interface ApiResponse<T> {
 
 ```typescript
 // Use named imports when possible
-import { useState, useEffect } from 'react';
-import { validateEmail, sanitizeInput } from '../utils/validation';
+import { useState, useEffect } from "react";
+import { validateEmail, sanitizeInput } from "../utils/validation";
 
 // Group imports by type
 // 1. External libraries
-import React from 'react';
-import { Router } from 'react-router-dom';
+import React from "react";
+import { Router } from "react-router-dom";
 
 // 2. Internal utilities and hooks
-import { useApi } from '../hooks/useApi';
-import { formatDate } from '../utils/dateUtils';
+import { useApi } from "../hooks/useApi";
+import { formatDate } from "../utils/dateUtils";
 
 // 3. Components
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 // 4. Types
-import type { User, ApiResponse } from '../types';
+import type { User, ApiResponse } from "../types";
 ```
 
 ### React Components
@@ -124,15 +125,18 @@ import type { User, ApiResponse } from '../types';
 
 ```tsx
 // File: UserProfile.tsx
-import React, { useState, useEffect } from 'react';
-import type { User } from '../types';
+import React, { useState, useEffect } from "react";
+import type { User } from "../types";
 
 interface UserProfileProps {
   userId: string;
   onUpdate?: (user: User) => void;
 }
 
-export const UserProfile: React.FC<UserProfileProps> = ({ userId, onUpdate }) => {
+export const UserProfile: React.FC<UserProfileProps> = ({
+  userId,
+  onUpdate,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -146,7 +150,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ userId, onUpdate }) =>
       const userData = await getUserById(userId);
       setUser(userData);
     } catch (error) {
-      console.error('Failed to fetch user:', error);
+      console.error("Failed to fetch user:", error);
     } finally {
       setLoading(false);
     }
@@ -234,19 +238,19 @@ function processFormSubmission(formData) {
   try {
     // Validate input data
     if (!formData || !formData.email) {
-      throw new Error('Invalid form data');
+      throw new Error("Invalid form data");
     }
 
     // Process the data
     const result = {
       success: true,
-      message: 'Form processed successfully',
+      message: "Form processed successfully",
       timestamp: new Date().toISOString(),
     };
 
     return result;
   } catch (error) {
-    Logger.log('Error processing form: ' + error.toString());
+    Logger.log("Error processing form: " + error.toString());
     throw error;
   }
 }
@@ -261,7 +265,7 @@ function handleFormSubmission(e) {
     const result = processFormData(data);
     return createSuccessResponse(result);
   } catch (error) {
-    Logger.log('Form submission error: ' + error.toString());
+    Logger.log("Form submission error: " + error.toString());
     return createErrorResponse(error.message);
   }
 }
@@ -288,21 +292,23 @@ function createErrorResponse(message) {
  * @returns Promise that resolves to submission result
  * @throws Error if validation fails or submission is rejected
  */
-async function submitContactForm(formData: ContactFormData): Promise<SubmissionResult> {
+async function submitContactForm(
+  formData: ContactFormData,
+): Promise<SubmissionResult> {
   // Validate required fields
   if (!formData.email || !formData.name) {
-    throw new Error('Name and email are required');
+    throw new Error("Name and email are required");
   }
 
   // Sanitize input data
   const sanitizedData = sanitizeFormData(formData);
 
   // Submit to backend
-  return await apiClient.post('/contact', sanitizedData);
+  return await apiClient.post("/contact", sanitizedData);
 }
 
 // Single-line comments for complex logic
-const isValidEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // RFC 5322 basic validation
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // RFC 5322 basic validation
 ```
 
 ### README Documentation
@@ -320,18 +326,18 @@ Each component or utility should include:
 
 ```typescript
 // File: validation.test.ts
-import { validateEmail, validatePhone } from '../validation';
+import { validateEmail, validatePhone } from "../validation";
 
-describe('Email Validation', () => {
-  test('should validate correct email formats', () => {
-    expect(validateEmail('user@example.com')).toBe(true);
-    expect(validateEmail('test.email+tag@domain.co.uk')).toBe(true);
+describe("Email Validation", () => {
+  test("should validate correct email formats", () => {
+    expect(validateEmail("user@example.com")).toBe(true);
+    expect(validateEmail("test.email+tag@domain.co.uk")).toBe(true);
   });
 
-  test('should reject invalid email formats', () => {
-    expect(validateEmail('invalid-email')).toBe(false);
-    expect(validateEmail('@domain.com')).toBe(false);
-    expect(validateEmail('user@')).toBe(false);
+  test("should reject invalid email formats", () => {
+    expect(validateEmail("invalid-email")).toBe(false);
+    expect(validateEmail("@domain.com")).toBe(false);
+    expect(validateEmail("user@")).toBe(false);
   });
 });
 ```
@@ -367,8 +373,8 @@ describe('Contact Form Integration', () => {
 function sanitizeInput(input: string): string {
   return input
     .trim()
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
-    .replace(/[<>]/g, ''); // Remove HTML brackets
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "") // Remove script tags
+    .replace(/[<>]/g, ""); // Remove HTML brackets
 }
 
 // Validate data types and ranges
@@ -381,7 +387,7 @@ function validateAge(age: number): boolean {
 
 ```typescript
 // Use environment variables for sensitive data
-const API_URL = process.env.VITE_API_URL || 'fallback-url';
+const API_URL = process.env.VITE_API_URL || "fallback-url";
 
 // Implement proper error handling without exposing internal details
 try {
@@ -389,9 +395,9 @@ try {
   return result;
 } catch (error) {
   // Log detailed error for debugging
-  console.error('API call failed:', error);
+  console.error("API call failed:", error);
   // Return generic error message to user
-  throw new Error('Service temporarily unavailable');
+  throw new Error("Service temporarily unavailable");
 }
 ```
 

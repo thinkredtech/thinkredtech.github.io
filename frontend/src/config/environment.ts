@@ -26,7 +26,7 @@ export interface AppConfig {
 
   // Application Configuration
   app: {
-    environment: 'development' | 'staging' | 'production';
+    environment: "development" | "staging" | "production";
     baseUrl: string;
     buildOutputDir: string;
     adminPassword?: string;
@@ -73,15 +73,21 @@ export interface AppConfig {
 /**
  * Parse boolean environment variables
  */
-const parseBoolean = (value: string | undefined, defaultValue: boolean = false): boolean => {
+const parseBoolean = (
+  value: string | undefined,
+  defaultValue: boolean = false,
+): boolean => {
   if (!value) return defaultValue;
-  return value.toLowerCase() === 'true' || value === '1';
+  return value.toLowerCase() === "true" || value === "1";
 };
 
 /**
  * Parse number environment variables
  */
-const parseNumber = (value: string | undefined, defaultValue: number): number => {
+const parseNumber = (
+  value: string | undefined,
+  defaultValue: number,
+): number => {
   if (!value) return defaultValue;
   const parsed = parseInt(value, 10);
   return isNaN(parsed) ? defaultValue : parsed;
@@ -90,11 +96,14 @@ const parseNumber = (value: string | undefined, defaultValue: number): number =>
 /**
  * Parse comma-separated string to array
  */
-const parseArray = (value: string | undefined, defaultValue: string[] = []): string[] => {
+const parseArray = (
+  value: string | undefined,
+  defaultValue: string[] = [],
+): string[] => {
   if (!value) return defaultValue;
   return value
-    .split(',')
-    .map(item => item.trim())
+    .split(",")
+    .map((item) => item.trim())
     .filter(Boolean);
 };
 
@@ -120,7 +129,7 @@ const getEnvVar = (key: string, fallback?: string): string => {
   }
 
   // Return fallback or empty string
-  return fallback || '';
+  return fallback || "";
 };
 
 /**
@@ -129,33 +138,43 @@ const getEnvVar = (key: string, fallback?: string): string => {
  */
 const getDeploymentId = (): string => {
   // Get environment from env vars first
-  const environment = getEnvVar('NODE_ENV', 'production') as 'development' | 'staging' | 'production';
+  const environment = getEnvVar("NODE_ENV", "production") as
+    | "development"
+    | "staging"
+    | "production";
 
   // Try environment-specific deployment ID first
-  const envSpecificId = getEnvVar(`GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`);
+  const envSpecificId = getEnvVar(
+    `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_${environment.toUpperCase()}`,
+  );
   if (envSpecificId) {
     return envSpecificId;
   }
 
   // Fallback to general deployment ID
-  const generalId = getEnvVar('GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID');
+  const generalId = getEnvVar("GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID");
   if (generalId) {
     return generalId;
   }
 
   // Final fallback: Use the working deployment ID from .env.example
-  const fallbackId = 'AKfycbyC3WXgrOpDZV1qG4xicgG26bbPvQLMPnvYvIt8ENU5QvOOmiGApN1l3R96pf78HdmJDQ';
+  const fallbackId =
+    "AKfycbyC3WXgrOpDZV1qG4xicgG26bbPvQLMPnvYvIt8ENU5QvOOmiGApN1l3R96pf78HdmJDQ";
 
   // In development, inform about using fallback
   if (import.meta.env.DEV) {
     // eslint-disable-next-line no-console
-    console.info('Using default Google Apps Script deployment ID for development.');
+    console.info(
+      "Using default Google Apps Script deployment ID for development.",
+    );
     return fallbackId;
   }
 
   // In production, use fallback with informational message
   // eslint-disable-next-line no-console
-  console.info('Using default Google Apps Script deployment ID. Job applications are functional.');
+  console.info(
+    "Using default Google Apps Script deployment ID. Job applications are functional.",
+  );
   return fallbackId;
 };
 
@@ -164,59 +183,83 @@ const getDeploymentId = (): string => {
  */
 export const config: AppConfig = {
   googleAppsScript: {
-    projectId: getEnvVar('GOOGLE_APPS_SCRIPT_ID', ''),
+    projectId: getEnvVar("GOOGLE_APPS_SCRIPT_ID", ""),
     deploymentId: getDeploymentId(),
-    baseUrl: getEnvVar('GOOGLE_APPS_SCRIPT_BASE_URL', 'https://script.google.com/macros/s'),
+    baseUrl: getEnvVar(
+      "GOOGLE_APPS_SCRIPT_BASE_URL",
+      "https://script.google.com/macros/s",
+    ),
     get apiEndpoint() {
       return `${this.baseUrl}/${this.deploymentId}/exec`;
     },
   },
 
   api: {
-    timeout: parseNumber(getEnvVar('API_TIMEOUT'), 30000),
-    enableDebug: parseBoolean(getEnvVar('ENABLE_API_DEBUG'), import.meta.env.DEV),
+    timeout: parseNumber(getEnvVar("API_TIMEOUT"), 30000),
+    enableDebug: parseBoolean(
+      getEnvVar("ENABLE_API_DEBUG"),
+      import.meta.env.DEV,
+    ),
   },
 
   app: {
-    environment: getEnvVar('NODE_ENV', 'development') as AppConfig['app']['environment'],
-    baseUrl: getEnvVar('FRONTEND_BASE_URL', 'https://thinkredtech.github.io'),
-    buildOutputDir: getEnvVar('BUILD_OUTPUT_DIR', 'build'),
-    adminPassword: getEnvVar('ADMIN_PASSWORD'),
+    environment: getEnvVar(
+      "NODE_ENV",
+      "development",
+    ) as AppConfig["app"]["environment"],
+    baseUrl: getEnvVar("FRONTEND_BASE_URL", "https://thinkredtech.github.io"),
+    buildOutputDir: getEnvVar("BUILD_OUTPUT_DIR", "build"),
+    adminPassword: getEnvVar("ADMIN_PASSWORD"),
   },
 
   features: {
-    jobApplications: parseBoolean(getEnvVar('ENABLE_JOB_APPLICATIONS'), true),
-    contactForm: parseBoolean(getEnvVar('ENABLE_CONTACT_FORM'), true),
-    blog: parseBoolean(getEnvVar('ENABLE_BLOG'), true),
-    portfolio: parseBoolean(getEnvVar('ENABLE_PORTFOLIO'), true),
+    jobApplications: parseBoolean(getEnvVar("ENABLE_JOB_APPLICATIONS"), true),
+    contactForm: parseBoolean(getEnvVar("ENABLE_CONTACT_FORM"), true),
+    blog: parseBoolean(getEnvVar("ENABLE_BLOG"), true),
+    portfolio: parseBoolean(getEnvVar("ENABLE_PORTFOLIO"), true),
   },
 
   security: {
-    enableHoneypot: parseBoolean(getEnvVar('ENABLE_HONEYPOT'), true),
-    enableRateLimiting: parseBoolean(getEnvVar('ENABLE_RATE_LIMITING'), true),
-    rateLimitCooldown: parseNumber(getEnvVar('RATE_LIMIT_COOLDOWN'), 5000),
-    allowedOrigins: parseArray(getEnvVar('ALLOWED_ORIGINS'), [
-      'https://thinkredtech.github.io',
-      'http://localhost:3000',
+    enableHoneypot: parseBoolean(getEnvVar("ENABLE_HONEYPOT"), true),
+    enableRateLimiting: parseBoolean(getEnvVar("ENABLE_RATE_LIMITING"), true),
+    rateLimitCooldown: parseNumber(getEnvVar("RATE_LIMIT_COOLDOWN"), 5000),
+    allowedOrigins: parseArray(getEnvVar("ALLOWED_ORIGINS"), [
+      "https://thinkredtech.github.io",
+      "http://localhost:3000",
     ]),
   },
 
   analytics: {
-    googleAnalyticsId: getEnvVar('GOOGLE_ANALYTICS_ID') || undefined,
-    enableFormAnalytics: parseBoolean(getEnvVar('ENABLE_FORM_ANALYTICS'), true),
-    enableErrorTracking: parseBoolean(getEnvVar('ENABLE_ERROR_TRACKING'), true),
+    googleAnalyticsId: getEnvVar("GOOGLE_ANALYTICS_ID") || undefined,
+    enableFormAnalytics: parseBoolean(getEnvVar("ENABLE_FORM_ANALYTICS"), true),
+    enableErrorTracking: parseBoolean(getEnvVar("ENABLE_ERROR_TRACKING"), true),
   },
 
   development: {
-    enableDevLogging: parseBoolean(getEnvVar('ENABLE_DEV_LOGGING'), import.meta.env.DEV),
-    devServerPort: parseNumber(getEnvVar('DEV_SERVER_PORT'), 3000),
+    enableDevLogging: parseBoolean(
+      getEnvVar("ENABLE_DEV_LOGGING"),
+      import.meta.env.DEV,
+    ),
+    devServerPort: parseNumber(getEnvVar("DEV_SERVER_PORT"), 3000),
   },
 
   build: {
-    enableProdSourceMaps: parseBoolean(getEnvVar('ENABLE_PROD_SOURCE_MAPS'), false),
-    enableBundleAnalysis: parseBoolean(getEnvVar('ENABLE_BUNDLE_ANALYSIS'), false),
-    enableCssMinification: parseBoolean(getEnvVar('ENABLE_CSS_MINIFICATION'), true),
-    enableJsMinification: parseBoolean(getEnvVar('ENABLE_JS_MINIFICATION'), true),
+    enableProdSourceMaps: parseBoolean(
+      getEnvVar("ENABLE_PROD_SOURCE_MAPS"),
+      false,
+    ),
+    enableBundleAnalysis: parseBoolean(
+      getEnvVar("ENABLE_BUNDLE_ANALYSIS"),
+      false,
+    ),
+    enableCssMinification: parseBoolean(
+      getEnvVar("ENABLE_CSS_MINIFICATION"),
+      true,
+    ),
+    enableJsMinification: parseBoolean(
+      getEnvVar("ENABLE_JS_MINIFICATION"),
+      true,
+    ),
   },
 };
 
@@ -228,13 +271,13 @@ export const validateConfig = (): { isValid: boolean; errors: string[] } => {
 
   // Validate Google Apps Script configuration
   if (!config.googleAppsScript.deploymentId) {
-    errors.push('GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID is required');
+    errors.push("GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID is required");
   }
 
   // Validate in production
-  if (config.app.environment === 'production') {
+  if (config.app.environment === "production") {
     if (!config.app.adminPassword) {
-      errors.push('ADMIN_PASSWORD is required in production');
+      errors.push("ADMIN_PASSWORD is required in production");
     }
   }
 
@@ -250,17 +293,17 @@ export const validateConfig = (): { isValid: boolean; errors: string[] } => {
 export const logConfig = (): void => {
   if (config.development.enableDevLogging && import.meta.env.DEV) {
     // eslint-disable-next-line no-console
-    console.group('🔧 Application Configuration');
+    console.group("🔧 Application Configuration");
     // eslint-disable-next-line no-console
-    console.log('Environment:', config.app.environment);
+    console.log("Environment:", config.app.environment);
     // eslint-disable-next-line no-console
-    console.log('API Endpoint:', config.googleAppsScript.apiEndpoint);
+    console.log("API Endpoint:", config.googleAppsScript.apiEndpoint);
     // eslint-disable-next-line no-console
-    console.log('Features:', config.features);
+    console.log("Features:", config.features);
     // eslint-disable-next-line no-console
-    console.log('Security:', {
+    console.log("Security:", {
       ...config.security,
-      allowedOrigins: config.security.allowedOrigins.join(', '),
+      allowedOrigins: config.security.allowedOrigins.join(", "),
     });
     // eslint-disable-next-line no-console
     console.groupEnd();
@@ -270,7 +313,16 @@ export const logConfig = (): void => {
 /**
  * Export individual configuration sections for convenience
  */
-export const { googleAppsScript, api, app, features, security, analytics, development, build } = config;
+export const {
+  googleAppsScript,
+  api,
+  app,
+  features,
+  security,
+  analytics,
+  development,
+  build,
+} = config;
 
 // Log configuration in development
 logConfig();

@@ -92,20 +92,20 @@ nano .deployment-config.json
 
 ### **📋 Required Variables**
 
-| Variable | Description | Required | Example | Where Used |
-|----------|-------------|----------|---------|------------|
-| `GOOGLE_APPS_SCRIPT_ID` | Google Apps Script project ID | ✅ | `1lxhn-Siz6ThM7r...` | Backend deployment |
-| `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID` | Current deployment ID | ✅ | `AKfycbzjcTdSJp...` | Frontend API calls |
-| `REACT_APP_ADMIN_PASSWORD` | Admin panel access password | ✅ | `super-secret-password` | Frontend admin |
+| Variable                           | Description                   | Required | Example                 | Where Used         |
+| ---------------------------------- | ----------------------------- | -------- | ----------------------- | ------------------ |
+| `GOOGLE_APPS_SCRIPT_ID`            | Google Apps Script project ID | ✅       | `1lxhn-Siz6ThM7r...`    | Backend deployment |
+| `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID` | Current deployment ID         | ✅       | `AKfycbzjcTdSJp...`     | Frontend API calls |
+| `REACT_APP_ADMIN_PASSWORD`         | Admin panel access password   | ✅       | `super-secret-password` | Frontend admin     |
 
 ### **🔶 Optional Variables**
 
-| Variable | Description | Required | Example | Where Used |
-|----------|-------------|----------|---------|------------|
-| `EMAIL_TO` | Default notification email | 🔶 | `hello@thinkred.tech` | Backend notifications |
-| `WEBHOOK_URL` | Webhook endpoint for notifications | 🔶 | `https://hooks.slack.com/...` | Backend webhooks |
-| `DEBUG_MODE` | Enable debug logging | 🔶 | `true` or `false` | All components |
-| `RATE_LIMIT_ENABLED` | Enable API rate limiting | 🔶 | `true` or `false` | Backend API |
+| Variable             | Description                        | Required | Example                       | Where Used            |
+| -------------------- | ---------------------------------- | -------- | ----------------------------- | --------------------- |
+| `EMAIL_TO`           | Default notification email         | 🔶       | `hello@thinkred.tech`         | Backend notifications |
+| `WEBHOOK_URL`        | Webhook endpoint for notifications | 🔶       | `https://hooks.slack.com/...` | Backend webhooks      |
+| `DEBUG_MODE`         | Enable debug logging               | 🔶       | `true` or `false`             | All components        |
+| `RATE_LIMIT_ENABLED` | Enable API rate limiting           | 🔶       | `true` or `false`             | Backend API           |
 
 ### **🌍 Environment-Specific Variables**
 
@@ -115,7 +115,7 @@ GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_DEV=AKfycby...dev...
 FRONTEND_URL_DEV=http://localhost:5173
 DEBUG_MODE_DEV=true
 
-# Staging Environment  
+# Staging Environment
 GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID_STAGING=AKfycby...staging...
 FRONTEND_URL_STAGING=https://staging.thinkred.tech
 DEBUG_MODE_STAGING=false
@@ -310,7 +310,7 @@ interface EnvironmentConfig {
   adminPassword: string;
   apiBaseUrl: string;
   debugMode: boolean;
-  environment: 'development' | 'staging' | 'production';
+  environment: "development" | "staging" | "production";
 }
 
 class Environment {
@@ -319,12 +319,12 @@ class Environment {
 
   private constructor() {
     this.config = {
-      googleAppsScriptId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_ID || '',
-      deploymentId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID || '',
-      adminPassword: import.meta.env.VITE_REACT_APP_ADMIN_PASSWORD || '',
+      googleAppsScriptId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_ID || "",
+      deploymentId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID || "",
+      adminPassword: import.meta.env.VITE_REACT_APP_ADMIN_PASSWORD || "",
       apiBaseUrl: this.buildApiUrl(),
-      debugMode: import.meta.env.VITE_DEBUG_MODE === 'true',
-      environment: this.detectEnvironment()
+      debugMode: import.meta.env.VITE_DEBUG_MODE === "true",
+      environment: this.detectEnvironment(),
     };
 
     this.validateConfig();
@@ -346,15 +346,15 @@ class Environment {
     return `https://script.google.com/macros/s/${deploymentId}/exec`;
   }
 
-  private detectEnvironment(): 'development' | 'staging' | 'production' {
+  private detectEnvironment(): "development" | "staging" | "production" {
     const hostname = window.location.hostname;
-    
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      return 'development';
-    } else if (hostname.includes('staging')) {
-      return 'staging';
+
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "development";
+    } else if (hostname.includes("staging")) {
+      return "staging";
     } else {
-      return 'production';
+      return "production";
     }
   }
 
@@ -362,20 +362,20 @@ class Environment {
     const errors: string[] = [];
 
     if (!this.config.googleAppsScriptId) {
-      errors.push('Google Apps Script ID is missing');
+      errors.push("Google Apps Script ID is missing");
     }
 
     if (!this.config.deploymentId) {
-      errors.push('Deployment ID is missing');
+      errors.push("Deployment ID is missing");
     }
 
     if (!this.config.adminPassword) {
-      errors.push('Admin password is missing');
+      errors.push("Admin password is missing");
     }
 
     if (errors.length > 0) {
-      console.error('Environment configuration errors:', errors);
-      throw new Error(`Environment validation failed: ${errors.join(', ')}`);
+      console.error("Environment configuration errors:", errors);
+      throw new Error(`Environment validation failed: ${errors.join(", ")}`);
     }
   }
 }
@@ -389,29 +389,37 @@ export default Environment;
 
 ```typescript
 // vite.config.ts
-import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  
+  const env = loadEnv(mode, process.cwd(), "");
+
   return {
     plugins: [react()],
     define: {
       // Expose environment variables to the client
-      'import.meta.env.VITE_GOOGLE_APPS_SCRIPT_ID': JSON.stringify(env.GOOGLE_APPS_SCRIPT_ID),
-      'import.meta.env.VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID': JSON.stringify(env.GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID),
-      'import.meta.env.VITE_REACT_APP_ADMIN_PASSWORD': JSON.stringify(env.REACT_APP_ADMIN_PASSWORD),
-      'import.meta.env.VITE_DEBUG_MODE': JSON.stringify(env.DEBUG_MODE || 'false'),
+      "import.meta.env.VITE_GOOGLE_APPS_SCRIPT_ID": JSON.stringify(
+        env.GOOGLE_APPS_SCRIPT_ID,
+      ),
+      "import.meta.env.VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID": JSON.stringify(
+        env.GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID,
+      ),
+      "import.meta.env.VITE_REACT_APP_ADMIN_PASSWORD": JSON.stringify(
+        env.REACT_APP_ADMIN_PASSWORD,
+      ),
+      "import.meta.env.VITE_DEBUG_MODE": JSON.stringify(
+        env.DEBUG_MODE || "false",
+      ),
     },
     build: {
-      sourcemap: env.DEBUG_MODE === 'true',
-      minify: env.DEBUG_MODE !== 'true'
+      sourcemap: env.DEBUG_MODE === "true",
+      minify: env.DEBUG_MODE !== "true",
     },
     server: {
       port: 5173,
-      host: true
-    }
+      host: true,
+    },
   };
 });
 ```
@@ -459,13 +467,15 @@ DEBUG_MODE=false
 class ConfigManager {
   static getProperty(key, defaultValue = null) {
     try {
-      return PropertiesService.getScriptProperties().getProperty(key) || defaultValue;
+      return (
+        PropertiesService.getScriptProperties().getProperty(key) || defaultValue
+      );
     } catch (error) {
       console.error(`Failed to get property ${key}:`, error);
       return defaultValue;
     }
   }
-  
+
   static getRequiredProperty(key) {
     const value = this.getProperty(key);
     if (!value) {
@@ -473,42 +483,42 @@ class ConfigManager {
     }
     return value;
   }
-  
+
   static getAllProperties() {
     try {
       return PropertiesService.getScriptProperties().getProperties();
     } catch (error) {
-      console.error('Failed to get all properties:', error);
+      console.error("Failed to get all properties:", error);
       return {};
     }
   }
-  
+
   static validateConfiguration() {
     const requiredProps = [
-      'CONTACT_FORM_SHEET_ID',
-      'JOB_APPLICATION_SHEET_ID',
-      'RESUME_PARENT_FOLDER_ID',
-      'EMAIL_TO'
+      "CONTACT_FORM_SHEET_ID",
+      "JOB_APPLICATION_SHEET_ID",
+      "RESUME_PARENT_FOLDER_ID",
+      "EMAIL_TO",
     ];
-    
-    const missing = requiredProps.filter(prop => !this.getProperty(prop));
-    
+
+    const missing = requiredProps.filter((prop) => !this.getProperty(prop));
+
     if (missing.length > 0) {
-      throw new Error(`Missing required properties: ${missing.join(', ')}`);
+      throw new Error(`Missing required properties: ${missing.join(", ")}`);
     }
   }
 }
 
 // Usage in your functions
 function handleContactForm(data) {
-  const sheetId = ConfigManager.getRequiredProperty('CONTACT_FORM_SHEET_ID');
-  const emailTo = ConfigManager.getRequiredProperty('EMAIL_TO');
-  const debugMode = ConfigManager.getProperty('DEBUG_MODE', 'false') === 'true';
-  
+  const sheetId = ConfigManager.getRequiredProperty("CONTACT_FORM_SHEET_ID");
+  const emailTo = ConfigManager.getRequiredProperty("EMAIL_TO");
+  const debugMode = ConfigManager.getProperty("DEBUG_MODE", "false") === "true";
+
   if (debugMode) {
-    console.log('Processing contact form:', data);
+    console.log("Processing contact form:", data);
   }
-  
+
   // Process form...
 }
 ```
@@ -605,6 +615,7 @@ npm start
 ### **❌ Environment Variables Not Loading**
 
 **Symptoms:**
+
 - API calls fail with 404
 - Frontend shows configuration errors
 - Build process fails
@@ -633,6 +644,7 @@ console.log(import.meta.env);
 ### **❌ Deployment ID Mismatch**
 
 **Symptoms:**
+
 - CORS errors
 - API returns 404
 - Forms not submitting
@@ -657,6 +669,7 @@ clasp deployments
 ### **❌ Google Apps Script Properties Missing**
 
 **Symptoms:**
+
 - Backend functions fail
 - Email notifications not working
 - File uploads fail
@@ -789,7 +802,7 @@ DEBUG_MODE_PROD=false
       "description": "Local development environment"
     },
     "staging": {
-      "name": "Staging", 
+      "name": "Staging",
       "frontend_url": "https://staging.yoursite.com",
       "backend_deployment_id": "your_staging_deployment_id",
       "description": "Staging environment for testing"
@@ -811,7 +824,7 @@ DEBUG_MODE_PROD=false
 
 ### 🎉 **Master Your Environment, Master Your Destiny! ⚡**
 
-*"The environment you create is the foundation of your success!"*
+_"The environment you create is the foundation of your success!"_
 
 [![Back to Main](https://img.shields.io/badge/←%20Back%20to%20Main-README-blue?style=for-the-badge)](../README.md)
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)
@@ -824,49 +837,49 @@ DEBUG_MODE_PROD=false
 
 ### Google Sheets Configuration
 
-| Variable | Description | Required | Example |
-|----------|-------------|----------|---------|
-| `CONTACT_FORM_SHEET_ID` | Sheet ID for contact form submissions | No* | `1BxQ2r3...` |
-| `JOB_APPLICATION_SHEET_ID` | Sheet ID for job applications | No* | `1CyR3s4...` |
+| Variable                   | Description                           | Required | Example      |
+| -------------------------- | ------------------------------------- | -------- | ------------ |
+| `CONTACT_FORM_SHEET_ID`    | Sheet ID for contact form submissions | No\*     | `1BxQ2r3...` |
+| `JOB_APPLICATION_SHEET_ID` | Sheet ID for job applications         | No\*     | `1CyR3s4...` |
 
-*Set these in Google Apps Script Properties instead of .env
+\*Set these in Google Apps Script Properties instead of .env
 
 ### Email Configuration
 
-| Variable | Description | Required | Example |
-|----------|-------------|----------|---------|
-| `EMAIL_TO` | Primary notification email | No* | `notifications@company.com` |
-| `EMAIL_CC_CONTACT_FORM` | CC for contact form emails | No* | `contact@company.com` |
-| `EMAIL_CC_JOB_APPLY` | CC for job application emails | No* | `hr@company.com` |
+| Variable                | Description                   | Required | Example                     |
+| ----------------------- | ----------------------------- | -------- | --------------------------- |
+| `EMAIL_TO`              | Primary notification email    | No\*     | `notifications@company.com` |
+| `EMAIL_CC_CONTACT_FORM` | CC for contact form emails    | No\*     | `contact@company.com`       |
+| `EMAIL_CC_JOB_APPLY`    | CC for job application emails | No\*     | `hr@company.com`            |
 
-*Set these in Google Apps Script Properties instead of .env
+\*Set these in Google Apps Script Properties instead of .env
 
 ### Frontend Configuration
 
-| Variable | Description | Required | Default |
-|----------|-------------|----------|---------|
-| `NODE_ENV` | Environment mode | No | `development` |
-| `REACT_APP_ADMIN_PASSWORD` | Admin panel password | Yes | None |
-| `FRONTEND_BASE_URL` | Base URL for the frontend | No | `https://thinkredtech.github.io` |
-| `API_TIMEOUT` | API request timeout (ms) | No | `30000` |
+| Variable                   | Description               | Required | Default                          |
+| -------------------------- | ------------------------- | -------- | -------------------------------- |
+| `NODE_ENV`                 | Environment mode          | No       | `development`                    |
+| `REACT_APP_ADMIN_PASSWORD` | Admin panel password      | Yes      | None                             |
+| `FRONTEND_BASE_URL`        | Base URL for the frontend | No       | `https://thinkredtech.github.io` |
+| `API_TIMEOUT`              | API request timeout (ms)  | No       | `30000`                          |
 
 ### Feature Flags
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ENABLE_JOB_APPLICATIONS` | Enable job application feature | `true` |
-| `ENABLE_CONTACT_FORM` | Enable contact form feature | `true` |
-| `ENABLE_BLOG` | Enable blog feature | `true` |
-| `ENABLE_PORTFOLIO` | Enable portfolio feature | `true` |
+| Variable                  | Description                    | Default |
+| ------------------------- | ------------------------------ | ------- |
+| `ENABLE_JOB_APPLICATIONS` | Enable job application feature | `true`  |
+| `ENABLE_CONTACT_FORM`     | Enable contact form feature    | `true`  |
+| `ENABLE_BLOG`             | Enable blog feature            | `true`  |
+| `ENABLE_PORTFOLIO`        | Enable portfolio feature       | `true`  |
 
 ### Security Configuration
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ENABLE_HONEYPOT` | Enable spam protection | `true` |
-| `ENABLE_RATE_LIMITING` | Enable rate limiting | `true` |
-| `RATE_LIMIT_COOLDOWN` | Rate limit cooldown (ms) | `5000` |
-| `ALLOWED_ORIGINS` | Comma-separated allowed origins | See example |
+| Variable               | Description                     | Default     |
+| ---------------------- | ------------------------------- | ----------- |
+| `ENABLE_HONEYPOT`      | Enable spam protection          | `true`      |
+| `ENABLE_RATE_LIMITING` | Enable rate limiting            | `true`      |
+| `RATE_LIMIT_COOLDOWN`  | Rate limit cooldown (ms)        | `5000`      |
+| `ALLOWED_ORIGINS`      | Comma-separated allowed origins | See example |
 
 ## 🛠️ Management Tools
 
@@ -896,7 +909,7 @@ The `scripts/env-manager.sh` script provides utilities for managing environment 
 Use the centralized configuration system in your React components:
 
 ```typescript
-import { config, googleAppsScript, features } from '../config/environment';
+import { config, googleAppsScript, features } from "../config/environment";
 
 // Access API endpoint
 const apiUrl = config.googleAppsScript.apiEndpoint;
@@ -917,6 +930,7 @@ const deploymentId = googleAppsScript.deploymentId;
 When deploying the backend:
 
 1. Deploy using the standard script:
+
    ```bash
    cd backend
    ./deploy.sh
@@ -925,6 +939,7 @@ When deploying the backend:
 2. Note the new deployment ID from the output
 
 3. Update the environment configuration:
+
    ```bash
    ./scripts/env-manager.sh update-api --deployment-id NEW_DEPLOYMENT_ID
    ```
@@ -1027,11 +1042,13 @@ thinkredtech.github.io/
 If you're upgrading from the old environment system:
 
 1. **Backup existing configuration**:
+
    ```bash
    cp frontend/.env.local .env.backup
    ```
 
 2. **Initialize new system**:
+
    ```bash
    ./scripts/env-manager.sh init
    ```
@@ -1039,12 +1056,13 @@ If you're upgrading from the old environment system:
 3. **Migrate your values** from the backup to the new `.env` file
 
 4. **Update your code** to use the new configuration system:
+
    ```typescript
    // Old way
-   const apiEndpoint = 'https://script.google.com/macros/s/HARDCODED_ID/exec';
-   
+   const apiEndpoint = "https://script.google.com/macros/s/HARDCODED_ID/exec";
+
    // New way
-   import { config } from '../config/environment';
+   import { config } from "../config/environment";
    const apiEndpoint = config.googleAppsScript.apiEndpoint;
    ```
 

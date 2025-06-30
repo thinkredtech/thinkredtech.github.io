@@ -11,43 +11,34 @@
     "task": "node scripts/task-runner.js",
     "help": "npm run task help",
     "status": "npm run task status",
-    
     "start": "npm run task dev",
     "dev": "npm run task dev",
     "dev:all": "npm run task dev:all",
-    
     "build": "npm run task build",
     "build:all": "npm run task build:all",
     "prebuild": "./scripts/pre-build.sh",
     "postbuild": "./scripts/post-build.sh",
-    
     "test": "npm run task test",
     "test:watch": "npm run task test:watch",
-    
     "lint": "npm run task lint",
     "lint:fix": "npm run task lint:fix",
     "format": "npm run task format",
     "format:check": "npm run task format:check",
     "type-check": "npm run task type-check",
-    
     "clean": "npm run task clean",
     "clean:git": "npm run task clean:git",
     "install:clean": "npm run task install:clean",
-    
     "deploy": "npm run task deploy",
     "deploy:frontend": "npm run task deploy:frontend",
     "deploy:backend": "npm run task deploy:backend",
     "release": "npm run deploy",
-    
     "backend:push": "npm run task backend:push",
     "backend:open": "npm run task backend:open",
     "backend:logs": "npm run task backend:logs",
-    
     "security:scan": "npm run task security:scan",
     "reports:health": "npm run task reports:health",
     "reports:status": "npm run task reports:status",
     "reports:generate": "npm run task reports:generate",
-    
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",

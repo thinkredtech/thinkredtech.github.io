@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ResetButtonProps {
   onReset: () => void;
@@ -9,9 +9,9 @@ interface ResetButtonProps {
 
 const ResetButton: React.FC<ResetButtonProps> = ({
   onReset,
-  className = '',
-  label = 'Reset',
-  title = 'Reset all filters',
+  className = "",
+  label = "Reset",
+  title = "Reset all filters",
 }) => {
   const resetIcon = (
     <svg className="w-5 h-5 mx-auto" fill="currentColor" viewBox="0 0 32 32">
@@ -27,7 +27,7 @@ const ResetButton: React.FC<ResetButtonProps> = ({
       aria-label={title}
       className={`flex items-center justify-center px-3 py-3 bg-gray-100 text-secondary rounded-xl hover:bg-red-100 hover:text-red-600 transition-all duration-300 transform hover:scale-105 min-w-[50px] ${className}`}
     >
-      {label === 'Reset' ? resetIcon : label}
+      {label === "Reset" ? resetIcon : label}
     </button>
   );
 };

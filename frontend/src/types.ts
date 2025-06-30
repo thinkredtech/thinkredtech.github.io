@@ -237,7 +237,7 @@ export interface TechStackItem {
   /** Brief description of the technology's purpose */
   description: string;
   /** Team's proficiency level with this technology */
-  proficiency: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  proficiency: "Beginner" | "Intermediate" | "Advanced" | "Expert";
   /** Whether this technology should be featured prominently */
   featured?: boolean;
 }
@@ -379,7 +379,7 @@ export interface AnimationConfig {
   /** CSS easing function */
   easing?: string;
   /** Direction of animation (for slide/fade effects) */
-  direction?: 'up' | 'down' | 'left' | 'right' | 'fade';
+  direction?: "up" | "down" | "left" | "right" | "fade";
 }
 
 /**
@@ -489,7 +489,13 @@ export interface JobApplication {
     coverLetterFile?: File | string; // File object or file path/URL
   };
   /** Current status of the application */
-  status: 'submitted' | 'under_review' | 'interviewing' | 'offer_extended' | 'accepted' | 'rejected';
+  status:
+    | "submitted"
+    | "under_review"
+    | "interviewing"
+    | "offer_extended"
+    | "accepted"
+    | "rejected";
   /** ISO timestamp when the application was submitted */
   submittedAt: string;
   /** ISO timestamp when the application was last updated */

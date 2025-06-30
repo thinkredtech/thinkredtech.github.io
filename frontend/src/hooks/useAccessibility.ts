@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // Performance monitoring hook
 export const usePerformanceMonitor = () => {
@@ -13,10 +13,11 @@ export const usePerformanceMonitor = () => {
 
     // Monitor memory usage if available
     const updateMemoryUsage = () => {
-      if ('memory' in performance) {
-        const memory = (performance as { memory?: { usedJSHeapSize: number } }).memory;
+      if ("memory" in performance) {
+        const memory = (performance as { memory?: { usedJSHeapSize: number } })
+          .memory;
         if (memory) {
-          setMetrics(prev => ({
+          setMetrics((prev) => ({
             ...prev,
             memoryUsage: memory.usedJSHeapSize / 1048576, // Convert to MB
           }));
@@ -28,7 +29,7 @@ export const usePerformanceMonitor = () => {
     const endTime = performance.now();
     const renderTime = endTime - startTime;
 
-    setMetrics(prev => ({
+    setMetrics((prev) => ({
       ...prev,
       loading: false,
       renderTime,
@@ -51,18 +52,22 @@ export const usePerformanceMonitor = () => {
 export const useAccessibility = () => {
   useEffect(() => {
     // Add skip navigation link
-    const skipNav = document.createElement('a');
-    skipNav.href = '#main-content';
-    skipNav.textContent = 'Skip to main content';
-    skipNav.className = 'skip-nav';
+    const skipNav = document.createElement("a");
+    skipNav.href = "#main-content";
+    skipNav.textContent = "Skip to main content";
+    skipNav.className = "skip-nav";
     document.body.insertBefore(skipNav, document.body.firstChild);
 
     // Add focus management for modals and overlays
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        const activeModal = document.querySelector('[role="dialog"]:not([hidden])');
+      if (e.key === "Escape") {
+        const activeModal = document.querySelector(
+          '[role="dialog"]:not([hidden])',
+        );
         if (activeModal) {
-          const closeButton = activeModal.querySelector('[data-close]') as HTMLElement;
+          const closeButton = activeModal.querySelector(
+            "[data-close]",
+          ) as HTMLElement;
           if (closeButton) {
             closeButton.click();
           }
@@ -70,23 +75,27 @@ export const useAccessibility = () => {
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     // Add aria-labels to elements that need them
     const addAriaLabels = () => {
       // Add to buttons without text
-      const buttons = document.querySelectorAll('button:not([aria-label]):not(:has(span,div))');
+      const buttons = document.querySelectorAll(
+        "button:not([aria-label]):not(:has(span,div))",
+      );
       buttons.forEach((button, index) => {
         if (!button.textContent?.trim()) {
-          button.setAttribute('aria-label', `Action button ${index + 1}`);
+          button.setAttribute("aria-label", `Action button ${index + 1}`);
         }
       });
 
       // Add to links without text
-      const links = document.querySelectorAll('a:not([aria-label]):not(:has(span,div))');
+      const links = document.querySelectorAll(
+        "a:not([aria-label]):not(:has(span,div))",
+      );
       links.forEach((link, index) => {
         if (!link.textContent?.trim()) {
-          link.setAttribute('aria-label', `Link ${index + 1}`);
+          link.setAttribute("aria-label", `Link ${index + 1}`);
         }
       });
     };
@@ -94,14 +103,14 @@ export const useAccessibility = () => {
     addAriaLabels();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
       skipNav.remove();
     };
   }, []);
 };
 
 // Image lazy loading with intersection observer
-export const useLazyImage = (src: string, placeholder = '/placeholder.jpg') => {
+export const useLazyImage = (src: string, placeholder = "/placeholder.jpg") => {
   const [imageSrc, setImageSrc] = useState(placeholder);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -126,19 +135,19 @@ export const useResourcePreloader = (resources: string[]) => {
   useEffect(() => {
     const preloadedResources: HTMLLinkElement[] = [];
 
-    resources.forEach(resource => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
+    resources.forEach((resource) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
 
-      if (resource.endsWith('.css')) {
-        link.as = 'style';
+      if (resource.endsWith(".css")) {
+        link.as = "style";
       } else if (resource.match(/\.(jpg|jpeg|png|webp|svg)$/)) {
-        link.as = 'image';
-      } else if (resource.endsWith('.js')) {
-        link.as = 'script';
+        link.as = "image";
+      } else if (resource.endsWith(".js")) {
+        link.as = "script";
       } else if (resource.match(/\.(woff|woff2|ttf|otf)$/)) {
-        link.as = 'font';
-        link.crossOrigin = 'anonymous';
+        link.as = "font";
+        link.crossOrigin = "anonymous";
       }
 
       link.href = resource;
@@ -147,7 +156,7 @@ export const useResourcePreloader = (resources: string[]) => {
     });
 
     return () => {
-      preloadedResources.forEach(link => {
+      preloadedResources.forEach((link) => {
         if (link.parentNode) {
           link.parentNode.removeChild(link);
         }
@@ -162,23 +171,25 @@ export const useFocusTrap = (isActive: boolean) => {
     if (!isActive) return;
 
     const focusableSelectors = [
-      'button:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      'a[href]',
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      "a[href]",
       '[tabindex]:not([tabindex="-1"])',
-    ].join(', ');
+    ].join(", ");
 
-    const container = document.querySelector('[data-focus-trap]');
+    const container = document.querySelector("[data-focus-trap]");
     if (!container) return;
 
     const focusableElements = container.querySelectorAll(focusableSelectors);
     const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
+      if (e.key === "Tab") {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
             e.preventDefault();
@@ -193,11 +204,11 @@ export const useFocusTrap = (isActive: boolean) => {
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     firstElement?.focus();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isActive]);
 };
@@ -211,7 +222,7 @@ export const useColorContrast = () => {
       const g = (rgb >> 8) & 0xff;
       const b = (rgb >> 0) & 0xff;
 
-      const sRGB = [r, g, b].map(c => {
+      const sRGB = [r, g, b].map((c) => {
         c = c / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
@@ -225,8 +236,8 @@ export const useColorContrast = () => {
     return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
   };
 
-  const isAccessible = (ratio: number, level: 'AA' | 'AAA' = 'AA'): boolean => {
-    return level === 'AA' ? ratio >= 4.5 : ratio >= 7;
+  const isAccessible = (ratio: number, level: "AA" | "AAA" = "AA"): boolean => {
+    return level === "AA" ? ratio >= 4.5 : ratio >= 7;
   };
 
   return { checkContrast, isAccessible };
@@ -234,22 +245,22 @@ export const useColorContrast = () => {
 
 // Responsive breakpoint hook
 export const useBreakpoint = () => {
-  const [breakpoint, setBreakpoint] = useState('');
+  const [breakpoint, setBreakpoint] = useState("");
 
   useEffect(() => {
     const updateBreakpoint = () => {
       const width = window.innerWidth;
-      if (width < 640) setBreakpoint('sm');
-      else if (width < 768) setBreakpoint('md');
-      else if (width < 1024) setBreakpoint('lg');
-      else if (width < 1280) setBreakpoint('xl');
-      else setBreakpoint('2xl');
+      if (width < 640) setBreakpoint("sm");
+      else if (width < 768) setBreakpoint("md");
+      else if (width < 1024) setBreakpoint("lg");
+      else if (width < 1280) setBreakpoint("xl");
+      else setBreakpoint("2xl");
     };
 
     updateBreakpoint();
-    window.addEventListener('resize', updateBreakpoint);
+    window.addEventListener("resize", updateBreakpoint);
 
-    return () => window.removeEventListener('resize', updateBreakpoint);
+    return () => window.removeEventListener("resize", updateBreakpoint);
   }, []);
 
   return breakpoint;
@@ -260,17 +271,17 @@ export const useReducedMotion = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
     };
 
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, []);
 
@@ -282,17 +293,17 @@ export const useHighContrast = () => {
   const [prefersHighContrast, setPrefersHighContrast] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-contrast: high)');
+    const mediaQuery = window.matchMedia("(prefers-contrast: high)");
     setPrefersHighContrast(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersHighContrast(e.matches);
     };
 
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
 
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, []);
 

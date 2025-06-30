@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { blogPosts } from '../data/blog/blogPosts';
-import PageHero from '../components/ui/PageHero';
-import Filter from '../components/ui/Filter';
-import SearchInput from '../components/ui/SearchInput';
-import ViewToggle from '../components/ui/ViewToggle';
-import ResetButton from '../components/ui/ResetButton';
-import FilterContainer from '../components/ui/FilterContainer';
-import { useSEO, useStructuredData, SEOConfigs, StructuredDataSchemas } from '../hooks/useSEO';
+import { blogPosts } from "../data/blog/blogPosts";
+import PageHero from "../components/ui/PageHero";
+import Filter from "../components/ui/Filter";
+import SearchInput from "../components/ui/SearchInput";
+import ViewToggle from "../components/ui/ViewToggle";
+import ResetButton from "../components/ui/ResetButton";
+import FilterContainer from "../components/ui/FilterContainer";
+import {
+  useSEO,
+  useStructuredData,
+  SEOConfigs,
+  StructuredDataSchemas,
+} from "../hooks/useSEO";
 
 const BlogPage = () => {
   // Apply SEO configuration for blog page
@@ -20,39 +25,42 @@ const BlogPage = () => {
   // Add breadcrumb structured data
   useStructuredData(
     StructuredDataSchemas.breadcrumb([
-      { name: 'Home', url: window.location.origin },
-      { name: 'Blog', url: `${window.location.origin}/blog` },
-    ])
+      { name: "Home", url: window.location.origin },
+      { name: "Blog", url: `${window.location.origin}/blog` },
+    ]),
   );
   // State for filters and search
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [selectedTag, setSelectedTag] = useState<string>('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedTag, setSelectedTag] = useState<string>("");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Extract unique categories and tags for filter options
-  const categories = Array.from(new Set(blogPosts.flatMap(post => post.categories)));
-  const tags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const categories = Array.from(
+    new Set(blogPosts.flatMap((post) => post.categories)),
+  );
+  const tags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
 
   // Filter blog posts based on search term and filters
-  const filteredPosts = blogPosts.filter(post => {
+  const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch =
-      searchTerm === '' ||
+      searchTerm === "" ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesCategory = selectedCategory === '' || post.categories.includes(selectedCategory);
-    const matchesTag = selectedTag === '' || post.tags.includes(selectedTag);
+    const matchesCategory =
+      selectedCategory === "" || post.categories.includes(selectedCategory);
+    const matchesTag = selectedTag === "" || post.tags.includes(selectedTag);
 
     return matchesSearch && matchesCategory && matchesTag;
   });
 
   // Reset all filters
   const resetFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory('');
-    setSelectedTag('');
+    setSearchTerm("");
+    setSelectedCategory("");
+    setSelectedTag("");
   };
 
   return (
@@ -75,7 +83,7 @@ const BlogPage = () => {
             quickActions={
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm text-secondary/70">Popular:</span>
-                {['React', 'DevOps', 'Cloud'].map(tag => (
+                {["React", "DevOps", "Cloud"].map((tag) => (
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(tag)}
@@ -100,13 +108,18 @@ const BlogPage = () => {
               {/* Enhanced Category Filter */}
               <Filter
                 label="Category"
-                options={categories.map(cat => ({ label: cat, value: cat }))}
+                options={categories.map((cat) => ({ label: cat, value: cat }))}
                 value={selectedCategory}
                 onChange={setSelectedCategory}
                 placeholder="All Categories"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -120,13 +133,18 @@ const BlogPage = () => {
               {/* Enhanced Tag Filter */}
               <Filter
                 label="Tags"
-                options={tags.map(tag => ({ label: tag, value: tag }))}
+                options={tags.map((tag) => ({ label: tag, value: tag }))}
                 value={selectedTag}
                 onChange={setSelectedTag}
                 placeholder="All Tags"
                 className="col-span-1 md:col-span-2"
                 icon={
-                  <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -139,15 +157,27 @@ const BlogPage = () => {
 
               {/* View Mode Toggle and Reset */}
               <div className="col-span-1 md:col-span-1 flex flex-col gap-2">
-                <label className="block label-1 text-secondary mb-2">Actions</label>
+                <label className="block label-1 text-secondary mb-2">
+                  Actions
+                </label>
                 <div className="flex gap-1">
                   <ViewToggle
                     viewMode={viewMode}
-                    onToggle={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+                    onToggle={() =>
+                      setViewMode(viewMode === "grid" ? "list" : "grid")
+                    }
                     className="flex-1 max-w-[25px]"
-                    title={viewMode === 'grid' ? 'Switch to List View' : 'Switch to Grid View'}
+                    title={
+                      viewMode === "grid"
+                        ? "Switch to List View"
+                        : "Switch to Grid View"
+                    }
                   />
-                  <ResetButton onReset={resetFilters} className="flex-1 max-w-[25px]" title="Reset all filters" />
+                  <ResetButton
+                    onReset={resetFilters}
+                    className="flex-1 max-w-[25px]"
+                    title="Reset all filters"
+                  />
                 </div>
               </div>
             </div>
@@ -155,21 +185,29 @@ const BlogPage = () => {
 
           {/* Blog Posts Grid/List */}
           {filteredPosts.length > 0 ? (
-            viewMode === 'grid' ? (
+            viewMode === "grid" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map(post => (
+                {filteredPosts.map((post) => (
                   <div
                     key={post.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
                   >
                     <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                      <img src={post.image} alt={post.title} className="object-cover w-full h-60 md:h-48 lg:h-60" />
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="object-cover w-full h-60 md:h-48 lg:h-60"
+                      />
                     </div>
                     <div className="p-6">
                       <div className="flex items-center mb-3">
-                        <span className="text-sm text-secondary/70">{post.date}</span>
+                        <span className="text-sm text-secondary/70">
+                          {post.date}
+                        </span>
                         <span className="mx-2 text-gray-300">•</span>
-                        <span className="text-sm text-secondary/70">{post.author}</span>
+                        <span className="text-sm text-secondary/70">
+                          {post.author}
+                        </span>
                       </div>
 
                       <h3 className="heading-2 mb-2">{post.title}</h3>
@@ -177,7 +215,10 @@ const BlogPage = () => {
 
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.categories.map((category, index) => (
-                          <span key={index} className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full">
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
+                          >
                             {category}
                           </span>
                         ))}
@@ -185,7 +226,10 @@ const BlogPage = () => {
 
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.tags.map((tag, index) => (
-                          <span key={index} className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full">
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full"
+                          >
                             #{tag}
                           </span>
                         ))}
@@ -196,7 +240,12 @@ const BlogPage = () => {
                         className="text-primary hover:underline font-medium inline-flex items-center"
                       >
                         Read More
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 ml-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -211,38 +260,56 @@ const BlogPage = () => {
               </div>
             ) : (
               <div className="space-y-6">
-                {filteredPosts.map(post => (
+                {filteredPosts.map((post) => (
                   <div
                     key={post.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
                   >
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-1/3">
-                        <img src={post.image} alt={post.title} className="object-cover w-full h-48 md:h-full" />
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="object-cover w-full h-48 md:h-full"
+                        />
                       </div>
                       <div className="md:w-2/3 p-6">
                         <div className="flex items-center mb-3">
-                          <span className="text-sm text-secondary/70">{post.date}</span>
+                          <span className="text-sm text-secondary/70">
+                            {post.date}
+                          </span>
                           <span className="mx-2 text-gray-300">•</span>
-                          <span className="text-sm text-secondary/70">{post.author}</span>
+                          <span className="text-sm text-secondary/70">
+                            {post.author}
+                          </span>
                         </div>
 
                         <h3 className="heading-2 mb-3">{post.title}</h3>
-                        <p className="text-secondary mb-4 line-clamp-3">{post.excerpt}</p>
+                        <p className="text-secondary mb-4 line-clamp-3">
+                          {post.excerpt}
+                        </p>
 
                         <div className="flex flex-wrap gap-2 mb-4">
                           {post.categories.map((category, index) => (
-                            <span key={index} className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full">
+                            <span
+                              key={index}
+                              className="px-3 py-1 bg-accent1/10 text-accent1 text-xs rounded-full"
+                            >
                               {category}
                             </span>
                           ))}
                           {post.tags.slice(0, 3).map((tag, index) => (
-                            <span key={index} className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full">
+                            <span
+                              key={index}
+                              className="px-3 py-1 bg-gray-100 text-secondary text-xs rounded-full"
+                            >
                               #{tag}
                             </span>
                           ))}
                           {post.tags.length > 3 && (
-                            <span className="text-xs text-secondary/70">+{post.tags.length - 3} more</span>
+                            <span className="text-xs text-secondary/70">
+                              +{post.tags.length - 3} more
+                            </span>
                           )}
                         </div>
 
@@ -251,7 +318,12 @@ const BlogPage = () => {
                           className="text-primary hover:underline font-medium inline-flex items-center"
                         >
                           Read More
-                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg
+                            className="w-4 h-4 ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -268,7 +340,9 @@ const BlogPage = () => {
             )
           ) : (
             <div className="text-center py-12">
-              <p className="body-1-medium text-secondary mb-4">No articles match your search criteria.</p>
+              <p className="body-1-medium text-secondary mb-4">
+                No articles match your search criteria.
+              </p>
               <button onClick={resetFilters} className="btn btn-primary">
                 Reset Filters
               </button>
@@ -279,7 +353,8 @@ const BlogPage = () => {
           <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
             <h2 className="heading-1 mb-4">Stay Updated with Our Newsletter</h2>
             <p className="body-1-medium text-secondary mb-6 max-w-2xl mx-auto">
-              Subscribe to receive the latest insights, articles, and resources directly to your inbox.
+              Subscribe to receive the latest insights, articles, and resources
+              directly to your inbox.
             </p>
             <div className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row gap-3">
@@ -288,9 +363,13 @@ const BlogPage = () => {
                   placeholder="Your email address"
                   className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
-                <button className="btn btn-primary whitespace-nowrap">Subscribe</button>
+                <button className="btn btn-primary whitespace-nowrap">
+                  Subscribe
+                </button>
               </div>
-              <p className="text-xs text-secondary/70 mt-3">We respect your privacy. Unsubscribe at any time.</p>
+              <p className="text-xs text-secondary/70 mt-3">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
             </div>
           </div>
         </div>

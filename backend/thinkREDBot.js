@@ -1,36 +1,43 @@
 // === CONFIG ===
 const SCRIPT_PROPS = PropertiesService.getScriptProperties();
 
-const CONTACT_FORM_SHEET_ID = SCRIPT_PROPS.getProperty('CONTACT_FORM_SHEET_ID');
-const JOB_APPLICATION_SHEET_ID = SCRIPT_PROPS.getProperty('JOB_APPLICATION_SHEET_ID');
-const RESUME_PARENT_FOLDER_ID = SCRIPT_PROPS.getProperty('RESUME_PARENT_FOLDER_ID');
+const CONTACT_FORM_SHEET_ID = SCRIPT_PROPS.getProperty("CONTACT_FORM_SHEET_ID");
+const JOB_APPLICATION_SHEET_ID = SCRIPT_PROPS.getProperty(
+  "JOB_APPLICATION_SHEET_ID",
+);
+const RESUME_PARENT_FOLDER_ID = SCRIPT_PROPS.getProperty(
+  "RESUME_PARENT_FOLDER_ID",
+);
 
-const EMAIL_TO = SCRIPT_PROPS.getProperty('EMAIL_TO');
-const EMAIL_CC_CONTACT_FORM = SCRIPT_PROPS.getProperty('EMAIL_CC_CONTACT_FORM');
-const EMAIL_CC_JOB_APPLY = SCRIPT_PROPS.getProperty('EMAIL_CC_JOB_APPLY');
+const EMAIL_TO = SCRIPT_PROPS.getProperty("EMAIL_TO");
+const EMAIL_CC_CONTACT_FORM = SCRIPT_PROPS.getProperty("EMAIL_CC_CONTACT_FORM");
+const EMAIL_CC_JOB_APPLY = SCRIPT_PROPS.getProperty("EMAIL_CC_JOB_APPLY");
 
 // === ENTRY POINT ===
 function doGet(e) {
   try {
     // Handle CORS preflight requests
     if (!e.parameter || !e.parameter.action) {
-      return createCorsResponse({ success: true, message: 'CORS preflight OK' });
+      return createCorsResponse({
+        success: true,
+        message: "CORS preflight OK",
+      });
     }
 
     // Handle actual GET requests with parameters
     const action = e.parameter.action;
-    
-    if (action === 'submitContactForm' && e.parameter.data) {
+
+    if (action === "submitContactForm" && e.parameter.data) {
       const data = JSON.parse(e.parameter.data);
       return handleContactForm(data);
     }
-    
-    if (action === 'submitJobApplication' && e.parameter.data) {
+
+    if (action === "submitJobApplication" && e.parameter.data) {
       const data = JSON.parse(e.parameter.data);
       return handleJobApplication(data);
     }
 
-    return createErrorResponse('Invalid action or missing data in GET request');
+    return createErrorResponse("Invalid action or missing data in GET request");
   } catch (error) {
     return createErrorResponse(`Server Error in GET: ${error.message}`);
   }
@@ -41,12 +48,12 @@ function doOptions(e) {
   // Google Apps Script doesn't support custom headers in the traditional way
   // But we can return a proper JSON response that indicates CORS is handled
   // The actual CORS handling is done by the deployment configuration
-  return createCorsResponse({ 
-    success: true, 
-    message: 'CORS preflight handled',
-    origin: 'https://thinkredtech.github.io',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    headers: ['Content-Type', 'Authorization', 'X-Requested-With']
+  return createCorsResponse({
+    success: true,
+    message: "CORS preflight handled",
+    origin: "https://thinkredtech.github.io",
+    methods: ["GET", "POST", "OPTIONS"],
+    headers: ["Content-Type", "Authorization", "X-Requested-With"],
   });
 }
 
@@ -54,7 +61,7 @@ function doPost(e) {
   try {
     // Handle larger payloads for file uploads
     let payload;
-    
+
     // Check if this is FormData or JSON payload
     if (e.postData && e.postData.contents) {
       try {
@@ -66,47 +73,51 @@ function doPost(e) {
           // Handle FormData submissions
           payload = {
             action: e.parameter.action,
-            data: JSON.parse(e.parameter.data)
+            data: JSON.parse(e.parameter.data),
           };
         } else {
-          return createErrorResponse('Invalid payload format. Expected JSON or FormData.');
+          return createErrorResponse(
+            "Invalid payload format. Expected JSON or FormData.",
+          );
         }
       }
     } else if (e.parameter && e.parameter.action && e.parameter.data) {
       // Handle FormData submissions directly
       payload = {
         action: e.parameter.action,
-        data: JSON.parse(e.parameter.data)
+        data: JSON.parse(e.parameter.data),
       };
     } else {
-      return createErrorResponse('Missing payload data');
+      return createErrorResponse("Missing payload data");
     }
-    
+
     // Validate payload structure
     if (!payload.action) {
-      return createErrorResponse('Missing action in payload');
+      return createErrorResponse("Missing action in payload");
     }
-    
+
     switch (payload.action) {
-      case 'submitContactForm':
+      case "submitContactForm":
         return handleContactForm(payload.data);
-      case 'submitJobApplication':
+      case "submitJobApplication":
         return handleJobApplication(payload.data);
       default:
-        return createErrorResponse('Invalid action provided');
+        return createErrorResponse("Invalid action provided");
     }
   } catch (error) {
-    console.error('doPost error:', error);
+    console.error("doPost error:", error);
     return createErrorResponse(`Server Error: ${error.message}`);
   }
 }
 
 // === CONTACT FORM HANDLER ===
 function handleContactForm(data) {
-  const sheet = SpreadsheetApp.openById(CONTACT_FORM_SHEET_ID).getSheetByName('Form Responses');
+  const sheet = SpreadsheetApp.openById(CONTACT_FORM_SHEET_ID).getSheetByName(
+    "Form Responses",
+  );
   if (!sheet) return createErrorResponse('Sheet "Form Responses" not found');
 
-  const requiredFields = ['formType', 'name', 'email', 'message'];
+  const requiredFields = ["formType", "name", "email", "message"];
   for (let field of requiredFields) {
     if (!data[field]) return createErrorResponse(`Missing field: ${field}`);
   }
@@ -117,12 +128,12 @@ function handleContactForm(data) {
     data.formType,
     data.name,
     data.email,
-    data.phone || '',
-    data.company || '',
-    data.projectType || '',
-    data.budget || '',
-    data.timeline || '',
-    data.message
+    data.phone || "",
+    data.company || "",
+    data.projectType || "",
+    data.budget || "",
+    data.timeline || "",
+    data.message,
   ]);
 
   const subject = `[ThinkRED] Contact Form Submission from ${data.name} – ${data.formType}`;
@@ -135,11 +146,11 @@ Form Type: ${data.formType}
 
 Name: ${data.name}
 Email: ${data.email}
-Phone: ${data.phone || '-'}
-Company: ${data.company || '-'}
-Project Type: ${data.projectType || '-'}
-Budget: ${data.budget || '-'}
-Timeline: ${data.timeline || '-'}
+Phone: ${data.phone || "-"}
+Company: ${data.company || "-"}
+Project Type: ${data.projectType || "-"}
+Budget: ${data.budget || "-"}
+Timeline: ${data.timeline || "-"}
 Message:
 ${data.message}
 
@@ -154,11 +165,11 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
   <li><strong>Form Type:</strong> ${data.formType}</li>
   <li><strong>Name:</strong> ${data.name}</li>
   <li><strong>Email:</strong> ${data.email}</li>
-  <li><strong>Phone:</strong> ${data.phone || '-'}</li>
-  <li><strong>Company:</strong> ${data.company || '-'}</li>
-  <li><strong>Project Type:</strong> ${data.projectType || '-'}</li>
-  <li><strong>Budget:</strong> ${data.budget || '-'}</li>
-  <li><strong>Timeline:</strong> ${data.timeline || '-'}</li>
+  <li><strong>Phone:</strong> ${data.phone || "-"}</li>
+  <li><strong>Company:</strong> ${data.company || "-"}</li>
+  <li><strong>Project Type:</strong> ${data.projectType || "-"}</li>
+  <li><strong>Budget:</strong> ${data.budget || "-"}</li>
+  <li><strong>Timeline:</strong> ${data.timeline || "-"}</li>
 </ul>
 <p><strong>Message:</strong><br>${data.message}</p>
 <p><a href="https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}">View Spreadsheet</a></p>
@@ -166,7 +177,7 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
 
   GmailApp.sendEmail(EMAIL_TO, subject, plainBody, {
     cc: EMAIL_CC_CONTACT_FORM,
-    htmlBody: htmlBody
+    htmlBody: htmlBody,
   });
 
   return createCorsResponse({ success: true });
@@ -176,22 +187,27 @@ https://docs.google.com/spreadsheets/d/${CONTACT_FORM_SHEET_ID}
 function handleJobApplication(data) {
   try {
     const {
-      jobId, applicationId, name, email, phone,
-      resumeBase64, coverLetterBase64
+      jobId,
+      applicationId,
+      name,
+      email,
+      phone,
+      resumeBase64,
+      coverLetterBase64,
     } = data;
 
     // Validate required fields
     if (!(jobId && applicationId && name && email && resumeBase64)) {
-      return createErrorResponse('Missing required fields in job application');
+      return createErrorResponse("Missing required fields in job application");
     }
 
     // Validate base64 data to prevent corruption
     if (!isValidBase64(resumeBase64)) {
-      return createErrorResponse('Invalid resume file format');
+      return createErrorResponse("Invalid resume file format");
     }
 
     if (coverLetterBase64 && !isValidBase64(coverLetterBase64)) {
-      return createErrorResponse('Invalid cover letter file format');
+      return createErrorResponse("Invalid cover letter file format");
     }
 
     // Get or create folder structure
@@ -203,14 +219,14 @@ function handleJobApplication(data) {
     let resumeFile;
     try {
       const resumeBlob = Utilities.newBlob(
-        Utilities.base64Decode(resumeBase64), 
-        'application/pdf', 
-        `${sanitizeFileName(name)}_Resume.pdf`
+        Utilities.base64Decode(resumeBase64),
+        "application/pdf",
+        `${sanitizeFileName(name)}_Resume.pdf`,
       );
       resumeFile = applicationFolder.createFile(resumeBlob);
     } catch (error) {
-      console.error('Error creating resume file:', error);
-      return createErrorResponse('Failed to save resume file');
+      console.error("Error creating resume file:", error);
+      return createErrorResponse("Failed to save resume file");
     }
 
     // Create cover letter file if provided
@@ -218,20 +234,24 @@ function handleJobApplication(data) {
     if (coverLetterBase64) {
       try {
         const coverLetterBlob = Utilities.newBlob(
-          Utilities.base64Decode(coverLetterBase64), 
-          'application/pdf', 
-          `${sanitizeFileName(name)}_CoverLetter.pdf`
+          Utilities.base64Decode(coverLetterBase64),
+          "application/pdf",
+          `${sanitizeFileName(name)}_CoverLetter.pdf`,
         );
         coverLetterFile = applicationFolder.createFile(coverLetterBlob);
       } catch (error) {
-        console.error('Error creating cover letter file:', error);
+        console.error("Error creating cover letter file:", error);
         // Don't fail the entire submission for cover letter issues
-        console.warn('Cover letter file creation failed, continuing without it');
+        console.warn(
+          "Cover letter file creation failed, continuing without it",
+        );
       }
     }
 
     // Save to spreadsheet
-    const sheet = SpreadsheetApp.openById(JOB_APPLICATION_SHEET_ID).getSheetByName('Applications');
+    const sheet = SpreadsheetApp.openById(
+      JOB_APPLICATION_SHEET_ID,
+    ).getSheetByName("Applications");
     if (!sheet) return createErrorResponse('Sheet "Applications" not found');
 
     sheet.appendRow([
@@ -240,9 +260,9 @@ function handleJobApplication(data) {
       applicationId,
       name,
       email,
-      phone || '',
+      phone || "",
       resumeFile.getUrl(),
-      coverLetterFile ? coverLetterFile.getUrl() : ''
+      coverLetterFile ? coverLetterFile.getUrl() : "",
     ]);
 
     // Send notification email
@@ -255,10 +275,10 @@ Job ID: ${jobId}
 Application ID: ${applicationId}
 Name: ${name}
 Email: ${email}
-Phone: ${phone || '-'}
+Phone: ${phone || "-"}
 
 Resume: ${resumeFile.getUrl()}
-Cover Letter: ${coverLetterFile ? coverLetterFile.getUrl() : 'Not Provided'}
+Cover Letter: ${coverLetterFile ? coverLetterFile.getUrl() : "Not Provided"}
 
 View the full record in the spreadsheet:
 https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}
@@ -271,23 +291,24 @@ https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}
   <li><strong>Application ID:</strong> ${applicationId}</li>
   <li><strong>Name:</strong> ${name}</li>
   <li><strong>Email:</strong> ${email}</li>
-  <li><strong>Phone:</strong> ${phone || '-'}</li>
+  <li><strong>Phone:</strong> ${phone || "-"}</li>
   <li><strong>Resume:</strong> <a href="${resumeFile.getUrl()}">View Resume</a></li>
-  <li><strong>Cover Letter:</strong> ${coverLetterFile ? `<a href="${coverLetterFile.getUrl()}">View Cover Letter</a>` : 'Not Provided'}</li>
+  <li><strong>Cover Letter:</strong> ${coverLetterFile ? `<a href="${coverLetterFile.getUrl()}">View Cover Letter</a>` : "Not Provided"}</li>
 </ul>
 <p><a href="https://docs.google.com/spreadsheets/d/${JOB_APPLICATION_SHEET_ID}">View Spreadsheet</a></p>
 `;
 
     GmailApp.sendEmail(EMAIL_TO, subject, plainBody, {
       cc: EMAIL_CC_JOB_APPLY,
-      htmlBody: htmlBody
+      htmlBody: htmlBody,
     });
 
     return createCorsResponse({ success: true });
-    
   } catch (error) {
-    console.error('Job application handling error:', error);
-    return createErrorResponse(`Failed to process job application: ${error.message}`);
+    console.error("Job application handling error:", error);
+    return createErrorResponse(
+      `Failed to process job application: ${error.message}`,
+    );
   }
 }
 
@@ -302,7 +323,7 @@ function getOrCreateSubFolder(parent, name) {
  */
 function isValidBase64(str) {
   try {
-    if (!str || typeof str !== 'string') return false;
+    if (!str || typeof str !== "string") return false;
     // Basic base64 validation - should be divisible by 4 and contain valid characters
     const base64Regex = /^[A-Za-z0-9+\/]*={0,2}$/;
     return str.length % 4 === 0 && base64Regex.test(str);
@@ -316,7 +337,10 @@ function isValidBase64(str) {
  */
 function sanitizeFileName(name) {
   // Remove special characters and replace spaces with underscores
-  return name.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_').substring(0, 50);
+  return name
+    .replace(/[^a-zA-Z0-9\s]/g, "")
+    .replace(/\s+/g, "_")
+    .substring(0, 50);
 }
 
 function createErrorResponse(message) {
@@ -324,18 +348,19 @@ function createErrorResponse(message) {
 }
 
 function createCorsResponse(data) {
-  const output = ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-  
+  const output = ContentService.createTextOutput(
+    JSON.stringify(data),
+  ).setMimeType(ContentService.MimeType.JSON);
+
   // Google Apps Script automatically handles CORS when deployed with proper settings:
   // - Execute as: Me (script owner)
   // - Who has access: Anyone
-  // 
+  //
   // However, we need to ensure the web app deployment is configured correctly.
   // If CORS issues persist, verify:
   // 1. Web app is deployed with "Who has access: Anyone"
   // 2. The script deployment ID matches the one in frontend API calls
   // 3. The Google Apps Script project has appropriate permissions
-  
+
   return output;
 }

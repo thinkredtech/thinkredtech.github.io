@@ -74,7 +74,6 @@ All reports must follow standardized templates for consistency:
 ### Common Header Format
 
 ```markdown
-
 # [Icon] [Report Type] - [Brief Title]
 
 **Report ID**: `YYYY-MM-DD-###`

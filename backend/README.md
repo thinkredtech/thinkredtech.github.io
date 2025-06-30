@@ -5,17 +5,17 @@ contact forms and job applications, built with **Google Apps Script**.
 
 It handles:
 
-* Contact form submissions (Contact Us, Request Quote, Discovery Call)
-* Job application processing and resume storage
-* Email notifications and Google Sheets integration
-* CORS handling for cross-origin requests
+- Contact form submissions (Contact Us, Request Quote, Discovery Call)
+- Job application processing and resume storage
+- Email notifications and Google Sheets integration
+- CORS handling for cross-origin requests
 
 ---
 
 ## 🧹 Features
 
-* Email notifications and Google Sheets integration
-* CORS handling for cross-origin requests
+- Email notifications and Google Sheets integration
+- CORS handling for cross-origin requests
 
 ---
 
@@ -24,24 +24,27 @@ It handles:
 ### Prerequisites
 
 1. **Install Google Apps Script CLI tool**:
+
    ```bash
    npm install -g @google/clasp
    ```
 
 2. **Google Account Access**:
-   * Must have access to the Google Apps Script project
-   * Script ID: `1lxhn-Siz6ThM7rWHveiEVE1HlyA7fimu4LMifyFLXbaXRmEbT5lVL78J`
+   - Must have access to the Google Apps Script project
+   - Script ID: `1lxhn-Siz6ThM7rWHveiEVE1HlyA7fimu4LMifyFLXbaXRmEbT5lVL78J`
 
 ### Local Development Deployment
 
 #### Step 1: Initial Setup
 
 1. **Login to Google Account**:
+
    ```bash
    clasp login
    ```
 
 2. **Setup Environment**:
+
    ```bash
    cd backend
    npm run setup
@@ -60,33 +63,37 @@ It handles:
 Choose one of the following deployment methods:
 
 **Recommended (Bash script - most reliable)**:
+
 ```bash
 ./deploy.sh
 ```
 
 **Alternative Methods**:
-* **Via npm**: `npm run deploy` (may have authentication issues)
-* **Node.js script**: `node deploy.js` (may have authentication issues)
-* **Simple deployment**: `clasp push && clasp deploy`
+
+- **Via npm**: `npm run deploy` (may have authentication issues)
+- **Node.js script**: `node deploy.js` (may have authentication issues)
+- **Simple deployment**: `clasp push && clasp deploy`
 
 ### GitHub Actions Deployment
 
 #### Setup GitHub Secrets
 
 1. **Get clasp credentials**:
+
    ```bash
    cat ~/.clasprc.json
    ```
 
 2. **Add these secrets to your GitHub repository**:
-   * `CLASP_SCRIPT_ID`: Your Google Apps Script ID
-   * `CLASPRC_JSON`: Contents of your `.clasprc.json` file
+   - `CLASP_SCRIPT_ID`: Your Google Apps Script ID
+   - `CLASPRC_JSON`: Contents of your `.clasprc.json` file
 
 #### Automatic Deployment
 
 The backend will automatically deploy when:
-* Code is pushed to `main` or `master` branch
-* Changes are made to the `backend/` directory
+
+- Code is pushed to `main` or `master` branch
+- Changes are made to the `backend/` directory
 
 #### Manual Deployment
 
@@ -100,6 +107,7 @@ The backend will automatically deploy when:
 After deployment, verify the changes:
 
 1. **Open Google Apps Script**:
+
    ```bash
    clasp open
    ```
@@ -107,6 +115,7 @@ After deployment, verify the changes:
 2. **Test the contact form** on your website
 
 3. **Check logs** for any runtime errors:
+
    ```bash
    npm run logs
    ```
@@ -120,7 +129,7 @@ After deployment, verify the changes:
 
 ## 📁 Folder Structure
 
-```
+````
 backend/
 ├── .env.example             # Environment variables template
 ├── .gitignore              # Git ignore rules
@@ -145,13 +154,15 @@ It handles:
 
 ## 📁 Folder Structure
 
-```
+````
+
 thinkred-appscript/
-├── .clasp.json               # clasp project configuration
-├── appsscript.json           # Apps Script project settings
-├── ThinkREDBot.gs            # Main script file with logic
-└── README.md                 # You’re here
-```
+├── .clasp.json # clasp project configuration
+├── appsscript.json # Apps Script project settings
+├── ThinkREDBot.gs # Main script file with logic
+└── README.md # You’re here
+
+````
 
 ---
 
@@ -211,7 +222,7 @@ thinkred-appscript/
     "message": "I'd like to request a quote."
   }
 }
-```
+````
 
 ### `POST /` with action `submitJobApplication`
 
@@ -292,41 +303,45 @@ You can use `Logger.log()` and **Apps Script Logs** (via View > Executions) to d
 ### Common Issues
 
 1. **"Not logged in to clasp"**:
+
    ```bash
    clasp login
    ```
 
 2. **"Script not found"**:
-   * Verify `CLASP_SCRIPT_ID` in `.env`
-   * Ensure you have access to the Google Apps Script
+   - Verify `CLASP_SCRIPT_ID` in `.env`
+   - Ensure you have access to the Google Apps Script
 
 3. **"Permission denied"**:
-   * Make sure your Google account has edit access to the script
-   * Re-run `clasp login` if needed
+   - Make sure your Google account has edit access to the script
+   - Re-run `clasp login` if needed
 
 4. **"File not found" errors**:
-   * Ensure you're in the `backend/` directory
-   * Run `npm run setup` to create `.env` file
+   - Ensure you're in the `backend/` directory
+   - Run `npm run setup` to create `.env` file
 
 5. **Authentication errors with npm deployment**:
    If you encounter `"Error retrieving access token"` when running `npm run deploy`, try these alternatives:
-   
+
    **Option A**: Use direct bash script
+
    ```bash
    ./deploy.sh
    ```
-   
+
    **Option B**: Use direct clasp commands
+
    ```bash
    clasp push --force
    clasp deploy --description "Manual deployment"
    ```
-   
+
    **Option C**: Use Node.js deployment directly
+
    ```bash
    node deploy.js
    ```
-   
+
    This is a known issue with clasp authentication in Node.js child processes when run through npm scripts.
 
 ### Post-Deployment Testing
@@ -342,32 +357,32 @@ You can use `Logger.log()` and **Apps Script Logs** (via View > Executions) to d
 
 ### Local Development
 
-* ✅ `.env` file is git-ignored
-* ✅ Script ID stored in environment variables
-* ✅ No hardcoded credentials in code
-* ✅ `.clasprc.json` contains sensitive OAuth tokens
+- ✅ `.env` file is git-ignored
+- ✅ Script ID stored in environment variables
+- ✅ No hardcoded credentials in code
+- ✅ `.clasprc.json` contains sensitive OAuth tokens
 
 ### GitHub Actions
 
-* ✅ Credentials stored as GitHub Secrets
-* ✅ Automatic cleanup of temporary files
-* ✅ No credentials exposed in logs
-* ✅ Environment validation before deployment
+- ✅ Credentials stored as GitHub Secrets
+- ✅ Automatic cleanup of temporary files
+- ✅ No credentials exposed in logs
+- ✅ Environment validation before deployment
 
 ---
 
 ## 📦 Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run setup` | Create .env from template |
-| `npm run verify` | Verify setup is complete |
-| `npm run deploy` | Deploy using Node.js script (recommended) |
-| `npm run deploy:bash` | Deploy using Bash script |
-| `npm run deploy:simple` | Direct clasp deployment |
-| `npm run push` | Push code without deployment |
-| `npm run open` | Open Google Apps Script in browser |
-| `npm run logs` | View runtime logs |
+| Script                  | Description                               |
+| ----------------------- | ----------------------------------------- |
+| `npm run setup`         | Create .env from template                 |
+| `npm run verify`        | Verify setup is complete                  |
+| `npm run deploy`        | Deploy using Node.js script (recommended) |
+| `npm run deploy:bash`   | Deploy using Bash script                  |
+| `npm run deploy:simple` | Direct clasp deployment                   |
+| `npm run push`          | Push code without deployment              |
+| `npm run open`          | Open Google Apps Script in browser        |
+| `npm run logs`          | View runtime logs                         |
 
 ---
 

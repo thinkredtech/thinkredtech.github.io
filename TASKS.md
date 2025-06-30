@@ -45,7 +45,7 @@ npm run task test frontend
 ## Workspaces
 
 - **frontend** ⚛️ - React app
-- **backend** 🔧 - Google Apps Script  
+- **backend** 🔧 - Google Apps Script
 - **root** 🌳 - Monorepo
 
 ---

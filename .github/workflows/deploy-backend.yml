@@ -8,17 +8,17 @@ on:
   workflow_dispatch:
     inputs:
       deploy_description:
-        description: 'Deployment description'
+        description: "Deployment description"
         required: false
-        default: 'Automated deployment from GitHub Actions'
+        default: "Automated deployment from GitHub Actions"
       enable_deployment:
-        description: 'Enable deployment (set to true to actually deploy)'
+        description: "Enable deployment (set to true to actually deploy)"
         required: true
-        default: 'false'
+        default: "false"
         type: choice
         options:
-          - 'false'
-          - 'true'
+          - "false"
+          - "true"
 
 permissions:
   contents: write
@@ -41,8 +41,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci

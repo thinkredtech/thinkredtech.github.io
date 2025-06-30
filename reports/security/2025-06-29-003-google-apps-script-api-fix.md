@@ -7,7 +7,7 @@ variables, causing job application submissions to fail with:
 
 1. **Console Error**: `Google Apps Script deployment ID not configured. API calls will fail.`
 2. **CORS Error**: `Access to fetch at 'https://script.google.com/macros/s//exec' from origin
-   'https://thinkredtech.github.io' has been blocked by CORS policy`
+'https://thinkredtech.github.io' has been blocked by CORS policy`
 3. **500 Error**: `POST https://script.google.com/macros/s//exec net::ERR_FAILED 500 (Internal Server Error)`
 
 ## Root Cause

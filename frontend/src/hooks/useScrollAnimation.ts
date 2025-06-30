@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface UseScrollAnimationOptions {
   threshold?: number;
@@ -7,7 +7,11 @@ interface UseScrollAnimationOptions {
 }
 
 export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
-  const { threshold = 0.1, triggerOnce = true, rootMargin = '0px 0px -50px 0px' } = options;
+  const {
+    threshold = 0.1,
+    triggerOnce = true,
+    rootMargin = "0px 0px -50px 0px",
+  } = options;
 
   const [isInView, setIsInView] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -31,7 +35,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
       {
         threshold,
         rootMargin,
-      }
+      },
     );
 
     observer.observe(element);
@@ -44,7 +48,10 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   return { elementRef, isInView };
 };
 
-export const useStaggeredAnimation = (itemCount: number, delay: number = 100) => {
+export const useStaggeredAnimation = (
+  itemCount: number,
+  delay: number = 100,
+) => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const { elementRef, isInView } = useScrollAnimation();
 
@@ -54,13 +61,13 @@ export const useStaggeredAnimation = (itemCount: number, delay: number = 100) =>
 
       for (let i = 0; i < itemCount; i++) {
         const timer = setTimeout(() => {
-          setVisibleItems(prev => [...prev, i]);
+          setVisibleItems((prev) => [...prev, i]);
         }, i * delay);
         timers.push(timer);
       }
 
       return () => {
-        timers.forEach(timer => clearTimeout(timer));
+        timers.forEach((timer) => clearTimeout(timer));
       };
     }
   }, [isInView, itemCount, delay]);
@@ -81,8 +88,8 @@ export const useParallaxEffect = (speed: number = 0.5) => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [speed]);
 
   return { elementRef, offset };
@@ -104,15 +111,15 @@ export const useMagneticEffect = () => {
     };
 
     const handleMouseLeave = () => {
-      element.style.transform = 'translate(0px, 0px)';
+      element.style.transform = "translate(0px, 0px)";
     };
 
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
+    element.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
