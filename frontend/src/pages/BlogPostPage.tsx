@@ -140,12 +140,12 @@ const BlogPostPage = () => {
       {/* Hero Section */}
       <div
         ref={setHeroRef}
-        className="w-full pt-20 md:pt-24 h-96 bg-cover bg-center relative hero-background"
+        className="w-full md:mt-20 mt-14 pt-24 md:pt-32 min-h-[400px] md:min-h-[500px] bg-cover bg-center relative hero-background"
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end">
-          <div className="container mx-auto px-4 py-16">
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center">
+          <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl">
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {post.categories.map((category: string, index: number) => (
                   <span
                     key={index}
@@ -155,7 +155,7 @@ const BlogPostPage = () => {
                   </span>
                 ))}
               </div>
-              <h1 className="display-1 text-white mb-4">{post.title}</h1>
+              <h1 className="display-1 text-white mb-6">{post.title}</h1>
               <div className="flex items-center text-white">
                 <div className="flex items-center">
                   <img
