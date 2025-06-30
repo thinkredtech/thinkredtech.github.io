@@ -350,7 +350,7 @@ ${generateTrendChart(responseTimeData, 'Daily Response Times (Last 7 days)', 'ms
       // Generate and write health report
       const healthReport = this.generateHealthReport();
       fs.writeFileSync(
-        path.join(this.reportsDir, 'automated', 'health-report.md'),
+        path.join(this.reportsDir, 'health-report.md'),
         healthReport
       );
 
@@ -363,7 +363,7 @@ ${generateTrendChart(responseTimeData, 'Daily Response Times (Last 7 days)', 'ms
 
       console.log('✅ Enhanced reports generated successfully!');
       console.log('📁 Location:', this.reportsDir);
-      console.log('📊 Files: automated/health-report.md, automated/status-dashboard.md');
+      console.log('📊 Files: health-report.md, status-dashboard.md');
     } catch (error) {
       console.error('❌ Error generating reports:', error.message);
       process.exit(1);

@@ -495,7 +495,7 @@ jobs:
       - name: Generate repository health report
         run: |
           echo "📊 Generating repository health report..."
-          mkdir -p reports
+          mkdir -p reports/automated
 
           # Create health report
           cat > reports/automated/health-report.md << EOF
