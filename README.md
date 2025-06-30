@@ -1,10 +1,8 @@
-<div a[![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](h| 📊 **Health Reports** | Monitoring and status dashboard management | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md) |
-| 🎛️ **Task Management** | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
-| 📋 **Report Formatting** | Markdown table formatting and professional report layout | [REPORT_FORMATTING.md](docs/REPORT_FORMATTING.md) |
-| 🔍 **Troubleshooting** | Common issues and solutions | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |s://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+<div align="center">
+
+<picture>
+  <img src="frontend/public/assets/logos/thinkRED-np.svg" alt="ThinkRED Technologies Logo" width="400" />
+</picture>
 
 # 🚀 ThinkRED Technologies Monorepo
 
@@ -247,12 +245,11 @@ npm run backend:logs     # View backend logs
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) for details on:
+We welcome contributions! Please read our guidelines:
 
-- 📋 Code standards and conventions
-- 🔄 Development workflow
-- 🔀 Pull request process
-- 📝 Documentation requirements
+- 📋 **Contributing Guidelines**: [CONTRIBUTING.md](docs/CONTRIBUTING.md) - Code standards, workflow, and PR process
+- 🤝 **Code of Conduct**: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Community standards and expectations
+- � **License**: [LICENSE](LICENSE) - Usage terms and attribution requirements
 
 ---
 
@@ -324,7 +321,14 @@ For technical issues or questions:
 
 ## 📄 License
 
-This project is **proprietary** to **ThinkRED Technologies LLP**. All rights reserved.
+This project is licensed under a custom license that requires attribution to **ThinkRED Technologies LLP**.
+
+**Key Requirements:**
+- ✅ Attribution required for any use or derivative work
+- ✅ Credit must be given to ThinkRED Technologies LLP
+- ✅ Original license must be preserved
+
+See the [LICENSE](LICENSE) file for complete terms and conditions.
 
 ---
 
