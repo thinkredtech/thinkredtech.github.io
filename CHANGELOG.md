@@ -21,6 +21,33 @@ For component-specific adventures, check out:
 
 ---
 
+## [1.2.3] - 2025-07-01
+
+### 🎨 **UI/UX Enhancement - Blog Page Newsletter Section**
+
+#### 🚀 **Newsletter Section Redesign**
+
+- **Complete Visual Overhaul**: Transformed blog page newsletter signup section to match site-wide CTA styling
+- **Consistent Design Language**: Applied primary background with white text to maintain visual hierarchy
+- **Enhanced Typography**: Implemented `font-comfortaa display-2` heading style for brand consistency
+- **Professional Input Styling**: 
+  - Added glassmorphism effect with `bg-white/10` and `backdrop-blur-sm`
+  - Implemented focus states with white ring and border highlights
+  - Enhanced placeholder text with optimal opacity for accessibility
+- **Improved Button Design**: Matches CTA section buttons across other pages (Career, About, etc.)
+- **Better Content Structure**: Enhanced description text and added community engagement messaging
+- **Responsive Layout**: Maintained mobile-first approach with proper spacing and container structure
+
+#### ✅ **Benefits Achieved**
+
+- **Visual Consistency**: Newsletter section now aligns with site-wide design standards
+- **Enhanced User Experience**: Professional appearance encourages more newsletter signups
+- **Brand Cohesion**: Consistent styling across all major page CTAs
+- **Better Accessibility**: Improved focus states and contrast ratios
+- **Mobile Optimization**: Responsive design works seamlessly across all devices
+
+---
+
 ## [1.2.2] - 2025-06-30
 
 ### 🔄 **Major Report Formatting Migration to Markdown Tables**

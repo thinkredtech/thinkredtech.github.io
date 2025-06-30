@@ -9,6 +9,41 @@ For backend changes, see [Backend CHANGELOG.md](../backend/CHANGELOG.md).
 
 ---
 
+## [1.0.8] - 2025-07-01
+
+### 🎨 **Blog Page Newsletter Section Enhancement**
+
+#### 🚀 **Newsletter CTA Redesign**
+
+- **Complete Visual Transformation**: Redesigned newsletter signup section to match site-wide CTA styling standards
+- **Consistent Design System**: Applied primary brand colors and typography patterns used across Career and About pages
+- **Enhanced Visual Hierarchy**: 
+  - Upgraded to `font-comfortaa display-2` heading style for brand consistency
+  - Implemented white text on primary background for maximum impact
+  - Added proper section padding (`py-16 md:py-24`) to match other CTAs
+
+#### 🎨 **Advanced Input Styling**
+
+- **Glassmorphism Effect**: Implemented modern `bg-white/10` with `backdrop-blur-sm` for premium feel
+- **Professional Focus States**: Added white ring and border highlights for accessibility
+- **Optimized Typography**: Enhanced placeholder text opacity and color for better readability
+- **Button Consistency**: Matches white buttons with primary text used across other page CTAs
+
+#### 📱 **Responsive Enhancement**
+
+- **Mobile-First Approach**: Maintained responsive design with proper flex layouts
+- **Container Structure**: Used consistent `max-w-3xl mx-auto` container patterns
+- **Improved Spacing**: Applied systematic spacing that aligns with design system
+
+#### ✅ **User Experience Benefits**
+
+- **Visual Cohesion**: Newsletter section now seamlessly integrates with overall site design
+- **Increased Engagement**: Professional appearance likely to boost newsletter signup rates
+- **Brand Consistency**: Unified CTA styling across all major pages (Blog, Career, About)
+- **Accessibility**: Better contrast ratios and focus indicators for inclusive design
+
+---
+
 ## [1.0.7] - 2025-06-30
 
 ### 🚀 **Comprehensive SEO Enhancement & Production Optimization**
