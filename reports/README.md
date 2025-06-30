@@ -166,7 +166,7 @@ Critical issues found in reports automatically:
 ## 📱 Quick Access
 
 - [📊 Live Status Dashboard](./status-dashboard.md) - Current service status
-- [🏥 Health Report](./health-report.md) - Repository health overview
+- [🏥 Health Report](./automated/health-report.md) - Repository health overview
 - [🔒 Security Status](./security-scan.md) - Security vulnerability status
 - [🛡️ CSP Implementation](./csp-implementation-2025-06-20.md) - Content Security Policy report
 

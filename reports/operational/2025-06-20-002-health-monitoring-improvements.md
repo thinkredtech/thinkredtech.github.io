@@ -133,7 +133,7 @@ The file now includes:
 To verify improvements are working:
 
 1. **Check Updated Reports:**
-   - [Health Report](./health-report.md) - Now shows 92/100 health score
+   - [Health Report](../automated/health-report.md) - Now shows 92/100 health score
    - [Status Dashboard](./status-dashboard.md) - Now includes real metrics
 
 2. **Monitor GitHub Actions:**

@@ -3,17 +3,17 @@ name: 📊 Repository Health Monitor
 on:
   schedule:
     # Run daily at 6 AM UTC
-    - cron: '0 6 * * *'
+    - cron: "0 6 * * *"
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/**'
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/**"
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
 
 jobs:
   # Health check and metrics collection
@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: |
@@ -189,7 +189,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: |
@@ -313,7 +313,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Check dependency health
         id: deps
@@ -498,7 +498,7 @@ jobs:
           mkdir -p reports
 
           # Create health report
-          cat > reports/health-report.md << EOF
+          cat > reports/automated/health-report.md << EOF
           # 📊 Repository Health Report
 
           **Generated:** $(date -u)
@@ -533,22 +533,22 @@ jobs:
 
           # Add action items based on status
           if [[ "${{ needs.dependency-health.outputs.health-status }}" != "healthy" ]]; then
-            echo "- 📦 Address dependency issues (outdated: ${{ needs.dependency-health.outputs.outdated-count }})" >> reports/health-report.md
+            echo "- 📦 Address dependency issues (outdated: ${{ needs.dependency-health.outputs.outdated-count }})" >> reports/automated/health-report.md
           fi
 
           if [[ "${{ needs.documentation-health.outputs.coverage-score }}" -lt 90 ]]; then
-            echo "- 📚 Improve documentation coverage (missing: ${{ needs.documentation-health.outputs.missing-docs }})" >> reports/health-report.md
+            echo "- 📚 Improve documentation coverage (missing: ${{ needs.documentation-health.outputs.missing-docs }})" >> reports/automated/health-report.md
           fi
 
           if [[ "${{ needs.performance-monitor.outputs.performance-score }}" -lt 80 ]]; then
-            echo "- ⚡ Optimize performance (bundle size, code splitting)" >> reports/health-report.md
+            echo "- ⚡ Optimize performance (bundle size, code splitting)" >> reports/automated/health-report.md
           fi
 
-          echo "" >> reports/health-report.md
-          echo "### 🔗 Quick Links" >> reports/health-report.md
-          echo "- [Security Architecture](./docs/security-architecture.md)" >> reports/health-report.md
-          echo "- [Website Overview](./docs/website-overview.md)" >> reports/health-report.md
-          echo "- [GitHub Actions](https://github.com/${{ github.repository }}/actions)" >> reports/health-report.md
+          echo "" >> reports/automated/health-report.md
+          echo "### 🔗 Quick Links" >> reports/automated/health-report.md
+          echo "- [Security Architecture](./docs/security-architecture.md)" >> reports/automated/health-report.md
+          echo "- [Website Overview](./docs/website-overview.md)" >> reports/automated/health-report.md
+          echo "- [GitHub Actions](https://github.com/${{ github.repository }}/actions)" >> reports/automated/health-report.md
 
       - name: Commit status updates
         run: |
@@ -564,7 +564,7 @@ jobs:
             if [ -z "$last_health_commit" ]; then
               echo "Creating daily health report update"
               git add reports/
-              git add -f reports/health-report.md
+              git add -f reports/automated/health-report.md
               git commit -m "📊 Update repository health status and metrics [skip ci]"
               git push
             else
@@ -585,6 +585,6 @@ jobs:
           echo "| Documentation | ${{ needs.documentation-health.outputs.coverage-score }}/100 | $([ ${{ needs.documentation-health.outputs.coverage-score }} -ge 90 ] && echo '✅ Complete' || echo '⚠️ Incomplete') |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 🔗 Resources" >> $GITHUB_STEP_SUMMARY
-          echo "- [Health Report](./reports/health-report.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Health Report](./reports/automated/health-report.md)" >> $GITHUB_STEP_SUMMARY
           echo "- [Live Website](https://www.thinkred.tech)" >> $GITHUB_STEP_SUMMARY
           echo "- [Documentation](./docs/)" >> $GITHUB_STEP_SUMMARY

@@ -322,7 +322,7 @@ These critical fixes ensure:
 
 - **Status Dashboard**: `reports/status-dashboard.md` - Real-time website and service status
   monitoring
-- **Health Reports**: `reports/health-report.md` - Comprehensive repository health assessments
+- **Health Reports**: `reports/automated/health-report.md` - Comprehensive repository health assessments
 - **Security Reports**: `reports/security-scan.md` - Vulnerability scanning and compliance results
 - **Performance Reports**: `reports/build-analysis.md` - Bundle optimization and performance metrics
 

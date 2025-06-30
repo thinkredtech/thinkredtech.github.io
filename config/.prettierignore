@@ -1,17 +1,32 @@
+# Build outputs and generated files
 build/
+frontend/dist/
 node_modules/
-*.md
-*.json
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 coverage/
+
+# Package and lock files
 package-lock.json
+*.tgz
+
+# Environment files
+.env*
+
+# Generated reports (formatted manually)
+reports/automated/
+reports/automated/health-report.md
+reports/*-fix-*.md
+
+# Asset files (non-text)
 *.svg
 *.png
 *.jpg
 *.jpeg
 *.gif
 *.ico
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Configuration that shouldn't be formatted
+.clasp.json

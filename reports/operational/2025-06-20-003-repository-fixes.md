@@ -92,7 +92,7 @@ schedule:
 
 - 🟢 **CI/CD Pipeline**: [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml)
 - 🟢 **Security Report**: [Security Architecture](./docs/security-architecture.md)
-- 🟢 **Health Dashboard**: [Health Report](./reports/health-report.md)
+- 🟢 **Health Dashboard**: [Health Report](../automated/health-report.md)
 - 🟢 **Performance Report**: [Status Dashboard](./reports/status-dashboard.md)
 - 🟢 **Dependency Health**: [GitHub Actions](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 

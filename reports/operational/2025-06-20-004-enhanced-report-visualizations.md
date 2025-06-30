@@ -63,7 +63,7 @@ and status dashboards. The improvements provide better visual representation of 
 
 ## 📁 Enhanced Report Types
 
-### Health Report (`health-report.md`)
+### Health Report (`automated/health-report.md`)
 
 **New Features:**
 

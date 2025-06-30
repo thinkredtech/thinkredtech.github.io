@@ -11,11 +11,11 @@ on:
     branches: [main, develop]
   schedule:
     # Update status twice daily during business hours (9 AM and 5 PM UTC)
-    - cron: '0 9,17 * * 1-5'
+    - cron: "0 9,17 * * 1-5"
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
 
 jobs:
   # Real-time status collection
@@ -211,7 +211,7 @@ jobs:
           - [📚 Documentation](./frontend/docs/)
           - [🔒 Security Architecture](./frontend/docs/security-architecture.md)
           - [🚀 CI/CD Pipeline](https://github.com/${{ github.repository }}/actions)
-          - [📝 Health Report](./reports/health-report.md)
+          - [📝 Health Report](./reports/automated/health-report.md)
 
           ## 📋 Service Level Objectives (SLOs)
 

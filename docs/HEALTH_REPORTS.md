@@ -12,7 +12,7 @@ reports/
 ├── automated/
 │   ├── README.md              # 📋 Directory documentation (tracked)
 │   ├── .gitkeep               # 📌 Keep directory structure (tracked)
-│   ├── health-report.md       # 📊 Auto-generated health report (untracked)
+│   ├── health-report.md       # 📊 Auto-generated health report (tracked in automated/)
 │   ├── status-dashboard.md    # 📊 Auto-generated status dashboard (untracked)
 │   └── templates/
 │       ├── .gitkeep           # 📌 Keep templates directory (tracked)
