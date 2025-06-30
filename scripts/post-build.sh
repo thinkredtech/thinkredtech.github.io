@@ -5,6 +5,18 @@
 
 echo "🎯 Post-build cleanup..."
 
+# Copy frontend build output to root build directory
+if [ -d "frontend/dist" ]; then
+    echo "📦 Copying frontend build to root build directory..."
+    # Ensure build directory exists
+    mkdir -p build
+    # Copy all files from frontend/dist to build, preserving existing files
+    cp -r frontend/dist/* build/ 2>/dev/null || true
+    echo "✅ Frontend build copied successfully"
+else
+    echo "⚠️  Warning: frontend/dist directory not found"
+fi
+
 # Remove build lock files
 rm -f .building
 rm -f frontend/.building 2>/dev/null || true
