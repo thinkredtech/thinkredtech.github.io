@@ -45,6 +45,8 @@
     
     "security:scan": "npm run task security:scan",
     "reports:health": "npm run task reports:health",
+    "reports:status": "npm run task reports:status",
+    "reports:generate": "npm run task reports:generate",
     
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",

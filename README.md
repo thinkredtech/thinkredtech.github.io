@@ -234,7 +234,9 @@ npm run backend:logs     # View backend logs
 | 🏗️ **Architecture Overview** | System design and technical details | [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | 📡 **API Documentation** | Backend API reference | [API.md](docs/API.md) |
 | 🚀 **Deployment Guide** | CI/CD and deployment procedures | [DEPLOYMENT.md](docs/DEPLOYMENT.md) |
-| 🔍 **Troubleshooting** | Common issues and solutions | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+| � **Health Reports** | Monitoring and status dashboard management | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md) |
+| 🎛️ **Task Management** | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
+| �🔍 **Troubleshooting** | Common issues and solutions | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
 
 </div>
 

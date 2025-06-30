@@ -34,6 +34,15 @@ dist/
 *.bundle.css
 **/*.bundle.css
 
+# Automated reports and status files (generated, not tracked)
+**/automated/health-report.md
+**/automated/status-dashboard.md
+scripts/reports/automated/
+reports/automated/*.md
+reports/automated/
+!reports/automated/.gitkeep
+!reports/automated/templates/
+
 # Vite build cache and temp files
 .vite/
 **/.vite/

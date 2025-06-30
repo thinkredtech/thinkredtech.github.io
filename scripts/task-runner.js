@@ -218,6 +218,20 @@ const TASKS = {
     workspaces: ['frontend'],
     parallel: false,
     script: 'reports:health'
+  },
+  'reports:status': {
+    description: 'Generate status dashboard',
+    workspaces: ['root'],
+    parallel: false,
+    customCommand: async () => {
+      await runCommand('Generating status dashboard...', 'echo "Status dashboard generation would run here - integrate with monitoring system"');
+    }
+  },
+  'reports:generate': {
+    description: 'Generate all reports',
+    workspaces: ['frontend'],
+    parallel: false,
+    script: 'reports:generate'
   }
 };
 
@@ -315,7 +329,7 @@ function showHelp() {
     'Setup': ['install', 'install:clean', 'clean', 'clean:git'],
     'Deployment': ['deploy', 'deploy:frontend', 'deploy:backend'],
     'Backend': ['backend:push', 'backend:open', 'backend:logs'],
-    'Security': ['security:scan', 'reports:health']
+    'Security': ['security:scan', 'reports:health', 'reports:status', 'reports:generate']
   };
 
   Object.entries(categories).forEach(([category, tasks]) => {
