@@ -4,56 +4,6 @@
 
 This document outlines the security measures implemented in the ThinkRED project and provides guidance for maintaining security best practices.
 
-## Recent Security Fixes
-
-### 1. Sensitive Data Exposure (Issue #42) ✅ RESOLVED
-
-**Problem**: Google Apps Script deployment IDs were hardcoded in source files.
-
-**Solution**:
-- Moved deployment ID to environment variables
-- Created proper environment configuration files
-- Updated scripts to use environment variables
-- Added validation for missing deployment IDs
-
-**Configuration**:
-```bash
-# Set in your environment or .env.local file
-export VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID=your_deployment_id_here
-```
-
-### 2. Content Security Policy Violations (Issue #43) ✅ RESOLVED
-
-**Problem**: CSP headers needed improvement to prevent XSS attacks.
-
-**Solution**:
-- Enhanced CSP headers in both HTML meta tags and HTTP headers
-- Added support for Google Apps Script domains
-- Implemented strict transport security
-- Added proper form-action policies
-
-**Current CSP Policy**:
-```
-Content-Security-Policy: 
-  default-src 'self'; 
-  script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-  font-src 'self' https://fonts.gstatic.com; 
-  img-src 'self' data: https:; 
-  connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; 
-  object-src 'none'; 
-  media-src 'self'; 
-  child-src 'none'; 
-  frame-src 'none'; 
-  worker-src 'self'; 
-  manifest-src 'self'; 
-  frame-ancestors 'none'; 
-  base-uri 'self'; 
-  form-action 'self' https://script.google.com; 
-  upgrade-insecure-requests; 
-  block-all-mixed-content
-```
-
 ## Environment Variables Security
 
 ### Required Variables
@@ -201,6 +151,56 @@ If security issues are detected:
 - ✅ Regular credential rotation
 - ✅ Principle of least privilege
 - ✅ Audit access logs
+
+## Recent Security Fixes
+
+### 1. Sensitive Data Exposure (Issue #42) ✅ RESOLVED
+
+**Problem**: Google Apps Script deployment IDs were hardcoded in source files.
+
+**Solution**:
+- Moved deployment ID to environment variables
+- Created proper environment configuration files
+- Updated scripts to use environment variables
+- Added validation for missing deployment IDs
+
+**Configuration**:
+```bash
+# Set in your environment or .env.local file
+export VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID=your_deployment_id_here
+```
+
+### 2. Content Security Policy Violations (Issue #43) ✅ RESOLVED
+
+**Problem**: CSP headers needed improvement to prevent XSS attacks.
+
+**Solution**:
+- Enhanced CSP headers in both HTML meta tags and HTTP headers
+- Added support for Google Apps Script domains
+- Implemented strict transport security
+- Added proper form-action policies
+
+**Current CSP Policy**:
+```
+Content-Security-Policy: 
+  default-src 'self'; 
+  script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+  font-src 'self' https://fonts.gstatic.com; 
+  img-src 'self' data: https:; 
+  connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; 
+  object-src 'none'; 
+  media-src 'self'; 
+  child-src 'none'; 
+  frame-src 'none'; 
+  worker-src 'self'; 
+  manifest-src 'self'; 
+  frame-ancestors 'none'; 
+  base-uri 'self'; 
+  form-action 'self' https://script.google.com; 
+  upgrade-insecure-requests; 
+  block-all-mixed-content
+```
 
 ---
 
