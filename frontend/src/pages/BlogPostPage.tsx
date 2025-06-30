@@ -140,7 +140,7 @@ const BlogPostPage = () => {
       {/* Hero Section */}
       <div
         ref={setHeroRef}
-        className="w-full md:mt-20 mt-14 h-96 bg-cover bg-center relative hero-background"
+        className="w-full pt-20 md:pt-24 h-96 bg-cover bg-center relative hero-background"
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end">
           <div className="container mx-auto px-4 py-16">
