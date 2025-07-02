@@ -192,10 +192,12 @@ npm run backend:logs     # View backend logs
 ### 🌐 **Frontend Deployment**
 
 ![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-181717?style=flat&logo=github)
-![Hostinger](https://img.shields.io/badge/Hostinger-Secondary-FF6C37?style=flat)
+![Hostinger](https://img.shields.io/badge/Hostinger-Zero%20Downtime-FF6C37?style=flat)
 
 **Primary**: GitHub Pages (automatic)  
-**Secondary**: Hostinger (manual)
+**Secondary**: Hostinger (zero-downtime deployment)
+
+📖 **Zero-Downtime Guide**: [docs/ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md)
 
 </td>
 <td width="50%" align="center">
@@ -237,6 +239,7 @@ npm run backend:logs     # View backend logs
 | 🏗️ **Architecture Overview** | System design and technical details           | [ARCHITECTURE.md](docs/ARCHITECTURE.md)       |
 | 📡 **API Documentation**     | Backend API reference                         | [API.md](docs/API.md)                         |
 | 🚀 **Deployment Guide**      | CI/CD and deployment procedures               | [DEPLOYMENT.md](docs/DEPLOYMENT.md)           |
+| 🔄 **Zero-Downtime Deploy**  | Professional maintenance & zero-downtime     | [ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
 | � **Health Reports**         | Monitoring and status dashboard management    | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md)   |
 | 🎛️ **Task Management**       | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
 | �🔍 **Troubleshooting**      | Common issues and solutions                   | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |

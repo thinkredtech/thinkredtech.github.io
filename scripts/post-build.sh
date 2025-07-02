@@ -13,6 +13,15 @@ if [ -d "frontend/dist" ]; then
     # Copy all files from frontend/dist to build, preserving existing files
     cp -r frontend/dist/* build/ 2>/dev/null || true
     echo "✅ Frontend build copied successfully"
+    
+    # Ensure maintenance page is available for deployments
+    if [ -f "frontend/public/maintenance.html" ]; then
+        echo "🚧 Copying maintenance page for deployments..."
+        cp frontend/public/maintenance.html build/maintenance.html
+        echo "✅ Maintenance page ready for zero-downtime deployments"
+    else
+        echo "⚠️  Warning: maintenance.html not found in frontend/public/"
+    fi
 else
     echo "⚠️  Warning: frontend/dist directory not found"
 fi
