@@ -43,13 +43,13 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0">
+          <Link to="/" className="flex-shrink-0 logo-link">
             <img
               src="/assets/logos/thinkRED-np.svg"
               alt="ThinkRED Logo"
-              className="h-4 md:h-6"
-              width="120"
-              height="24"
+              className="h-6 md:h-8"
+              width="150"
+              height="32"
             />
           </Link>
 

@@ -2139,3 +2139,12 @@ code {
 .animate-float-fade-medium {
   animation: floatFadeMedium 4.5s ease-out infinite 1.5s;
 }
+
+.logo-link, .logo-link:focus, .logo-link:focus-visible {
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.logo-link:active {
+  transform: scale(0.85);
+}
