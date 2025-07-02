@@ -158,7 +158,8 @@ validatePasswordStrength(password: string): PasswordStrengthResult
 Security headers are configured in:
 
 - HTML templates (`index.html`, `public/index.html`)
-- Deployment script (`deploy-hostinger.sh`)
+- Zero-downtime deployment script (`deploy-hostinger-zero-downtime.sh`)
+- Legacy deployment script (`deploy-hostinger.sh`)
 - Production server configuration
 
 ## Application Security

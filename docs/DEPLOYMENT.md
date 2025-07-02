@@ -378,11 +378,11 @@ cd frontend
 # Build for production
 npm run build
 
-# Deploy to Hostinger (via FTP/SSH)
-./deploy-hostinger.sh
-
-# Or use the deployment script
+# Deploy to Hostinger (Zero-downtime deployment)
 npm run deploy:hostinger
+
+# Alternative: Use legacy deployment (if needed)
+npm run deploy:hostinger-legacy
 ```
 
 ### **⚡ Vercel Deployment (Optional)**

@@ -52,20 +52,24 @@ We've implemented a **zero-downtime deployment strategy** using a professional m
 
 ## Usage
 
-### Use the New Zero-Downtime Script
+### Default Zero-Downtime Deployment
+
+**Note: This is now the default deployment method for Hostinger!**
 
 ```bash
 # Navigate to frontend directory
 cd frontend
 
-# Run zero-downtime deployment
-../scripts/deploy/deploy-hostinger-zero-downtime.sh
+# Run zero-downtime deployment (default)
+npm run deploy:hostinger
 ```
 
-### Traditional Deployment (if needed)
+### Legacy Deployment (if needed)
 
 ```bash
 # Use the original script if zero-downtime is not needed
+npm run deploy:hostinger-legacy
+# OR directly:
 ../scripts/deploy/deploy-hostinger.sh
 ```
 
