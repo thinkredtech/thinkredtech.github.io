@@ -7,6 +7,28 @@ import prettier from "eslint-plugin-prettier";
 
 export default [
   js.configs.recommended,
+  // Configuration for Node.js config files
+  {
+    files: ["*.config.js", "*.config.ts", "*.config.mjs"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: "module",
+      globals: {
+        module: "readonly",
+        require: "readonly",
+        exports: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        process: "readonly",
+        global: "readonly",
+        Buffer: "readonly",
+      },
+    },
+    rules: {
+      "no-undef": "error",
+    },
+  },
+  // Configuration for React/TypeScript source files
   {
     files: ["src/**/*.{js,jsx,ts,tsx}"],
     ignores: [
