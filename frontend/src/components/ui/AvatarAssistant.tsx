@@ -1654,11 +1654,20 @@ const AvatarAssistant = () => {
 
         {/* Main Avatar PNG */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            src="/assets/avatars/assistant-red.png"
-            alt="RED Assistant"
-            className="w-full h-full object-contain avatar-image"
-          />
+          <picture>
+            <source
+              srcSet="/assets/avatars/assistant-red.webp"
+              type="image/webp"
+            />
+            <img
+              src="/assets/avatars/assistant-red.png"
+              alt="RED Assistant"
+              className="w-full h-full object-contain avatar-image"
+              width="200"
+              height="200"
+              loading="eager"
+            />
+          </picture>
         </div>
 
         {/* Sparkles around the avatar */}
@@ -1689,11 +1698,20 @@ const AvatarAssistant = () => {
           onClick={wakeUpAssistant}
           title={`Click to wake up your assistant${getRemainingSleepaTime() ? ` (${getRemainingSleepaTime()} min remaining)` : ""}`}
         >
-          <img
-            src="/assets/avatars/assistant-red-sleeping.png"
-            alt="Sleeping Assistant"
-            className="w-full h-full object-contain animate-pulse transition-opacity duration-500 ease-in-out"
-          />
+          <picture>
+            <source
+              srcSet="/assets/avatars/assistant-red-sleeping.webp"
+              type="image/webp"
+            />
+            <img
+              src="/assets/avatars/assistant-red-sleeping.png"
+              alt="Sleeping Assistant"
+              className="w-full h-full object-contain animate-pulse transition-opacity duration-500 ease-in-out"
+              width="80"
+              height="80"
+              loading="lazy"
+            />
+          </picture>
         </div>
       ) : isGoingToSleep ? (
         /* Transitioning to Sleep - show normal avatar shrinking to sleep */

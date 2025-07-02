@@ -48,6 +48,8 @@ const Header = () => {
               src="/assets/logos/thinkRED-np.svg"
               alt="ThinkRED Logo"
               className="h-4 md:h-6"
+              width="120"
+              height="24"
             />
           </Link>
 

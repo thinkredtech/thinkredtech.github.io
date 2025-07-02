@@ -73,6 +73,16 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 600,
+    // Additional optimizations
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    cssCodeSplit: true,
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
   },
   // Security: CSP nonce generation for production builds
   define: {

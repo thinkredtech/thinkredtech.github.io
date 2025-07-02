@@ -37,6 +37,8 @@ const Footer = () => {
                 src="/assets/logos/thinkRED-white-np.svg"
                 alt="ThinkRED Logo"
                 className="mt-1 h-4"
+                width="120"
+                height="16"
               />
             </Link>
             <p className="text-gray-300 mb-6 max-w-md">
