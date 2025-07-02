@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build && cp -r docs dist/docs",
+    "build": "vite build && cp -r docs dist/docs && cp public/maintenance.html dist/maintenance.html",
     "clean": "rm -rf dist .vite",
     "preview": "vite preview",
     "predeploy": "npm run build",

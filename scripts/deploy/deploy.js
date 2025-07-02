@@ -47,11 +47,13 @@ function deployFrontend() {
   console.log(chalk.yellow("🌐 Deploying to GitHub Pages..."));
   execCommand("npm run deploy:github", { cwd: frontendPath });
 
-  // Also deploy to Hostinger if script exists
-  const hostingerScript = path.join(frontendPath, "deploy-hostinger.sh");
+  // Also deploy to Hostinger using zero-downtime script
+  const hostingerScript = path.join(__dirname, "deploy-hostinger-zero-downtime.sh");
   if (fs.existsSync(hostingerScript)) {
-    console.log(chalk.yellow("🏢 Deploying to Hostinger..."));
+    console.log(chalk.yellow("🏢 Deploying to Hostinger (Zero-downtime)..."));
     execCommand("npm run deploy:hostinger", { cwd: frontendPath });
+  } else {
+    console.log(chalk.yellow("⚠️ Hostinger deployment script not found, skipping..."));
   }
 
   console.log(chalk.green("✅ Frontend deployment completed successfully!"));

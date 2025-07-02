@@ -180,7 +180,7 @@ const TASKS = {
     description: "Deploy frontend only",
     workspaces: ["frontend"],
     parallel: false,
-    script: "deploy:ssh",
+    script: "deploy:hostinger",
   },
   "deploy:backend": {
     description: "Deploy backend only",
