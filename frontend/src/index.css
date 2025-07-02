@@ -1794,14 +1794,14 @@ code {
 
 .sleeping-avatar-size {
   width: 64px; /* Same as w-16 */
-  height: 64px;
+  height: 80px; /* Taller to accommodate antenna - same as h-20 */
   transform: scale(0.75); /* Already scaled to final size */
 }
 
 @media (min-width: 640px) {
   .sleeping-avatar-size {
     width: 80px; /* Same as w-20 */
-    height: 80px;
+    height: 96px; /* Taller to accommodate antenna - same as h-24 */
     transform: scale(0.75);
   }
 }

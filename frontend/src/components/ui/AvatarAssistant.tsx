@@ -1631,7 +1631,7 @@ const AvatarAssistant = () => {
 
     return (
       <div
-        className={`w-full h-full relative overflow-hidden genie-container ${
+        className={`w-full h-full relative genie-container ${
           avatarAnimationState === "excited" ||
           avatarAnimationState.startsWith("excited-") ||
           isAnimating
@@ -1715,14 +1715,14 @@ const AvatarAssistant = () => {
         </div>
       ) : isGoingToSleep ? (
         /* Transitioning to Sleep - show normal avatar shrinking to sleep */
-        <div className="w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto animate-avatar-to-sleep">
+        <div className="w-16 h-20 sm:w-20 sm:h-24 pointer-events-auto animate-avatar-to-sleep">
           <div className="w-full h-full flex items-center justify-center">
             <GenieAvatar />
           </div>
         </div>
       ) : isWakingUp ? (
         /* Transitioning from Sleep - show normal avatar growing from sleep size */
-        <div className="w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto animate-avatar-wake-up">
+        <div className="w-16 h-20 sm:w-20 sm:h-24 pointer-events-auto animate-avatar-wake-up">
           <div className="w-full h-full flex items-center justify-center">
             <GenieAvatar />
           </div>
@@ -1744,7 +1744,7 @@ const AvatarAssistant = () => {
             {(message || isExpanded || showContextualOptions) && isVisible && (
               <div
                 ref={messageRef}
-                className={`absolute bottom-20 sm:bottom-24 right-0 bg-white/90 backdrop-blur-lg shadow-2xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? "Quick Actions menu" : showContextualOptions ? "Contextual options" : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? "animate-smooth-fade-out pointer-events-none" : "message-bubble-pop"} ${!isExpanded && !showContextualOptions ? "cursor-pointer hover:scale-[1.02] hover:shadow-2xl" : ""}`}
+                className={`absolute bottom-24 sm:bottom-28 right-0 bg-white/90 backdrop-blur-lg shadow-2xl rounded-lg p-4 border-2 border-[#E4093E]/60 pointer-events-auto transition-all duration-500 ease-out ${calculateBubbleWidth(isExpanded ? "Quick Actions menu" : showContextualOptions ? "Contextual options" : message, isExpanded || showContextualOptions)} max-w-[calc(100vw-7rem)] ${getSyncedBubbleAnimation()} ${!isVisible ? "animate-smooth-fade-out pointer-events-none" : "message-bubble-pop"} ${!isExpanded && !showContextualOptions ? "cursor-pointer hover:scale-[1.02] hover:shadow-2xl" : ""}`}
                 onClick={
                   !isExpanded && !showContextualOptions
                     ? handleMessageBubbleClick
@@ -2215,7 +2215,7 @@ const AvatarAssistant = () => {
 
             {/* Avatar - positioned at the bottom-right of the relative container */}
             <div
-              className={`w-16 h-16 sm:w-20 sm:h-20 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${getAvatarAnimationClass()}`}
+              className={`w-16 h-20 sm:w-20 sm:h-24 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${getAvatarAnimationClass()}`}
               onClick={toggleExpanded}
             >
               <div className="w-full h-full">
