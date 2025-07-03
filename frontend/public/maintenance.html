@@ -264,6 +264,13 @@
             width: 120px;
             height: 120px;
             z-index: 10;
+            display: none; /* Completely hidden by default until image loads */
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .red-assistant.loaded {
+            display: block; /* Show when image is loaded */
+            opacity: 1;
         }
         
         .assistant-container {
@@ -748,11 +755,13 @@
     </div>
     
     <!-- RED Assistant -->
-    <div class="red-assistant">
+    <div class="red-assistant" id="redAssistant">
         <div class="assistant-container">
             <div class="assistant-glow"></div>
             <div class="assistant-avatar">
-                <img src="/assets/avatars/assistant-red.png" alt="RED Assistant" onerror="this.innerHTML='🤖'; this.style.fontSize='2rem';" />
+                <img src="/assets/avatars/assistant-red.png" alt="RED Assistant" 
+                     onload="document.getElementById('redAssistant').classList.add('loaded')" 
+                     onerror="console.log('RED Assistant image failed to load - hiding assistant'); document.getElementById('redAssistant').style.display='none';" />
             </div>
             <div class="assistant-thought-bubble">Working on updates...</div>
         </div>
@@ -763,7 +772,7 @@
         <div class="logo-section">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="/assets/logos/logo.png" alt="ThinkRED" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                    <img src="/assets/logos/thinkRED-icon.png" alt="ThinkRED" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
                     <span class="logo-fallback">TR</span>
                 </div>
             </div>
@@ -916,16 +925,16 @@
         console.log(`🔬 Lab session started at: ${startTime}`);
         
         let refreshCount = 0;
-        const maxRefreshes = 60; // 30 minutes
+        const maxRefreshes = 40; // 20 minutes (30-second intervals)
         
         function smartRefresh() {
             refreshCount++;
             if (refreshCount < maxRefreshes) {
                 setTimeout(() => {
                     location.reload();
-                }, 30000);
+                }, 30000); // Refresh every 30 seconds - more reasonable for network and browser
             } else {
-                // Show manual refresh after 30 minutes
+                // Show manual refresh after 20 minutes
                 const autoRefreshElement = document.querySelector('.auto-refresh');
                 autoRefreshElement.innerHTML = 
                     '<button onclick="location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
@@ -935,6 +944,12 @@
         // Assistant interaction
         function setupAssistantInteraction() {
             const assistant = document.querySelector('.assistant-container');
+            if (!assistant || !document.querySelector('.red-assistant').classList.contains('loaded')) {
+                // RED assistant not loaded yet, try again later
+                setTimeout(() => setupAssistantInteraction(), 2000);
+                return;
+            }
+            
             let isHovered = false;
             
             assistant.addEventListener('mouseenter', () => {
@@ -960,6 +975,12 @@
         // Assistant movement around the page
         function moveAssistantFreely() {
             const assistant = document.querySelector('.red-assistant');
+            if (!assistant || !assistant.classList.contains('loaded')) {
+                // RED assistant not loaded yet, try again later
+                setTimeout(() => moveAssistantFreely(), 2000);
+                return;
+            }
+            
             const container = document.querySelector('.lab-container') || document.body;
             let currentPosition = { x: 0, y: 0 };
             let isMoving = false;
@@ -968,9 +989,9 @@
                 const containerRect = container.getBoundingClientRect();
                 const assistantWidth = 120;
                 const assistantHeight = 120;
-                const margin = 80;
+                const margin = 100; // Increased margin for more space around content
                 
-                // Get main content areas to avoid
+                // Get main content areas to avoid with larger buffer zones
                 const logoSection = document.querySelector('.logo-section');
                 const labStatus = document.querySelector('.lab-status');
                 const contactSection = document.querySelector('.contact-section');
@@ -980,10 +1001,10 @@
                     if (element) {
                         const rect = element.getBoundingClientRect();
                         contentAreas.push({
-                            left: rect.left - 50, // Extra padding around content
-                            right: rect.right + 50,
-                            top: rect.top - 50,
-                            bottom: rect.bottom + 50
+                            left: rect.left - 150, // Much larger padding around content
+                            right: rect.right + 150,
+                            top: rect.top - 100,
+                            bottom: rect.bottom + 100
                         });
                     }
                 });
@@ -999,39 +1020,36 @@
                     return true;
                 }
                 
-                // Try to find a valid position (maximum 20 attempts)
-                let attempts = 0;
-                let x, y;
-                do {
-                    const maxX = Math.max(containerRect.width - assistantWidth - margin, margin);
-                    const maxY = Math.max(containerRect.height - assistantHeight - margin, margin);
-                    
-                    x = Math.max(margin, Math.min(maxX, Math.random() * (maxX - margin) + margin));
-                    y = Math.max(margin, Math.min(maxY, Math.random() * (maxY - margin) + margin));
-                    attempts++;
-                } while (!isPositionValid(x, y) && attempts < 20);
+                // Only use safe peripheral areas - no random positioning near content
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
                 
-                // If we couldn't find a valid position, default to safe peripheral areas
-                if (!isPositionValid(x, y)) {
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
-                    
-                    // Choose a corner or edge area
-                    const areas = [
-                        { x: margin, y: margin }, // Top-left
-                        { x: viewportWidth - assistantWidth - margin, y: margin }, // Top-right
-                        { x: margin, y: viewportHeight - assistantHeight - margin }, // Bottom-left
-                        { x: viewportWidth - assistantWidth - margin, y: viewportHeight - assistantHeight - margin }, // Bottom-right
-                        { x: margin, y: viewportHeight / 2 - assistantHeight / 2 }, // Left middle
-                        { x: viewportWidth - assistantWidth - margin, y: viewportHeight / 2 - assistantHeight / 2 } // Right middle
-                    ];
-                    
-                    const randomArea = areas[Math.floor(Math.random() * areas.length)];
-                    x = randomArea.x;
-                    y = randomArea.y;
+                // Restrict to corner and edge areas only
+                const safeAreas = [
+                    { x: margin, y: margin }, // Top-left corner
+                    { x: viewportWidth - assistantWidth - margin, y: margin }, // Top-right corner
+                    { x: margin, y: viewportHeight - assistantHeight - margin }, // Bottom-left corner
+                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight - assistantHeight - margin }, // Bottom-right corner
+                    { x: margin, y: viewportHeight / 2 - assistantHeight / 2 }, // Left edge middle
+                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight / 2 - assistantHeight / 2 }, // Right edge middle
+                    { x: viewportWidth / 2 - assistantWidth / 2, y: margin }, // Top edge middle
+                    { x: viewportWidth / 2 - assistantWidth / 2, y: viewportHeight - assistantHeight - margin } // Bottom edge middle
+                ];
+                
+                // Filter safe areas to ensure they don't overlap with content
+                const validAreas = safeAreas.filter(area => isPositionValid(area.x, area.y));
+                
+                // If no valid areas, use bottom-right corner as default
+                if (validAreas.length === 0) {
+                    return { 
+                        x: viewportWidth - assistantWidth - margin, 
+                        y: viewportHeight - assistantHeight - margin 
+                    };
                 }
                 
-                return { x, y };
+                // Choose a random valid area
+                const randomArea = validAreas[Math.floor(Math.random() * validAreas.length)];
+                return { x: randomArea.x, y: randomArea.y };
             }
             
             function animateToPosition(targetPos, duration = 5000) { // Slower default duration
@@ -1127,13 +1145,13 @@
             setTimeout(() => {
                 moveToPosition();
                 
-                // Continue moving every 12-18 seconds (increased from 6-10)
+                // Continue moving every 20-30 seconds (much slower to avoid distracting from content)
                 setInterval(() => {
                     if (!isMoving) {
                         moveToPosition();
                     }
-                }, Math.random() * 6000 + 12000); // 12-18 seconds
-            }, 3000); // Initial delay increased to 3 seconds
+                }, Math.random() * 10000 + 20000); // 20-30 seconds
+            }, 5000); // Initial delay increased to 5 seconds
         }
 
         // Initialize all animations and interactions
@@ -1141,26 +1159,38 @@
             // Update deployment progress every 4 seconds
             setInterval(updateDeploymentProgress, 4000);
             
-            // Update assistant message every 6 seconds
-            setInterval(updateAssistantMessage, 6000);
-            
             // Create random sparkles
             setInterval(createSparkle, 8000);
             
             // Create lab sparkles near equipment
             setInterval(createLabSparkle, 12000);
             
-            // Setup assistant interaction
-            setupAssistantInteraction();
+            // Check if RED assistant is available and setup interactions
+            function checkAndSetupAssistant() {
+                const redAssistant = document.querySelector('.red-assistant');
+                if (redAssistant && redAssistant.classList.contains('loaded')) {
+                    // Update assistant message every 6 seconds
+                    setInterval(updateAssistantMessage, 6000);
+                    
+                    // Setup assistant interaction
+                    setupAssistantInteraction();
+                    
+                    // Start assistant movement
+                    moveAssistantFreely();
+                    
+                    // Initial message update
+                    updateAssistantMessage();
+                } else {
+                    // Try again in 2 seconds
+                    setTimeout(checkAndSetupAssistant, 2000);
+                }
+            }
             
-            // Start assistant movement
-            moveAssistantFreely();
+            // Start checking for assistant
+            checkAndSetupAssistant();
             
             // Start auto-refresh
             smartRefresh();
-            
-            // Initial message update
-            updateAssistantMessage();
         }
         
         // Start when page loads
