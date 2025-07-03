@@ -749,10 +749,23 @@
             background: rgba(228, 9, 62, 0.5);
         }
         
-        /* Firefox scrollbar */
-        .console-content {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(228, 9, 62, 0.3) rgba(228, 9, 62, 0.05);
+        /* Cross-browser scrollbar styling - webkit only for maximum compatibility */
+        .console-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .console-content::-webkit-scrollbar-track {
+            background: rgba(228, 9, 62, 0.05);
+            border-radius: 4px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb {
+            background: rgba(228, 9, 62, 0.3);
+            border-radius: 4px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(228, 9, 62, 0.5);
         }
         
         .code-line {

@@ -39,14 +39,11 @@ const CallToAction = () => {
             </Link>
             <Link
               to="/services"
-              className={`btn border-2 border-white text-white hover:bg-white hover:bg-opacity-10 hover:transform hover:scale-105 transition-all duration-500 ${
+              className={`btn border-2 border-white text-white hover:bg-white hover:bg-opacity-10 hover:transform hover:scale-105 transition-all duration-500 delay-200 ${
                 visibleButtons.includes(1)
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4"
               }`}
-              style={{
-                transitionDelay: "200ms",
-              }}
             >
               Explore Services
             </Link>
@@ -62,12 +59,9 @@ const CallToAction = () => {
           }`}
         ></div>
         <div
-          className={`absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-white transition-all duration-2000 ease-out ${
+          className={`absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-white transition-all duration-2000 ease-out delay-300 ${
             ctaVisible ? "opacity-10 scale-100" : "opacity-0 scale-75"
           }`}
-          style={{
-            transitionDelay: "300ms",
-          }}
         ></div>
       </div>
     </section>
