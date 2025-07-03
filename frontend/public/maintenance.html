@@ -384,13 +384,13 @@
         
         .logo-section {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
         
         .logo-container {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 2rem;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
             position: relative;
         }
         
@@ -430,21 +430,21 @@
         /* Typography */
         .main-title {
             font-family: 'Comfortaa', sans-serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 600;
             color: #2a2a2a;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             text-align: center;
         }
         
         .subtitle {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #666;
             text-align: center;
             max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 3rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
         }
         
         /* Lab status section */
@@ -453,8 +453,8 @@
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             max-width: 500px;
             width: 100%;
             text-align: center;
@@ -479,8 +479,8 @@
         .status-description {
             font-family: 'Montserrat', sans-serif;
             color: #555;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
         }
         
         /* Progress visualization */
@@ -488,7 +488,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
         
         .step {
@@ -499,14 +499,14 @@
         }
         
         .step-circle {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
             transition: all 0.3s ease;
         }
         
@@ -632,28 +632,6 @@
             color: #888;
             margin-top: 1rem;
             font-style: italic;
-        }
-        
-        /* Progress counter */
-        .progress-counter {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            font-family: 'Comfortaa', sans-serif;
-        }
-        
-        .counter-value {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #e4093e;
-            margin-bottom: 0.5rem;
-        }
-        
-        .counter-label {
-            font-size: 0.9rem;
-            color: #666;
         }
         
         /* Code snippets area */
@@ -1049,11 +1027,6 @@
                 </div>
             </div>
             
-            <div class="progress-counter">
-                <div class="counter-value" id="timeCounter">0:00</div>
-                <div class="counter-label">Time elapsed</div>
-            </div>
-            
             <div class="code-console" id="codeConsole">
                 <div class="console-header">🔧 Deployment Console</div>
                 <div class="console-content">
@@ -1141,11 +1114,38 @@
         // Persistent timer using localStorage
         function initializeTimer() {
             const storedStartTime = localStorage.getItem('thinkred-deployment-start');
+            const storedRefreshCount = localStorage.getItem('thinkred-refresh-count');
+            
+            // Reset timer if it's been more than 30 minutes (reasonable deployment window)
+            const maxDeploymentTime = 30 * 60 * 1000; // 30 minutes in milliseconds
+            
             if (storedStartTime) {
-                deploymentStartTime = parseInt(storedStartTime);
+                const elapsed = Date.now() - parseInt(storedStartTime);
+                if (elapsed > maxDeploymentTime) {
+                    // Reset if deployment has been running too long
+                    localStorage.removeItem('thinkred-deployment-start');
+                    localStorage.removeItem('thinkred-refresh-count');
+                    deploymentStartTime = Date.now();
+                    localStorage.setItem('thinkred-deployment-start', deploymentStartTime.toString());
+                } else {
+                    deploymentStartTime = parseInt(storedStartTime);
+                }
             } else {
                 localStorage.setItem('thinkred-deployment-start', deploymentStartTime.toString());
             }
+            
+            // Initialize refresh count
+            if (storedRefreshCount) {
+                refreshCount = parseInt(storedRefreshCount);
+            }
+        }
+        
+        // Reset timer function for manual use
+        function resetTimer() {
+            localStorage.removeItem('thinkred-deployment-start');
+            localStorage.removeItem('thinkred-refresh-count');
+            deploymentStartTime = Date.now();
+            refreshCount = 0;
         }
         
         // Update deployment progress
@@ -1184,17 +1184,6 @@
             if (thoughtBubble) {
                 const randomMessage = assistantMessages[Math.floor(Math.random() * assistantMessages.length)];
                 thoughtBubble.textContent = randomMessage;
-            }
-        }
-        
-        // Update progress counter
-        function updateTimeCounter() {
-            const counter = document.getElementById('timeCounter');
-            if (counter) {
-                const elapsed = Math.floor((Date.now() - deploymentStartTime) / 1000);
-                const minutes = Math.floor(elapsed / 60);
-                const seconds = elapsed % 60;
-                counter.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
             }
         }
         
@@ -1427,20 +1416,24 @@
         
         function smartRefresh() {
             refreshCount++;
+            localStorage.setItem('thinkred-refresh-count', refreshCount.toString());
+            
             if (refreshCount < maxRefreshes) {
                 setTimeout(() => {
                     // Clear the stored start time after max refreshes to reset timer
                     if (refreshCount >= maxRefreshes - 1) {
                         localStorage.removeItem('thinkred-deployment-start');
+                        localStorage.removeItem('thinkred-refresh-count');
                     }
                     location.reload();
                 }, 15000); // Refresh every 15 seconds - balanced for engagement and performance
             } else {
                 // Show manual refresh after 20 minutes and reset timer
                 localStorage.removeItem('thinkred-deployment-start');
+                localStorage.removeItem('thinkred-refresh-count');
                 const autoRefreshElement = document.querySelector('.auto-refresh');
                 autoRefreshElement.innerHTML = 
-                    '<button onclick="localStorage.removeItem(\'thinkred-deployment-start\'); location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
+                    '<button onclick="resetTimer(); location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
             }
         }
         
@@ -1662,64 +1655,25 @@
             // Initialize persistent timer
             initializeTimer();
             
-            // Update deployment progress every 4 seconds
-            setInterval(updateDeploymentProgress, 4000);
+            // Initialize console
+            initializeConsole();
             
-            // Update time counter every second
-            setInterval(updateTimeCounter, 1000);
-            
-            // Update code console every 4 seconds (increased to allow for typing animation)
-            setInterval(updateCodeConsole, 4000);
-            initializeConsole(); // Initialize with first line
-            
-            // Create random sparkles more frequently
-            setInterval(createSparkle, 4000); // Increased from 8000
-            
-            // Create lab sparkles near equipment
-            setInterval(createLabSparkle, 8000); // Increased from 12000
-            
-            // Setup lab equipment interactions
+            // Setup interactions
             setupLabEquipmentInteraction();
+            setupAssistantInteraction();
+            setupMouseEffects();
+            
+            // Start regular updates
+            setInterval(updateDeploymentProgress, 4000);
+            setInterval(updateCodeConsole, 3000);
+            setInterval(createSparkle, 8000);
+            setInterval(createLabSparkle, 12000);
             
             // Show initial fun fact after 2 seconds
             setTimeout(showRandomFact, 2000);
             
-            // Cycle through fun facts every 10 seconds
-            setInterval(() => {
-                if (Math.random() > 0.6) { // 40% chance every 10 seconds
-                    showRandomFact();
-                }
-            }, 10000);
-            
-            // Check if RED assistant is available and setup interactions
-            function checkAndSetupAssistant() {
-                const redAssistant = document.querySelector('.red-assistant');
-                if (redAssistant && redAssistant.classList.contains('loaded')) {
-                    // Update assistant message every 8 seconds (more frequent)
-                    setInterval(updateAssistantMessage, 8000);
-                    
-                    // Setup assistant interaction
-                    setupAssistantInteraction();
-                    
-                    // Start assistant movement
-                    moveAssistantFreely();
-                    
-                    // Initial message update
-                    updateAssistantMessage();
-                } else {
-                    // Try again in 2 seconds
-                    setTimeout(checkAndSetupAssistant, 2000);
-                }
-            }
-            
-            // Start checking for assistant
-            checkAndSetupAssistant();
-            
-            // Start auto-refresh
+            // Start auto-refresh cycle
             smartRefresh();
-            
-            // Add mouse interaction effects
-            setupMouseEffects();
         }
         
         // Mouse trail effects
