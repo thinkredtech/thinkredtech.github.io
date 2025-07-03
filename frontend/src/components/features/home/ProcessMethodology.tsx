@@ -100,7 +100,10 @@ const ProcessMethodology = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-backgroundAlt">
+    <section
+      id="process-methodology"
+      className="py-16 md:py-24 bg-backgroundAlt"
+    >
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div
@@ -166,9 +169,7 @@ const ProcessMethodology = () => {
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
                   }`}
-                  style={{
-                    transitionDelay: `${index * 300}ms`,
-                  }}
+                  data-delay={index * 300}
                 >
                   <div className="bg-backgroundAlt rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
                     <div className="flex justify-center mb-4">

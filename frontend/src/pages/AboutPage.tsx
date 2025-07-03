@@ -206,8 +206,11 @@ const AboutPage = () => {
                 complex problems in elegant ways, staying ahead of industry
                 trends.
               </p>
-              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span>Learn More</span>
+              <Link
+                to="/services"
+                className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-primary/80"
+              >
+                <span>Explore Our Services</span>
                 <svg
                   className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
@@ -221,7 +224,7 @@ const AboutPage = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </div>
+              </Link>
             </div>
 
             <div className="group bg-white p-8 rounded-lg shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
@@ -250,8 +253,11 @@ const AboutPage = () => {
                 We prioritize code quality, performance, and maintainability in
                 everything we build, ensuring long-term success.
               </p>
-              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span>Learn More</span>
+              <a
+                href="#our-process"
+                className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-primary/80"
+              >
+                <span>View Our Process</span>
                 <svg
                   className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
@@ -265,7 +271,7 @@ const AboutPage = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </div>
+              </a>
             </div>
 
             <div className="group bg-white p-8 rounded-lg shadow-regular hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
@@ -294,8 +300,11 @@ const AboutPage = () => {
                 We work closely with our clients to understand their needs and
                 deliver solutions that exceed expectations and drive growth.
               </p>
-              <div className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span>Learn More</span>
+              <Link
+                to="/contact"
+                className="mt-6 flex items-center text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-primary/80"
+              >
+                <span>Start a Partnership</span>
                 <svg
                   className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
@@ -309,6 +318,343 @@ const AboutPage = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Process & Methodology Section */}
+      <section id="our-process" className="py-16 md:py-24 bg-backgroundAlt">
+        <div className="container mx-auto px-4">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="heading-1 mb-4 text-secondary">
+              Our Process & Methodology
+            </h2>
+            <p className="text-secondary max-w-4xl mx-auto">
+              We follow a proven, iterative methodology that combines enterprise
+              best practices with agile principles, ensuring successful delivery
+              while maintaining flexibility and continuous value creation
+              throughout your transformation journey.
+            </p>
+          </div>
+
+          {/* Process Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {/* Discovery & Strategy */}
+            <div className="bg-white rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
+              <div className="flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 mx-auto">
+                <span className="text-white font-bold text-lg">01</span>
+              </div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+              </div>
+              <h3 className="heading-2 text-secondary mb-3 text-center group-hover:text-primary transition-colors duration-300">
+                Discovery & Strategy
+              </h3>
+              <p className="text-secondary mb-4 text-sm text-center leading-relaxed">
+                Deep-dive analysis of your current state, business objectives,
+                and technical landscape to craft a tailored transformation
+                roadmap.
+              </p>
+              <div className="space-y-2">
+                {[
+                  "Architecture Assessment",
+                  "Stakeholder Alignment",
+                  "Technology Audit",
+                  "Strategic Planning",
+                ].map((activity, index) => (
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
+                    <span className="text-xs text-secondary font-medium">
+                      {activity}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Design & Architecture */}
+            <div className="bg-white rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
+              <div className="flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 mx-auto">
+                <span className="text-white font-bold text-lg">02</span>
+              </div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <h3 className="heading-2 text-secondary mb-3 text-center group-hover:text-primary transition-colors duration-300">
+                Design & Architecture
+              </h3>
+              <p className="text-secondary mb-4 text-sm text-center leading-relaxed">
+                Collaborative design sessions to architect scalable,
+                maintainable solutions that align with industry best practices
+                and your business goals.
+              </p>
+              <div className="space-y-2">
+                {[
+                  "System Design",
+                  "API Architecture",
+                  "Security Framework",
+                  "Scalability Planning",
+                ].map((activity, index) => (
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
+                    <span className="text-xs text-secondary font-medium">
+                      {activity}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Agile Development */}
+            <div className="bg-white rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
+              <div className="flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 mx-auto">
+                <span className="text-white font-bold text-lg">03</span>
+              </div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8m.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
+                </svg>
+              </div>
+              <h3 className="heading-2 text-secondary mb-3 text-center group-hover:text-primary transition-colors duration-300">
+                Agile Development
+              </h3>
+              <p className="text-secondary mb-4 text-sm text-center leading-relaxed">
+                Iterative development with continuous feedback loops, ensuring
+                rapid delivery while maintaining quality and alignment with
+                evolving requirements.
+              </p>
+              <div className="space-y-2">
+                {[
+                  "Sprint Planning",
+                  "Continuous Integration",
+                  "Code Reviews",
+                  "Quality Assurance",
+                ].map((activity, index) => (
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
+                    <span className="text-xs text-secondary font-medium">
+                      {activity}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Deployment & Optimization */}
+            <div className="bg-white rounded-lg p-6 hover:shadow-lg transition-all duration-300 group">
+              <div className="flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 mx-auto">
+                <span className="text-white font-bold text-lg">04</span>
+              </div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z" />
+                </svg>
+              </div>
+              <h3 className="heading-2 text-secondary mb-3 text-center group-hover:text-primary transition-colors duration-300">
+                Deployment & Optimization
+              </h3>
+              <p className="text-secondary mb-4 text-sm text-center leading-relaxed">
+                Seamless deployment strategies with comprehensive monitoring,
+                performance optimization, and knowledge transfer for sustainable
+                operations.
+              </p>
+              <div className="space-y-2">
+                {[
+                  "DevOps Pipeline",
+                  "Performance Tuning",
+                  "Knowledge Transfer",
+                  "Ongoing Support",
+                ].map((activity, index) => (
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
+                    <span className="text-xs text-secondary font-medium">
+                      {activity}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Methodology Principles */}
+          <div className="bg-primary/5 rounded-lg p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="heading-1 text-secondary mb-6">
+                  Core Methodology Principles
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-5 h-5 text-primary"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h4 className="font-semibold text-secondary mb-1">
+                        Collaborative Approach
+                      </h4>
+                      <p className="text-secondary text-sm">
+                        Deep partnership with your team ensuring knowledge
+                        transfer and sustainable solutions
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-5 h-5 text-primary"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h4 className="font-semibold text-secondary mb-1">
+                        Risk Mitigation
+                      </h4>
+                      <p className="text-secondary text-sm">
+                        Proactive identification and management of technical and
+                        business risks
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-5 h-5 text-primary"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h4 className="font-semibold text-secondary mb-1">
+                        Continuous Value Delivery
+                      </h4>
+                      <p className="text-secondary text-sm">
+                        Regular deliverables and feedback loops ensuring
+                        continuous value creation
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg
+                        className="w-5 h-5 text-primary"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h4 className="font-semibold text-secondary mb-1">
+                        Quality & Performance Focus
+                      </h4>
+                      <p className="text-secondary text-sm">
+                        Enterprise-grade quality standards with performance
+                        optimization built-in
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="bg-white rounded-lg shadow-regular p-6">
+                  <h4 className="font-bold text-secondary mb-4 text-center">
+                    Delivery Excellence
+                  </h4>
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <div className="heading-1 text-primary mb-1">Quality</div>
+                      <div className="text-xs text-secondary">
+                        Focused Delivery
+                      </div>
+                    </div>
+                    <div>
+                      <div className="heading-1 text-primary mb-1">Client</div>
+                      <div className="text-xs text-secondary">
+                        Satisfaction Focus
+                      </div>
+                    </div>
+                    <div>
+                      <div className="heading-1 text-primary mb-1">Agile</div>
+                      <div className="text-xs text-secondary">Methodology</div>
+                    </div>
+                    <div>
+                      <div className="heading-1 text-primary mb-1">Zero</div>
+                      <div className="text-xs text-secondary">
+                        Downtime Goals
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <div className="text-center">
+                      <p className="text-sm text-secondary mb-2">
+                        Certified in
+                      </p>
+                      <div className="flex justify-center space-x-2 text-xs">
+                        <span className="bg-primary/10 text-primary px-2 py-1 rounded">
+                          Agile
+                        </span>
+                        <span className="bg-primary/10 text-primary px-2 py-1 rounded">
+                          DevOps
+                        </span>
+                        <span className="bg-primary/10 text-primary px-2 py-1 rounded">
+                          Cloud
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
