@@ -45,11 +45,6 @@
   );
 }
 
-/* Firefox scrollbar theming */
-* {
-  scrollbar-color: var(--browser-theme-color, #e4093e) transparent;
-}
-
 /* Custom width utilities for dynamic message bubbles */
 .w-44 {
   width: 11rem; /* 176px */
@@ -1793,15 +1788,15 @@ code {
 }
 
 .sleeping-avatar-size {
-  width: 64px; /* Same as w-16 */
-  height: 80px; /* Taller to accommodate antenna - same as h-20 */
+  width: 48px; /* Same as w-12 */
+  height: 64px; /* Taller to accommodate antenna - same as h-16 */
   transform: scale(0.75); /* Already scaled to final size */
 }
 
 @media (min-width: 640px) {
   .sleeping-avatar-size {
-    width: 80px; /* Same as w-20 */
-    height: 96px; /* Taller to accommodate antenna - same as h-24 */
+    width: 64px; /* Same as w-16 */
+    height: 80px; /* Taller to accommodate antenna - same as h-20 */
     transform: scale(0.75);
   }
 }

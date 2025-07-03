@@ -191,7 +191,7 @@ const AdminJobManagement: React.FC = () => {
               className="bg-white rounded-xl shadow-xl p-8"
             >
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-dark mb-2">
                   Admin Password
                 </label>
                 <input
@@ -242,7 +242,7 @@ const AdminJobManagement: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-dark mb-2">
                       Job Title *
                     </label>
                     <input
@@ -258,7 +258,7 @@ const AdminJobManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-dark mb-2">
                       Job Type
                     </label>
                     <select
@@ -277,7 +277,7 @@ const AdminJobManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-dark mb-2">
                       Location
                     </label>
                     <select
@@ -295,7 +295,7 @@ const AdminJobManagement: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-dark mb-2">
                       Experience Required
                     </label>
                     <input
@@ -311,7 +311,7 @@ const AdminJobManagement: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-dark mb-2">
                     Job Description *
                   </label>
                   <textarea
@@ -328,7 +328,7 @@ const AdminJobManagement: React.FC = () => {
 
                 {/* Requirements */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-dark mb-2">
                     Requirements
                   </label>
                   {formData.requirements.map((req, index) => (
@@ -366,7 +366,7 @@ const AdminJobManagement: React.FC = () => {
 
                 {/* Responsibilities */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-dark mb-2">
                     Responsibilities
                   </label>
                   {formData.responsibilities.map((resp, index) => (
@@ -406,7 +406,7 @@ const AdminJobManagement: React.FC = () => {
 
                 {/* Skills */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-dark mb-2">
                     Required Skills
                   </label>
                   {formData.skills.map((skill, index) => (
@@ -467,7 +467,7 @@ const AdminJobManagement: React.FC = () => {
                     <p className="text-secondary">
                       {job.type} | {job.location} | {job.experience}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-secondary mt-1">
                       ID: {job.id} | Slug: {job.slug}
                     </p>
                   </div>

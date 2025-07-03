@@ -52,7 +52,7 @@ const Footer = () => {
                 href="https://github.com/thinkredtech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary/60 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 title="GitHub"
               >
                 <svg
@@ -67,7 +67,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/company/thinkredtech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary/60 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 title="LinkedIn"
               >
                 <svg
@@ -82,7 +82,7 @@ const Footer = () => {
                 href="https://x.com/thinkredtech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary/60 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
                 title="X (formerly Twitter)"
               >
                 <svg
@@ -107,7 +107,7 @@ const Footer = () => {
                   <li key={linkIndex}>
                     <Link
                       to={link.path}
-                      className="text-secondary/60 hover:text-white transition-colors"
+                      className="text-gray-400 hover:text-white transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -121,28 +121,28 @@ const Footer = () => {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-secondary/60 text-sm">
+              <p className="text-gray-400 text-sm">
                 &copy; {currentYear} ThinkRED Technologies LLP. All rights
                 reserved.
               </p>
             </div>
             <div className="flex space-x-6">
               <Link
-                className="text-secondary/60 hover:text-white text-sm transition-colors"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
                 to="/privacy-policy"
                 data-discover="true"
               >
                 Privacy Policy
               </Link>
               <Link
-                className="text-secondary/60 hover:text-white text-sm transition-colors"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
                 to="/terms-of-service"
                 data-discover="true"
               >
                 Terms of Service
               </Link>
               <Link
-                className="text-secondary/60 hover:text-white text-sm transition-colors"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
                 to="/sitemap"
                 data-discover="true"
               >

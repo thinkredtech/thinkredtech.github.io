@@ -577,7 +577,7 @@ const JobApplicationPage = () => {
                             </p>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-secondary mt-1">
                           PDF, DOC, or DOCX format. Max 10MB.
                         </p>
                       </div>
@@ -610,7 +610,7 @@ const JobApplicationPage = () => {
                             </p>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-secondary mt-1">
                           PDF, DOC, or DOCX format. Max 10MB.
                         </p>
                       </div>

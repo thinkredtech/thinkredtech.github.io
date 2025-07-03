@@ -1663,9 +1663,9 @@ const AvatarAssistant = () => {
               src="/assets/avatars/assistant-red.png"
               alt="RED Assistant"
               className="w-full h-full object-contain avatar-image"
-              width="200"
-              height="200"
-              loading="eager"
+              width="64"
+              height="80"
+              loading="lazy"
             />
           </picture>
         </div>
@@ -1715,14 +1715,14 @@ const AvatarAssistant = () => {
         </div>
       ) : isGoingToSleep ? (
         /* Transitioning to Sleep - show normal avatar shrinking to sleep */
-        <div className="w-16 h-20 sm:w-20 sm:h-24 pointer-events-auto animate-avatar-to-sleep">
+        <div className="w-12 h-16 sm:w-16 sm:h-20 pointer-events-auto animate-avatar-to-sleep">
           <div className="w-full h-full flex items-center justify-center">
             <GenieAvatar />
           </div>
         </div>
       ) : isWakingUp ? (
         /* Transitioning from Sleep - show normal avatar growing from sleep size */
-        <div className="w-16 h-20 sm:w-20 sm:h-24 pointer-events-auto animate-avatar-wake-up">
+        <div className="w-12 h-16 sm:w-16 sm:h-20 pointer-events-auto animate-avatar-wake-up">
           <div className="w-full h-full flex items-center justify-center">
             <GenieAvatar />
           </div>
@@ -2145,10 +2145,10 @@ const AvatarAssistant = () => {
                               </svg>
                             </div>
                             <div className="text-left flex-1">
-                              <p className="font-semibold text-gray-700 group-hover:text-gray-800">
+                              <p className="font-semibold text-dark group-hover:text-dark/90">
                                 Back to Message
                               </p>
-                              <p className="text-xs text-gray-600/80 font-normal">
+                              <p className="text-xs text-secondary/80 font-normal">
                                 Return to the main message
                               </p>
                             </div>
@@ -2215,7 +2215,7 @@ const AvatarAssistant = () => {
 
             {/* Avatar - positioned at the bottom-right of the relative container */}
             <div
-              className={`w-16 h-20 sm:w-20 sm:h-24 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${getAvatarAnimationClass()}`}
+              className={`w-12 h-16 sm:w-16 sm:h-20 cursor-pointer hover:scale-105 transition-all duration-300 flex items-center justify-center pointer-events-auto ${getAvatarAnimationClass()}`}
               onClick={toggleExpanded}
             >
               <div className="w-full h-full">

@@ -12,8 +12,8 @@ module.exports = {
         accent1: "#518CEA",
         accent2: "#AE6CFC",
         dark: "#2A2A2A",
-        secondary: "#7A7A7A",
-        tertiary: "#AAAAAA",
+        secondary: "#4A4A4A", // Darker for better contrast (was #7A7A7A)
+        tertiary: "#7A7A7A", // Moved original secondary to tertiary
         background: "#FEFEFE",
         backgroundAlt: "#FEFEF6",
       },
