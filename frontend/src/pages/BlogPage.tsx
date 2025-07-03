@@ -351,7 +351,8 @@ const BlogPage = () => {
         </div>
       </div>
 
-      {/* Newsletter Signup Section */}
+      {/* Newsletter Signup Section - Temporarily disabled until next development phase */}
+
       <section className="py-16 md:py-24 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-5xl mx-auto text-white">

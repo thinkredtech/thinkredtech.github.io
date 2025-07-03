@@ -710,10 +710,10 @@ const ServicesPage = () => {
       <section className="py-16 md:py-24 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto text-white">
-            <h2 className="display-2 mb-6">Ready to Get Started?</h2>
+            <h2 className="display-2 mb-6">Find Your Perfect Solution</h2>
             <p className="mb-8 opacity-90">
-              Let's discuss your project and how we can help you achieve your
-              goals.
+              From essential solutions to enterprise platforms, we have the
+              expertise to deliver exactly what your business needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -18,12 +18,10 @@ const CallToAction = () => {
             ctaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="display-2-white mb-6">
-            Ready to build something amazing together?
-          </h2>
+          <h2 className="display-2-white mb-6">Transform Your Vision</h2>
           <p className="mb-8 opacity-90">
-            Let's transform your ideas into reality with our engineering
-            expertise and innovative solutions.
+            Partner with us to build innovative solutions that drive your
+            business forward. Let's create something extraordinary together.
           </p>
           <div
             ref={buttonsRef as React.RefObject<HTMLDivElement>}

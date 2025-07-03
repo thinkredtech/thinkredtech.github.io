@@ -311,25 +311,36 @@ const PortfolioPage = () => {
               </button>
             </div>
           )}
+        </div>
+      </div>
 
-          {/* Call to Action */}
-          <div className="mt-16 bg-primary/5 rounded-lg p-8 text-center">
-            <h2 className="heading-1 mb-4">Ready to Start Your Project?</h2>
-            <p className="text-secondary mb-6 max-w-2xl mx-auto">
-              Let's discuss how ThinkRED can help bring your vision to life with
-              our expertise in web development, platform engineering, and more.
+      {/* CTA Section - Matching other pages' style */}
+      <section className="py-16 md:py-24 bg-primary">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto text-white">
+            <h2 className="display-2 mb-6">Build Something Amazing</h2>
+            <p className="mb-8 opacity-90">
+              Inspired by our work? Let's discuss how we can create a custom
+              solution that transforms your business and delivers exceptional
+              results.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/contact" className="btn btn-primary">
-                Contact Us
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contact"
+                className="btn bg-white text-primary hover:bg-white/90 px-8 py-4 body-1-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                Start Your Project
               </Link>
-              <Link to="/services" className="btn btn-secondary">
-                Explore Our Services
+              <Link
+                to="/services"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 body-1-semibold transition-all duration-300"
+              >
+                Our Capabilities
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

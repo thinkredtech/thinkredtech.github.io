@@ -608,11 +608,11 @@ const CareerPage = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto text-white">
             <h2 className="font-comfortaa display-2 mb-6">
-              Ready to Join Our Team?
+              Shape the Future with Us
             </h2>
             <p className="body-1-medium mb-8 opacity-90">
               Don't see a perfect match? We're always looking for exceptional
-              talent. Send us your resume and let's start a conversation.
+              talent who are passionate about innovation and technology.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
