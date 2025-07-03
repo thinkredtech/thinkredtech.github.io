@@ -174,8 +174,26 @@
         .lab-equipment {
             position: absolute;
             opacity: 0.15;
-            pointer-events: none;
+            pointer-events: auto; /* Enable interactions */
             z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lab-equipment:hover {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
+        
+        .lab-equipment.active {
+            opacity: 0.6;
+            animation: equipmentGlow 1s ease-out;
+        }
+        
+        @keyframes equipmentGlow {
+            0% { filter: drop-shadow(0 0 0 transparent); }
+            50% { filter: drop-shadow(0 0 20px rgba(228, 9, 62, 0.6)); }
+            100% { filter: drop-shadow(0 0 0 transparent); }
         }
         
         .gear {
@@ -616,6 +634,230 @@
             font-style: italic;
         }
         
+        /* Progress counter */
+        .progress-counter {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Comfortaa', sans-serif;
+        }
+        
+        .counter-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #e4093e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .counter-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Code snippets area */
+        .code-console {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(228, 9, 62, 0.1);
+            border-radius: 10px;
+            padding: 0;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #2a2a2a;
+            height: 95px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+        
+        .code-console::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(90deg, rgba(228, 9, 62, 0.05) 0%, rgba(81, 140, 234, 0.05) 100%);
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid rgba(228, 9, 62, 0.1);
+        }
+        
+        .console-header {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .console-content {
+            margin-top: 30px;
+            padding: 12px 24px 8px 24px;
+            text-align: left;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: calc(100% - 30px);
+            max-height: calc(100% - 30px);
+        }
+        
+        /* Custom scrollbar for console */
+        .console-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .console-content::-webkit-scrollbar-track {
+            background: rgba(228, 9, 62, 0.05);
+            border-radius: 3px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb {
+            background: rgba(228, 9, 62, 0.3);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(228, 9, 62, 0.5);
+        }
+        
+        /* Firefox scrollbar */
+        .console-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(228, 9, 62, 0.3) rgba(228, 9, 62, 0.05);
+        }
+        
+        .code-line {
+            opacity: 0;
+            animation: consoleFadeIn 0.5s ease-out forwards;
+            margin-bottom: 0.3rem;
+            color: #2a2a2a;
+            position: relative;
+            text-align: left;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        
+        .code-line.typing {
+            position: relative;
+        }
+        
+        .code-line.typing.default::after,
+        .code-line.typing.command::after {
+            content: '';
+            display: inline-block;
+            background-color: #e4093e;
+            width: 2px;
+            height: 12px;
+            margin-left: 2px;
+            animation: cursorBlink 1.2s infinite;
+            vertical-align: text-bottom;
+        }
+        
+        .code-line.success {
+            color: #28a745;
+        }
+        
+        .code-line.info {
+            color: #518cea;
+        }
+        
+        .code-line.warning {
+            color: #ffc107;
+        }
+        
+        .code-line::before {
+            content: '';
+            color: #e4093e;
+            font-weight: bold;
+        }
+        
+        .code-line.default::before {
+            content: '$ ';
+            color: #e4093e;
+            font-weight: bold;
+        }
+        
+        .code-line.success::before {
+            content: '✓ ';
+            color: #28a745;
+        }
+        
+        .code-line.info::before {
+            content: '→ ';
+            color: #518cea;
+        }
+        
+        .code-line.warning::before {
+            content: '⚠ ';
+            color: #ffc107;
+        }
+        
+        @keyframes consoleFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes cursorBlink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0.3;
+            }
+        }
+        
+        /* Fun facts area */
+        .fun-fact {
+            background: rgba(174, 108, 252, 0.1);
+            border-left: 4px solid #ae6cfc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fun-fact:hover {
+            background: rgba(174, 108, 252, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* Mouse trail particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particleFade 2s ease-out forwards;
+        }
+        
+        @keyframes particleFade {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0.3) translateY(-30px);
+                opacity: 0;
+            }
+        }
+        
         /* Sparkle effects */
         .sparkle {
             position: absolute;
@@ -806,6 +1048,22 @@
                     <div class="step-label">Launch</div>
                 </div>
             </div>
+            
+            <div class="progress-counter">
+                <div class="counter-value" id="timeCounter">0:00</div>
+                <div class="counter-label">Time elapsed</div>
+            </div>
+            
+            <div class="code-console" id="codeConsole">
+                <div class="console-header">🔧 Deployment Console</div>
+                <div class="console-content">
+                    <!-- Lines will be added dynamically -->
+                </div>
+            </div>
+            
+            <div class="fun-fact" onclick="showRandomFact()">
+                <span id="funFactText">💡 Click me for a fun tech fact!</span>
+            </div>
         </div>
         
         <div class="contact-section">
@@ -825,7 +1083,7 @@
                 </a>
             </div>
             
-            <p class="auto-refresh">⟳ This page will automatically refresh every 30 seconds</p>
+            <p class="auto-refresh">⟳ This page will automatically refresh every 15 seconds</p>
         </div>
     </div>
     
@@ -841,6 +1099,54 @@
             'Almost ready...',
             'Final checks...'
         ];
+        
+        // Code snippets for console with types
+        const codeSnippets = [
+            { text: 'npm run build', type: 'default', isCommand: true },
+            { text: 'Building for production...', type: 'success', isCommand: false },
+            { text: 'webpack --mode=production', type: 'default', isCommand: true },
+            { text: 'Optimizing assets...', type: 'success', isCommand: false },
+            { text: 'npm run deploy', type: 'default', isCommand: true },
+            { text: 'Uploading files...', type: 'info', isCommand: false },
+            { text: 'ssh deploy@server', type: 'default', isCommand: true },
+            { text: 'Running health checks...', type: 'info', isCommand: false },
+            { text: 'npm test', type: 'default', isCommand: true },
+            { text: 'All tests passing...', type: 'success', isCommand: false },
+            { text: 'docker build -t app .', type: 'default', isCommand: true },
+            { text: 'Container ready...', type: 'success', isCommand: false },
+            { text: 'Checking dependencies...', type: 'info', isCommand: false },
+            { text: 'Minifying JavaScript...', type: 'info', isCommand: false },
+            { text: 'Compressing images...', type: 'info', isCommand: false },
+            { text: 'Deployment complete!', type: 'success', isCommand: false }
+        ];
+        
+        // Fun tech facts
+        const funFacts = [
+            "💡 The first computer bug was an actual bug - a moth found in a Harvard computer in 1947!",
+            "🚀 Google processes over 8.5 billion searches per day!",
+            "⚡ The first 1GB hard drive cost $40,000 and weighed 550 pounds!",
+            "🌐 There are more possible games of chess than atoms in the observable universe!",
+            "💻 The term 'debugging' was coined by Admiral Grace Hopper!",
+            "🔋 Your smartphone has more computing power than NASA had for the Apollo missions!",
+            "📱 90% of the world's data was created in just the last 2 years!",
+            "🎮 The original Space Invaders caused a coin shortage in Japan!",
+            "💾 Email existed before the World Wide Web!",
+            "🔐 The average person has 70-80 passwords to remember!"
+        ];
+        
+        let deploymentStartTime = Date.now();
+        let currentCodeIndex = 0;
+        let currentFactIndex = 0;
+        
+        // Persistent timer using localStorage
+        function initializeTimer() {
+            const storedStartTime = localStorage.getItem('thinkred-deployment-start');
+            if (storedStartTime) {
+                deploymentStartTime = parseInt(storedStartTime);
+            } else {
+                localStorage.setItem('thinkred-deployment-start', deploymentStartTime.toString());
+            }
+        }
         
         // Update deployment progress
         function updateDeploymentProgress() {
@@ -875,8 +1181,200 @@
         // Update assistant message
         function updateAssistantMessage() {
             const thoughtBubble = document.querySelector('.assistant-thought-bubble');
-            const randomMessage = assistantMessages[Math.floor(Math.random() * assistantMessages.length)];
-            thoughtBubble.textContent = randomMessage;
+            if (thoughtBubble) {
+                const randomMessage = assistantMessages[Math.floor(Math.random() * assistantMessages.length)];
+                thoughtBubble.textContent = randomMessage;
+            }
+        }
+        
+        // Update progress counter
+        function updateTimeCounter() {
+            const counter = document.getElementById('timeCounter');
+            if (counter) {
+                const elapsed = Math.floor((Date.now() - deploymentStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                counter.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        // Update code console with typing animation
+        function updateCodeConsole() {
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent && codeSnippets.length > 0) {
+                // Remove typing class from previous line
+                const previousTypingLine = consoleContent.querySelector('.code-line.typing');
+                if (previousTypingLine) {
+                    previousTypingLine.classList.remove('typing');
+                }
+                
+                // Add new line with typing animation
+                const snippet = codeSnippets[currentCodeIndex];
+                const line = document.createElement('div');
+                
+                // Set classes based on whether it's a command or output
+                if (snippet.isCommand) {
+                    line.className = `code-line ${snippet.type} typing`;
+                } else {
+                    line.className = `code-line ${snippet.type}`;
+                }
+                
+                // For commands, start with empty text and type it out
+                // For outputs, just show them immediately (no typing animation)
+                if (snippet.isCommand) {
+                    let currentText = '';
+                    const fullText = snippet.text;
+                    let charIndex = 0;
+                    
+                    line.textContent = ''; // Start empty for commands
+                    consoleContent.appendChild(line);
+                    
+                    // Typing animation for commands
+                    const typeChar = () => {
+                        if (charIndex < fullText.length) {
+                            currentText += fullText[charIndex];
+                            line.textContent = currentText;
+                            charIndex++;
+                            setTimeout(typeChar, 50 + Math.random() * 50); // Random typing speed
+                        } else {
+                            // Typing complete, remove cursor after a brief delay
+                            setTimeout(() => {
+                                line.classList.remove('typing');
+                            }, 500);
+                        }
+                    };
+                    
+                    // Start typing after a brief delay
+                    setTimeout(typeChar, 200);
+                } else {
+                    // For outputs, show immediately without typing animation
+                    line.textContent = snippet.text;
+                    consoleContent.appendChild(line);
+                }
+                
+                // Auto-scroll to bottom to show new line
+                setTimeout(() => {
+                    consoleContent.scrollTop = consoleContent.scrollHeight;
+                }, 100);
+                
+                currentCodeIndex = (currentCodeIndex + 1) % codeSnippets.length;
+            }
+        }
+        
+        // Initialize console with first line
+        function initializeConsole() {
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent && codeSnippets.length > 0) {
+                // Add the first line with typing animation
+                const snippet = codeSnippets[0];
+                const line = document.createElement('div');
+                
+                // Set classes based on whether it's a command or output
+                if (snippet.isCommand) {
+                    line.className = `code-line ${snippet.type} typing`;
+                } else {
+                    line.className = `code-line ${snippet.type}`;
+                }
+                
+                // For commands, start with empty text and type it out
+                // For outputs, just show them immediately (no typing animation)
+                if (snippet.isCommand) {
+                    let currentText = '';
+                    const fullText = snippet.text;
+                    let charIndex = 0;
+                    
+                    line.textContent = ''; // Start empty for commands
+                    consoleContent.appendChild(line);
+                    
+                    // Typing animation for commands
+                    const typeChar = () => {
+                        if (charIndex < fullText.length) {
+                            currentText += fullText[charIndex];
+                            line.textContent = currentText;
+                            charIndex++;
+                            setTimeout(typeChar, 50 + Math.random() * 50); // Random typing speed
+                        } else {
+                            // Typing complete, remove cursor after a brief delay
+                            setTimeout(() => {
+                                line.classList.remove('typing');
+                            }, 500);
+                        }
+                    };
+                    
+                    // Start typing after a brief delay
+                    setTimeout(typeChar, 200);
+                } else {
+                    // For outputs, show immediately without typing animation
+                    line.textContent = snippet.text;
+                    consoleContent.appendChild(line);
+                }
+                
+                currentCodeIndex = 1; // Start from second item for next update
+            }
+        }
+        
+        // Show random fun fact
+        function showRandomFact() {
+            const factElement = document.getElementById('funFactText');
+            if (factElement && funFacts.length > 0) {
+                currentFactIndex = (currentFactIndex + 1) % funFacts.length;
+                factElement.textContent = funFacts[currentFactIndex];
+                
+                // Add sparkle effect
+                createSparkle();
+                
+                // Animate the fact box
+                const factBox = factElement.parentElement;
+                factBox.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    factBox.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+        
+        // Lab equipment interaction
+        function setupLabEquipmentInteraction() {
+            const equipment = document.querySelectorAll('.lab-equipment');
+            equipment.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    // Add active class for glow effect
+                    item.classList.add('active');
+                    setTimeout(() => item.classList.remove('active'), 1000);
+                    
+                    // Create sparkles around the equipment
+                    const rect = item.getBoundingClientRect();
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            const sparkle = document.createElement('div');
+                            sparkle.className = 'sparkle';
+                            sparkle.innerHTML = ['✨', '⭐', '💫', '🌟', '⚡'][Math.floor(Math.random() * 5)];
+                            sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                            sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+                            sparkle.style.position = 'fixed';
+                            document.body.appendChild(sparkle);
+                            
+                            setTimeout(() => {
+                                if (document.body.contains(sparkle)) {
+                                    document.body.removeChild(sparkle);
+                                }
+                            }, 3000);
+                        }, i * 100);
+                    }
+                    
+                    // Update assistant message if available
+                    if (Math.random() > 0.5) {
+                        updateAssistantMessage();
+                    }
+                    
+                    // Show random fact occasionally
+                    if (Math.random() > 0.7) {
+                        showRandomFact();
+                    }
+                });
+                
+                // Add tooltip-like effect
+                item.setAttribute('title', `Click me! (${['Gear', 'Beaker', 'Circuit', 'DNA'][index] || 'Equipment'})`);
+            });
         }
         
         // Create sparkle effects
@@ -925,19 +1423,24 @@
         console.log(`🔬 Lab session started at: ${startTime}`);
         
         let refreshCount = 0;
-        const maxRefreshes = 40; // 20 minutes (30-second intervals)
+        const maxRefreshes = 80; // 20 minutes (15-second intervals)
         
         function smartRefresh() {
             refreshCount++;
             if (refreshCount < maxRefreshes) {
                 setTimeout(() => {
+                    // Clear the stored start time after max refreshes to reset timer
+                    if (refreshCount >= maxRefreshes - 1) {
+                        localStorage.removeItem('thinkred-deployment-start');
+                    }
                     location.reload();
-                }, 30000); // Refresh every 30 seconds - more reasonable for network and browser
+                }, 15000); // Refresh every 15 seconds - balanced for engagement and performance
             } else {
-                // Show manual refresh after 20 minutes
+                // Show manual refresh after 20 minutes and reset timer
+                localStorage.removeItem('thinkred-deployment-start');
                 const autoRefreshElement = document.querySelector('.auto-refresh');
                 autoRefreshElement.innerHTML = 
-                    '<button onclick="location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
+                    '<button onclick="localStorage.removeItem(\'thinkred-deployment-start\'); location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
             }
         }
         
@@ -1156,21 +1659,44 @@
 
         // Initialize all animations and interactions
         function initializePage() {
+            // Initialize persistent timer
+            initializeTimer();
+            
             // Update deployment progress every 4 seconds
             setInterval(updateDeploymentProgress, 4000);
             
-            // Create random sparkles
-            setInterval(createSparkle, 8000);
+            // Update time counter every second
+            setInterval(updateTimeCounter, 1000);
+            
+            // Update code console every 4 seconds (increased to allow for typing animation)
+            setInterval(updateCodeConsole, 4000);
+            initializeConsole(); // Initialize with first line
+            
+            // Create random sparkles more frequently
+            setInterval(createSparkle, 4000); // Increased from 8000
             
             // Create lab sparkles near equipment
-            setInterval(createLabSparkle, 12000);
+            setInterval(createLabSparkle, 8000); // Increased from 12000
+            
+            // Setup lab equipment interactions
+            setupLabEquipmentInteraction();
+            
+            // Show initial fun fact after 2 seconds
+            setTimeout(showRandomFact, 2000);
+            
+            // Cycle through fun facts every 10 seconds
+            setInterval(() => {
+                if (Math.random() > 0.6) { // 40% chance every 10 seconds
+                    showRandomFact();
+                }
+            }, 10000);
             
             // Check if RED assistant is available and setup interactions
             function checkAndSetupAssistant() {
                 const redAssistant = document.querySelector('.red-assistant');
                 if (redAssistant && redAssistant.classList.contains('loaded')) {
-                    // Update assistant message every 6 seconds
-                    setInterval(updateAssistantMessage, 6000);
+                    // Update assistant message every 8 seconds (more frequent)
+                    setInterval(updateAssistantMessage, 8000);
                     
                     // Setup assistant interaction
                     setupAssistantInteraction();
@@ -1191,6 +1717,58 @@
             
             // Start auto-refresh
             smartRefresh();
+            
+            // Add mouse interaction effects
+            setupMouseEffects();
+        }
+        
+        // Mouse trail effects
+        function setupMouseEffects() {
+            let lastParticleTime = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastParticleTime > 100) { // Throttle particle creation
+                    createMouseParticle(e.clientX, e.clientY);
+                    lastParticleTime = now;
+                }
+            });
+            
+            // Add click effects
+            document.addEventListener('click', (e) => {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        createMouseParticle(
+                            e.clientX + (Math.random() - 0.5) * 40,
+                            e.clientY + (Math.random() - 0.5) * 40
+                        );
+                    }, i * 50);
+                }
+            });
+        }
+        
+        function createMouseParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const colors = ['#e4093e', '#518cea', '#ae6cfc', '#ffd700'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 6 + 2;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (document.body.contains(particle)) {
+                    document.body.removeChild(particle);
+                }
+            }, 2000);
         }
         
         // Start when page loads
