@@ -303,7 +303,7 @@
             inset: -10px;
             background: radial-gradient(circle, rgba(228, 9, 62, 0.1) 0%, transparent 70%);
             border-radius: 50%;
-            animation: glowPulse 2s ease-in-out infinite;
+            animation: glowPulse 2.5s ease-in-out infinite;
         }
         
         .assistant-avatar {
@@ -361,13 +361,55 @@
         }
         
         @keyframes assistantFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            75% { transform: translateY(-6px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes assistantBreathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes assistantWiggle {
+            0% { transform: translateX(0px) rotate(0deg); }
+            20% { transform: translateX(2px) rotate(1deg); }
+            40% { transform: translateX(-1px) rotate(-0.5deg); }
+            60% { transform: translateX(1px) rotate(0.5deg); }
+            80% { transform: translateX(-0.5px) rotate(-0.25deg); }
+            100% { transform: translateX(0px) rotate(0deg); }
+        }
+        
+        @keyframes assistantExcited {
+            0% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.1) rotate(5deg); }
+            40% { transform: scale(1.05) rotate(-3deg); }
+            60% { transform: scale(1.15) rotate(8deg); }
+            80% { transform: scale(1.02) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        @keyframes assistantCurious {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.02); }
+            50% { transform: rotate(12deg) scale(1.05); }
+            75% { transform: rotate(-5deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        
+        @keyframes assistantBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-15px) scale(1.1); }
+            60% { transform: translateY(-8px) scale(1.05); }
         }
         
         @keyframes glowPulse {
             0%, 100% { opacity: 0.5; transform: scale(1); }
+            25% { opacity: 0.7; transform: scale(1.05); }
             50% { opacity: 1; transform: scale(1.1); }
+            75% { opacity: 0.8; transform: scale(1.05); }
         }
         
         /* Main content layout */
@@ -1066,11 +1108,26 @@
         const steps = ['Build', 'Deploy', 'Launch'];
         const stepIcons = ['✓', '⚙️', '🚀'];
         const assistantMessages = [
-            'Compiling code...',
-            'Running tests...',
-            'Deploying changes...',
-            'Almost ready...',
-            'Final checks...'
+            'Compiling code... ✨',
+            'Running tests... 🧪',
+            'Deploying changes... 🚀',
+            'Almost ready... ⏳',
+            'Final checks... 🔍',
+            'Looking good! 😊',
+            'Working hard! 💪',
+            'Optimizing magic... ✨',
+            'Brewing excellence... ☕',
+            'Coding greatness... 💻',
+            'Testing boundaries... 🎯',
+            'Polishing perfection... ✨',
+            'Building dreams... 🏗️',
+            'Crafting innovation... 🎨',
+            'Debugging reality... 🐛',
+            'Summoning features... 🪄',
+            'Loading awesomeness... ⭐',
+            'Calibrating genius... 🎛️',
+            'Assembling magic... 🔧',
+            'Cooking up something special... 👨‍🍳'
         ];
         
         // Code snippets for console with types
@@ -1477,179 +1534,754 @@
                 return;
             }
             
-            const container = document.querySelector('.lab-container') || document.body;
             let currentPosition = { x: 0, y: 0 };
             let isMoving = false;
             
             function getRandomPosition() {
-                const containerRect = container.getBoundingClientRect();
                 const assistantWidth = 120;
                 const assistantHeight = 120;
-                const margin = 100; // Increased margin for more space around content
+                const margin = 50;
                 
-                // Get main content areas to avoid with larger buffer zones
-                const logoSection = document.querySelector('.logo-section');
-                const labStatus = document.querySelector('.lab-status');
-                const contactSection = document.querySelector('.contact-section');
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
                 
-                const contentAreas = [];
-                [logoSection, labStatus, contactSection].forEach(element => {
+                // Get main content areas to avoid (with smaller buffer zones for more freedom)
+                const contentElements = document.querySelectorAll('.lab-container .logo-section, .lab-container .lab-status, .lab-container .contact-section');
+                const avoidAreas = [];
+                
+                contentElements.forEach(element => {
                     if (element) {
                         const rect = element.getBoundingClientRect();
-                        contentAreas.push({
-                            left: rect.left - 150, // Much larger padding around content
-                            right: rect.right + 150,
-                            top: rect.top - 100,
-                            bottom: rect.bottom + 100
+                        avoidAreas.push({
+                            left: rect.left - 80,
+                            right: rect.right + 80,
+                            top: rect.top - 80,
+                            bottom: rect.bottom + 80
                         });
                     }
                 });
                 
-                function isPositionValid(x, y) {
-                    // Check if position overlaps with any content area
-                    for (const area of contentAreas) {
-                        if (x < area.right && x + assistantWidth > area.left &&
-                            y < area.bottom && y + assistantHeight > area.top) {
+                function isPositionSafe(x, y) {
+                    // Check viewport boundaries
+                    if (x < margin || x > viewportWidth - assistantWidth - margin ||
+                        y < margin || y > viewportHeight - assistantHeight - margin) {
+                        return false;
+                    }
+                    
+                    // Check content area collisions
+                    const assistantRect = {
+                        left: x,
+                        right: x + assistantWidth,
+                        top: y,
+                        bottom: y + assistantHeight
+                    };
+                    
+                    for (const area of avoidAreas) {
+                        if (assistantRect.right > area.left && assistantRect.left < area.right &&
+                            assistantRect.bottom > area.top && assistantRect.top < area.bottom) {
                             return false;
                         }
                     }
+                    
                     return true;
                 }
                 
-                // Only use safe peripheral areas - no random positioning near content
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Restrict to corner and edge areas only
-                const safeAreas = [
-                    { x: margin, y: margin }, // Top-left corner
-                    { x: viewportWidth - assistantWidth - margin, y: margin }, // Top-right corner
-                    { x: margin, y: viewportHeight - assistantHeight - margin }, // Bottom-left corner
-                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight - assistantHeight - margin }, // Bottom-right corner
-                    { x: margin, y: viewportHeight / 2 - assistantHeight / 2 }, // Left edge middle
-                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight / 2 - assistantHeight / 2 }, // Right edge middle
-                    { x: viewportWidth / 2 - assistantWidth / 2, y: margin }, // Top edge middle
-                    { x: viewportWidth / 2 - assistantWidth / 2, y: viewportHeight - assistantHeight - margin } // Bottom edge middle
-                ];
-                
-                // Filter safe areas to ensure they don't overlap with content
-                const validAreas = safeAreas.filter(area => isPositionValid(area.x, area.y));
-                
-                // If no valid areas, use bottom-right corner as default
-                if (validAreas.length === 0) {
-                    return { 
-                        x: viewportWidth - assistantWidth - margin, 
-                        y: viewportHeight - assistantHeight - margin 
-                    };
+                // Prefer nearby positions to prevent teleporting (95% of the time for truly bubble-like movement)
+                if (currentPosition.x !== 0 && currentPosition.y !== 0 && Math.random() > 0.05) {
+                    const maxDrift = 80; // Further reduced maximum drift distance for very constrained movement
+                    
+                    for (let attempts = 0; attempts < 50; attempts++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = Math.random() * maxDrift + 20; // 20-100px drift (very small range)
+                        
+                        const x = currentPosition.x + Math.cos(angle) * distance;
+                        const y = currentPosition.y + Math.sin(angle) * distance;
+                        
+                        if (isPositionSafe(x, y)) {
+                            return { x, y };
+                        }
+                    }
                 }
                 
-                // Choose a random valid area
-                const randomArea = validAreas[Math.floor(Math.random() * validAreas.length)];
-                return { x: randomArea.x, y: randomArea.y };
+                // Fallback to wider search if no nearby position found
+                for (let attempts = 0; attempts < 100; attempts++) {
+                    const x = Math.random() * (viewportWidth - assistantWidth - 2 * margin) + margin;
+                    const y = Math.random() * (viewportHeight - assistantHeight - 2 * margin) + margin;
+                    
+                    if (isPositionSafe(x, y)) {
+                        return { x, y };
+                    }
+                }
+                
+                // If no random position found, use safe fallback areas
+                const fallbackAreas = [
+                    { x: margin, y: margin },
+                    { x: viewportWidth - assistantWidth - margin, y: margin },
+                    { x: margin, y: viewportHeight - assistantHeight - margin },
+                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight - assistantHeight - margin }
+                ];
+                
+                return fallbackAreas[Math.floor(Math.random() * fallbackAreas.length)];
             }
             
-            function animateToPosition(targetPos, duration = 5000) { // Slower default duration
+            function animateToPosition(targetPos, duration = 3000) {
                 if (isMoving) return;
                 isMoving = true;
                 
                 const startPos = { ...currentPosition };
                 const startTime = Date.now();
                 
-                // Create more conservative control points to prevent teleporting
+                // Create organic curved path with random control points
+                const distance = Math.sqrt(
+                    Math.pow(targetPos.x - startPos.x, 2) + 
+                    Math.pow(targetPos.y - startPos.y, 2)
+                );
+                
+                // Add organic curve to the movement
                 const midX = (startPos.x + targetPos.x) / 2;
                 const midY = (startPos.y + targetPos.y) / 2;
                 
-                const controlPoint1 = {
-                    x: midX + (Math.random() - 0.5) * 100, // Reduced from 200 to 100
-                    y: midY + (Math.random() - 0.5) * 100
-                };
-                const controlPoint2 = {
-                    x: midX + (Math.random() - 0.5) * 100,
-                    y: midY + (Math.random() - 0.5) * 100
-                };
+                // Create random curve intensity based on distance
+                const curveIntensity = Math.min(150, distance * 0.3);
+                const randomAngle = Math.random() * Math.PI * 2;
+                
+                const controlX = midX + Math.cos(randomAngle) * curveIntensity;
+                const controlY = midY + Math.sin(randomAngle) * curveIntensity;
+                
+                // Add subtle floating motion during movement
+                const floatAmplitude = 8;
+                const floatFrequency = 2 + Math.random() * 2; // Random frequency for variety
                 
                 function frame() {
                     const elapsed = Date.now() - startTime;
                     const progress = Math.min(elapsed / duration, 1);
                     
-                    // Use cubic bezier curve for organic movement
-                    const t = progress;
+                    // More organic easing with slight bounce
+                    let easedProgress;
+                    if (progress < 0.5) {
+                        easedProgress = 2 * progress * progress;
+                    } else {
+                        const t = progress - 1;
+                        easedProgress = 1 - 2 * t * t;
+                    }
+                    
+                    // Quadratic Bezier curve for organic path
+                    const t = easedProgress;
                     const invT = 1 - t;
                     
-                    // Cubic Bezier curve: P = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃
-                    const x = Math.pow(invT, 3) * startPos.x +
-                             3 * Math.pow(invT, 2) * t * controlPoint1.x +
-                             3 * invT * Math.pow(t, 2) * controlPoint2.x +
-                             Math.pow(t, 3) * targetPos.x;
-                             
-                    const y = Math.pow(invT, 3) * startPos.y +
-                             3 * Math.pow(invT, 2) * t * controlPoint1.y +
-                             3 * invT * Math.pow(t, 2) * controlPoint2.y +
-                             Math.pow(t, 3) * targetPos.y;
+                    const baseX = invT * invT * startPos.x + 
+                                 2 * invT * t * controlX + 
+                                 t * t * targetPos.x;
+                    const baseY = invT * invT * startPos.y + 
+                                 2 * invT * t * controlY + 
+                                 t * t * targetPos.y;
                     
-                    // Gentler rotation during movement
-                    const rotation = Math.sin(progress * Math.PI) * 3; // Reduced from 5 to 3 degrees
+                    // Add floating motion for liveliness
+                    const floatOffset = Math.sin(progress * Math.PI * floatFrequency) * floatAmplitude * (1 - progress);
+                    const x = baseX + Math.cos(randomAngle) * floatOffset;
+                    const y = baseY + Math.sin(randomAngle) * floatOffset;
+                    
+                    // Dynamic rotation based on movement direction and speed
+                    const velocity = distance / duration * 1000; // pixels per second
+                    const direction = Math.atan2(targetPos.y - startPos.y, targetPos.x - startPos.x);
+                    const dynamicRotation = Math.sin(progress * Math.PI * 3) * (3 + velocity * 0.01);
+                    const tiltRotation = direction * 0.1; // Slight tilt towards movement direction
+                    
+                    // Add subtle scaling for breathing effect
+                    const breathe = 1 + Math.sin(progress * Math.PI * 4) * 0.03;
                     
                     assistant.style.left = `${x}px`;
                     assistant.style.top = `${y}px`;
-                    assistant.style.transform = `rotate(${rotation}deg)`;
+                    assistant.style.transform = `rotate(${dynamicRotation + tiltRotation}deg) scale(${breathe})`;
+                    assistant.style.position = 'fixed';
                     
-                    currentPosition = { x, y };
+                    currentPosition = { x: baseX, y: baseY }; // Store base position without float offset
                     
                     if (progress < 1) {
                         requestAnimationFrame(frame);
                     } else {
                         isMoving = false;
-                        assistant.style.transform = 'rotate(0deg)';
-                        // Add floating animation back
-                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite';
+                        assistant.style.transform = 'rotate(0deg) scale(1)';
+                        
+                        // Add more lively idle animation
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                        
+                        // Add occasional micro-movements during idle
+                        addIdleMicroMovements();
+                        
+                        // Schedule next movement with random delay (3-8 seconds for more gentle bubble-like movement)
+                        const nextMoveDelay = 3000 + Math.random() * 5000;
+                        setTimeout(() => {
+                            if (document.querySelector('.red-assistant.loaded') && !isMoving) {
+                                moveToNextPosition();
+                            }
+                        }, nextMoveDelay);
                     }
                 }
                 
-                // Remove floating animation during movement
+                // Remove existing animation during movement
                 assistant.style.animation = 'none';
                 requestAnimationFrame(frame);
             }
             
-            function moveToPosition() {
+            function moveToNextPosition() {
                 const targetPosition = getRandomPosition();
+                
+                // Ensure we're not moving to the same position
                 const distance = Math.sqrt(
                     Math.pow(targetPosition.x - currentPosition.x, 2) +
                     Math.pow(targetPosition.y - currentPosition.y, 2)
                 );
                 
-                // Slower duration calculation - minimum 4 seconds, up to 8 seconds
-                const duration = Math.max(4000, Math.min(8000, distance * 15));
+                // If position is too close, get a new one
+                if (distance < 40) {
+                    setTimeout(() => moveToNextPosition(), 1000);
+                    return;
+                }
+                
+                // If distance is too far (teleporting), try to get a closer position
+                if (distance > 120) { // Further reduced from 200 to 120 for very constrained movement
+                    // Try to get a closer position
+                    let closerPosition = null;
+                    for (let i = 0; i < 20; i++) { // Even more attempts to find closer position
+                        const testPos = getRandomPosition();
+                        const testDistance = Math.sqrt(
+                            Math.pow(testPos.x - currentPosition.x, 2) +
+                            Math.pow(testPos.y - currentPosition.y, 2)
+                        );
+                        
+                        if (testDistance < 100 && testDistance > 30) { // Very strict distance requirements
+                            closerPosition = testPos;
+                            break;
+                        }
+                    }
+                    
+                    if (closerPosition) {
+                        targetPosition.x = closerPosition.x;
+                        targetPosition.y = closerPosition.y;
+                    } else {
+                        // If no closer position found, make a very small drift from current position
+                        const angle = Math.random() * Math.PI * 2;
+                        const driftDistance = 40 + Math.random() * 40; // 40-80px (very small)
+                        targetPosition.x = currentPosition.x + Math.cos(angle) * driftDistance;
+                        targetPosition.y = currentPosition.y + Math.sin(angle) * driftDistance;
+                        
+                        // Ensure it's within bounds
+                        const margin = 50;
+                        const assistantWidth = 120;
+                        const assistantHeight = 120;
+                        targetPosition.x = Math.max(margin, Math.min(window.innerWidth - assistantWidth - margin, targetPosition.x));
+                        targetPosition.y = Math.max(margin, Math.min(window.innerHeight - assistantHeight - margin, targetPosition.y));
+                    }
+                }
+                
+                // Dynamic duration based on distance (1.5-4 seconds for faster, more lively movement)
+                const finalDistance = Math.sqrt(
+                    Math.pow(targetPosition.x - currentPosition.x, 2) +
+                    Math.pow(targetPosition.y - currentPosition.y, 2)
+                );
+                const duration = Math.max(1500, Math.min(4000, finalDistance * 8));
                 
                 animateToPosition(targetPosition, duration);
                 
-                // Create sparkles during movement
-                setTimeout(() => createSparkle(), duration / 2);
+                // Create sparkles occasionally during movement
+                if (Math.random() > 0.6) {
+                    setTimeout(() => createSparkle(), duration / 2);
+                }
                 
-                // Update message partway through movement
-                setTimeout(() => updateAssistantMessage(), duration / 3);
+                // Update message occasionally during movement
+                if (Math.random() > 0.7) {
+                    setTimeout(() => updateAssistantMessage(), duration / 3);
+                }
             }
             
-            // Set initial position more safely
+            // Set truly random initial position
             const initialPos = getRandomPosition();
             currentPosition = initialPos;
             assistant.style.left = `${initialPos.x}px`;
             assistant.style.top = `${initialPos.y}px`;
-            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite';
+            assistant.style.position = 'fixed';
+            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
             
-            // Start movement cycle with longer intervals
+            // Start idle micro-movements and wiggles
             setTimeout(() => {
-                moveToPosition();
-                
-                // Continue moving every 20-30 seconds (much slower to avoid distracting from content)
-                setInterval(() => {
+                addIdleMicroMovements();
+                addRandomWiggles();
+                addPersonalityBehaviors();
+                enhanceHoverBehavior();
+                addEnvironmentalAwareness();
+                addBlinkingBehavior();
+            }, 2000);
+            
+            // Start continuous movement cycle after initial delay
+            setTimeout(() => {
+                moveToNextPosition();
+            }, 3000); // Initial delay of 3 seconds
+            
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
                     if (!isMoving) {
-                        moveToPosition();
+                        const newPos = getRandomPosition();
+                        currentPosition = newPos;
+                        assistant.style.left = `${newPos.x}px`;
+                        assistant.style.top = `${newPos.y}px`;
                     }
-                }, Math.random() * 10000 + 20000); // 20-30 seconds
-            }, 5000); // Initial delay increased to 5 seconds
+                }, 500);
+            });
         }
-
+        
+        // Add subtle micro-movements during idle periods
+        function addIdleMicroMovements() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant || isMoving) return;
+            
+            let idleAnimationCount = 0;
+            const maxIdleAnimations = 3 + Math.floor(Math.random() * 3); // 3-5 micro movements
+            
+            function performMicroMovement() {
+                if (isMoving || idleAnimationCount >= maxIdleAnimations) return;
+                
+                const microDistance = 8 + Math.random() * 12; // 8-20px micro movements
+                const angle = Math.random() * Math.PI * 2;
+                const microX = Math.cos(angle) * microDistance;
+                const microY = Math.sin(angle) * microDistance;
+                
+                const originalTransform = assistant.style.transform;
+                const baseX = currentPosition.x;
+                const baseY = currentPosition.y;
+                
+                // Micro wiggle animation
+                const microDuration = 800 + Math.random() * 400; // 0.8-1.2 seconds
+                const startTime = Date.now();
+                
+                function microFrame() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / microDuration, 1);
+                    
+                    // Smooth out-and-back easing
+                    const easeProgress = progress < 0.5 
+                        
+                        ? 2 * progress * progress 
+                        : 1 - 2 * Math.pow(progress - 1, 2);
+                    
+                    const x = baseX + microX * easeProgress;
+                    const y = baseY + microY * easeProgress;
+                    
+                    // Add tiny rotation during micro movement
+                    const microRotation = Math.sin(progress * Math.PI * 2) * 1.5;
+                    
+                    assistant.style.left = `${x}px`;
+                    assistant.style.top = `${y}px`;
+                    assistant.style.transform = `rotate(${microRotation}deg) scale(${1 + Math.sin(progress * Math.PI) * 0.02})`;
+                    
+                    if (progress < 1 && !isMoving) {
+                        requestAnimationFrame(microFrame);
+                    } else {
+                        // Return to base position
+                        assistant.style.left = `${baseX}px`;
+                        assistant.style.top = `${baseY}px`;
+                        assistant.style.transform = originalTransform;
+                        currentPosition = { x: baseX, y: baseY };
+                        
+                        idleAnimationCount++;
+                        
+                        // Schedule next micro movement
+                        if (idleAnimationCount < maxIdleAnimations && !isMoving) {
+                            setTimeout(performMicroMovement, 1000 + Math.random() * 2000);
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(microFrame);
+            }
+            
+            // Start first micro movement after a short delay
+            setTimeout(performMicroMovement, 500 + Math.random() * 1000);
+        }
+        
+        // Add occasional spontaneous wiggles during idle
+        function addRandomWiggles() {
+            if (isMoving) return;
+            
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // 30% chance to add a wiggle animation
+            if (Math.random() > 0.7) {
+                assistant.style.animation += ', assistantWiggle 1.5s ease-in-out';
+                
+                setTimeout(() => {
+                    if (!isMoving) {
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                }, 1500);
+            }
+            
+            // Schedule next potential wiggle
+            setTimeout(addRandomWiggles, 4000 + Math.random() * 6000); // Every 4-10 seconds
+        }
+        
+        // Add personality-driven behaviors
+        function addPersonalityBehaviors() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // React to console activity with excitement
+            function reactToConsoleUpdates() {
+                if (!isMoving && Math.random() > 0.6) {
+                    assistant.style.animation = 'assistantExcited 1.2s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1200);
+                }
+            }
+            
+            // Show curiosity when user hovers over elements
+            function showCuriosity() {
+                if (!isMoving && Math.random() > 0.7) {
+                    assistant.style.animation = 'assistantCurious 1.5s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1500);
+                }
+            }
+            
+            // Celebrate deployment progress
+            function celebrateProgress() {
+                if (!isMoving && Math.random() > 0.5) {
+                    assistant.style.animation = 'assistantBounce 1.8s ease-in-out, assistantFloat 3s ease-in-out infinite';
+                    
+                    // Show excited message
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble) {
+                        const celebrationMessages = [
+                            'Yay! Progress! 🎉',
+                            'Getting closer! 🚀',
+                            'Almost there! ⭐',
+                            'Looking great! ✨',
+                            'Woo-hoo! 🎊'
+                        ];
+                        const originalText = bubble.textContent;
+                        bubble.textContent = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
+                        
+                        setTimeout(() => {
+                            bubble.textContent = originalText;
+                        }, 2000);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1800);
+                }
+            }
+            
+            // React to user interactions
+            function setupUserInteractionReactions() {
+                // React to clicks on lab equipment
+                document.querySelectorAll('.lab-equipment').forEach(equipment => {
+                    equipment.addEventListener('click', () => {
+                        showCuriosity();
+                        // Occasionally move towards the clicked equipment
+                        if (Math.random() > 0.7 && !isMoving) {
+                            const rect = equipment.getBoundingClientRect();
+                            const targetX = rect.left - 150;
+                            const targetY = rect.top - 50;
+                            
+                            // Make sure the position is safe
+                            if (targetX > 50 && targetY > 50) {
+                                const targetPos = { x: targetX, y: targetY };
+                                animateToPosition(targetPos, 2000);
+                            }
+                        }
+                    });
+                });
+                
+                // React to fun fact clicks
+                const funFact = document.querySelector('.fun-fact');
+                if (funFact) {
+                    funFact.addEventListener('click', () => {
+                        celebrateProgress();
+                    });
+                }
+                
+                // React to mouse movement occasionally
+                let lastReactionTime = 0;
+                document.addEventListener('mousemove', (e) => {
+                    const now = Date.now();
+                    if (now - lastReactionTime > 5000 && Math.random() > 0.95) { // Very occasional reaction
+                        const assistantRect = assistant.getBoundingClientRect();
+                        const distance = Math.sqrt(
+                            Math.pow(e.clientX - (assistantRect.left + assistantRect.width/2), 2) +
+                            Math.pow(e.clientY - (assistantRect.top + assistantRect.height/2), 2)
+                        );
+                        
+                        if (distance < 200) { // Mouse is near RED
+                            showCuriosity();
+                            lastReactionTime = now;
+                        }
+                    }
+                });
+            }
+            
+            // Schedule personality events
+            function schedulePersonalityEvents() {
+                // Console reactions
+                setInterval(reactToConsoleUpdates, 8000 + Math.random() * 4000);
+                
+                // Progress celebrations
+                setInterval(celebrateProgress, 15000 + Math.random() * 10000);
+                
+                // Random mood changes
+                setInterval(() => {
+                    if (!isMoving && Math.random() > 0.8) {
+                        const moodAnimations = [
+                            'assistantCurious 1.5s ease-in-out',
+                            'assistantWiggle 1.2s ease-in-out',
+                            'assistantBounce 1.8s ease-in-out'
+                        ];
+                        
+                        const mood = moodAnimations[Math.floor(Math.random() * moodAnimations.length)];
+                        assistant.style.animation = `${mood}, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite`;
+                        
+                        setTimeout(() => {
+                            if (!isMoving) {
+                                assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                            }
+                        }, 2000);
+                    }
+                }, 12000 + Math.random() * 8000);
+            }
+            
+            setupUserInteractionReactions();
+            setTimeout(schedulePersonalityEvents, 3000);
+        }
+        
+        // Add playful hover effects
+        function enhanceHoverBehavior() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            const container = assistant.querySelector('.assistant-container');
+            if (!container) return;
+            
+            let hoverTimeout;
+            
+            container.addEventListener('mouseenter', () => {
+                if (!isMoving) {
+                    assistant.style.animation = 'assistantExcited 0.8s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    // Show more playful messages on hover
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble) {
+                        const playfulMessages = [
+                            'Hey there! 👋',
+                            'Having fun? 😄',
+                            'Need help? 🤔',
+                            'Looking good! 👀',
+                            'Almost done! ⏰',
+                            'Stay awesome! ⭐'
+                        ];
+                        bubble.textContent = playfulMessages[Math.floor(Math.random() * playfulMessages.length)];
+                    }
+                }
+                
+                clearTimeout(hoverTimeout);
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                hoverTimeout = setTimeout(() => {
+                    if (!isMoving) {
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    updateAssistantMessage(); // Return to normal messages
+                }, 500);
+            });
+            
+            // Click for extra excitement
+            container.addEventListener('click', () => {
+                if (!isMoving) {
+                    assistant.style.animation = 'assistantBounce 1.5s ease-in-out, assistantFloat 3s ease-in-out infinite';
+                    
+                    // Create extra sparkles around RED
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => createSparkle(), i * 200);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1500);
+                }
+            });
+        }
+        
+        // Add environmental awareness
+        function addEnvironmentalAwareness() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // Notice when new console lines appear
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                        // Something was added to the page
+                        if (Math.random() > 0.7 && !isMoving) {
+                            // Look towards the console area
+                            const console = document.querySelector('.code-console');
+                            if (console) {
+                                const consoleRect = console.getBoundingClientRect();
+                                const assistantRect = assistant.getBoundingClientRect();
+                                
+                                // Calculate direction to look
+                                const deltaX = consoleRect.left - assistantRect.left;
+                                const deltaY = consoleRect.top - assistantRect.top;
+                                const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+                                
+                                // Briefly tilt towards the console
+                                assistant.style.transform = `rotate(${angle * 0.1}deg)`;
+                                assistant.style.animation = 'assistantCurious 1s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                                
+                                setTimeout(() => {
+                                    assistant.style.transform = 'rotate(0deg)';
+                                    if (!isMoving) {
+                                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                                    }
+                                }, 1000);
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Observe the console content for changes
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent) {
+                observer.observe(consoleContent, { childList: true, subtree: true });
+            }
+            
+            // React to page scroll (if any)
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (Math.random() > 0.8 && !isMoving) {
+                        assistant.style.animation = 'assistantWiggle 0.8s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                        
+                        setTimeout(() => {
+                            if (!isMoving) {
+                                assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                            }
+                        }, 800);
+                    }
+                }, 100);
+            });
+            
+            // Periodically check deployment progress and react
+            setInterval(() => {
+                const activeStep = document.querySelector('.step-circle.active');
+                const completedSteps = document.querySelectorAll('.step-circle.completed');
+                
+                if (activeStep && Math.random() > 0.6 && !isMoving) {
+                    // Show excitement for progress
+                    assistant.style.animation = 'assistantExcited 1s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    // Update message to reflect progress
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble && completedSteps.length > 0) {
+                        const progressMessages = [
+                            `${completedSteps.length}/3 steps done! 🎯`,
+                            'Making great progress! 📈',
+                            'Step by step! 👣',
+                            'Things are moving! 🚀'
+                        ];
+                        const originalText = bubble.textContent;
+                        bubble.textContent = progressMessages[Math.floor(Math.random() * progressMessages.length)];
+                        
+                        setTimeout(() => {
+                            bubble.textContent = originalText;
+                        }, 3000);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1000);
+                }
+            }, 6000 + Math.random() * 4000);
+        }
+        
+        // Add blinking functionality
+        function addBlinkingBehavior() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            const assistantImg = assistant.querySelector('img');
+            if (!assistantImg) return;
+            
+            const originalSrc = '/assets/avatars/assistant-red.png';
+            const blinkSrc = '/assets/avatars/assistant-red-sleeping.png'; // Using sleeping image for blink effect
+            
+            function performBlink() {
+                // Don't blink if moving or if already blinking
+                if (isMoving || assistantImg.src.includes('blink')) return;
+                
+                // Change to blink image
+                assistantImg.src = blinkSrc;
+                
+                // Change back after a brief moment
+                setTimeout(() => {
+                    if (assistantImg.src.includes('blink')) {
+                        assistantImg.src = originalSrc;
+                    }
+                }, 150 + Math.random() * 100); // 150-250ms blink duration
+            }
+            
+            // Schedule random blinks
+            function scheduleNextBlink() {
+                const blinkInterval = 3000 + Math.random() * 7000; // 3-10 seconds between blinks
+                setTimeout(() => {
+                    performBlink();
+                    scheduleNextBlink();
+                }, blinkInterval);
+            }
+            
+            // Start blinking cycle
+            setTimeout(scheduleNextBlink, 2000);
+            
+            // Also blink on certain interactions
+            assistant.addEventListener('click', () => {
+                setTimeout(performBlink, 300);
+            });
+            
+            // Blink when excited or curious
+            const originalAnimation = assistant.style.animation;
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const currentAnimation = assistant.style.animation;
+                        if (currentAnimation.includes('assistantExcited') || currentAnimation.includes('assistantCurious')) {
+                            setTimeout(performBlink, 200);
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(assistant, { attributes: true, attributeFilter: ['style'] });
+        }
+        
         // Initialize all animations and interactions
         function initializePage() {
             // Initialize persistent timer
@@ -1662,6 +2294,9 @@
             setupLabEquipmentInteraction();
             setupAssistantInteraction();
             setupMouseEffects();
+            
+            // Start RED assistant movement
+            moveAssistantFreely();
             
             // Start regular updates
             setInterval(updateDeploymentProgress, 4000);
