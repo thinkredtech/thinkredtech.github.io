@@ -156,8 +156,14 @@
         position: sticky; 
         top: 0; 
         z-index: 50; 
-        border-bottom: 1px solid #e5e7eb; 
         will-change: transform;
+        transition: all 0.3s ease;
+      }
+      
+      /* Header border when scrolled (matches bg-white class) */
+      header.bg-white {
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
       nav { 
         max-width: 1280px; 
@@ -224,10 +230,17 @@
       }
       
       /* Focus styles for accessibility */
-      .btn:focus, a:focus, button:focus, input:focus, textarea:focus, select:focus {
+      .btn:focus, button:focus, input:focus, textarea:focus, select:focus {
         outline: 2px solid #e4093e;
         outline-offset: 2px;
         box-shadow: 0 0 0 3px rgba(228, 9, 62, 0.1);
+      }
+      
+      /* Remove focus styles for navigation elements */
+      nav a:focus, header a:focus, .logo-link:focus, nav a:focus-visible, header a:focus-visible, .logo-link:focus-visible, a:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
       }
       
       /* Loading state */

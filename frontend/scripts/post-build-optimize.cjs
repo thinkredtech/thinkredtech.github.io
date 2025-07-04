@@ -47,8 +47,14 @@ const criticalCSS = `
         position: sticky; 
         top: 0; 
         z-index: 50; 
-        border-bottom: 1px solid #e5e7eb; 
         will-change: transform;
+        transition: all 0.3s ease;
+      }
+      
+      /* Header border when scrolled (matches bg-white class) */
+      header.bg-white {
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
       nav { 
         max-width: 1280px; 
@@ -121,22 +127,11 @@ const criticalCSS = `
         box-shadow: 0 0 0 3px rgba(228, 9, 62, 0.1) !important;
       }
       
-      /* Very subtle focus styles for navigation elements to reduce visual distraction */
-      nav a:focus, header a:focus, .logo-link:focus {
-        outline: 1px solid rgba(228, 9, 62, 0.3) !important;
-        outline-offset: 2px !important;
-        box-shadow: 0 0 0 2px rgba(228, 9, 62, 0.05) !important;
-        border-radius: 4px !important;
-        background-color: rgba(228, 9, 62, 0.02) !important;
-      }
-      
-      /* Override Tailwind's focus:outline-none for navigation links */
-      nav a:focus-visible, header a:focus-visible, .logo-link:focus-visible {
-        outline: 1px solid rgba(228, 9, 62, 0.4) !important;
-        outline-offset: 2px !important;
-        box-shadow: 0 0 0 2px rgba(228, 9, 62, 0.08) !important;
-        border-radius: 4px !important;
-        background-color: rgba(228, 9, 62, 0.03) !important;
+      /* Remove focus styles for navigation elements */
+      nav a:focus, header a:focus, .logo-link:focus, nav a:focus-visible, header a:focus-visible, .logo-link:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
       }
       
       /* General link focus with softer styling */

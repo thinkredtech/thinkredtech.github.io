@@ -5,6 +5,8 @@
  * Optimizes the generated index.html for better performance
  */
 
+/* eslint-disable no-undef */
+
 const fs = require('fs');
 const path = require('path');
 
