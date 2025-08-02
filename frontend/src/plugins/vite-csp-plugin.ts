@@ -34,11 +34,8 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
     transformIndexHtml: {
       order: "post",
       handler(html: string) {
-        console.log(`🔒 CSP Plugin: Processing HTML, isDev: ${isDev}`);
-        
         // In development, use a more permissive CSP or disable entirely
         if (isDev) {
-          console.log("🔒 CSP Plugin: Using development CSP");
           // For development, use a basic CSP that allows most operations
           const devCSP = `
 default-src 'self' 'unsafe-inline' 'unsafe-eval';
@@ -65,11 +62,9 @@ form-action 'self' https://script.google.com https://script.googleusercontent.co
     <meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
           );
         } else {
-          console.log("🔒 CSP Plugin: Using production CSP with nonces");
           // Production: Use strict CSP with nonces
           const scriptNonce = generateCSPNonce();
           const styleNonce = generateCSPNonce();
-          console.log(`🔒 CSP Plugin: Generated nonces - script: ${scriptNonce}, style: ${styleNonce}`);
 
           // Get CSP header with nonces
           const cspHeader = getCSPWithNonces(scriptNonce, styleNonce, false);
@@ -94,7 +89,6 @@ form-action 'self' https://script.google.com https://script.googleusercontent.co
           );
         }
 
-        console.log("🔒 CSP Plugin: HTML transformation complete");
         return html;
       },
     },

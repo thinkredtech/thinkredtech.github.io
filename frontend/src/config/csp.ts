@@ -65,7 +65,7 @@ export function getCSPWithNonces(
   const scriptSrc = scriptNonce
     ? `'self' 'nonce-${scriptNonce}' 'unsafe-inline' ${isDevelopment ? "'unsafe-eval' 'unsafe-hashes'" : ""} https://script.google.com https://script.googleusercontent.com`
     : `'self' 'unsafe-inline' ${isDevelopment ? "'unsafe-eval' 'unsafe-hashes'" : ""} https://script.google.com https://script.googleusercontent.com`;
-  
+
   const styleSrc = styleNonce
     ? `'self' 'nonce-${styleNonce}' 'unsafe-inline' https://fonts.googleapis.com`
     : `'self' 'unsafe-inline' https://fonts.googleapis.com`;
