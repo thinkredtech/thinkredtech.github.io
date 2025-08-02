@@ -2,6 +2,149 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Critical above-the-fold CSS -->
+    <style>
+      /* Critical CSS for above-the-fold content */
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { line-height: 1.15; }
+      body { 
+        font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        background-color: #ffffff; 
+        color: #1f2937; 
+        line-height: 1.6; 
+        font-display: swap;
+      }
+      
+      /* Prevent layout shift during font loading */
+      .font-comfortaa { font-family: 'Comfortaa', system-ui, sans-serif; font-display: swap; }
+      .font-montserrat { font-family: 'Montserrat', system-ui, sans-serif; font-display: swap; }
+      
+      /* High contrast text colors for accessibility */
+      .text-gray-600 { color: #4b5563 !important; }
+      .text-gray-700 { color: #374151 !important; }
+      .text-gray-800 { color: #1f2937 !important; }
+      .text-gray-900 { color: #111827 !important; }
+      
+      /* Header and navigation */
+      header { 
+        background-color: rgba(255, 255, 255, 0.95); 
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px); 
+        position: sticky; 
+        top: 0; 
+        z-index: 50; 
+        will-change: transform;
+        transition: all 0.3s ease;
+      }
+      
+      /* Header border when scrolled (matches bg-white class) */
+      header.bg-white {
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      nav { 
+        max-width: 1280px; 
+        margin: 0 auto; 
+        padding: 1rem 1.5rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+      }
+      
+      /* Hero section */
+      .hero { 
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
+        min-height: 80vh; 
+        display: flex; 
+        align-items: center; 
+        padding: 2rem 1.5rem; 
+        contain: layout style;
+      }
+      .hero-content { 
+        max-width: 1280px; 
+        margin: 0 auto; 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 3rem; 
+        align-items: center; 
+      }
+      .hero h1 { 
+        font-size: 3rem; 
+        font-weight: 700; 
+        color: #1f2937; 
+        line-height: 1.2; 
+        margin-bottom: 1.5rem; 
+        font-display: swap;
+      }
+      .hero p { 
+        font-size: 1.25rem; 
+        color: #4b5563; 
+        margin-bottom: 2rem; 
+        line-height: 1.6; 
+      }
+      
+      /* Buttons */
+      .btn { 
+        display: inline-flex; 
+        align-items: center; 
+        padding: 0.75rem 1.5rem; 
+        border-radius: 0.5rem; 
+        font-weight: 600; 
+        text-decoration: none; 
+        transition: all 0.2s ease; 
+        border: 2px solid transparent; 
+        cursor: pointer;
+      }
+      .btn-primary { 
+        background-color: #e4093e; 
+        color: #ffffff; 
+        box-shadow: 0 4px 6px rgba(228, 9, 62, 0.25); 
+      }
+      .btn-primary:hover { 
+        background-color: #c1082f; 
+        transform: translateY(-1px); 
+        box-shadow: 0 6px 12px rgba(228, 9, 62, 0.35); 
+      }
+      
+      /* Focus styles for accessibility - override Tailwind defaults */
+      .btn:focus, button:focus, input:focus, textarea:focus, select:focus {
+        outline: 2px solid #e4093e !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 3px rgba(228, 9, 62, 0.1) !important;
+      }
+      
+      /* Remove focus styles for navigation elements */
+      nav a:focus, header a:focus, .logo-link:focus, nav a:focus-visible, header a:focus-visible, .logo-link:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+      }
+      
+      /* General link focus with softer styling */
+      a:focus {
+        outline: 1px solid rgba(228, 9, 62, 0.4) !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 2px rgba(228, 9, 62, 0.06) !important;
+        border-radius: 3px !important;
+      }
+      
+      /* Loading state */
+      .loading { opacity: 0; }
+      .loaded { opacity: 1; transition: opacity 0.3s ease-in-out; }
+      
+      /* Prevent layout shift */
+      img { height: auto; max-width: 100%; }
+      
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .hero-content { grid-template-columns: 1fr; text-align: center; }
+        .hero h1 { font-size: 2.25rem; }
+        .hero p { font-size: 1.125rem; }
+        nav { flex-direction: column; gap: 1rem; }
+      }
+    </style>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-845455027258618fe347169e7490567c' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-4995c294b4a3686984deaaaee2a6d0fd' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content; report-uri /csp-violation-report-endpoint/;">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -21,7 +164,7 @@
     <!-- Security Headers (frame-ancestors and X-Frame-Options moved to HTTP headers) -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;"
+      content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
@@ -76,7 +219,7 @@
     <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
+    <script nonce="845455027258618fe347169e7490567c" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -109,6 +252,8 @@
     <link rel="manifest" href="/manifest.json" />
 
     <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -118,6 +263,144 @@
     <!-- Preload critical images -->
     <link rel="preload" href="/assets/logos/thinkRED-np.svg" as="image" />
     <link rel="preload" href="/assets/avatars/assistant-red.webp" as="image" />
+    
+    <!-- DNS prefetch for API endpoints -->
+    <link rel="dns-prefetch" href="https://api.thinkred.tech" />
+    <link rel="dns-prefetch" href="https://script.google.com" />
+    
+    <!-- Critical above-the-fold CSS -->
+    <style nonce="4995c294b4a3686984deaaaee2a6d0fd">
+      /* Critical CSS for above-the-fold content */
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { line-height: 1.15; }
+      body { 
+        font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        background-color: #ffffff; 
+        color: #1f2937; 
+        line-height: 1.6; 
+        font-display: swap;
+      }
+      
+      /* Prevent layout shift during font loading */
+      .font-comfortaa { font-family: 'Comfortaa', system-ui, sans-serif; font-display: swap; }
+      .font-montserrat { font-family: 'Montserrat', system-ui, sans-serif; font-display: swap; }
+      
+      /* High contrast text colors for accessibility */
+      .text-gray-600 { color: #4b5563 !important; }
+      .text-gray-700 { color: #374151 !important; }
+      .text-gray-800 { color: #1f2937 !important; }
+      .text-gray-900 { color: #111827 !important; }
+      
+      /* Header and navigation */
+      header { 
+        background-color: rgba(255, 255, 255, 0.95); 
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px); 
+        position: sticky; 
+        top: 0; 
+        z-index: 50; 
+        will-change: transform;
+        transition: all 0.3s ease;
+      }
+      
+      /* Header border when scrolled (matches bg-white class) */
+      header.bg-white {
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      nav { 
+        max-width: 1280px; 
+        margin: 0 auto; 
+        padding: 1rem 1.5rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+      }
+      
+      /* Hero section */
+      .hero { 
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
+        min-height: 80vh; 
+        display: flex; 
+        align-items: center; 
+        padding: 2rem 1.5rem; 
+        contain: layout style;
+      }
+      .hero-content { 
+        max-width: 1280px; 
+        margin: 0 auto; 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 3rem; 
+        align-items: center; 
+      }
+      .hero h1 { 
+        font-size: 3rem; 
+        font-weight: 700; 
+        color: #1f2937; 
+        line-height: 1.2; 
+        margin-bottom: 1.5rem; 
+        font-display: swap;
+      }
+      .hero p { 
+        font-size: 1.25rem; 
+        color: #4b5563; 
+        margin-bottom: 2rem; 
+        line-height: 1.6; 
+      }
+      
+      /* Buttons */
+      .btn { 
+        display: inline-flex; 
+        align-items: center; 
+        padding: 0.75rem 1.5rem; 
+        border-radius: 0.5rem; 
+        font-weight: 600; 
+        text-decoration: none; 
+        transition: all 0.2s ease; 
+        border: 2px solid transparent; 
+        cursor: pointer;
+      }
+      .btn-primary { 
+        background-color: #e4093e; 
+        color: #ffffff; 
+        box-shadow: 0 4px 6px rgba(228, 9, 62, 0.25); 
+      }
+      .btn-primary:hover { 
+        background-color: #c1082f; 
+        transform: translateY(-1px); 
+        box-shadow: 0 6px 12px rgba(228, 9, 62, 0.35); 
+      }
+      
+      /* Focus styles for accessibility */
+      .btn:focus, button:focus, input:focus, textarea:focus, select:focus {
+        outline: 2px solid #e4093e;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(228, 9, 62, 0.1);
+      }
+      
+      /* Remove focus styles for navigation elements */
+      nav a:focus, header a:focus, .logo-link:focus, nav a:focus-visible, header a:focus-visible, .logo-link:focus-visible, a:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+      }
+      
+      /* Loading state */
+      .loading { opacity: 0; }
+      .loaded { opacity: 1; transition: opacity 0.3s ease-in-out; }
+      
+      /* Prevent layout shift */
+      img { height: auto; max-width: 100%; }
+      
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .hero-content { grid-template-columns: 1fr; text-align: center; }
+        .hero h1 { font-size: 2.25rem; }
+        .hero p { font-size: 1.125rem; }
+        nav { flex-direction: column; gap: 1rem; }
+      }
+    </style>
     <noscript
       ><link
         rel="stylesheet"
@@ -125,7 +408,7 @@
     /></noscript>
 
     <!-- GitHub Pages SPA redirect handling -->
-    <script type="text/javascript">
+    <script nonce="845455027258618fe347169e7490567c" type="text/javascript">
       // Handle GitHub Pages SPA routing
       (function (l) {
         if (l.search[1] === "/") {
@@ -143,12 +426,33 @@
           );
         }
       })(window.location);
+
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
     </script>
-    <script type="module" crossorigin src="/assets/index-DCQqumHQ.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendors-B9IyWdhn.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-core-BjTUxyK5.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-router-bAj6HQj4.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-Ja-QHiG4.css">
+        <link rel="preload" href="/assets/index-AkmW5N8C.js" as="script" crossorigin>
+    <script nonce="845455027258618fe347169e7490567c" type="module" crossorigin src="/assets/index-AkmW5N8C.js"></script>
+        <link rel="preload" href="/assets/vendors-975d4WgJ.js" as="script" crossorigin>
+    <link rel="modulepreload" crossorigin href="/assets/vendors-975d4WgJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-core-B7X0rtmB.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-router-QZu9Qi68.js">
+    
+    <!-- Preload CSS for better performance -->
+    <link rel="preload" href="/assets/index-QpaCARuP.css" as="style" crossorigin>
+    
+    <!-- Non-blocking CSS loading -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" crossorigin href="/assets/index-QpaCARuP.css">
+    <noscript><link rel="stylesheet" crossorigin href="/assets/index-QpaCARuP.css"></noscript>
   </head>
   <body>
     <noscript>
