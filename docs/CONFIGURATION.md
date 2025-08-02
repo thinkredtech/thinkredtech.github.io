@@ -68,36 +68,32 @@ This document explains the purpose and usage of configuration files in the Think
 - File extension mappings
 - **Status**: ✅ Active and properly configured
 
-## 📁 Config Directory
-
-### `config/.gitleaks.toml`
+### `.gitleaks.toml`
 
 **Purpose**: Security scanning configuration for GitLeaks
+**Location**: Root directory
 **Features**:
 
 - Allows documented placeholder patterns
 - Prevents false positives from examples
 - Maintains security while allowing documentation
 
-### `config/.deployment-config.json`
+### `.env.example`
+
+**Purpose**: Environment variable template
+**Location**: Root directory
+**Usage**: Copy to `.env.local` for local development
+
+### `deployment-config.json`
 
 **Purpose**: Deployment environment configuration
+**Location**: Root directory
 **Environments**:
 
 - Production (GitHub Pages)
 - Hostinger (backup deployment)
 - Staging and Development
-  **Status**: ✅ Active template
-
-### `config/.env.example`
-
-**Purpose**: Environment variable template
-**Usage**: Copy to `.env.local` for local development
-
-### `config/.prettierignore`
-
-**Purpose**: Additional Prettier ignore patterns for config files
-**Status**: ✅ Active
+**Status**: ✅ Active template
 
 ## 📁 Directory Structure Preservation
 
@@ -122,6 +118,8 @@ This document explains the purpose and usage of configuration files in the Think
 ### 🧹 Cleanup Completed
 
 - Removed duplicate `.prettierrc.json` and `.markdownlint.json` from config/
+- Eliminated unnecessary config/ directory structure
+- Moved all configuration files to root directory for simplicity
 - Updated `.gitignore` for better precision
 - Added necessary `.gitkeep` files
 - Improved `.prettierignore` accuracy
@@ -135,5 +133,5 @@ This document explains the purpose and usage of configuration files in the Think
 
 ---
 
-**Last Updated**: June 30, 2025
-**Next Review**: July 30, 2025
+**Last Updated**: August 2, 2025
+**Next Review**: September 2, 2025

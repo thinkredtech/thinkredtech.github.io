@@ -1,0 +1,10 @@
+{
+  "name": "lighthouse-performance-testing",
+  "version": "1.0.0",
+  "description": "ThinkRED Lighthouse Performance Testing Dependencies",
+  "dependencies": {
+    "lighthouse": "^12.2.0",
+    "chrome-launcher": "^1.1.2",
+    "chalk": "^4.1.2"
+  }
+}

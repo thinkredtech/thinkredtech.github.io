@@ -33,7 +33,7 @@ Before you begin, ensure you have the following installed:
    Copy the environment example file:
 
    ```bash
-   cp config/.env.example .env
+   cp .env.example .env
    ```
 
    Edit the `.env` file with your configuration:
