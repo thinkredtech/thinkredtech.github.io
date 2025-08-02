@@ -107,7 +107,7 @@ export const updateJobPosition = (
   updates: Partial<Position>,
 ): Position | null => {
   const jobs = getStoredJobs();
-  const jobIndex = jobs.findIndex((job) => job.id === jobId);
+  const jobIndex = jobs.findIndex(job => job.id === jobId);
 
   if (jobIndex === -1) return null;
 
@@ -129,7 +129,7 @@ export const updateJobPosition = (
  */
 export const deleteJobPosition = (jobId: number): boolean => {
   const jobs = getStoredJobs();
-  const filteredJobs = jobs.filter((job) => job.id !== jobId);
+  const filteredJobs = jobs.filter(job => job.id !== jobId);
 
   if (filteredJobs.length === jobs.length) return false; // Job not found
 

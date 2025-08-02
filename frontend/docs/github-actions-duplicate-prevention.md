@@ -78,12 +78,9 @@ const existingClosedIssues = await github.rest.issues.listForRepo({
   since: sevenDaysAgo.toISOString(),
 });
 
-const allRelevantIssues = [
-  ...existingOpenIssues.data,
-  ...existingClosedIssues.data,
-];
+const allRelevantIssues = [...existingOpenIssues.data, ...existingClosedIssues.data];
 
-const issueExists = allRelevantIssues.some((issue) =>
+const issueExists = allRelevantIssues.some(issue =>
   issue.title.includes("Security Vulnerabilities Detected"),
 );
 

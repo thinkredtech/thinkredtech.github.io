@@ -48,7 +48,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
           id="search-input"
           placeholder={placeholder}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 bg-white"
         />
         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">

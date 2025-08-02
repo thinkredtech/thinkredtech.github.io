@@ -85,7 +85,7 @@ const BlogPostPage = () => {
     // In a real application, this would be an API call
     setTimeout(() => {
       try {
-        const foundPost = blogPosts.find((p) => p.id === postId);
+        const foundPost = blogPosts.find(p => p.id === postId);
         if (foundPost) {
           setPost(foundPost);
           setLoading(false);
@@ -419,14 +419,14 @@ const BlogPostPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts
                 .filter(
-                  (relatedPost) =>
+                  relatedPost =>
                     relatedPost.id !== postId &&
-                    relatedPost.categories.some((cat) =>
+                    relatedPost.categories.some(cat =>
                       post.categories.includes(cat),
                     ),
                 )
                 .slice(0, 3)
-                .map((relatedPost) => (
+                .map(relatedPost => (
                   <div
                     key={relatedPost.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden"

@@ -21,9 +21,9 @@ _Complete monorepo for ThinkRED Technologies company website and infrastructure_
 
 ## 🌟 Overview
 
-This monorepo contains the complete source code and infrastructure for the
-**ThinkRED Technologies** company website. Built with modern technologies and best practices,
-it serves as the primary digital presence for our engineering-focused technology consultancy.
+This monorepo contains the complete source code and infrastructure for the **ThinkRED Technologies**
+company website. Built with modern technologies and best practices, it serves as the primary digital
+presence for our engineering-focused technology consultancy.
 
 **ThinkRED Technologies LLP** transforms complex technological challenges into elegant solutions,
 founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**.
@@ -177,7 +177,8 @@ npm run backend:logs     # View backend logs
 - **🧠 Context Aware**: Automatically runs tasks in correct workspace
 - **🔍 Clear Visibility**: See exactly what's running where
 
-📖 **Complete Guide**: [docs/TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) | 📋 **Quick Ref**: [TASKS.md](TASKS.md)
+📖 **Complete Guide**: [docs/TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) | 📋 **Quick Ref**:
+[TASKS.md](TASKS.md)
 
 ---
 
@@ -233,16 +234,16 @@ npm run backend:logs     # View backend logs
 
 ### 🛠️ **For Developers**
 
-| Documentation                | Description                                   | Link                                          |
-| ---------------------------- | --------------------------------------------- | --------------------------------------------- |
-| 🔧 **Development Setup**     | Local development environment                 | [DEVELOPMENT.md](docs/DEVELOPMENT.md)         |
-| 🏗️ **Architecture Overview** | System design and technical details           | [ARCHITECTURE.md](docs/ARCHITECTURE.md)       |
-| 📡 **API Documentation**     | Backend API reference                         | [API.md](docs/API.md)                         |
-| 🚀 **Deployment Guide**      | CI/CD and deployment procedures               | [DEPLOYMENT.md](docs/DEPLOYMENT.md)           |
-| 🔄 **Zero-Downtime Deploy**  | Professional maintenance & zero-downtime     | [ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
-| � **Health Reports**         | Monitoring and status dashboard management    | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md)   |
-| 🎛️ **Task Management**       | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
-| �🔍 **Troubleshooting**      | Common issues and solutions                   | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+| Documentation                | Description                                   | Link                                                            |
+| ---------------------------- | --------------------------------------------- | --------------------------------------------------------------- |
+| 🔧 **Development Setup**     | Local development environment                 | [DEVELOPMENT.md](docs/DEVELOPMENT.md)                           |
+| 🏗️ **Architecture Overview** | System design and technical details           | [ARCHITECTURE.md](docs/ARCHITECTURE.md)                         |
+| 📡 **API Documentation**     | Backend API reference                         | [API.md](docs/API.md)                                           |
+| 🚀 **Deployment Guide**      | CI/CD and deployment procedures               | [DEPLOYMENT.md](docs/DEPLOYMENT.md)                             |
+| 🔄 **Zero-Downtime Deploy**  | Professional maintenance & zero-downtime      | [ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
+| � **Health Reports**         | Monitoring and status dashboard management    | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md)                     |
+| 🎛️ **Task Management**       | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md)                   |
+| �🔍 **Troubleshooting**      | Common issues and solutions                   | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)                   |
 
 </div>
 
@@ -252,8 +253,10 @@ npm run backend:logs     # View backend logs
 
 We welcome contributions! Please read our guidelines:
 
-- 📋 **Contributing Guidelines**: [CONTRIBUTING.md](docs/CONTRIBUTING.md) - Code standards, workflow, and PR process
-- 🤝 **Code of Conduct**: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Community standards and expectations
+- 📋 **Contributing Guidelines**: [CONTRIBUTING.md](docs/CONTRIBUTING.md) - Code standards,
+  workflow, and PR process
+- 🤝 **Code of Conduct**: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Community standards and
+  expectations
 - � **License**: [LICENSE](LICENSE) - Usage terms and attribution requirements
 
 ---
@@ -326,7 +329,8 @@ For technical issues or questions:
 
 ## 📄 License
 
-This project is licensed under a custom license that requires attribution to **ThinkRED Technologies LLP**.
+This project is licensed under a custom license that requires attribution to **ThinkRED Technologies
+LLP**.
 
 **Key Requirements:**
 

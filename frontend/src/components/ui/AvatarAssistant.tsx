@@ -430,7 +430,7 @@ const AvatarAssistant = () => {
   // Track user engagement and show special messages
   useEffect(() => {
     // Only increment page visit count once when component mounts
-    setPageVisitCount((prev) => prev + 1);
+    setPageVisitCount(prev => prev + 1);
   }, []); // Empty dependency array to run only once
 
   // Separate effect for engagement messages
@@ -1118,7 +1118,7 @@ const AvatarAssistant = () => {
   // Toggle expanded state
   const toggleExpanded = () => {
     // Track user interaction
-    setUserInteractionCount((prev) => prev + 1);
+    setUserInteractionCount(prev => prev + 1);
     setLastInteractionTime(Date.now());
 
     if (showContextualOptions) {
@@ -1466,7 +1466,7 @@ const AvatarAssistant = () => {
     }
 
     // Filter out options that lead to the current page or section
-    return options.filter((option) => {
+    return options.filter(option => {
       const actionString = option.action.toString();
       const navigateMatch = actionString.match(/navigate\(['"]([^'"]+)['"]\)/);
 
@@ -1487,7 +1487,7 @@ const AvatarAssistant = () => {
   // Handle message bubble click
   const handleMessageBubbleClick = () => {
     // Track user interaction
-    setUserInteractionCount((prev) => prev + 1);
+    setUserInteractionCount(prev => prev + 1);
     setLastInteractionTime(Date.now());
 
     if (!isExpanded) {
@@ -1593,7 +1593,7 @@ const AvatarAssistant = () => {
     setPersistentSleep(null);
 
     // Track user interaction
-    setUserInteractionCount((prev) => prev + 1);
+    setUserInteractionCount(prev => prev + 1);
     setLastInteractionTime(Date.now());
 
     // Step 1: Start wake up transition immediately (sleeping avatar grows)

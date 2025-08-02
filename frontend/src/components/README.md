@@ -33,11 +33,7 @@ function App() {
 ### Advanced Usage
 
 ```tsx
-<PerformanceWrapper
-  name="ComplexComponent"
-  logMetrics={true}
-  slowThreshold={50}
->
+<PerformanceWrapper name="ComplexComponent" logMetrics={true} slowThreshold={50}>
   <ComplexComponent />
 </PerformanceWrapper>
 ```
@@ -52,7 +48,7 @@ import { usePerformanceTracker } from "./components/PerformanceWrapper";
 function DataProcessingComponent() {
   const tracker = usePerformanceTracker("DataProcessing");
 
-  const processData = async (data) => {
+  const processData = async data => {
     tracker.start();
 
     // Your data processing logic

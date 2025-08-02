@@ -57,7 +57,7 @@ const SitemapPage = () => {
         <div>
           <h2 className="heading-1 mb-4">Main Pages</h2>
           <ul className="space-y-2 text-lg">
-            {mainRoutes.map((route) => (
+            {mainRoutes.map(route => (
               <li key={route.path}>
                 <Link to={route.path} className="hover:underline text-primary">
                   {route.name}
@@ -69,11 +69,11 @@ const SitemapPage = () => {
         <div className="lg:col-span-2">
           <h2 className="heading-1 mb-4">Documentation & Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {docsCategories.map((cat) => (
+            {docsCategories.map(cat => (
               <div key={cat.category}>
                 <h3 className="heading-3 mb-2">{cat.category}</h3>
                 <ul className="space-y-1 text-base">
-                  {cat.links.map((link) => (
+                  {cat.links.map(link => (
                     <li key={link.path}>
                       <Link
                         to={link.path}

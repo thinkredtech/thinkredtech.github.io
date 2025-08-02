@@ -98,14 +98,14 @@ const PortfolioPage = () => {
 
   // Extract unique technologies and categories for filter options
   const technologies = Array.from(
-    new Set(portfolioItems.flatMap((item) => item.technologies)),
+    new Set(portfolioItems.flatMap(item => item.technologies)),
   );
   const categories = Array.from(
-    new Set(portfolioItems.map((item) => item.category)),
+    new Set(portfolioItems.map(item => item.category)),
   );
 
   // Filter portfolio items based on search term and filters
-  const filteredItems = portfolioItems.filter((item) => {
+  const filteredItems = portfolioItems.filter(item => {
     const matchesSearch =
       searchTerm === "" ||
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -145,7 +145,7 @@ const PortfolioPage = () => {
             quickActions={
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm text-secondary/70">Popular:</span>
-                {["WordPress", "React", "JavaScript"].map((tech) => (
+                {["WordPress", "React", "JavaScript"].map(tech => (
                   <button
                     key={tech}
                     onClick={() => setSelectedTech(tech)}
@@ -170,7 +170,7 @@ const PortfolioPage = () => {
               {/* Enhanced Technology Filter */}
               <Filter
                 label="Technology"
-                options={technologies.map((tech) => ({
+                options={technologies.map(tech => ({
                   label: tech,
                   value: tech,
                 }))}
@@ -198,7 +198,7 @@ const PortfolioPage = () => {
               {/* Enhanced Category Filter */}
               <Filter
                 label="Category"
-                options={categories.map((category) => ({
+                options={categories.map(category => ({
                   label: category,
                   value: category,
                 }))}
@@ -240,7 +240,7 @@ const PortfolioPage = () => {
           {/* Portfolio Grid */}
           {filteredItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredItems.map((item) => (
+              {filteredItems.map(item => (
                 <div
                   key={item.id}
                   className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"

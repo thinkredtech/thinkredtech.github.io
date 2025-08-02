@@ -68,7 +68,7 @@ export const validateTextLength = (
     /(\bOR\b.*=.*\bOR\b|\bAND\b.*=.*\bAND\b)/i,
   ];
 
-  const hasSQLInjection = sqlInjectionPatterns.some((pattern) =>
+  const hasSQLInjection = sqlInjectionPatterns.some(pattern =>
     pattern.test(text),
   );
 
@@ -103,7 +103,7 @@ export const validateFile = (
 
   // Type validation (both MIME type and extension)
   const allowedExtensions = allowedTypes
-    .map((type) => {
+    .map(type => {
       switch (type) {
         case "application/pdf":
           return ".pdf";
@@ -122,7 +122,7 @@ export const validateFile = (
     .filter(Boolean);
 
   const fileName = file.name.toLowerCase();
-  const hasValidExtension = allowedExtensions.some((ext) =>
+  const hasValidExtension = allowedExtensions.some(ext =>
     fileName.endsWith(ext),
   );
   const hasValidMimeType = allowedTypes.includes(file.type);
@@ -158,10 +158,8 @@ export const sanitizeAndValidateArrayInput = (
   if (!Array.isArray(items)) return [];
 
   return items
-    .map((item) => sanitizeInput(String(item)))
-    .filter(
-      (item) => item.length > 0 && validateTextLength(item, maxItemLength),
-    )
+    .map(item => sanitizeInput(String(item)))
+    .filter(item => item.length > 0 && validateTextLength(item, maxItemLength))
     .slice(0, maxItems);
 };
 
@@ -191,9 +189,7 @@ export const createRateLimiter = (maxAttempts: number, windowMs: number) => {
 export const generateCSPNonce = (): string => {
   const array = new Uint8Array(16);
   crypto.getRandomValues(array);
-  return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join(
-    "",
-  );
+  return Array.from(array, byte => byte.toString(16).padStart(2, "0")).join("");
 };
 
 // Password strength validation
@@ -225,7 +221,7 @@ export const validatePasswordStrength = (
     /(.)\1{2,}/, // Repeated characters
   ];
 
-  if (commonPatterns.some((pattern) => pattern.test(password))) {
+  if (commonPatterns.some(pattern => pattern.test(password))) {
     score -= 2;
     feedback.push("Avoid common patterns and repeated characters");
   }

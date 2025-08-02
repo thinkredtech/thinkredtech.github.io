@@ -68,13 +68,13 @@ const JobApplicationPage = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors((prev) => ({
+      setErrors(prev => ({
         ...prev,
         [name]: "",
       }));
@@ -101,7 +101,7 @@ const JobApplicationPage = () => {
       ); // 10MB limit (increased from 5MB)
 
       if (!validationResult.isValid) {
-        setErrors((prev) => ({
+        setErrors(prev => ({
           ...prev,
           [fileType]: validationResult.error || "File validation failed",
         }));
@@ -109,14 +109,14 @@ const JobApplicationPage = () => {
       }
     }
 
-    setFiles((prev) => ({
+    setFiles(prev => ({
       ...prev,
       [fileType]: file,
     }));
 
     // Clear error
     if (errors[fileType]) {
-      setErrors((prev) => ({
+      setErrors(prev => ({
         ...prev,
         [fileType]: "",
       }));
@@ -195,7 +195,7 @@ const JobApplicationPage = () => {
     try {
       // Spam prevention: Check honeypot field
       if (!validateHoneypot(formData.honeypot)) {
-        setErrors((prev) => ({
+        setErrors(prev => ({
           ...prev,
           general: "Spam detected. Please try again.",
         }));
@@ -205,7 +205,7 @@ const JobApplicationPage = () => {
 
       // Rate limiting: Check for rapid successive submissions
       if (!checkRateLimit(formData.email, 10000)) {
-        setErrors((prev) => ({
+        setErrors(prev => ({
           ...prev,
           general: "Please wait before submitting another application.",
         }));
@@ -275,7 +275,7 @@ const JobApplicationPage = () => {
       // Handle error appropriately with better error message
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error occurred";
-      setErrors((prev) => ({
+      setErrors(prev => ({
         ...prev,
         general: `Error submitting application: ${errorMessage}. Please try again.`,
       }));
@@ -562,7 +562,7 @@ const JobApplicationPage = () => {
                             id="resume-upload"
                             type="file"
                             accept=".pdf,.doc,.docx"
-                            onChange={(e) => handleFileChange(e, "resume")}
+                            onChange={e => handleFileChange(e, "resume")}
                             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
                           />
                           {files.resume && (
@@ -593,7 +593,7 @@ const JobApplicationPage = () => {
                             id="cover-letter-upload"
                             type="file"
                             accept=".pdf,.doc,.docx"
-                            onChange={(e) =>
+                            onChange={e =>
                               handleFileChange(e, "coverLetterFile")
                             }
                             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
@@ -764,7 +764,7 @@ const JobApplicationPage = () => {
                       id="website"
                       name="website"
                       value={formData.honeypot}
-                      onChange={(e) =>
+                      onChange={e =>
                         setFormData({ ...formData, honeypot: e.target.value })
                       }
                       tabIndex={-1}

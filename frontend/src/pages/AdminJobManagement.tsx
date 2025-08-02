@@ -78,7 +78,7 @@ const AdminJobManagement: React.FC = () => {
   };
 
   const handleInputChange = (field: keyof JobFormData, value: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [field]: value,
     }));
@@ -89,7 +89,7 @@ const AdminJobManagement: React.FC = () => {
     index: number,
     value: string,
   ) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [field]: prev[field].map((item, i) => (i === index ? value : item)),
     }));
@@ -98,7 +98,7 @@ const AdminJobManagement: React.FC = () => {
   const addArrayItem = (
     field: "requirements" | "responsibilities" | "skills",
   ) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [field]: [...prev[field], ""],
     }));
@@ -108,7 +108,7 @@ const AdminJobManagement: React.FC = () => {
     field: "requirements" | "responsibilities" | "skills",
     index: number,
   ) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [field]: prev[field].filter((_, i) => i !== index),
     }));
@@ -197,7 +197,7 @@ const AdminJobManagement: React.FC = () => {
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   placeholder="Enter admin password"
                   required
@@ -248,9 +248,7 @@ const AdminJobManagement: React.FC = () => {
                     <input
                       type="text"
                       value={formData.title}
-                      onChange={(e) =>
-                        handleInputChange("title", e.target.value)
-                      }
+                      onChange={e => handleInputChange("title", e.target.value)}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                       required
                       placeholder="Enter job title"
@@ -264,9 +262,7 @@ const AdminJobManagement: React.FC = () => {
                     <select
                       aria-label="Job Type"
                       value={formData.type}
-                      onChange={(e) =>
-                        handleInputChange("type", e.target.value)
-                      }
+                      onChange={e => handleInputChange("type", e.target.value)}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     >
                       <option value="Full-time">Full-time</option>
@@ -283,7 +279,7 @@ const AdminJobManagement: React.FC = () => {
                     <select
                       aria-label="Location"
                       value={formData.location}
-                      onChange={(e) =>
+                      onChange={e =>
                         handleInputChange("location", e.target.value)
                       }
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -301,7 +297,7 @@ const AdminJobManagement: React.FC = () => {
                     <input
                       type="text"
                       value={formData.experience}
-                      onChange={(e) =>
+                      onChange={e =>
                         handleInputChange("experience", e.target.value)
                       }
                       placeholder="e.g., 2-4 years"
@@ -316,7 +312,7 @@ const AdminJobManagement: React.FC = () => {
                   </label>
                   <textarea
                     value={formData.description}
-                    onChange={(e) =>
+                    onChange={e =>
                       handleInputChange("description", e.target.value)
                     }
                     rows={4}
@@ -336,7 +332,7 @@ const AdminJobManagement: React.FC = () => {
                       <input
                         type="text"
                         value={req}
-                        onChange={(e) =>
+                        onChange={e =>
                           handleArrayChange(
                             "requirements",
                             index,
@@ -374,7 +370,7 @@ const AdminJobManagement: React.FC = () => {
                       <input
                         type="text"
                         value={resp}
-                        onChange={(e) =>
+                        onChange={e =>
                           handleArrayChange(
                             "responsibilities",
                             index,
@@ -414,7 +410,7 @@ const AdminJobManagement: React.FC = () => {
                       <input
                         type="text"
                         value={skill}
-                        onChange={(e) =>
+                        onChange={e =>
                           handleArrayChange("skills", index, e.target.value)
                         }
                         className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -456,7 +452,7 @@ const AdminJobManagement: React.FC = () => {
 
           {/* Jobs List */}
           <div className="space-y-6">
-            {jobs.map((job) => (
+            {jobs.map(job => (
               <div
                 key={job.id}
                 className="bg-white rounded-xl shadow-regular p-6"

@@ -155,7 +155,7 @@ const ContactPage = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));

@@ -103,7 +103,7 @@ const parseArray = (
   if (!value) return defaultValue;
   return value
     .split(",")
-    .map((item) => item.trim())
+    .map(item => item.trim())
     .filter(Boolean);
 };
 

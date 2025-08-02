@@ -17,7 +17,7 @@ export const usePerformanceMonitor = () => {
         const memory = (performance as { memory?: { usedJSHeapSize: number } })
           .memory;
         if (memory) {
-          setMetrics((prev) => ({
+          setMetrics(prev => ({
             ...prev,
             memoryUsage: memory.usedJSHeapSize / 1048576, // Convert to MB
           }));
@@ -29,7 +29,7 @@ export const usePerformanceMonitor = () => {
     const endTime = performance.now();
     const renderTime = endTime - startTime;
 
-    setMetrics((prev) => ({
+    setMetrics(prev => ({
       ...prev,
       loading: false,
       renderTime,
@@ -135,7 +135,7 @@ export const useResourcePreloader = (resources: string[]) => {
   useEffect(() => {
     const preloadedResources: HTMLLinkElement[] = [];
 
-    resources.forEach((resource) => {
+    resources.forEach(resource => {
       const link = document.createElement("link");
       link.rel = "preload";
 
@@ -156,7 +156,7 @@ export const useResourcePreloader = (resources: string[]) => {
     });
 
     return () => {
-      preloadedResources.forEach((link) => {
+      preloadedResources.forEach(link => {
         if (link.parentNode) {
           link.parentNode.removeChild(link);
         }
@@ -222,7 +222,7 @@ export const useColorContrast = () => {
       const g = (rgb >> 8) & 0xff;
       const b = (rgb >> 0) & 0xff;
 
-      const sRGB = [r, g, b].map((c) => {
+      const sRGB = [r, g, b].map(c => {
         c = c / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });

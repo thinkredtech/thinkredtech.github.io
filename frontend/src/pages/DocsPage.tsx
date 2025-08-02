@@ -111,10 +111,10 @@ const DocsPage = () => {
     };
 
     tryMultiplePaths(fullDocPath)
-      .then((text) => {
+      .then(text => {
         setContent(text);
       })
-      .catch((err) => {
+      .catch(err => {
         setError(`Failed to load document: ${err.message}`);
       });
   }, [fullDocPath, docPath, wildcard]);

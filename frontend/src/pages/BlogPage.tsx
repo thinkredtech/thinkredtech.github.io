@@ -37,12 +37,12 @@ const BlogPage = () => {
 
   // Extract unique categories and tags for filter options
   const categories = Array.from(
-    new Set(blogPosts.flatMap((post) => post.categories)),
+    new Set(blogPosts.flatMap(post => post.categories)),
   );
-  const tags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
+  const tags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 
   // Filter blog posts based on search term and filters
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = blogPosts.filter(post => {
     const matchesSearch =
       searchTerm === "" ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -83,7 +83,7 @@ const BlogPage = () => {
             quickActions={
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm text-secondary/70">Popular:</span>
-                {["React", "DevOps", "Cloud"].map((tag) => (
+                {["React", "DevOps", "Cloud"].map(tag => (
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(tag)}
@@ -108,7 +108,7 @@ const BlogPage = () => {
               {/* Enhanced Category Filter */}
               <Filter
                 label="Category"
-                options={categories.map((cat) => ({ label: cat, value: cat }))}
+                options={categories.map(cat => ({ label: cat, value: cat }))}
                 value={selectedCategory}
                 onChange={setSelectedCategory}
                 placeholder="All Categories"
@@ -133,7 +133,7 @@ const BlogPage = () => {
               {/* Enhanced Tag Filter */}
               <Filter
                 label="Tags"
-                options={tags.map((tag) => ({ label: tag, value: tag }))}
+                options={tags.map(tag => ({ label: tag, value: tag }))}
                 value={selectedTag}
                 onChange={setSelectedTag}
                 placeholder="All Tags"
@@ -187,7 +187,7 @@ const BlogPage = () => {
           {filteredPosts.length > 0 ? (
             viewMode === "grid" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post) => (
+                {filteredPosts.map(post => (
                   <div
                     key={post.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:transform hover:scale-105"
@@ -260,7 +260,7 @@ const BlogPage = () => {
               </div>
             ) : (
               <div className="space-y-6">
-                {filteredPosts.map((post) => (
+                {filteredPosts.map(post => (
                   <div
                     key={post.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"

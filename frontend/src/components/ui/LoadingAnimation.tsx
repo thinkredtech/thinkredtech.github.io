@@ -52,7 +52,7 @@ export const LoadingAnimation: React.FC<LoadingAnimationProps> = ({
   if (type === "dots") {
     return (
       <div className={`flex space-x-1 ${className}`}>
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map(i => (
           <div
             key={i}
             className={`${sizeClasses[size]} ${colorClasses[color]} bg-current rounded-full animate-pulse`}
@@ -109,7 +109,7 @@ export const ContentLoader: React.FC<{ className?: string }> = ({
   return (
     <div className={`animate-pulse ${className}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
+        {[1, 2, 3, 4, 5, 6].map(i => (
           <div
             key={i}
             className="bg-white rounded-lg shadow-lg overflow-hidden"

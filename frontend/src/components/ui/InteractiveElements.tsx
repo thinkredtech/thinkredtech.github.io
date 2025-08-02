@@ -238,7 +238,7 @@ export const Tabs: React.FC<TabsProps> = ({
     <div className={className}>
       {/* Tab Navigation */}
       <div className="flex space-x-1 bg-gray-100 p-1 rounded-xl">
-        {tabs.map((tab) => (
+        {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
@@ -256,7 +256,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
       {/* Tab Content */}
       <div className="mt-6">
-        {tabs.find((tab) => tab.id === activeTab)?.content}
+        {tabs.find(tab => tab.id === activeTab)?.content}
       </div>
     </div>
   );
@@ -284,17 +284,17 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   const toggleItem = (id: string) => {
     if (allowMultiple) {
-      setOpenItems((prev) =>
-        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+      setOpenItems(prev =>
+        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id],
       );
     } else {
-      setOpenItems((prev) => (prev.includes(id) ? [] : [id]));
+      setOpenItems(prev => (prev.includes(id) ? [] : [id]));
     }
   };
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {items.map((item) => {
+      {items.map(item => {
         const isOpen = openItems.includes(item.id);
         return (
           <div

@@ -257,7 +257,7 @@ const CareerPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
-            {openPositions.map((position) => (
+            {openPositions.map(position => (
               <div
                 key={position.id}
                 className="bg-white rounded-xl shadow-regular hover:shadow-lg transition-all duration-300 p-8 border border-gray-100"

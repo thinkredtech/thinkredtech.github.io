@@ -23,7 +23,7 @@ const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTagline((prev) => (prev + 1) % taglines.length);
+      setCurrentTagline(prev => (prev + 1) % taglines.length);
     }, 4000);
     return () => clearInterval(interval);
   }, [taglines.length]);

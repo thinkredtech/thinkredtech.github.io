@@ -61,13 +61,13 @@ export const useStaggeredAnimation = (
 
       for (let i = 0; i < itemCount; i++) {
         const timer = setTimeout(() => {
-          setVisibleItems((prev) => [...prev, i]);
+          setVisibleItems(prev => [...prev, i]);
         }, i * delay);
         timers.push(timer);
       }
 
       return () => {
-        timers.forEach((timer) => clearTimeout(timer));
+        timers.forEach(timer => clearTimeout(timer));
       };
     }
   }, [isInView, itemCount, delay]);

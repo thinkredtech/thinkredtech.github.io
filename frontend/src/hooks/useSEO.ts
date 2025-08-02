@@ -71,7 +71,7 @@ export const useSEO = (config: SEOConfig) => {
         // Remove existing article:tag tags
         removeMetaProperties("article:tag");
         // Add new article:tag tags
-        config.tags.forEach((tag) => {
+        config.tags.forEach(tag => {
           const meta = document.createElement("meta");
           meta.setAttribute("property", "article:tag");
           meta.setAttribute("content", tag);
@@ -147,7 +147,7 @@ const updateMetaProperty = (property: string, content: string) => {
 
 const removeMetaProperties = (property: string) => {
   const metas = document.querySelectorAll(`meta[property="${property}"]`);
-  metas.forEach((meta) => meta.remove());
+  metas.forEach(meta => meta.remove());
 };
 
 const updateCanonicalUrl = (url: string) => {
