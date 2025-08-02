@@ -27,7 +27,8 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
       // Plugin configuration resolved
     },
     transformIndexHtml: {
-      transform(html: string) {
+      order: "post",
+      handler(html: string) {
         if (!development) {
           // Generate nonces for production builds
           const scriptNonce = generateCSPNonce();
@@ -61,3 +62,6 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
     },
   };
 }
+
+// Default export for convenience
+export default createCSPPlugin;

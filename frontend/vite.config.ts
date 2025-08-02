@@ -2,18 +2,16 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { randomBytes } from "crypto";
-import cspPlugin from "./src/plugins/vite-csp-plugin";
+import { createCSPPlugin } from "./src/plugins/vite-csp-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     // CSP Plugin for secure Content Security Policy - Addresses GitHub Issue #45
-    cspPlugin({
+    createCSPPlugin({
       enabled: true,
-      useNonces: true,
-      reportOnly: false,
-      reportUri: "/csp-violation-report-endpoint/",
+      development: false,
     }),
   ],
   base: "/", // For thinkredtech.github.io (user/org site)
