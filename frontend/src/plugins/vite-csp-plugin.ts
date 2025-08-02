@@ -13,6 +13,7 @@ export interface CSPPluginOptions {
 
 export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
   const { enabled = true, development = false } = options;
+  let isDev = development;
 
   if (!enabled) {
     return {
@@ -23,19 +24,55 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
   return {
     name: "vite-csp-plugin",
     enforce: "post",
-    configResolved() {
-      // Plugin configuration resolved
+    configResolved(config) {
+      // Auto-detect development mode from Vite config
+      isDev =
+        development ||
+        config.command === "serve" ||
+        config.mode === "development";
     },
     transformIndexHtml: {
       order: "post",
       handler(html: string) {
-        if (!development) {
-          // Generate nonces for production builds
+        console.log(`🔒 CSP Plugin: Processing HTML, isDev: ${isDev}`);
+        
+        // In development, use a more permissive CSP or disable entirely
+        if (isDev) {
+          console.log("🔒 CSP Plugin: Using development CSP");
+          // For development, use a basic CSP that allows most operations
+          const devCSP = `
+default-src 'self' 'unsafe-inline' 'unsafe-eval';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.google.com https://script.googleusercontent.com;
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+font-src 'self' https://fonts.gstatic.com;
+img-src 'self' data: https:;
+connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com https: ws: wss:;
+object-src 'none';
+media-src 'self';
+child-src 'none';
+frame-src 'none';
+worker-src 'self';
+manifest-src 'self';
+base-uri 'self';
+form-action 'self' https://script.google.com https://script.googleusercontent.com;
+`
+            .replace(/\s+/g, " ")
+            .trim();
+
+          html = html.replace(
+            "<head>",
+            `<head>
+    <meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
+          );
+        } else {
+          console.log("🔒 CSP Plugin: Using production CSP with nonces");
+          // Production: Use strict CSP with nonces
           const scriptNonce = generateCSPNonce();
           const styleNonce = generateCSPNonce();
+          console.log(`🔒 CSP Plugin: Generated nonces - script: ${scriptNonce}, style: ${styleNonce}`);
 
           // Get CSP header with nonces
-          const cspHeader = getCSPWithNonces(scriptNonce, styleNonce);
+          const cspHeader = getCSPWithNonces(scriptNonce, styleNonce, false);
 
           // Add CSP meta tag
           html = html.replace(
@@ -57,6 +94,7 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
           );
         }
 
+        console.log("🔒 CSP Plugin: HTML transformation complete");
         return html;
       },
     },

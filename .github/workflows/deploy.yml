@@ -31,22 +31,18 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        working-directory: ./frontend
         run: |
           # Clean install to prevent rollup optional dependency issues
           rm -rf node_modules package-lock.json
           npm install
 
       - name: Type check
-        working-directory: ./frontend
-        run: npm run type-check
+        run: npm run task type-check
 
       - name: Lint
-        working-directory: ./frontend
-        run: npm run lint
+        run: npm run task lint
 
       - name: Build
-        working-directory: ./frontend
         env:
           VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID: ${{ secrets.GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID }}
           VITE_ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
@@ -74,7 +70,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/dist
+          path: ./build
 
   # Deployment job
   deploy:

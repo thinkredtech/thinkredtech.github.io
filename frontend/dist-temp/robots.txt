@@ -1,0 +1,61 @@
+# robots.txt for ThinkRED Technologies LLP
+# https://thinkred.tech
+
+# Sitemap location
+Sitemap: https://thinkred.tech/sitemap.xml
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and development paths
+Disallow: /admin/
+Disallow: /dev/
+Disallow: /api/
+Disallow: /temp/
+Disallow: /test/
+
+# Specific directives for major search engines
+User-agent: Googlebot
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+User-agent: Bingbot
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+User-agent: Slurp
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+# Yandex specific directives
+User-agent: Yandexbot
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+# Baidu specific directives
+User-agent: Baiduspider
+Allow: /
+Disallow: /*.json$
+Disallow: /*?*
+
+# Sitemap location
+Sitemap: https://thinkred.tech/sitemap.xml
+
+# Host directive for canonical domain
+Host: thinkred.tech
+
+# Crawl delay for all bots (in seconds)
+Crawl-delay: 5
+
+# Clean parameter handling
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term /

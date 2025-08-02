@@ -1,0 +1,18 @@
+# Netlify/Vercel redirects for SPA
+/*    /index.html   200
+
+# GitHub Pages doesn't support _redirects file, but this is here for future hosting options
+# For GitHub Pages, we rely on the 404.html instant redirect script
+
+# Specific redirects for common hosting platforms
+# These ensure that any SPA route returns the main app
+/about             /index.html   200
+/services          /index.html   200
+/portfolio         /index.html   200
+/contact           /index.html   200
+/careers           /index.html   200
+/careers/*         /index.html   200
+/blog              /index.html   200
+/blog/*            /index.html   200
+/docs              /index.html   200
+/docs/*            /index.html   200

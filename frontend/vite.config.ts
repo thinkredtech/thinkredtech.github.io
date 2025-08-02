@@ -11,7 +11,7 @@ export default defineConfig({
     // CSP Plugin for secure Content Security Policy - Addresses GitHub Issue #45
     createCSPPlugin({
       enabled: true,
-      development: false,
+      development: process.env.NODE_ENV !== "production",
     }),
   ],
   base: "/", // For thinkredtech.github.io (user/org site)

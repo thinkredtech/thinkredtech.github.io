@@ -1,0 +1,2394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Theme and appearance -->
+    <meta name="theme-color" content="#E4093E">
+    <meta name="msapplication-navbutton-color" content="#E4093E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>ThinkRED - Lab in Session</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FEFEF6 0%, #F0F2F5 50%, #FEFEFE 100%);
+            min-height: 100vh;
+            color: #2a2a2a;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Floating bubbles - similar to homepage */
+        .floating-bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .bubble-1 {
+            width: 10px;
+            height: 10px;
+            background: rgba(228, 9, 62, 0.3);
+            left: 15%;
+            animation: bubbleFloat1 18s linear infinite;
+            animation-delay: -2s;
+        }
+        
+        .bubble-2 {
+            width: 6px;
+            height: 6px;
+            background: rgba(81, 140, 234, 0.25);
+            left: 25%;
+            animation: bubbleFloat2 22s linear infinite;
+            animation-delay: -8s;
+        }
+        
+        .bubble-3 {
+            width: 8px;
+            height: 8px;
+            background: rgba(174, 108, 252, 0.3);
+            left: 35%;
+            animation: bubbleFloat1 25s linear infinite;
+            animation-delay: -15s;
+        }
+        
+        .bubble-4 {
+            width: 12px;
+            height: 12px;
+            background: rgba(228, 9, 62, 0.2);
+            left: 50%;
+            animation: bubbleFloat2 20s linear infinite;
+            animation-delay: -5s;
+        }
+        
+        .bubble-5 {
+            width: 7px;
+            height: 7px;
+            background: rgba(81, 140, 234, 0.35);
+            left: 65%;
+            animation: bubbleFloat1 24s linear infinite;
+            animation-delay: -12s;
+        }
+        
+        .bubble-6 {
+            width: 9px;
+            height: 9px;
+            background: rgba(174, 108, 252, 0.25);
+            left: 80%;
+            animation: bubbleFloat2 19s linear infinite;
+            animation-delay: -3s;
+        }
+        
+        .bubble-7 {
+            width: 5px;
+            height: 5px;
+            background: rgba(228, 9, 62, 0.4);
+            left: 90%;
+            animation: bubbleFloat1 26s linear infinite;
+            animation-delay: -18s;
+        }
+        
+        @keyframes bubbleFloat1 {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            20% {
+                transform: translateY(80vh) translateX(10px) scale(1);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translateY(60vh) translateX(-5px) scale(1.2);
+                opacity: 0.6;
+            }
+            60% {
+                transform: translateY(40vh) translateX(8px) scale(1.1);
+                opacity: 0.4;
+            }
+            80% {
+                transform: translateY(20vh) translateX(-3px) scale(0.9);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes bubbleFloat2 {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            30% {
+                transform: translateY(70vh) translateX(-8px) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(50vh) translateX(12px) scale(1.3);
+                opacity: 0.5;
+            }
+            70% {
+                transform: translateY(30vh) translateX(-6px) scale(1);
+                opacity: 0.3;
+            }
+            90% {
+                transform: translateY(10vh) translateX(4px) scale(0.7);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-5vh) translateX(0) scale(0.3);
+                opacity: 0;
+            }
+        }
+        
+        /* Lab equipment */
+        .lab-equipment {
+            position: absolute;
+            opacity: 0.15;
+            pointer-events: auto; /* Enable interactions */
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lab-equipment:hover {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
+        
+        .lab-equipment.active {
+            opacity: 0.6;
+            animation: equipmentGlow 1s ease-out;
+        }
+        
+        @keyframes equipmentGlow {
+            0% { filter: drop-shadow(0 0 0 transparent); }
+            50% { filter: drop-shadow(0 0 20px rgba(228, 9, 62, 0.6)); }
+            100% { filter: drop-shadow(0 0 0 transparent); }
+        }
+        
+        .gear {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            right: 15%;
+            animation: spin 15s linear infinite;
+        }
+        
+        .gear svg {
+            width: 100%;
+            height: 100%;
+            fill: #e4093e;
+        }
+        
+        .beaker {
+            width: 60px;
+            height: 80px;
+            top: 70%;
+            left: 10%;
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+        
+        .beaker svg {
+            width: 100%;
+            height: 100%;
+            fill: #518cea;
+        }
+        
+        .circuit-board {
+            width: 100px;
+            height: 60px;
+            top: 15%;
+            left: 20%;
+            animation: circuitPulse 4s ease-in-out infinite;
+        }
+        
+        .circuit-board svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ae6cfc;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .dna-helix {
+            width: 50px;
+            height: 100px;
+            top: 60%;
+            right: 20%;
+            animation: helixRotate 8s linear infinite;
+        }
+        
+        .dna-helix svg {
+            width: 100%;
+            height: 100%;
+            stroke: #e4093e;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes circuitPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes helixRotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        
+        /* RED Assistant */
+        .red-assistant {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            z-index: 10;
+            display: none; /* Completely hidden by default until image loads */
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .red-assistant.loaded {
+            display: block; /* Show when image is loaded */
+            opacity: 1;
+        }
+        
+        .assistant-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .assistant-glow {
+            position: absolute;
+            inset: -10px;
+            background: radial-gradient(circle, rgba(228, 9, 62, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+        
+        .assistant-avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(228, 9, 62, 0.1);
+            border: 2px solid rgba(228, 9, 62, 0.05);
+        }
+        
+        .assistant-avatar img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+        
+        .assistant-thought-bubble {
+            position: absolute;
+            top: -60px;
+            left: -40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #2a2a2a;
+            font-weight: 500;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            border: 2px solid rgba(228, 9, 62, 0.2);
+        }
+        
+        .assistant-thought-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(255, 255, 255, 0.95);
+        }
+        
+        .assistant-container:hover .assistant-thought-bubble {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        @keyframes assistantFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            75% { transform: translateY(-6px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes assistantBreathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes assistantWiggle {
+            0% { transform: translateX(0px) rotate(0deg); }
+            20% { transform: translateX(2px) rotate(1deg); }
+            40% { transform: translateX(-1px) rotate(-0.5deg); }
+            60% { transform: translateX(1px) rotate(0.5deg); }
+            80% { transform: translateX(-0.5px) rotate(-0.25deg); }
+            100% { transform: translateX(0px) rotate(0deg); }
+        }
+        
+        @keyframes assistantExcited {
+            0% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.1) rotate(5deg); }
+            40% { transform: scale(1.05) rotate(-3deg); }
+            60% { transform: scale(1.15) rotate(8deg); }
+            80% { transform: scale(1.02) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        @keyframes assistantCurious {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.02); }
+            50% { transform: rotate(12deg) scale(1.05); }
+            75% { transform: rotate(-5deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        
+        @keyframes assistantBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-15px) scale(1.1); }
+            60% { transform: translateY(-8px) scale(1.05); }
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            25% { opacity: 0.7; transform: scale(1.05); }
+            50% { opacity: 1; transform: scale(1.1); }
+            75% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        /* Main content layout */
+        .lab-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        
+        .logo {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(228, 9, 62, 0.15);
+            padding: 20px;
+            animation: logoFloat 4s ease-in-out infinite;
+            border: 2px solid rgba(228, 9, 62, 0.1);
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-fallback {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e4093e;
+            font-family: 'Comfortaa', sans-serif;
+            display: none;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* Typography */
+        .main-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        /* Lab status section */
+        .lab-status {
+            background: rgba(255, 255, 255, 0.7);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        .status-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e4093e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-description {
+            font-family: 'Montserrat', sans-serif;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        
+        /* Progress visualization */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .step-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step-circle.completed {
+            background: #e4093e;
+            color: white;
+        }
+        
+        .step-circle.active {
+            background: rgba(228, 9, 62, 0.1);
+            color: #e4093e;
+            border: 2px solid rgba(228, 9, 62, 0.3);
+            animation: stepPulse 1.5s ease-in-out infinite;
+        }
+        
+        .step-circle.pending {
+            background: #f0f2f5;
+            color: #999;
+        }
+        
+        .step-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .step-connector {
+            flex: 1;
+            height: 2px;
+            background: #e0e0e0;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .step-connector.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #e4093e;
+            animation: progressFlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes stepPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(228, 9, 62, 0.7); 
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 0 0 10px rgba(228, 9, 62, 0); 
+            }
+        }
+        
+        @keyframes progressFlow {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Contact section */
+        .contact-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-section p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .contact-link {
+            color: #e4093e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        
+        .contact-link:hover {
+            color: #518cea;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 35px;
+            height: 35px;
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: #e4093e;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .auto-refresh {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+        
+        /* Code snippets area */
+        .code-console {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(228, 9, 62, 0.1);
+            border-radius: 10px;
+            padding: 0;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #2a2a2a;
+            height: 95px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+        
+        .code-console::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(90deg, rgba(228, 9, 62, 0.05) 0%, rgba(81, 140, 234, 0.05) 100%);
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid rgba(228, 9, 62, 0.1);
+        }
+        
+        .console-header {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .console-content {
+            margin-top: 30px;
+            padding: 12px 24px 8px 24px;
+            text-align: left;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: calc(100% - 30px);
+            max-height: calc(100% - 30px);
+        }
+        
+        /* Custom scrollbar for console */
+        .console-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .console-content::-webkit-scrollbar-track {
+            background: rgba(228, 9, 62, 0.05);
+            border-radius: 3px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb {
+            background: rgba(228, 9, 62, 0.3);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(228, 9, 62, 0.5);
+        }
+        
+        /* Cross-browser scrollbar styling - webkit only for maximum compatibility */
+        .console-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .console-content::-webkit-scrollbar-track {
+            background: rgba(228, 9, 62, 0.05);
+            border-radius: 4px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb {
+            background: rgba(228, 9, 62, 0.3);
+            border-radius: 4px;
+        }
+        
+        .console-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(228, 9, 62, 0.5);
+        }
+        
+        .code-line {
+            opacity: 0;
+            animation: consoleFadeIn 0.5s ease-out forwards;
+            margin-bottom: 0.3rem;
+            color: #2a2a2a;
+            position: relative;
+            text-align: left;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        
+        .code-line.typing {
+            position: relative;
+        }
+        
+        .code-line.typing.default::after,
+        .code-line.typing.command::after {
+            content: '';
+            display: inline-block;
+            background-color: #e4093e;
+            width: 2px;
+            height: 12px;
+            margin-left: 2px;
+            animation: cursorBlink 1.2s infinite;
+            vertical-align: text-bottom;
+        }
+        
+        .code-line.success {
+            color: #28a745;
+        }
+        
+        .code-line.info {
+            color: #518cea;
+        }
+        
+        .code-line.warning {
+            color: #ffc107;
+        }
+        
+        .code-line::before {
+            content: '';
+            color: #e4093e;
+            font-weight: bold;
+        }
+        
+        .code-line.default::before {
+            content: '$ ';
+            color: #e4093e;
+            font-weight: bold;
+        }
+        
+        .code-line.success::before {
+            content: '✓ ';
+            color: #28a745;
+        }
+        
+        .code-line.info::before {
+            content: '→ ';
+            color: #518cea;
+        }
+        
+        .code-line.warning::before {
+            content: '⚠ ';
+            color: #ffc107;
+        }
+        
+        @keyframes consoleFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes cursorBlink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0.3;
+            }
+        }
+        
+        /* Fun facts area */
+        .fun-fact {
+            background: rgba(174, 108, 252, 0.1);
+            border-left: 4px solid #ae6cfc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fun-fact:hover {
+            background: rgba(174, 108, 252, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* Mouse trail particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particleFade 2s ease-out forwards;
+        }
+        
+        @keyframes particleFade {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0.3) translateY(-30px);
+                opacity: 0;
+            }
+        }
+        
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 3;
+            animation: sparkleFloat 3s ease-out forwards;
+        }
+        
+        @keyframes sparkleFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(0) scale(0.5) rotate(0deg); 
+            }
+            20% { 
+                opacity: 1; 
+                transform: translateY(-20px) scale(1) rotate(90deg); 
+            }
+            80% { 
+                opacity: 0.8; 
+                transform: translateY(-40px) scale(1.2) rotate(270deg); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-60px) scale(0.5) rotate(360deg); 
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .lab-status {
+                padding: 1.5rem;
+                margin: 0 1rem 2rem;
+            }
+            
+            .contact-section {
+                margin: 0 1rem;
+            }
+            
+            .red-assistant {
+                width: 100px;
+                height: 100px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .progress-steps {
+                margin: 1.5rem 0;
+            }
+            
+            .step-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .step-connector {
+                margin: 0 5px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .lab-container {
+                padding: 1rem;
+            }
+            
+            .progress-steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .step-connector {
+                width: 2px;
+                height: 30px;
+                margin: 10px 0;
+            }
+            
+            .step-connector.active::before {
+                width: 100%;
+                height: 0;
+                animation: progressFlowVertical 2s ease-in-out infinite;
+            }
+        }
+        
+        @keyframes progressFlowVertical {
+            0% { height: 0%; }
+            100% { height: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating bubbles -->
+    <div class="floating-bubble bubble-1"></div>
+    <div class="floating-bubble bubble-2"></div>
+    <div class="floating-bubble bubble-3"></div>
+    <div class="floating-bubble bubble-4"></div>
+    <div class="floating-bubble bubble-5"></div>
+    <div class="floating-bubble bubble-6"></div>
+    <div class="floating-bubble bubble-7"></div>
+    
+    <!-- Lab equipment -->
+    <div class="lab-equipment gear">
+        <svg viewBox="0 0 24 24">
+            <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+        </svg>
+    </div>
+    
+    <div class="lab-equipment beaker">
+        <svg viewBox="0 0 24 24">
+            <path d="M9,2V7.38L4.55,16.91C4.19,17.65 4.73,18.5 5.54,18.5H18.46C19.27,18.5 19.81,17.65 19.45,16.91L15,7.38V2H9M11,4H13V8H11V4M7.5,20A1.5,1.5 0 0,0 9,21.5A1.5,1.5 0 0,0 10.5,20A1.5,1.5 0 0,0 9,18.5A1.5,1.5 0 0,0 7.5,20M13.5,20A1.5,1.5 0 0,0 15,21.5A1.5,1.5 0 0,0 16.5,20A1.5,1.5 0 0,0 15,18.5A1.5,1.5 0 0,0 13.5,20Z"/>
+        </svg>
+    </div>
+    
+    <div class="lab-equipment circuit-board">
+        <svg viewBox="0 0 24 24">
+            <path d="M13,3H11V5H13V3M19,5V7H21V5H19M19,9V11H21V9H19M19,13V15H21V13H19M19,17V19H21V17H19M3,5V7H5V5H3M3,9V11H5V9H3M3,13V15H5V13H3M3,17V19H5V17H3M5,21H7V19H5V21M9,21H11V19H9V21M13,21H15V19H13V21M17,21H19V19H17V21M7,3H5V5H7V3M11,7H13V9H11V7M11,11H13V13H11V11M11,15H13V17H11V15M7,7H9V9H7V7M7,11H9V13H7V11M7,15H9V17H7V15M15,7H17V9H15V7M15,11H17V13H15V11M15,15H17V17H15V15"/>
+        </svg>
+    </div>
+    
+    <div class="lab-equipment dna-helix">
+        <svg viewBox="0 0 24 24">
+            <path d="M4,2H6V4L10,8H14L18,4V2H20V4C20,4.55 19.78,5.05 19.41,5.41L16,8.83V10.17L19.41,13.59C19.78,13.95 20,14.45 20,15V22H18V20L14,16H10L6,20V22H4V15C4,14.45 4.22,13.95 4.59,13.59L8,10.17V8.83L4.59,5.41C4.22,5.05 4,4.55 4,4V2M8,14H16L14,16H10L8,14M8,10L10,8H14L16,10H8Z"/>
+        </svg>
+    </div>
+    
+    <!-- RED Assistant -->
+    <div class="red-assistant" id="redAssistant">
+        <div class="assistant-container">
+            <div class="assistant-glow"></div>
+            <div class="assistant-avatar">
+                <img src="/assets/avatars/assistant-red.png" alt="RED Assistant" 
+                     onload="document.getElementById('redAssistant').classList.add('loaded')" 
+                     onerror="console.log('RED Assistant image failed to load - hiding assistant'); document.getElementById('redAssistant').style.display='none';" />
+            </div>
+            <div class="assistant-thought-bubble">Working on updates...</div>
+        </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="lab-container">
+        <div class="logo-section">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/assets/logos/thinkRED-icon.png" alt="ThinkRED" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                    <span class="logo-fallback">TR</span>
+                </div>
+            </div>
+            
+            <h1 class="main-title">Lab in Session</h1>
+            <p class="subtitle">
+                Our engineering team is cooking up something amazing! We're deploying the latest innovations and improvements to make your experience even better.
+            </p>
+        </div>
+        
+        <div class="lab-status">
+            <div class="status-icon">🔬</div>
+            <div class="status-title">Deployment in Progress</div>
+            <div class="status-description">
+                Our engineers are carefully rolling out new features and optimizations. This usually takes 2-3 minutes.
+            </div>
+            
+            <div class="progress-steps">
+                <div class="step">
+                    <div class="step-circle completed">✓</div>
+                    <div class="step-label">Build</div>
+                </div>
+                <div class="step-connector active"></div>
+                <div class="step">
+                    <div class="step-circle active">⚙️</div>
+                    <div class="step-label">Deploy</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-circle pending">🚀</div>
+                    <div class="step-label">Launch</div>
+                </div>
+            </div>
+            
+            <div class="code-console" id="codeConsole">
+                <div class="console-header">🔧 Deployment Console</div>
+                <div class="console-content">
+                    <!-- Lines will be added dynamically -->
+                </div>
+            </div>
+            
+            <div class="fun-fact" onclick="showRandomFact()">
+                <span id="funFactText">💡 Click me for a fun tech fact!</span>
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <p>Need immediate assistance?</p>
+            <p>Contact us: <a href="mailto:hello@thinkred.tech" class="contact-link">hello@thinkred.tech</a></p>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/company/thinkred" class="social-link" title="LinkedIn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/thinkred" class="social-link" title="GitHub">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <p class="auto-refresh">⟳ This page will automatically refresh every 15 seconds</p>
+        </div>
+    </div>
+    
+    <script>
+        // Deployment step simulation
+        let currentStep = 1;
+        const steps = ['Build', 'Deploy', 'Launch'];
+        const stepIcons = ['✓', '⚙️', '🚀'];
+        const assistantMessages = [
+            'Compiling code... ✨',
+            'Running tests... 🧪',
+            'Deploying changes... 🚀',
+            'Almost ready... ⏳',
+            'Final checks... 🔍',
+            'Looking good! 😊',
+            'Working hard! 💪',
+            'Optimizing magic... ✨',
+            'Brewing excellence... ☕',
+            'Coding greatness... 💻',
+            'Testing boundaries... 🎯',
+            'Polishing perfection... ✨',
+            'Building dreams... 🏗️',
+            'Crafting innovation... 🎨',
+            'Debugging reality... 🐛',
+            'Summoning features... 🪄',
+            'Loading awesomeness... ⭐',
+            'Calibrating genius... 🎛️',
+            'Assembling magic... 🔧',
+            'Cooking up something special... 👨‍🍳'
+        ];
+        
+        // Code snippets for console with types
+        const codeSnippets = [
+            { text: 'npm run build', type: 'default', isCommand: true },
+            { text: 'Building for production...', type: 'success', isCommand: false },
+            { text: 'webpack --mode=production', type: 'default', isCommand: true },
+            { text: 'Optimizing assets...', type: 'success', isCommand: false },
+            { text: 'npm run deploy', type: 'default', isCommand: true },
+            { text: 'Uploading files...', type: 'info', isCommand: false },
+            { text: 'ssh deploy@server', type: 'default', isCommand: true },
+            { text: 'Running health checks...', type: 'info', isCommand: false },
+            { text: 'npm test', type: 'default', isCommand: true },
+            { text: 'All tests passing...', type: 'success', isCommand: false },
+            { text: 'docker build -t app .', type: 'default', isCommand: true },
+            { text: 'Container ready...', type: 'success', isCommand: false },
+            { text: 'Checking dependencies...', type: 'info', isCommand: false },
+            { text: 'Minifying JavaScript...', type: 'info', isCommand: false },
+            { text: 'Compressing images...', type: 'info', isCommand: false },
+            { text: 'Deployment complete!', type: 'success', isCommand: false }
+        ];
+        
+        // Fun tech facts
+        const funFacts = [
+            "💡 The first computer bug was an actual bug - a moth found in a Harvard computer in 1947!",
+            "🚀 Google processes over 8.5 billion searches per day!",
+            "⚡ The first 1GB hard drive cost $40,000 and weighed 550 pounds!",
+            "🌐 There are more possible games of chess than atoms in the observable universe!",
+            "💻 The term 'debugging' was coined by Admiral Grace Hopper!",
+            "🔋 Your smartphone has more computing power than NASA had for the Apollo missions!",
+            "📱 90% of the world's data was created in just the last 2 years!",
+            "🎮 The original Space Invaders caused a coin shortage in Japan!",
+            "💾 Email existed before the World Wide Web!",
+            "🔐 The average person has 70-80 passwords to remember!"
+        ];
+        
+        let deploymentStartTime = Date.now();
+        let currentCodeIndex = 0;
+        let currentFactIndex = 0;
+        
+        // Persistent timer using localStorage
+        function initializeTimer() {
+            const storedStartTime = localStorage.getItem('thinkred-deployment-start');
+            const storedRefreshCount = localStorage.getItem('thinkred-refresh-count');
+            
+            // Reset timer if it's been more than 30 minutes (reasonable deployment window)
+            const maxDeploymentTime = 30 * 60 * 1000; // 30 minutes in milliseconds
+            
+            if (storedStartTime) {
+                const elapsed = Date.now() - parseInt(storedStartTime);
+                if (elapsed > maxDeploymentTime) {
+                    // Reset if deployment has been running too long
+                    localStorage.removeItem('thinkred-deployment-start');
+                    localStorage.removeItem('thinkred-refresh-count');
+                    deploymentStartTime = Date.now();
+                    localStorage.setItem('thinkred-deployment-start', deploymentStartTime.toString());
+                } else {
+                    deploymentStartTime = parseInt(storedStartTime);
+                }
+            } else {
+                localStorage.setItem('thinkred-deployment-start', deploymentStartTime.toString());
+            }
+            
+            // Initialize refresh count
+            if (storedRefreshCount) {
+                refreshCount = parseInt(storedRefreshCount);
+            }
+        }
+        
+        // Reset timer function for manual use
+        function resetTimer() {
+            localStorage.removeItem('thinkred-deployment-start');
+            localStorage.removeItem('thinkred-refresh-count');
+            deploymentStartTime = Date.now();
+            refreshCount = 0;
+        }
+        
+        // Update deployment progress
+        function updateDeploymentProgress() {
+            const stepElements = document.querySelectorAll('.step-circle');
+            const connectorElements = document.querySelectorAll('.step-connector');
+            
+            stepElements.forEach((el, index) => {
+                el.className = 'step-circle';
+                if (index < currentStep) {
+                    el.classList.add('completed');
+                    el.textContent = '✓';
+                } else if (index === currentStep) {
+                    el.classList.add('active');
+                    el.textContent = stepIcons[index];
+                } else {
+                    el.classList.add('pending');
+                    el.textContent = stepIcons[index];
+                }
+            });
+            
+            connectorElements.forEach((el, index) => {
+                el.className = 'step-connector';
+                if (index < currentStep) {
+                    el.classList.add('active');
+                }
+            });
+            
+            currentStep = (currentStep + 1) % (steps.length + 1);
+            if (currentStep === 0) currentStep = 1;
+        }
+        
+        // Update assistant message
+        function updateAssistantMessage() {
+            const thoughtBubble = document.querySelector('.assistant-thought-bubble');
+            if (thoughtBubble) {
+                const randomMessage = assistantMessages[Math.floor(Math.random() * assistantMessages.length)];
+                thoughtBubble.textContent = randomMessage;
+            }
+        }
+        
+        // Update code console with typing animation
+        function updateCodeConsole() {
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent && codeSnippets.length > 0) {
+                // Remove typing class from previous line
+                const previousTypingLine = consoleContent.querySelector('.code-line.typing');
+                if (previousTypingLine) {
+                    previousTypingLine.classList.remove('typing');
+                }
+                
+                // Add new line with typing animation
+                const snippet = codeSnippets[currentCodeIndex];
+                const line = document.createElement('div');
+                
+                // Set classes based on whether it's a command or output
+                if (snippet.isCommand) {
+                    line.className = `code-line ${snippet.type} typing`;
+                } else {
+                    line.className = `code-line ${snippet.type}`;
+                }
+                
+                // For commands, start with empty text and type it out
+                // For outputs, just show them immediately (no typing animation)
+                if (snippet.isCommand) {
+                    let currentText = '';
+                    const fullText = snippet.text;
+                    let charIndex = 0;
+                    
+                    line.textContent = ''; // Start empty for commands
+                    consoleContent.appendChild(line);
+                    
+                    // Typing animation for commands
+                    const typeChar = () => {
+                        if (charIndex < fullText.length) {
+                            currentText += fullText[charIndex];
+                            line.textContent = currentText;
+                            charIndex++;
+                            setTimeout(typeChar, 50 + Math.random() * 50); // Random typing speed
+                        } else {
+                            // Typing complete, remove cursor after a brief delay
+                            setTimeout(() => {
+                                line.classList.remove('typing');
+                            }, 500);
+                        }
+                    };
+                    
+                    // Start typing after a brief delay
+                    setTimeout(typeChar, 200);
+                } else {
+                    // For outputs, show immediately without typing animation
+                    line.textContent = snippet.text;
+                    consoleContent.appendChild(line);
+                }
+                
+                // Auto-scroll to bottom to show new line
+                setTimeout(() => {
+                    consoleContent.scrollTop = consoleContent.scrollHeight;
+                }, 100);
+                
+                currentCodeIndex = (currentCodeIndex + 1) % codeSnippets.length;
+            }
+        }
+        
+        // Initialize console with first line
+        function initializeConsole() {
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent && codeSnippets.length > 0) {
+                // Add the first line with typing animation
+                const snippet = codeSnippets[0];
+                const line = document.createElement('div');
+                
+                // Set classes based on whether it's a command or output
+                if (snippet.isCommand) {
+                    line.className = `code-line ${snippet.type} typing`;
+                } else {
+                    line.className = `code-line ${snippet.type}`;
+                }
+                
+                // For commands, start with empty text and type it out
+                // For outputs, just show them immediately (no typing animation)
+                if (snippet.isCommand) {
+                    let currentText = '';
+                    const fullText = snippet.text;
+                    let charIndex = 0;
+                    
+                    line.textContent = ''; // Start empty for commands
+                    consoleContent.appendChild(line);
+                    
+                    // Typing animation for commands
+                    const typeChar = () => {
+                        if (charIndex < fullText.length) {
+                            currentText += fullText[charIndex];
+                            line.textContent = currentText;
+                            charIndex++;
+                            setTimeout(typeChar, 50 + Math.random() * 50); // Random typing speed
+                        } else {
+                            // Typing complete, remove cursor after a brief delay
+                            setTimeout(() => {
+                                line.classList.remove('typing');
+                            }, 500);
+                        }
+                    };
+                    
+                    // Start typing after a brief delay
+                    setTimeout(typeChar, 200);
+                } else {
+                    // For outputs, show immediately without typing animation
+                    line.textContent = snippet.text;
+                    consoleContent.appendChild(line);
+                }
+                
+                currentCodeIndex = 1; // Start from second item for next update
+            }
+        }
+        
+        // Show random fun fact
+        function showRandomFact() {
+            const factElement = document.getElementById('funFactText');
+            if (factElement && funFacts.length > 0) {
+                currentFactIndex = (currentFactIndex + 1) % funFacts.length;
+                factElement.textContent = funFacts[currentFactIndex];
+                
+                // Add sparkle effect
+                createSparkle();
+                
+                // Animate the fact box
+                const factBox = factElement.parentElement;
+                factBox.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    factBox.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+        
+        // Lab equipment interaction
+        function setupLabEquipmentInteraction() {
+            const equipment = document.querySelectorAll('.lab-equipment');
+            equipment.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    // Add active class for glow effect
+                    item.classList.add('active');
+                    setTimeout(() => item.classList.remove('active'), 1000);
+                    
+                    // Create sparkles around the equipment
+                    const rect = item.getBoundingClientRect();
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            const sparkle = document.createElement('div');
+                            sparkle.className = 'sparkle';
+                            sparkle.innerHTML = ['✨', '⭐', '💫', '🌟', '⚡'][Math.floor(Math.random() * 5)];
+                            sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                            sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+                            sparkle.style.position = 'fixed';
+                            document.body.appendChild(sparkle);
+                            
+                            setTimeout(() => {
+                                if (document.body.contains(sparkle)) {
+                                    document.body.removeChild(sparkle);
+                                }
+                            }, 3000);
+                        }, i * 100);
+                    }
+                    
+                    // Update assistant message if available
+                    if (Math.random() > 0.5) {
+                        updateAssistantMessage();
+                    }
+                    
+                    // Show random fact occasionally
+                    if (Math.random() > 0.7) {
+                        showRandomFact();
+                    }
+                });
+                
+                // Add tooltip-like effect
+                item.setAttribute('title', `Click me! (${['Gear', 'Beaker', 'Circuit', 'DNA'][index] || 'Equipment'})`);
+            });
+        }
+        
+        // Create sparkle effects
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (document.body.contains(sparkle)) {
+                    document.body.removeChild(sparkle);
+                }
+            }, 3000);
+        }
+        
+        // Enhanced sparkle effect near lab equipment
+        function createLabSparkle() {
+            const labEquipment = document.querySelectorAll('.lab-equipment');
+            if (labEquipment.length === 0) return;
+            
+            const equipment = labEquipment[Math.floor(Math.random() * labEquipment.length)];
+            const rect = equipment.getBoundingClientRect();
+            
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '⚡';
+            sparkle.style.left = (rect.left + rect.width / 2) + 'px';
+            sparkle.style.top = (rect.top + rect.height / 2) + 'px';
+            sparkle.style.position = 'fixed';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (document.body.contains(sparkle)) {
+                    document.body.removeChild(sparkle);
+                }
+            }, 3000);
+        }
+        
+        // Auto-refresh functionality
+        const startTime = new Date().toLocaleTimeString();
+        console.log(`🔬 Lab session started at: ${startTime}`);
+        
+        let refreshCount = 0;
+        const maxRefreshes = 80; // 20 minutes (15-second intervals)
+        
+        function smartRefresh() {
+            refreshCount++;
+            localStorage.setItem('thinkred-refresh-count', refreshCount.toString());
+            
+            if (refreshCount < maxRefreshes) {
+                setTimeout(() => {
+                    // Clear the stored start time after max refreshes to reset timer
+                    if (refreshCount >= maxRefreshes - 1) {
+                        localStorage.removeItem('thinkred-deployment-start');
+                        localStorage.removeItem('thinkred-refresh-count');
+                    }
+                    location.reload();
+                }, 15000); // Refresh every 15 seconds - balanced for engagement and performance
+            } else {
+                // Show manual refresh after 20 minutes and reset timer
+                localStorage.removeItem('thinkred-deployment-start');
+                localStorage.removeItem('thinkred-refresh-count');
+                const autoRefreshElement = document.querySelector('.auto-refresh');
+                autoRefreshElement.innerHTML = 
+                    '<button onclick="resetTimer(); location.reload()" style="background: #e4093e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background=\'#518cea\'" onmouseout="this.style.background=\'#e4093e\'">⟳ Refresh Lab Status</button>';
+            }
+        }
+        
+        // Assistant interaction
+        function setupAssistantInteraction() {
+            const assistant = document.querySelector('.assistant-container');
+            if (!assistant || !document.querySelector('.red-assistant').classList.contains('loaded')) {
+                // RED assistant not loaded yet, try again later
+                setTimeout(() => setupAssistantInteraction(), 2000);
+                return;
+            }
+            
+            let isHovered = false;
+            
+            assistant.addEventListener('mouseenter', () => {
+                isHovered = true;
+                updateAssistantMessage();
+            });
+            
+            assistant.addEventListener('mouseleave', () => {
+                isHovered = false;
+            });
+            
+            assistant.addEventListener('click', () => {
+                createLabSparkle();
+                updateAssistantMessage();
+                
+                // Create multiple sparkles around assistant
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => createSparkle(), i * 200);
+                }
+            });
+        }
+        
+        // Assistant movement around the page
+        function moveAssistantFreely() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant || !assistant.classList.contains('loaded')) {
+                // RED assistant not loaded yet, try again later
+                setTimeout(() => moveAssistantFreely(), 2000);
+                return;
+            }
+            
+            let currentPosition = { x: 0, y: 0 };
+            let isMoving = false;
+            
+            function getRandomPosition() {
+                const assistantWidth = 120;
+                const assistantHeight = 120;
+                const margin = 50;
+                
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                
+                // Get main content areas to avoid (with smaller buffer zones for more freedom)
+                const contentElements = document.querySelectorAll('.lab-container .logo-section, .lab-container .lab-status, .lab-container .contact-section');
+                const avoidAreas = [];
+                
+                contentElements.forEach(element => {
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        avoidAreas.push({
+                            left: rect.left - 80,
+                            right: rect.right + 80,
+                            top: rect.top - 80,
+                            bottom: rect.bottom + 80
+                        });
+                    }
+                });
+                
+                function isPositionSafe(x, y) {
+                    // Check viewport boundaries
+                    if (x < margin || x > viewportWidth - assistantWidth - margin ||
+                        y < margin || y > viewportHeight - assistantHeight - margin) {
+                        return false;
+                    }
+                    
+                    // Check content area collisions
+                    const assistantRect = {
+                        left: x,
+                        right: x + assistantWidth,
+                        top: y,
+                        bottom: y + assistantHeight
+                    };
+                    
+                    for (const area of avoidAreas) {
+                        if (assistantRect.right > area.left && assistantRect.left < area.right &&
+                            assistantRect.bottom > area.top && assistantRect.top < area.bottom) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                }
+                
+                // Prefer nearby positions to prevent teleporting (95% of the time for truly bubble-like movement)
+                if (currentPosition.x !== 0 && currentPosition.y !== 0 && Math.random() > 0.05) {
+                    const maxDrift = 80; // Further reduced maximum drift distance for very constrained movement
+                    
+                    for (let attempts = 0; attempts < 50; attempts++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = Math.random() * maxDrift + 20; // 20-100px drift (very small range)
+                        
+                        const x = currentPosition.x + Math.cos(angle) * distance;
+                        const y = currentPosition.y + Math.sin(angle) * distance;
+                        
+                        if (isPositionSafe(x, y)) {
+                            return { x, y };
+                        }
+                    }
+                }
+                
+                // Fallback to wider search if no nearby position found
+                for (let attempts = 0; attempts < 100; attempts++) {
+                    const x = Math.random() * (viewportWidth - assistantWidth - 2 * margin) + margin;
+                    const y = Math.random() * (viewportHeight - assistantHeight - 2 * margin) + margin;
+                    
+                    if (isPositionSafe(x, y)) {
+                        return { x, y };
+                    }
+                }
+                
+                // If no random position found, use safe fallback areas
+                const fallbackAreas = [
+                    { x: margin, y: margin },
+                    { x: viewportWidth - assistantWidth - margin, y: margin },
+                    { x: margin, y: viewportHeight - assistantHeight - margin },
+                    { x: viewportWidth - assistantWidth - margin, y: viewportHeight - assistantHeight - margin }
+                ];
+                
+                return fallbackAreas[Math.floor(Math.random() * fallbackAreas.length)];
+            }
+            
+            function animateToPosition(targetPos, duration = 3000) {
+                if (isMoving) return;
+                isMoving = true;
+                
+                const startPos = { ...currentPosition };
+                const startTime = Date.now();
+                
+                // Create organic curved path with random control points
+                const distance = Math.sqrt(
+                    Math.pow(targetPos.x - startPos.x, 2) + 
+                    Math.pow(targetPos.y - startPos.y, 2)
+                );
+                
+                // Add organic curve to the movement
+                const midX = (startPos.x + targetPos.x) / 2;
+                const midY = (startPos.y + targetPos.y) / 2;
+                
+                // Create random curve intensity based on distance
+                const curveIntensity = Math.min(150, distance * 0.3);
+                const randomAngle = Math.random() * Math.PI * 2;
+                
+                const controlX = midX + Math.cos(randomAngle) * curveIntensity;
+                const controlY = midY + Math.sin(randomAngle) * curveIntensity;
+                
+                // Add subtle floating motion during movement
+                const floatAmplitude = 8;
+                const floatFrequency = 2 + Math.random() * 2; // Random frequency for variety
+                
+                function frame() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // More organic easing with slight bounce
+                    let easedProgress;
+                    if (progress < 0.5) {
+                        easedProgress = 2 * progress * progress;
+                    } else {
+                        const t = progress - 1;
+                        easedProgress = 1 - 2 * t * t;
+                    }
+                    
+                    // Quadratic Bezier curve for organic path
+                    const t = easedProgress;
+                    const invT = 1 - t;
+                    
+                    const baseX = invT * invT * startPos.x + 
+                                 2 * invT * t * controlX + 
+                                 t * t * targetPos.x;
+                    const baseY = invT * invT * startPos.y + 
+                                 2 * invT * t * controlY + 
+                                 t * t * targetPos.y;
+                    
+                    // Add floating motion for liveliness
+                    const floatOffset = Math.sin(progress * Math.PI * floatFrequency) * floatAmplitude * (1 - progress);
+                    const x = baseX + Math.cos(randomAngle) * floatOffset;
+                    const y = baseY + Math.sin(randomAngle) * floatOffset;
+                    
+                    // Dynamic rotation based on movement direction and speed
+                    const velocity = distance / duration * 1000; // pixels per second
+                    const direction = Math.atan2(targetPos.y - startPos.y, targetPos.x - startPos.x);
+                    const dynamicRotation = Math.sin(progress * Math.PI * 3) * (3 + velocity * 0.01);
+                    const tiltRotation = direction * 0.1; // Slight tilt towards movement direction
+                    
+                    // Add subtle scaling for breathing effect
+                    const breathe = 1 + Math.sin(progress * Math.PI * 4) * 0.03;
+                    
+                    assistant.style.left = `${x}px`;
+                    assistant.style.top = `${y}px`;
+                    assistant.style.transform = `rotate(${dynamicRotation + tiltRotation}deg) scale(${breathe})`;
+                    assistant.style.position = 'fixed';
+                    
+                    currentPosition = { x: baseX, y: baseY }; // Store base position without float offset
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        isMoving = false;
+                        assistant.style.transform = 'rotate(0deg) scale(1)';
+                        
+                        // Add more lively idle animation
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                        
+                        // Add occasional micro-movements during idle
+                        addIdleMicroMovements();
+                        
+                        // Schedule next movement with random delay (3-8 seconds for more gentle bubble-like movement)
+                        const nextMoveDelay = 3000 + Math.random() * 5000;
+                        setTimeout(() => {
+                            if (document.querySelector('.red-assistant.loaded') && !isMoving) {
+                                moveToNextPosition();
+                            }
+                        }, nextMoveDelay);
+                    }
+                }
+                
+                // Remove existing animation during movement
+                assistant.style.animation = 'none';
+                requestAnimationFrame(frame);
+            }
+            
+            function moveToNextPosition() {
+                const targetPosition = getRandomPosition();
+                
+                // Ensure we're not moving to the same position
+                const distance = Math.sqrt(
+                    Math.pow(targetPosition.x - currentPosition.x, 2) +
+                    Math.pow(targetPosition.y - currentPosition.y, 2)
+                );
+                
+                // If position is too close, get a new one
+                if (distance < 40) {
+                    setTimeout(() => moveToNextPosition(), 1000);
+                    return;
+                }
+                
+                // If distance is too far (teleporting), try to get a closer position
+                if (distance > 120) { // Further reduced from 200 to 120 for very constrained movement
+                    // Try to get a closer position
+                    let closerPosition = null;
+                    for (let i = 0; i < 20; i++) { // Even more attempts to find closer position
+                        const testPos = getRandomPosition();
+                        const testDistance = Math.sqrt(
+                            Math.pow(testPos.x - currentPosition.x, 2) +
+                            Math.pow(testPos.y - currentPosition.y, 2)
+                        );
+                        
+                        if (testDistance < 100 && testDistance > 30) { // Very strict distance requirements
+                            closerPosition = testPos;
+                            break;
+                        }
+                    }
+                    
+                    if (closerPosition) {
+                        targetPosition.x = closerPosition.x;
+                        targetPosition.y = closerPosition.y;
+                    } else {
+                        // If no closer position found, make a very small drift from current position
+                        const angle = Math.random() * Math.PI * 2;
+                        const driftDistance = 40 + Math.random() * 40; // 40-80px (very small)
+                        targetPosition.x = currentPosition.x + Math.cos(angle) * driftDistance;
+                        targetPosition.y = currentPosition.y + Math.sin(angle) * driftDistance;
+                        
+                        // Ensure it's within bounds
+                        const margin = 50;
+                        const assistantWidth = 120;
+                        const assistantHeight = 120;
+                        targetPosition.x = Math.max(margin, Math.min(window.innerWidth - assistantWidth - margin, targetPosition.x));
+                        targetPosition.y = Math.max(margin, Math.min(window.innerHeight - assistantHeight - margin, targetPosition.y));
+                    }
+                }
+                
+                // Dynamic duration based on distance (1.5-4 seconds for faster, more lively movement)
+                const finalDistance = Math.sqrt(
+                    Math.pow(targetPosition.x - currentPosition.x, 2) +
+                    Math.pow(targetPosition.y - currentPosition.y, 2)
+                );
+                const duration = Math.max(1500, Math.min(4000, finalDistance * 8));
+                
+                animateToPosition(targetPosition, duration);
+                
+                // Create sparkles occasionally during movement
+                if (Math.random() > 0.6) {
+                    setTimeout(() => createSparkle(), duration / 2);
+                }
+                
+                // Update message occasionally during movement
+                if (Math.random() > 0.7) {
+                    setTimeout(() => updateAssistantMessage(), duration / 3);
+                }
+            }
+            
+            // Set truly random initial position
+            const initialPos = getRandomPosition();
+            currentPosition = initialPos;
+            assistant.style.left = `${initialPos.x}px`;
+            assistant.style.top = `${initialPos.y}px`;
+            assistant.style.position = 'fixed';
+            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+            
+            // Start idle micro-movements and wiggles
+            setTimeout(() => {
+                addIdleMicroMovements();
+                addRandomWiggles();
+                addPersonalityBehaviors();
+                enhanceHoverBehavior();
+                addEnvironmentalAwareness();
+                addBlinkingBehavior();
+            }, 2000);
+            
+            // Start continuous movement cycle after initial delay
+            setTimeout(() => {
+                moveToNextPosition();
+            }, 3000); // Initial delay of 3 seconds
+            
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (!isMoving) {
+                        const newPos = getRandomPosition();
+                        currentPosition = newPos;
+                        assistant.style.left = `${newPos.x}px`;
+                        assistant.style.top = `${newPos.y}px`;
+                    }
+                }, 500);
+            });
+        }
+        
+        // Add subtle micro-movements during idle periods
+        function addIdleMicroMovements() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant || isMoving) return;
+            
+            let idleAnimationCount = 0;
+            const maxIdleAnimations = 3 + Math.floor(Math.random() * 3); // 3-5 micro movements
+            
+            function performMicroMovement() {
+                if (isMoving || idleAnimationCount >= maxIdleAnimations) return;
+                
+                const microDistance = 8 + Math.random() * 12; // 8-20px micro movements
+                const angle = Math.random() * Math.PI * 2;
+                const microX = Math.cos(angle) * microDistance;
+                const microY = Math.sin(angle) * microDistance;
+                
+                const originalTransform = assistant.style.transform;
+                const baseX = currentPosition.x;
+                const baseY = currentPosition.y;
+                
+                // Micro wiggle animation
+                const microDuration = 800 + Math.random() * 400; // 0.8-1.2 seconds
+                const startTime = Date.now();
+                
+                function microFrame() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / microDuration, 1);
+                    
+                    // Smooth out-and-back easing
+                    const easeProgress = progress < 0.5 
+                        
+                        ? 2 * progress * progress 
+                        : 1 - 2 * Math.pow(progress - 1, 2);
+                    
+                    const x = baseX + microX * easeProgress;
+                    const y = baseY + microY * easeProgress;
+                    
+                    // Add tiny rotation during micro movement
+                    const microRotation = Math.sin(progress * Math.PI * 2) * 1.5;
+                    
+                    assistant.style.left = `${x}px`;
+                    assistant.style.top = `${y}px`;
+                    assistant.style.transform = `rotate(${microRotation}deg) scale(${1 + Math.sin(progress * Math.PI) * 0.02})`;
+                    
+                    if (progress < 1 && !isMoving) {
+                        requestAnimationFrame(microFrame);
+                    } else {
+                        // Return to base position
+                        assistant.style.left = `${baseX}px`;
+                        assistant.style.top = `${baseY}px`;
+                        assistant.style.transform = originalTransform;
+                        currentPosition = { x: baseX, y: baseY };
+                        
+                        idleAnimationCount++;
+                        
+                        // Schedule next micro movement
+                        if (idleAnimationCount < maxIdleAnimations && !isMoving) {
+                            setTimeout(performMicroMovement, 1000 + Math.random() * 2000);
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(microFrame);
+            }
+            
+            // Start first micro movement after a short delay
+            setTimeout(performMicroMovement, 500 + Math.random() * 1000);
+        }
+        
+        // Add occasional spontaneous wiggles during idle
+        function addRandomWiggles() {
+            if (isMoving) return;
+            
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // 30% chance to add a wiggle animation
+            if (Math.random() > 0.7) {
+                assistant.style.animation += ', assistantWiggle 1.5s ease-in-out';
+                
+                setTimeout(() => {
+                    if (!isMoving) {
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                }, 1500);
+            }
+            
+            // Schedule next potential wiggle
+            setTimeout(addRandomWiggles, 4000 + Math.random() * 6000); // Every 4-10 seconds
+        }
+        
+        // Add personality-driven behaviors
+        function addPersonalityBehaviors() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // React to console activity with excitement
+            function reactToConsoleUpdates() {
+                if (!isMoving && Math.random() > 0.6) {
+                    assistant.style.animation = 'assistantExcited 1.2s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1200);
+                }
+            }
+            
+            // Show curiosity when user hovers over elements
+            function showCuriosity() {
+                if (!isMoving && Math.random() > 0.7) {
+                    assistant.style.animation = 'assistantCurious 1.5s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1500);
+                }
+            }
+            
+            // Celebrate deployment progress
+            function celebrateProgress() {
+                if (!isMoving && Math.random() > 0.5) {
+                    assistant.style.animation = 'assistantBounce 1.8s ease-in-out, assistantFloat 3s ease-in-out infinite';
+                    
+                    // Show excited message
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble) {
+                        const celebrationMessages = [
+                            'Yay! Progress! 🎉',
+                            'Getting closer! 🚀',
+                            'Almost there! ⭐',
+                            'Looking great! ✨',
+                            'Woo-hoo! 🎊'
+                        ];
+                        const originalText = bubble.textContent;
+                        bubble.textContent = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
+                        
+                        setTimeout(() => {
+                            bubble.textContent = originalText;
+                        }, 2000);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1800);
+                }
+            }
+            
+            // React to user interactions
+            function setupUserInteractionReactions() {
+                // React to clicks on lab equipment
+                document.querySelectorAll('.lab-equipment').forEach(equipment => {
+                    equipment.addEventListener('click', () => {
+                        showCuriosity();
+                        // Occasionally move towards the clicked equipment
+                        if (Math.random() > 0.7 && !isMoving) {
+                            const rect = equipment.getBoundingClientRect();
+                            const targetX = rect.left - 150;
+                            const targetY = rect.top - 50;
+                            
+                            // Make sure the position is safe
+                            if (targetX > 50 && targetY > 50) {
+                                const targetPos = { x: targetX, y: targetY };
+                                animateToPosition(targetPos, 2000);
+                            }
+                        }
+                    });
+                });
+                
+                // React to fun fact clicks
+                const funFact = document.querySelector('.fun-fact');
+                if (funFact) {
+                    funFact.addEventListener('click', () => {
+                        celebrateProgress();
+                    });
+                }
+                
+                // React to mouse movement occasionally
+                let lastReactionTime = 0;
+                document.addEventListener('mousemove', (e) => {
+                    const now = Date.now();
+                    if (now - lastReactionTime > 5000 && Math.random() > 0.95) { // Very occasional reaction
+                        const assistantRect = assistant.getBoundingClientRect();
+                        const distance = Math.sqrt(
+                            Math.pow(e.clientX - (assistantRect.left + assistantRect.width/2), 2) +
+                            Math.pow(e.clientY - (assistantRect.top + assistantRect.height/2), 2)
+                        );
+                        
+                        if (distance < 200) { // Mouse is near RED
+                            showCuriosity();
+                            lastReactionTime = now;
+                        }
+                    }
+                });
+            }
+            
+            // Schedule personality events
+            function schedulePersonalityEvents() {
+                // Console reactions
+                setInterval(reactToConsoleUpdates, 8000 + Math.random() * 4000);
+                
+                // Progress celebrations
+                setInterval(celebrateProgress, 15000 + Math.random() * 10000);
+                
+                // Random mood changes
+                setInterval(() => {
+                    if (!isMoving && Math.random() > 0.8) {
+                        const moodAnimations = [
+                            'assistantCurious 1.5s ease-in-out',
+                            'assistantWiggle 1.2s ease-in-out',
+                            'assistantBounce 1.8s ease-in-out'
+                        ];
+                        
+                        const mood = moodAnimations[Math.floor(Math.random() * moodAnimations.length)];
+                        assistant.style.animation = `${mood}, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite`;
+                        
+                        setTimeout(() => {
+                            if (!isMoving) {
+                                assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                            }
+                        }, 2000);
+                    }
+                }, 12000 + Math.random() * 8000);
+            }
+            
+            setupUserInteractionReactions();
+            setTimeout(schedulePersonalityEvents, 3000);
+        }
+        
+        // Add playful hover effects
+        function enhanceHoverBehavior() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            const container = assistant.querySelector('.assistant-container');
+            if (!container) return;
+            
+            let hoverTimeout;
+            
+            container.addEventListener('mouseenter', () => {
+                if (!isMoving) {
+                    assistant.style.animation = 'assistantExcited 0.8s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    // Show more playful messages on hover
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble) {
+                        const playfulMessages = [
+                            'Hey there! 👋',
+                            'Having fun? 😄',
+                            'Need help? 🤔',
+                            'Looking good! 👀',
+                            'Almost done! ⏰',
+                            'Stay awesome! ⭐'
+                        ];
+                        bubble.textContent = playfulMessages[Math.floor(Math.random() * playfulMessages.length)];
+                    }
+                }
+                
+                clearTimeout(hoverTimeout);
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                hoverTimeout = setTimeout(() => {
+                    if (!isMoving) {
+                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    updateAssistantMessage(); // Return to normal messages
+                }, 500);
+            });
+            
+            // Click for extra excitement
+            container.addEventListener('click', () => {
+                if (!isMoving) {
+                    assistant.style.animation = 'assistantBounce 1.5s ease-in-out, assistantFloat 3s ease-in-out infinite';
+                    
+                    // Create extra sparkles around RED
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => createSparkle(), i * 200);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1500);
+                }
+            });
+        }
+        
+        // Add environmental awareness
+        function addEnvironmentalAwareness() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            // Notice when new console lines appear
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                        // Something was added to the page
+                        if (Math.random() > 0.7 && !isMoving) {
+                            // Look towards the console area
+                            const console = document.querySelector('.code-console');
+                            if (console) {
+                                const consoleRect = console.getBoundingClientRect();
+                                const assistantRect = assistant.getBoundingClientRect();
+                                
+                                // Calculate direction to look
+                                const deltaX = consoleRect.left - assistantRect.left;
+                                const deltaY = consoleRect.top - assistantRect.top;
+                                const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+                                
+                                // Briefly tilt towards the console
+                                assistant.style.transform = `rotate(${angle * 0.1}deg)`;
+                                assistant.style.animation = 'assistantCurious 1s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                                
+                                setTimeout(() => {
+                                    assistant.style.transform = 'rotate(0deg)';
+                                    if (!isMoving) {
+                                        assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                                    }
+                                }, 1000);
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Observe the console content for changes
+            const consoleContent = document.querySelector('.console-content');
+            if (consoleContent) {
+                observer.observe(consoleContent, { childList: true, subtree: true });
+            }
+            
+            // React to page scroll (if any)
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (Math.random() > 0.8 && !isMoving) {
+                        assistant.style.animation = 'assistantWiggle 0.8s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                        
+                        setTimeout(() => {
+                            if (!isMoving) {
+                                assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                            }
+                        }, 800);
+                    }
+                }, 100);
+            });
+            
+            // Periodically check deployment progress and react
+            setInterval(() => {
+                const activeStep = document.querySelector('.step-circle.active');
+                const completedSteps = document.querySelectorAll('.step-circle.completed');
+                
+                if (activeStep && Math.random() > 0.6 && !isMoving) {
+                    // Show excitement for progress
+                    assistant.style.animation = 'assistantExcited 1s ease-in-out, assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    
+                    // Update message to reflect progress
+                    const bubble = assistant.querySelector('.assistant-thought-bubble');
+                    if (bubble && completedSteps.length > 0) {
+                        const progressMessages = [
+                            `${completedSteps.length}/3 steps done! 🎯`,
+                            'Making great progress! 📈',
+                            'Step by step! 👣',
+                            'Things are moving! 🚀'
+                        ];
+                        const originalText = bubble.textContent;
+                        bubble.textContent = progressMessages[Math.floor(Math.random() * progressMessages.length)];
+                        
+                        setTimeout(() => {
+                            bubble.textContent = originalText;
+                        }, 3000);
+                    }
+                    
+                    setTimeout(() => {
+                        if (!isMoving) {
+                            assistant.style.animation = 'assistantFloat 3s ease-in-out infinite, assistantBreathe 2s ease-in-out infinite';
+                    }
+                    }, 1000);
+                }
+            }, 6000 + Math.random() * 4000);
+        }
+        
+        // Add blinking functionality
+        function addBlinkingBehavior() {
+            const assistant = document.querySelector('.red-assistant');
+            if (!assistant) return;
+            
+            const assistantImg = assistant.querySelector('img');
+            if (!assistantImg) return;
+            
+            const originalSrc = '/assets/avatars/assistant-red.png';
+            const blinkSrc = '/assets/avatars/assistant-red-sleeping.png'; // Using sleeping image for blink effect
+            
+            function performBlink() {
+                // Don't blink if moving or if already blinking
+                if (isMoving || assistantImg.src.includes('blink')) return;
+                
+                // Change to blink image
+                assistantImg.src = blinkSrc;
+                
+                // Change back after a brief moment
+                setTimeout(() => {
+                    if (assistantImg.src.includes('blink')) {
+                        assistantImg.src = originalSrc;
+                    }
+                }, 150 + Math.random() * 100); // 150-250ms blink duration
+            }
+            
+            // Schedule random blinks
+            function scheduleNextBlink() {
+                const blinkInterval = 3000 + Math.random() * 7000; // 3-10 seconds between blinks
+                setTimeout(() => {
+                    performBlink();
+                    scheduleNextBlink();
+                }, blinkInterval);
+            }
+            
+            // Start blinking cycle
+            setTimeout(scheduleNextBlink, 2000);
+            
+            // Also blink on certain interactions
+            assistant.addEventListener('click', () => {
+                setTimeout(performBlink, 300);
+            });
+            
+            // Blink when excited or curious
+            const originalAnimation = assistant.style.animation;
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const currentAnimation = assistant.style.animation;
+                        if (currentAnimation.includes('assistantExcited') || currentAnimation.includes('assistantCurious')) {
+                            setTimeout(performBlink, 200);
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(assistant, { attributes: true, attributeFilter: ['style'] });
+        }
+        
+        // Initialize all animations and interactions
+        function initializePage() {
+            // Initialize persistent timer
+            initializeTimer();
+            
+            // Initialize console
+            initializeConsole();
+            
+            // Setup interactions
+            setupLabEquipmentInteraction();
+            setupAssistantInteraction();
+            setupMouseEffects();
+            
+            // Start RED assistant movement
+            moveAssistantFreely();
+            
+            // Start regular updates
+            setInterval(updateDeploymentProgress, 4000);
+            setInterval(updateCodeConsole, 3000);
+            setInterval(createSparkle, 8000);
+            setInterval(createLabSparkle, 12000);
+            
+            // Show initial fun fact after 2 seconds
+            setTimeout(showRandomFact, 2000);
+            
+            // Start auto-refresh cycle
+            smartRefresh();
+        }
+        
+        // Mouse trail effects
+        function setupMouseEffects() {
+            let lastParticleTime = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastParticleTime > 100) { // Throttle particle creation
+                    createMouseParticle(e.clientX, e.clientY);
+                    lastParticleTime = now;
+                }
+            });
+            
+            // Add click effects
+            document.addEventListener('click', (e) => {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        createMouseParticle(
+                            e.clientX + (Math.random() - 0.5) * 40,
+                            e.clientY + (Math.random() - 0.5) * 40
+                        );
+                    }, i * 50);
+                }
+            });
+        }
+        
+        function createMouseParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const colors = ['#e4093e', '#518cea', '#ae6cfc', '#ffd700'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 6 + 2;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (document.body.contains(particle)) {
+                    document.body.removeChild(particle);
+                }
+            }, 2000);
+        }
+        
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePage();
+        });
+        
+        // Page visibility API to pause animations when not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Page is hidden, could pause some animations
+                console.log('🔬 Lab session paused');
+            } else {
+                // Page is visible again
+                console.log('🔬 Lab session resumed');
+                updateAssistantMessage();
+            }
+        });
+    </script>
+</body>
+</html>
