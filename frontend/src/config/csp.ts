@@ -11,7 +11,7 @@ script-src 'self' 'unsafe-inline' https://script.google.com https://script.googl
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com;
+connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com;
 object-src 'none';
 media-src 'self';
 child-src 'none';
@@ -34,7 +34,7 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.google.com https:
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com https: ws: wss:;
+connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com https: ws: wss:;
 object-src 'none';
 media-src 'self';
 child-src 'none';
@@ -77,7 +77,7 @@ script-src ${scriptSrc};
 style-src ${styleSrc};
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com ${isDevelopment ? "https: ws: wss:" : ""};
+connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com ${isDevelopment ? "https: ws: wss:" : ""};
 object-src 'none';
 media-src 'self';
 child-src 'none';

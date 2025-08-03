@@ -43,7 +43,7 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.google.com https:
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com https: ws: wss:;
+connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com https: ws: wss: ws://localhost:* wss://localhost:*;
 object-src 'none';
 media-src 'self';
 child-src 'none';
@@ -56,11 +56,21 @@ form-action 'self' https://script.google.com https://script.googleusercontent.co
             .replace(/\s+/g, " ")
             .trim();
 
-          html = html.replace(
-            "<head>",
-            `<head>
+          // Replace existing CSP meta tag or add new one
+          const cspRegex =
+            /<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*>/i;
+          if (html.match(cspRegex)) {
+            html = html.replace(
+              cspRegex,
+              `<meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
+            );
+          } else {
+            html = html.replace(
+              "<head>",
+              `<head>
     <meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
-          );
+            );
+          }
         } else {
           // Production: Use strict CSP with nonces
           const scriptNonce = generateCSPNonce();
