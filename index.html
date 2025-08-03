@@ -143,7 +143,7 @@
         nav { flex-direction: column; gap: 1rem; }
       }
     </style>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-db9bed68137388a47b8ec49901c5ccf8' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-e4f189295b359de50bacea6ad699196d' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com ; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-b6155785d2eae095f5311cb1c1eb2330' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-275d2ddb22bedc831474c77cbc7deb43' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com ; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com;">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -219,7 +219,7 @@
     <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
 
     <!-- Structured Data -->
-    <script nonce="db9bed68137388a47b8ec49901c5ccf8" type="application/ld+json">
+    <script nonce="b6155785d2eae095f5311cb1c1eb2330" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -255,10 +255,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
     <link
-      rel="preload"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
     <!-- Preload critical images -->
     <link rel="preload" href="/assets/logos/thinkRED-np.svg" as="image" />
@@ -268,8 +266,17 @@
     <link rel="dns-prefetch" href="https://api.thinkred.tech" />
     <link rel="dns-prefetch" href="https://script.google.com" />
     
+    <!-- Noscript styles -->
+    
+    <!-- Preload CSS for better performance -->
+    <link rel="preload" href="/noscript.css" as="style" crossorigin>
+    
+    <!-- Non-blocking CSS loading -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" crossorigin href="/noscript.css">
+    <noscript><link rel="stylesheet" crossorigin href="/noscript.css"></noscript>
+    
     <!-- Critical above-the-fold CSS -->
-    <style nonce="e4f189295b359de50bacea6ad699196d">
+    <style nonce="275d2ddb22bedc831474c77cbc7deb43">
       /* Critical CSS for above-the-fold content */
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { line-height: 1.15; }
@@ -408,7 +415,7 @@
     /></noscript>
 
     <!-- GitHub Pages SPA redirect handling -->
-    <script nonce="db9bed68137388a47b8ec49901c5ccf8" type="text/javascript">
+    <script nonce="b6155785d2eae095f5311cb1c1eb2330" type="text/javascript">
       // Handle GitHub Pages SPA routing
       (function (l) {
         if (l.search[1] === "/") {
@@ -440,39 +447,19 @@
         });
       }
     </script>
-        <link rel="preload" href="/assets/index-AkmW5N8C.js" as="script" crossorigin>
-    <script nonce="db9bed68137388a47b8ec49901c5ccf8" type="module" crossorigin src="/assets/index-AkmW5N8C.js"></script>
+        <link rel="preload" href="/assets/index-Dc68A7DP.js" as="script" crossorigin>
+    <script nonce="b6155785d2eae095f5311cb1c1eb2330" type="module" crossorigin src="/assets/index-Dc68A7DP.js"></script>
         <link rel="preload" href="/assets/vendors-975d4WgJ.js" as="script" crossorigin>
     <link rel="modulepreload" crossorigin href="/assets/vendors-975d4WgJ.js">
     <link rel="modulepreload" crossorigin href="/assets/react-core-B7X0rtmB.js">
     <link rel="modulepreload" crossorigin href="/assets/react-router-QZu9Qi68.js">
-    
-    <!-- Preload CSS for better performance -->
-    <link rel="preload" href="/assets/index-QpaCARuP.css" as="style" crossorigin>
-    
-    <!-- Non-blocking CSS loading -->
-    <link rel="stylesheet" media="print" onload="this.media='all'" crossorigin href="/assets/index-QpaCARuP.css">
-    <noscript><link rel="stylesheet" crossorigin href="/assets/index-QpaCARuP.css"></noscript>
+    <link rel="stylesheet" crossorigin href="/assets/index-Chy_jdRx.css">
   </head>
   <body>
     <noscript>
-      <div
-        style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          text-align: center;
-          font-family:
-            &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;
-          background-color: #f5f5f5;
-          color: #333;
-          padding: 20px;
-        "
-      >
-        <h1 style="margin-bottom: 20px">JavaScript Required</h1>
-        <p style="max-width: 600px; line-height: 1.6">
+      <div class="noscript-container">
+        <h1 class="noscript-title">JavaScript Required</h1>
+        <p class="noscript-message">
           This website requires JavaScript to function properly. Please enable
           JavaScript in your browser and refresh the page.
         </p>
