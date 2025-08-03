@@ -141,15 +141,21 @@ MAJOR.MINOR.PATCH[-PRERELEASE]
 
 ### Version Bump Decision Matrix
 
-| Detected Changes                          | Version Type | Example           |
-| ----------------------------------------- | ------------ | ----------------- |
-| Breaking changes (BREAKING, !, major:)    | **Major**    | 1.0.0 → 2.0.0     |
-| New features (feat, add, new)             | **Minor**    | 1.0.0 → 1.1.0     |
-| Performance improvements (perf, optimize) | **Minor**    | 1.0.0 → 1.1.0     |
-| Bug fixes (fix, bug, patch)               | **Patch**    | 1.0.0 → 1.0.1     |
-| Security updates (security, vuln, cve)    | **Patch**    | 1.0.0 → 1.0.1     |
-| Dependency updates (package.json)         | **Patch**    | 1.0.0 → 1.0.1     |
-| Documentation only                        | **None**     | No version change |
+| Detected Changes                       | Version Type | Example       |
+| -------------------------------------- | ------------ | ------------- |
+| Breaking changes (BREAKING, !, major:) | **Major**    | 1.0.0 → 2.0.0 |
+
+| New features (feat, add, new) | **Minor** | 1.0.0 → 1.1.0 |
+
+| Performance improvements (perf, optimize) | **Minor** | 1.0.0 → 1.1.0 |
+
+| Bug fixes (fix, bug, patch) | **Patch** | 1.0.0 → 1.0.1 |
+
+| Security updates (security, vuln, cve) | **Patch** | 1.0.0 → 1.0.1 |
+
+| Dependency updates (package.json) | **Patch** | 1.0.0 → 1.0.1 |
+
+| Documentation only | **None** | No version change |
 
 ### Prerelease Versioning
 
@@ -164,6 +170,7 @@ For beta/testing versions:
 ### Automatic Release Triggers
 
 1. **Version Change + Changelog Update**: Standard release condition
+
 2. **Security Updates**: Automatic release regardless of changelog
 3. **Breaking Changes**: Automatic release with proper documentation
 4. **Major Versions**: Automatic release for significant changes
@@ -173,10 +180,14 @@ For beta/testing versions:
 | Condition               | Changelog Updated | Security Update | Breaking Change | Result         |
 | ----------------------- | ----------------- | --------------- | --------------- | -------------- |
 | Version change detected | ✅ Yes            | -               | -               | ✅ **Release** |
-| Version change detected | ❌ No             | ✅ Yes          | -               | ✅ **Release** |
-| Version change detected | ❌ No             | ❌ No           | ✅ Yes          | ✅ **Release** |
-| Version change detected | ❌ No             | ❌ No           | ❌ No           | ⏸️ **Hold**    |
-| No version change       | -                 | -               | -               | ⏸️ **Skip**    |
+
+| Version change detected | ❌ No | ✅ Yes | - | ✅ **Release** |
+
+| Version change detected | ❌ No | ❌ No | ✅ Yes | ✅ **Release** |
+
+| Version change detected | ❌ No | ❌ No | ❌ No | ⏸️ **Hold** |
+
+| No version change | - | - | - | ⏸️ **Skip** |
 
 ### Manual Release Override
 
@@ -249,27 +260,27 @@ To ensure proper version detection, follow these commit message patterns:
 
 ```bash
 
-# Features (Minor version bump)
+## Features (Minor version bump)
 
 feat: add new contact form validation
 feature: implement job application filtering
 
-# Bug fixes (Patch version bump)
+## Bug fixes (Patch version bump)
 
 fix: resolve memory leak in avatar component
 bug: correct portfolio sorting logic
 
-# Breaking changes (Major version bump)
+## Breaking changes (Major version bump)
 
 feat!: restructure API endpoints
 BREAKING: remove deprecated authentication method
 
-# Security updates (Patch version bump + auto-release)
+## Security updates (Patch version bump + auto-release)
 
 security: patch XSS vulnerability in forms
 fix: resolve CVE-2024-12345 in dependencies
 
-# Performance improvements (Minor version bump)
+## Performance improvements (Minor version bump)
 
 perf: optimize bundle size and loading times
 optimize: improve image loading performance

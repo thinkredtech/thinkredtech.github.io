@@ -26,7 +26,7 @@ The sensitive data exposure was a **false positive** caused by:
 
 ```toml
 
-# Comprehensive configuration to prevent false positives
+## Comprehensive configuration to prevent false positives
 
 [allowlist]
 description = "Allow known safe patterns and documentation examples"
@@ -40,7 +40,7 @@ regexes = [
     # ... additional patterns
 ]
 
-# Allow documentation files
+## Allow documentation files
 
 paths = [
     'README.md',
@@ -122,11 +122,13 @@ const ADMIN_PASSWORD = "<ACTUAL_VALUE_FROM_BUILD_PROCESS>";
 
 ## 📝 Files Modified
 
-| File             | Change Type | Description                                   |
-| ---------------- | ----------- | --------------------------------------------- |
-| `.gitleaks.toml` | **Created** | Comprehensive security scanner configuration  |
-| `README.md`      | **Updated** | Improved placeholder formats in documentation |
-| `.env.example`   | **Updated** | Safer placeholder pattern                     |
+| File             | Change Type | Description                                  |
+| ---------------- | ----------- | -------------------------------------------- |
+| `.gitleaks.toml` | **Created** | Comprehensive security scanner configuration |
+
+| `README.md` | **Updated** | Improved placeholder formats in documentation |
+
+| `.env.example` | **Updated** | Safer placeholder pattern |
 
 ## ✨ Benefits Achieved
 
