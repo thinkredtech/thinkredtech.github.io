@@ -216,4 +216,4 @@ touch reports/performance/quick-check/.gitkeep
 
 - [Performance Testing System](PERFORMANCE.md)
 - [Performance Quick Start Guide](PERFORMANCE_QUICK_START.md)
-- [Performance Testing Documentation](PERFORMANCE_TESTING.md)
+- [Performance Testing Documentation](operations/performance/testing.md)

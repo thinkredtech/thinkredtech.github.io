@@ -1,17 +1,28 @@
-# ThinkRED Technologies Website - Developer Documentation
+# 📚 ThinkRED Technologies Documentation Hub
 
-This directory contains technical documentation for developers working on the ThinkRED Technologies website.
+Welcome to the comprehensive documentation system for ThinkRED Technologies. This unified hub provides organized access to all technical, content, and operational documentation.
 
-## Overview
+## 🎯 Quick Navigation
 
-The ThinkRED website is a modern React-based company website with a Google Apps Script backend. This documentation covers the technical aspects of development, deployment, and maintenance.
+### For Developers
 
-## Quick Start
+- **[🚀 Getting Started](./developer/setup/installation.md)** - Set up your development environment
+- **[🏗️ Architecture](./developer/architecture/system-overview.md)** - System design and structure
+- **[📡 API Reference](./developer/apis/backend-apis.md)** - Integration documentation
 
-1. **Project Setup**: See [DEVELOPMENT.md](./DEVELOPMENT.md) for local development setup
-2. **Architecture**: Review [ARCHITECTURE.md](./ARCHITECTURE.md) for system overview
-3. **API Documentation**: Check [API.md](./API.md) for backend integration details
-4. **Deployment**: Follow [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment procedures
+### For Content Creators
+
+- **[📝 Content Guidelines](./content/README.md)** - Content creation standards
+- **[📰 Blog Management](./content/blog/README.md)** - Blog post creation and management
+- **[📄 Page Content](./content/pages/README.md)** - Website page content management
+
+### For DevOps & Operations
+
+- **[🚀 Deployment](./developer/deployment/production.md)** - Production deployment guide
+- **[📊 Monitoring](./operations/monitoring/README.md)** - System monitoring and alerts
+- **[🔒 Security](./operations/security/README.md)** - Security policies and procedures
+
+## 📖 Documentation Categories
 
 ## Documentation Structure
 
@@ -252,7 +263,7 @@ Found an issue or want to improve the documentation?
 ### **🚀 Quick Links**
 
 - **[🏠 Main Repository](https://github.com/thinkredtech/thinkredtech.github.io)** - Source code
-- **[🌐 Live Demo](https://thinkred.netlify.app)** - See it in action
+- **[🌐 Live Demo](https://thinkred.tech)** - See it in action
 - **[📊 Project Board](https://github.com/thinkredtech/thinkredtech.github.io/projects)** - Development progress
 
 ---

@@ -236,6 +236,6 @@ npm run perf:cleanup -- --dry-run
 For detailed usage instructions and configuration options, see:
 
 - [Performance Quick Start Guide](PERFORMANCE_QUICK_START.md)
-- [Performance Testing Documentation](PERFORMANCE_TESTING.md)
+- [Performance Testing Documentation](operations/performance/testing.md)
 - [Performance Reports Management](PERFORMANCE_REPORTS.md)
 - [Task Management System](TASK_MANAGEMENT.md)
