@@ -31,6 +31,7 @@
     "deploy": "gh-pages -d dist -b gh-pages",
     "deploy:github": "npm run build && gh-pages -d dist -b gh-pages",
     "deploy:hostinger": "../scripts/deploy/deploy-hostinger-zero-downtime.sh",
+    "deploy:hostinger-interactive": "../scripts/deploy/deploy-hostinger-interactive.sh",
     "deploy:hostinger-legacy": "../scripts/deploy/deploy-hostinger.sh",
     "deploy:ssh": "../scripts/deploy/deploy-ssh.sh",
     "debug:github-pages": "../scripts/dev/debug-github-pages.sh",

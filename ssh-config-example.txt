@@ -1,0 +1,12 @@
+# SSH Configuration for ThinkRED Hostinger Deployment
+# Add this to your ~/.ssh/config file
+
+Host thinkred-hostinger
+    HostName 147.93.109.69
+    Port 65002
+    User u468045938
+    # Uncomment the following lines if you want to use specific settings:
+    # IdentityFile ~/.ssh/id_ed25519
+    # ServerAliveInterval 60
+    # ServerAliveCountMax 3
+    # ForwardAgent yes

@@ -183,7 +183,7 @@ const TASKS = {
     description: "Deploy frontend only",
     workspaces: ["frontend"],
     parallel: false,
-    script: "deploy:hostinger",
+    script: "deploy:hostinger-interactive",
   },
   "deploy:backend": {
     description: "Deploy backend only",
