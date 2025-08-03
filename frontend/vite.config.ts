@@ -25,6 +25,7 @@ export default defineConfig({
     open: true,
     host: "0.0.0.0",
     middlewareMode: false,
+    hmr: true, // Let Vite auto-configure HMR port
     proxy: {},
     fs: {
       strict: false,
