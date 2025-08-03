@@ -223,11 +223,15 @@ jobs:
 
   # Performance testing
   performance-testing:
-    name: ⚡ Performance Testing
+    name: ⚡ Smart Performance Testing
     runs-on: ubuntu-latest
     needs: [build-verification]
     outputs:
       lighthouse-score: ${{ steps.lighthouse.outputs.score }}
+      performance-status: ${{ steps.lighthouse.outputs.status }}
+      accessibility-score: ${{ steps.lighthouse.outputs.accessibility }}
+      seo-score: ${{ steps.lighthouse.outputs.seo }}
+      deployment-ready: ${{ steps.lighthouse.outputs.deployment-ready }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -242,39 +246,173 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli
+      - name: Install dependencies
+        run: |
+          # Install performance testing dependencies
+          npm install lighthouse chrome-launcher puppeteer sharp
 
-      - name: Serve build and run Lighthouse
+      - name: Run Smart Lighthouse Testing
         id: lighthouse
         run: |
-          echo "⚡ Running Lighthouse performance tests..."
+          echo "🚀 Running Smart Lighthouse Performance Testing..."
 
-          # Start a simple HTTP server
+          # Start a simple HTTP server for local testing
           npx serve -s build -l 3000 &
           server_pid=$!
 
           # Wait for server to start
-          sleep 5
+          sleep 10
 
-          # Run Lighthouse
-          lhci autorun --upload.target=temporary-public-storage --collect.url=http://localhost:3000 || {
-            echo "⚠️ Lighthouse scan failed, continuing..."
-            echo "score=unknown" >> $GITHUB_OUTPUT
+          # Verify server is running
+          if ! curl -f http://localhost:3000 > /dev/null 2>&1; then
+            echo "❌ Local server failed to start"
+            kill $server_pid 2>/dev/null || true
+            exit 1
+          fi
+
+          # Run comprehensive performance testing
+          node scripts/performance/performance-orchestrator.js \
+            --scenario pre-deployment \
+            --url http://localhost:3000 \
+            --devices desktop,mobile \
+            --format json,html \
+            --ci-mode true || {
+            echo "⚠️ Performance testing failed, checking results..."
+            test_exit_code=$?
           }
 
-          # Clean up
+          # Clean up server
           kill $server_pid 2>/dev/null || true
 
-          echo "score=completed" >> $GITHUB_OUTPUT
+          # Parse results from the generated reports
+          if [ -f "reports/performance/aggregated/performance-summary.json" ]; then
+            # Extract scores from the summary report
+            perf_score=$(cat reports/performance/aggregated/performance-summary.json | jq -r '.averageScores.performance // 0')
+            accessibility_score=$(cat reports/performance/aggregated/performance-summary.json | jq -r '.averageScores.accessibility // 0')
+            seo_score=$(cat reports/performance/aggregated/performance-summary.json | jq -r '.averageScores.seo // 0')
+            deployment_ready=$(cat reports/performance/aggregated/performance-summary.json | jq -r '.deploymentValidation.ready // false')
+            overall_status=$(cat reports/performance/aggregated/performance-summary.json | jq -r '.summary.status // "unknown"')
+
+            echo "score=$perf_score" >> $GITHUB_OUTPUT
+            echo "accessibility=$accessibility_score" >> $GITHUB_OUTPUT
+            echo "seo=$seo_score" >> $GITHUB_OUTPUT
+            echo "deployment-ready=$deployment_ready" >> $GITHUB_OUTPUT
+            echo "status=$overall_status" >> $GITHUB_OUTPUT
+
+            echo "📊 Performance Results:"
+            echo "   Performance Score: $perf_score"
+            echo "   Accessibility Score: $accessibility_score"
+            echo "   SEO Score: $seo_score"
+            echo "   Deployment Ready: $deployment_ready"
+            echo "   Overall Status: $overall_status"
+
+            # Check if performance meets thresholds for deployment
+            if [ "$deployment_ready" = "true" ] && [ "$perf_score" -ge "85" ]; then
+              echo "✅ Performance testing passed - ready for deployment"
+            else
+              echo "⚠️ Performance testing indicates issues - review required"
+              if [ "${test_exit_code:-0}" -ne "0" ]; then
+                echo "❌ Critical performance issues detected"
+                exit 1
+              fi
+            fi
+          else
+            echo "⚠️ Performance report not found, using fallback testing"
+            # Fallback to basic lighthouse testing
+            npm install -g @lhci/cli
+            npx serve -s build -l 3001 &
+            fallback_pid=$!
+            sleep 5
+            
+            lhci autorun --collect.url=http://localhost:3001 --upload.target=temporary-public-storage || {
+              echo "score=unknown" >> $GITHUB_OUTPUT
+              echo "status=failed" >> $GITHUB_OUTPUT
+              kill $fallback_pid 2>/dev/null || true
+              exit 1
+            }
+            
+            kill $fallback_pid 2>/dev/null || true
+            echo "score=completed" >> $GITHUB_OUTPUT
+            echo "status=completed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload Performance Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-reports
+          path: |
+            reports/performance/
+            !reports/performance/**/*.json
+          retention-days: 30
+
+      - name: Upload Performance Data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-data
+          path: reports/performance/**/*.json
+          retention-days: 90
+
+      - name: Comment Performance Results on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            try {
+              const summaryPath = 'reports/performance/aggregated/performance-summary.json';
+              if (fs.existsSync(summaryPath)) {
+                const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+                
+                const comment = `## 🚀 Performance Testing Results
+
+            | Metric | Score | Status |
+            |--------|-------|--------|
+            | Performance | ${summary.averageScores?.performance || 'N/A'} | ${summary.averageScores?.performance >= 85 ? '✅' : '⚠️'} |
+            | Accessibility | ${summary.averageScores?.accessibility || 'N/A'} | ${summary.averageScores?.accessibility >= 90 ? '✅' : '⚠️'} |
+            | SEO | ${summary.averageScores?.seo || 'N/A'} | ${summary.averageScores?.seo >= 90 ? '✅' : '⚠️'} |
+            | Best Practices | ${summary.averageScores?.bestPractices || 'N/A'} | ${summary.averageScores?.bestPractices >= 90 ? '✅' : '⚠️'} |
+
+            **Overall Grade:** ${summary.averageGrade || 'N/A'}
+            **Deployment Ready:** ${summary.deploymentValidation?.ready ? '✅ Yes' : '❌ No'}
+
+            ${summary.recommendations?.length > 0 ? `
+            ### 🎯 Top Recommendations:
+            ${summary.recommendations.slice(0, 3).map(rec => `- **${rec.title}**: ${rec.impact}`).join('\n')}
+            ` : ''}
+
+            📊 [View Detailed Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+                
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
+            } catch (error) {
+              console.log('Could not post performance comment:', error.message);
+            }
 
   # Deployment readiness
   deployment-readiness:
     name: 🚀 Deployment Readiness
     runs-on: ubuntu-latest
     needs:
-      [pre-flight, quality-assurance, build-verification, security-scanning]
+      [
+        pre-flight,
+        quality-assurance,
+        build-verification,
+        security-scanning,
+        performance-testing,
+      ]
     if: needs.pre-flight.outputs.should-deploy == 'true'
     outputs:
       ready-to-deploy: ${{ steps.readiness.outputs.ready }}
@@ -288,18 +426,46 @@ jobs:
           qa_status="${{ needs.quality-assurance.result }}"
           build_status="${{ needs.build-verification.result }}"
           security_status="${{ needs.security-scanning.outputs.security-status }}"
+          performance_status="${{ needs.performance-testing.outputs.performance-status }}"
+          performance_ready="${{ needs.performance-testing.outputs.deployment-ready }}"
+          perf_score="${{ needs.performance-testing.outputs.lighthouse-score }}"
 
-          if [[ "$qa_status" == "success" && "$build_status" == "success" && "$security_status" != "failed" ]]; then
+          echo "📊 Status Summary:"
+          echo "   QA Status: $qa_status"
+          echo "   Build Status: $build_status"
+          echo "   Security Status: $security_status"
+          echo "   Performance Status: $performance_status"
+          echo "   Performance Ready: $performance_ready"
+          echo "   Performance Score: $perf_score"
+
+          # Check performance thresholds
+          performance_acceptable="true"
+          if [ "$performance_ready" = "false" ] || [ "${perf_score:-0}" -lt "80" ]; then
+            performance_acceptable="false"
+            echo "⚠️ Performance requirements not met"
+          fi
+
+          # Determine overall readiness
+          if [[ "$qa_status" == "success" && 
+                "$build_status" == "success" && 
+                "$security_status" != "failed" && 
+                "$performance_status" != "failed" && 
+                "$performance_acceptable" == "true" ]]; then
             echo "ready=true" >> $GITHUB_OUTPUT
             echo "✅ Ready for deployment"
             echo "📦 Build size: ${{ needs.build-verification.outputs.build-size }}"
             echo "🔒 Security status: $security_status"
+            echo "⚡ Performance score: $perf_score"
+            echo "♿ Accessibility score: ${{ needs.performance-testing.outputs.accessibility-score }}"
           else
             echo "ready=false" >> $GITHUB_OUTPUT
             echo "❌ Not ready for deployment"
-            echo "QA Status: $qa_status"
-            echo "Build Status: $build_status"
-            echo "Security Status: $security_status"
+            echo "Reasons:"
+            [[ "$qa_status" != "success" ]] && echo "   - Quality assurance failed: $qa_status"
+            [[ "$build_status" != "success" ]] && echo "   - Build verification failed: $build_status"
+            [[ "$security_status" == "failed" ]] && echo "   - Security issues detected: $security_status"
+            [[ "$performance_status" == "failed" ]] && echo "   - Performance testing failed: $performance_status"
+            [[ "$performance_acceptable" == "false" ]] && echo "   - Performance requirements not met (Score: $perf_score, Ready: $performance_ready)"
           fi
 
   # Deployment
@@ -431,7 +597,10 @@ jobs:
           echo "- **Version**: ${{ needs.pre-flight.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Build Size**: ${{ needs.build-verification.outputs.build-size }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Security Status**: ${{ needs.security-scanning.outputs.security-status }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Lighthouse Score**: ${{ needs.performance-testing.outputs.lighthouse-score }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Performance Score**: ${{ needs.performance-testing.outputs.lighthouse-score }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Accessibility Score**: ${{ needs.performance-testing.outputs.accessibility-score }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **SEO Score**: ${{ needs.performance-testing.outputs.seo-score }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment Ready**: ${{ needs.performance-testing.outputs.deployment-ready }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
           echo "- [Live Website](https://www.thinkred.tech)" >> $GITHUB_STEP_SUMMARY

@@ -22,6 +22,7 @@
 ## 🌟 About ThinkRED
 
 **ThinkRED Technologies LLP** is a premier engineering-focused technology consultancy that
+
 transforms complex technological challenges into elegant solutions. Founded by engineers from
 **Mozilla**, **Fedora**, and **Red Hat**, we bring open-source innovation and enterprise-grade
 expertise to businesses worldwide.
@@ -88,27 +89,29 @@ Optimized for speed and accessibility
 ### Prerequisites
 
 - **Node.js** 20+ (LTS recommended)
+
 - **npm** or **yarn** package manager
+
 - **Git** for version control
 
 ### Installation
 
 ```bash
 
-# Clone the repository
+## Clone the repository
 
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
-# Install dependencies
+## Install dependencies
 
 npm install
 
-# Start development server
+## Start development server
 
 npm run dev
 
-# Build for production
+## Build for production
 
 npm run build
 ```
@@ -117,27 +120,27 @@ npm run build
 
 ```bash
 
-# Development server with hot reload
+## Development server with hot reload
 
 npm run dev
 
-# Production build
+## Production build
 
 npm run build
 
-# Preview production build
+## Preview production build
 
 npm run preview
 
-# Run linting
+## Run linting
 
 npm run lint
 
-# Run type checking
+## Run type checking
 
 npm run type-check
 
-# Run tests
+## Run tests
 
 npm test
 ```
@@ -146,13 +149,33 @@ npm test
 
 ## 📊 Project Status
 
-| **Component**            |                                                         **Status**                                                          | **Details**                                                                                                  |
-| :----------------------- | :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------- |
-| **🚀 CI/CD Pipeline**    |       ![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg)       | [View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml) |
-| **🔒 Security Checks**   | ![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg) | [Security Report](./docs/security-architecture.md)                                                           |
-| **🏥 Repository Health** | ![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg) | [Health Dashboard](./reports/automated/health-report.md)                                                     |
-| **⚡ Performance**       |          ![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse)           | [Performance Report](./reports/automated/status-dashboard.md)                                                |
-| **📦 Dependencies**      |         ![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot)          | [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions)                          |
+| **Component** | **Status** | **Details** |
+
+| :----------------------- |
+:-------------------------------------------------------------------------------------------------------------------------:
+|
+:-----------------------------------------------------------------------------------------------------------
+| | **🚀 CI/CD Pipeline** |
+![CI/CD](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml/badge.svg)
+|
+[View Workflow](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/ci-cd-pipeline.yml)
+|
+
+| **🔒 Security Checks** |
+![Security](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/quality-security-checks.yml/badge.svg)
+| [Security Report](./docs/security-architecture.md) |
+
+| **🏥 Repository Health** |
+![Health](https://github.com/thinkredtech/thinkredtech.github.io/actions/workflows/repository-health-monitor.yml/badge.svg)
+| [Health Dashboard](./reports/automated/health-report.md) |
+
+| **⚡ Performance** |
+![Performance](https://img.shields.io/badge/Lighthouse-A+-brightgreen?style=flat-square&logo=lighthouse)
+| [Performance Report](./reports/automated/status-dashboard.md) |
+
+| **📦 Dependencies** |
+![Dependencies](https://img.shields.io/badge/Dependencies-✓-brightgreen?style=flat-square&logo=dependabot)
+| [Dependency Health](https://github.com/thinkredtech/thinkredtech.github.io/actions) |
 
 ---
 
@@ -247,15 +270,21 @@ try {
 ## �📖 Documentation
 
 - **[Website Overview](./docs/website-overview.md)** - Comprehensive project overview
+
 - **[Security Architecture](./docs/security-architecture.md)** - Security implementation details
+
 - **[Brand Guidelines](./docs/brand-guidelines.md)** - Brand identity and design system
+
 - **[Company Information](./docs/company-info.md)** - About ThinkRED Technologies
+
 - **[Design System](./docs/design-system.md)** - UI/UX design principles
 
 ### 📊 **Reports & Monitoring**
 
 - **[Health Report](./reports/automated/health-report.md)** - Repository health metrics
+
 - **[Status Dashboard](./reports/automated/status-dashboard.md)** - Real-time system status
+
 - **[Security Reports](./reports/security/)** - Security audit reports
 
 ---
@@ -275,15 +304,15 @@ This project maintains high code quality standards through:
 
 ```bash
 
-# Run unit tests
+## Run unit tests
 
 npm test
 
-# Run tests with coverage
+## Run tests with coverage
 
 npm run test:coverage
 
-# Run end-to-end tests
+## Run end-to-end tests
 
 npm run test:e2e
 ```
@@ -312,16 +341,16 @@ The application is automatically deployed to GitHub Pages through GitHub Actions
 
 ```bash
 
-# Build and deploy to GitHub Pages
+## Build and deploy to GitHub Pages
 
 npm run build
 npm run deploy
 
-# Deploy to custom hosting
+## Deploy to custom hosting
 
 npm run build
 
-# Upload build/ directory to your hosting provider
+## Upload build/ directory to your hosting provider
 
 ```
 

@@ -39,6 +39,11 @@
     "reports:health": "npm run task reports:health",
     "reports:status": "npm run task reports:status",
     "reports:generate": "npm run task reports:generate",
+    "perf:test": "node scripts/performance/performance-orchestrator.js",
+    "perf:validate": "node scripts/performance/enhanced-pre-deployment-validator.js",
+    "perf:fix": "node scripts/performance/performance-auto-fixer.js",
+    "perf:config": "node scripts/performance/performance-config.js",
+    "perf:smart": "node scripts/performance/smart-lighthouse-tester.js",
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
@@ -48,11 +53,16 @@
     "lint:backend": "cd backend && npm run lint || echo 'Backend linting not configured'"
   },
   "devDependencies": {
-    "semver": "^7.5.4",
+    "@google/clasp": "^2.4.2",
     "chalk": "^4.1.2",
+    "chrome-launcher": "^1.1.0",
     "inquirer": "^8.2.6",
-    "shelljs": "^0.8.5",
-    "@google/clasp": "^2.4.2"
+    "lighthouse": "^12.8.1",
+    "puppeteer": "^24.15.0",
+    "semver": "^7.5.4",
+    "serve": "^14.2.4",
+    "sharp": "^0.33.1",
+    "shelljs": "^0.8.5"
   },
   "engines": {
     "node": ">=16.0.0",

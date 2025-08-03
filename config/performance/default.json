@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "environments": {
+    "development": {
+      "name": "Development",
+      "baseUrls": ["http://localhost:3000"],
+      "description": "Local development server testing",
+      "discoveryMode": true,
+      "maxPages": 5,
+      "retryAttempts": 1,
+      "timeout": 30000
+    },
+    "staging": {
+      "name": "Staging",
+      "baseUrls": ["https://staging.thinkred.tech"],
+      "description": "Staging environment testing",
+      "discoveryMode": true,
+      "maxPages": 20,
+      "retryAttempts": 2,
+      "timeout": 45000
+    },
+    "production": {
+      "name": "Production",
+      "baseUrls": [
+        "https://thinkred.tech",
+        "https://thinkredtech.github.io"
+      ],
+      "description": "Production environment testing",
+      "discoveryMode": true,
+      "maxPages": 50,
+      "retryAttempts": 3,
+      "timeout": 60000
+    }
+  },
+  "performanceBudgets": {
+    "strict": {
+      "name": "Strict Budget",
+      "description": "High-performance requirements",
+      "thresholds": {
+        "performance": 95,
+        "accessibility": 95,
+        "bestPractices": 95,
+        "seo": 95,
+        "pwa": 90
+      },
+      "metrics": {
+        "firstContentfulPaint": 1500,
+        "largestContentfulPaint": 2500,
+        "totalBlockingTime": 200,
+        "cumulativeLayoutShift": 0.05,
+        "speedIndex": 3000
+      }
+    },
+    "standard": {
+      "name": "Standard Budget",
+      "description": "Balanced performance requirements",
+      "thresholds": {
+        "performance": 85,
+        "accessibility": 90,
+        "bestPractices": 90,
+        "seo": 90,
+        "pwa": 80
+      },
+      "metrics": {
+        "firstContentfulPaint": 2000,
+        "largestContentfulPaint": 4000,
+        "totalBlockingTime": 300,
+        "cumulativeLayoutShift": 0.1,
+        "speedIndex": 4000
+      }
+    },
+    "relaxed": {
+      "name": "Relaxed Budget",
+      "description": "Minimum acceptable performance",
+      "thresholds": {
+        "performance": 70,
+        "accessibility": 85,
+        "bestPractices": 80,
+        "seo": 85,
+        "pwa": 70
+      },
+      "metrics": {
+        "firstContentfulPaint": 3000,
+        "largestContentfulPaint": 6000,
+        "totalBlockingTime": 500,
+        "cumulativeLayoutShift": 0.2,
+        "speedIndex": 6000
+      }
+    }
+  },
+  "testScenarios": {
+    "quick-check": {
+      "name": "Quick Performance Check",
+      "description": "Fast validation for development",
+      "devices": ["desktop", "mobile"],
+      "environment": "development",
+      "budget": "standard",
+      "categories": ["performance"],
+      "reportFormats": ["json"],
+      "autoFix": false
+    },
+    "comprehensive": {
+      "name": "Comprehensive Testing",
+      "description": "Full performance audit across all devices",
+      "devices": ["desktop", "mobile", "tablet"],
+      "environment": "production",
+      "budget": "standard",
+      "categories": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+      "reportFormats": ["json", "html", "markdown"],
+      "autoFix": true
+    },
+    "pre-deployment": {
+      "name": "Pre-deployment Validation",
+      "description": "Deployment readiness check",
+      "devices": ["desktop", "mobile"],
+      "environment": "staging",
+      "budget": "standard",
+      "categories": ["performance", "accessibility", "best-practices"],
+      "reportFormats": ["json", "html", "markdown"],
+      "autoFix": true,
+      "blockOnFailure": true
+    },
+    "accessibility-focus": {
+      "name": "Accessibility Audit",
+      "description": "Focused accessibility testing",
+      "devices": ["desktop", "mobile", "tablet"],
+      "environment": "production",
+      "budget": "standard",
+      "categories": ["accessibility"],
+      "reportFormats": ["json", "html"],
+      "autoFix": false
+    },
+    "mobile-optimization": {
+      "name": "Mobile Performance Optimization",
+      "description": "Mobile-focused performance testing",
+      "devices": ["mobile", "mobile-low"],
+      "environment": "production",
+      "budget": "standard",
+      "categories": ["performance"],
+      "reportFormats": ["json", "html"],
+      "autoFix": true
+    }
+  },
+  "automation": {
+    "scheduling": {
+      "enabled": false,
+      "frequency": "daily",
+      "time": "02:00",
+      "scenarios": ["comprehensive"]
+    },
+    "notifications": {
+      "enabled": true,
+      "channels": ["console"],
+      "onFailure": true,
+      "onSuccess": false
+    },
+    "integration": {
+      "cicd": {
+        "enabled": true,
+        "blockOnFailure": true,
+        "scenario": "pre-deployment"
+      }
+    }
+  }
+}

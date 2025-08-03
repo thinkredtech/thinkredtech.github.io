@@ -111,11 +111,11 @@ form-action 'self';
 
 ```bash
 
-# For scripts
+## For scripts
 
 echo "script content here" | openssl dgst -sha256 -binary | openssl base64
 
-# For styles
+## For styles
 
 echo "style content here" | openssl dgst -sha256 -binary | openssl base64
 ```

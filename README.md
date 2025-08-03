@@ -23,9 +23,11 @@ _Complete monorepo for ThinkRED Technologies company website and infrastructure_
 
 This monorepo contains the complete source code and infrastructure for the **ThinkRED Technologies**
 company website. Built with modern technologies and best practices, it serves as the primary digital
+
 presence for our engineering-focused technology consultancy.
 
 **ThinkRED Technologies LLP** transforms complex technological challenges into elegant solutions,
+
 founded by engineers from **Mozilla**, **Fedora**, and **Red Hat**.
 
 ---
@@ -105,10 +107,15 @@ thinkred-monorepo/
 | Feature                     | Description                           | Status    |
 | --------------------------- | ------------------------------------- | --------- |
 | 📱 **Responsive Design**    | Optimized for all device sizes        | ✅ Active |
+
 | 📝 **Form Processing**      | Contact forms and job applications    | ✅ Active |
+
 | 📎 **File Upload**          | Resume uploads for job applications   | ✅ Active |
+
 | 📧 **Email Notifications**  | Automated email handling              | ✅ Active |
+
 | 📚 **Documentation System** | Markdown-based docs via web interface | ✅ Active |
+
 | 🔍 **SEO Optimized**        | Built for search engine visibility    | ✅ Active |
 
 </div>
@@ -120,20 +127,22 @@ thinkred-monorepo/
 ### Prerequisites
 
 - **Node.js** 16+ (LTS recommended)
+
 - **npm** 8+ or **yarn** package manager
+
 - **Git** for version control
 
 ### Development Setup
 
 ```bash
-# 1️⃣ Clone the repository
+## 1️⃣ Clone the repository
 git clone https://github.com/thinkredtech/thinkredtech.github.io.git
 cd thinkredtech.github.io
 
-# 2️⃣ Install all dependencies
+## 2️⃣ Install all dependencies
 npm run install:all
 
-# 3️⃣ Start development
+## 3️⃣ Start development
 npm run dev
 ```
 
@@ -146,26 +155,26 @@ npm run dev
 This monorepo features a **unified task management system** that simplifies development workflows:
 
 ```bash
-# 📋 Show all available commands
+## 📋 Show all available commands
 npm run help
 
-# 🚀 Development commands
+## 🚀 Development commands
 npm run dev              # Start frontend development
 npm run dev:all          # Start all development servers
 npm run build            # Build frontend
 npm run build:all        # Build everything
 
-# 🔍 Code quality
+## 🔍 Code quality
 npm run lint             # Lint all workspaces
 npm run format           # Format all code
 npm run type-check       # TypeScript checking
 
-# 🚢 Deployment
+## 🚢 Deployment
 npm run deploy           # Deploy to production
 npm run deploy:frontend  # Deploy frontend only
 npm run deploy:backend   # Deploy backend only
 
-# 📊 Monitoring
+## 📊 Monitoring
 npm run status           # Show workspace status
 npm run backend:logs     # View backend logs
 ```
@@ -228,8 +237,11 @@ npm run backend:logs     # View backend logs
 | Documentation              | Description                        | Access                   |
 | -------------------------- | ---------------------------------- | ------------------------ |
 | 🌐 **Website Overview**    | Platform introduction and features | `/docs/website-overview` |
+
 | 🏢 **Company Information** | About ThinkRED Technologies        | `/docs/company-info`     |
+
 | 🎨 **Brand Guidelines**    | Visual identity and style guide    | `/docs/brand-guidelines` |
+
 | ❓ **FAQ**                 | Frequently asked questions         | `/docs/faq`              |
 
 ### 🛠️ **For Developers**
@@ -237,12 +249,19 @@ npm run backend:logs     # View backend logs
 | Documentation                | Description                                   | Link                                                            |
 | ---------------------------- | --------------------------------------------- | --------------------------------------------------------------- |
 | 🔧 **Development Setup**     | Local development environment                 | [DEVELOPMENT.md](docs/DEVELOPMENT.md)                           |
+
 | 🏗️ **Architecture Overview** | System design and technical details           | [ARCHITECTURE.md](docs/ARCHITECTURE.md)                         |
+
 | 📡 **API Documentation**     | Backend API reference                         | [API.md](docs/API.md)                                           |
+
 | 🚀 **Deployment Guide**      | CI/CD and deployment procedures               | [DEPLOYMENT.md](docs/DEPLOYMENT.md)                             |
+
 | 🔄 **Zero-Downtime Deploy**  | Professional maintenance & zero-downtime      | [ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
+
 | � **Health Reports**         | Monitoring and status dashboard management    | [HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md)                     |
+
 | 🎛️ **Task Management**       | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md)                   |
+
 | �🔍 **Troubleshooting**      | Common issues and solutions                   | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)                   |
 
 </div>

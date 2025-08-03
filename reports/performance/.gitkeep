@@ -1,0 +1,2 @@
+# This file keeps the performance reports directory in version control
+# while actual report files are ignored via .gitignore

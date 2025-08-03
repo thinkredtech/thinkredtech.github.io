@@ -234,6 +234,56 @@ const TASKS = {
     parallel: false,
     script: "reports:generate",
   },
+
+  // Performance testing
+  "perf:test": {
+    description: "Run smart performance testing",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-orchestrator.js test",
+  },
+  "perf:validate": {
+    description: "Run pre-deployment performance validation",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/enhanced-pre-deployment-validator.js",
+  },
+  "perf:fix": {
+    description: "Apply automated performance fixes",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-auto-fixer.js",
+  },
+  "perf:comprehensive": {
+    description: "Run comprehensive performance audit",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-orchestrator.js comprehensive",
+  },
+  "perf:monitor": {
+    description: "Start continuous performance monitoring",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-orchestrator.js monitor",
+  },
+  "perf:dashboard": {
+    description: "Generate performance dashboard",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-orchestrator.js dashboard",
+  },
+  "perf:config": {
+    description: "Manage performance testing configuration",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-config.js",
+  },
+  "perf:cleanup": {
+    description: "Clean up old performance reports",
+    workspaces: ["root"],
+    parallel: false,
+    command: "node scripts/performance/performance-reports-cleanup.js",
+  },
 };
 
 // Utility functions
