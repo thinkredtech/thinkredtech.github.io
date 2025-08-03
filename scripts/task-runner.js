@@ -172,9 +172,12 @@ const TASKS = {
   // Deployment
   deploy: {
     description: "Deploy to production",
-    workspaces: ["root"],
+    workspaces: ["frontend", "backend"],
     parallel: false,
-    script: "deploy",
+    scripts: {
+      frontend: "deploy:hostinger",
+      backend: "deploy",
+    },
   },
   "deploy:frontend": {
     description: "Deploy frontend only",
