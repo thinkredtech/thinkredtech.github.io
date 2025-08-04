@@ -1,24 +1,43 @@
-<!-- Content from /Users/sayak/Work/ThinkRed/Workspace/thinkred-monorepo/docs/PERFORMANCE_TESTING.md -->
+# Operations Documentation
 
-# Moved
+This section contains operational documentation for monitoring, performance, and system management.
 
-This document has been moved to [testing.md](operations/performance/testing.md).
+## 📊 Performance & Monitoring
 
-Please update your bookmarks and links to point to the new location.
+### 🔍 [Performance](performance/)
+
+- **[Testing Guide](performance/testing.md)** - Performance testing procedures
+- **[Monitoring Setup](performance/monitoring.md)** - Performance monitoring configuration
+- **[Optimization Guide](performance/optimization.md)** - Performance optimization strategies
+
+### 📈 [Monitoring](monitoring/)
+
+- **[Health Checks](monitoring/health-checks.md)** - System health monitoring
+- **[Alerts Configuration](monitoring/alerts.md)** - Setting up monitoring alerts
+- **[Dashboard Setup](monitoring/dashboards.md)** - Monitoring dashboard configuration
+
+### 🔒 [Security](security/)
+
+- **[Security Overview](security/README.md)** - Security policies and procedures
+- **[Vulnerability Management](security/vulnerabilities.md)** - Security vulnerability handling
+- **[Access Control](security/access-control.md)** - User access management
+
+## 🎯 Quick Links
+
+| Resource | Description |
+|----------|-------------|
+| [Performance Testing](performance/testing.md) | Run performance tests |
+| [Health Monitoring](monitoring/health-checks.md) | Monitor system health |
+| [Security Policies](security/README.md) | Security guidelines |
+
+## 🆘 Support
+
+For operational issues:
+
+- 📖 Check the relevant operational guides
+- 🚨 Follow incident response procedures
+- 📧 Contact the operations team
 
 ---
 
-*This is an automated redirect generated during documentation restructuring.*
-
-
-<!-- Content from /Users/sayak/Work/ThinkRed/Workspace/thinkred-monorepo/docs/HEALTH_REPORTS.md -->
-
-# Moved
-
-This document has been moved to [health-checks.md](operations/monitoring/health-checks.md).
-
-Please update your bookmarks and links to point to the new location.
-
----
-
-*This is an automated redirect generated during documentation restructuring.*
+*For development-related documentation, see [Developer Docs](../developer/)*

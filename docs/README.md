@@ -6,27 +6,179 @@ Welcome to the comprehensive documentation system for ThinkRED Technologies. Thi
 
 ### For Developers
 
-- **[🚀 Getting Started](./developer/setup/installation.md)** - Set up your development environment
-- **[🏗️ Architecture](./developer/architecture/system-overview.md)** - System design and structure
-- **[📡 API Reference](./developer/apis/backend-apis.md)** - Integration documentation
+- **[🚀 Getting Started](developer/setup/installation.md)** - Set up your development environment
+- **[🏗️ Architecture](developer/architecture/system-overview.md)** - System design and structure
+- **[📡 API Reference](developer/apis/backend-apis.md)** - Integration documentation
+- **[💻 Development Guide](developer/guides/development.md)** - Development workflow and practices
+- **[🔧 Troubleshooting](developer/setup/troubleshooting.md)** - Common issues and solutions
 
 ### For Content Creators
 
-- **[📝 Content Guidelines](./content/README.md)** - Content creation standards
-- **[📰 Blog Management](./content/blog/README.md)** - Blog post creation and management
-- **[📄 Page Content](./content/pages/README.md)** - Website page content management
+- **[📝 Content Guidelines](content/README.md)** - Content creation standards
+- **[📰 Blog Management](content/blog/README.md)** - Blog post creation and management
+- **[📄 Page Content](content/pages/README.md)** - Website page content management
 
 ### For DevOps & Operations
 
-- **[🚀 Deployment](./developer/deployment/production.md)** - Production deployment guide
-- **[📊 Monitoring](./operations/monitoring/README.md)** - System monitoring and alerts
-- **[🔒 Security](./operations/security/README.md)** - Security policies and procedures
+- **[🚀 Deployment](developer/deployment/production.md)** - Production deployment guide
+- **[📊 Monitoring](operations/monitoring/health-checks.md)** - System monitoring and health checks
+- **[🔒 Security](operations/security/README.md)** - Security policies and procedures
+- **[⚡ Performance](operations/performance/testing.md)** - Performance testing and optimization
 
 ## 📖 Documentation Categories
 
-## Documentation Structure
+### 👨‍💻 [Developer Documentation](developer/)
 
-### Core Development Guides
+Complete technical documentation for developers:
+
+#### 🚀 Getting Started
+- [Installation Guide](developer/setup/installation.md)
+- [Environment Setup](developer/setup/environment.md)
+- [Troubleshooting](developer/setup/troubleshooting.md)
+
+#### 📖 Development Guides
+- [Development Workflow](developer/guides/development.md)
+- [Contributing Guidelines](developer/guides/contributing.md)
+- [Code Style Guide](developer/guides/code-style.md)
+- [Configuration Management](developer/guides/configuration.md)
+- [Accessibility Guidelines](developer/guides/accessibility.md)
+- [Documentation Guidelines](developer/guides/documentation-contribution.md)
+
+#### 🏗️ Architecture & Design
+- [System Overview](developer/architecture/system-overview.md)
+- [Frontend Architecture](developer/architecture/frontend-architecture.md)
+- [Backend Architecture](developer/architecture/backend-architecture.md)
+
+#### 🚀 Deployment & Infrastructure
+- [Production Deployment](developer/deployment/production.md)
+
+#### 📡 APIs & Integration
+- [Backend APIs](developer/apis/backend-apis.md)
+
+### 🎛️ [Operations Documentation](operations/)
+
+Operational guides for system management:
+
+#### � Performance & Monitoring
+- [Performance Testing](operations/performance/testing.md)
+- [Health Checks](operations/monitoring/health-checks.md)
+
+#### �🔒 Security
+- [Security Overview](operations/security/README.md)
+
+### 📝 [Content Documentation](content/)
+
+Content management and creation guidelines:
+
+- [Content Overview](content/README.md)
+- [Blog Management](content/blog/README.md)
+- [Page Content](content/pages/README.md)
+
+### 📋 Project Management
+
+Core project documentation:
+
+- [FAQ](FAQ.md) - Frequently asked questions
+- [Task Management](TASK_MANAGEMENT.md) - Development task workflows
+- [Style Guide](STYLE_GUIDE.md) - Documentation and code style standards
+- [Workflow](WORKFLOW.md) - Development workflow and processes
+
+### 🔧 Infrastructure & Tools
+
+Infrastructure and deployment documentation:
+
+- [Zero-Downtime Deployment](ZERO_DOWNTIME_DEPLOYMENT.md)
+- [Performance Reports](PERFORMANCE_REPORTS.md)
+- [SSH Deployment](SSH_DEPLOYMENT.md)
+- [Hostinger 404 Fix](HOSTINGER_404_FIX.md)
+- [Git Build Prevention](GIT_BUILD_PREVENTION.md)
+
+### 📊 Reports & Analytics
+
+Monitoring and analytics documentation:
+
+- [Performance Quick Start](PERFORMANCE_QUICK_START.md)
+- [SEO Enhancement Report](SEO_ENHANCEMENT_REPORT.md)
+- [Report Formatting](REPORT_FORMATTING.md)
+
+## 🔍 Finding What You Need
+
+### By Role
+
+| Role | Start Here | Key Resources |
+|------|------------|---------------|
+| **New Developer** | [Installation Guide](developer/setup/installation.md) | [Development Workflow](developer/guides/development.md), [Architecture](developer/architecture/system-overview.md) |
+| **Content Creator** | [Content Guidelines](content/README.md) | [Blog Management](content/blog/README.md), [Page Content](content/pages/README.md) |
+| **DevOps Engineer** | [Deployment Guide](developer/deployment/production.md) | [Monitoring](operations/monitoring/health-checks.md), [Security](operations/security/README.md) |
+| **Project Manager** | [Task Management](TASK_MANAGEMENT.md) | [Workflow](WORKFLOW.md), [Performance Reports](PERFORMANCE_REPORTS.md) |
+
+### By Task
+
+| Task | Documentation |
+|------|---------------|
+| Setting up development environment | [Installation Guide](developer/setup/installation.md) |
+| Contributing code | [Contributing Guidelines](developer/guides/contributing.md) |
+| Deploying to production | [Production Deployment](developer/deployment/production.md) |
+| Writing documentation | [Documentation Guidelines](developer/guides/documentation-contribution.md) |
+| Performance testing | [Performance Testing](operations/performance/testing.md) |
+| Troubleshooting issues | [Troubleshooting Guide](developer/setup/troubleshooting.md) |
+| API integration | [Backend APIs](developer/apis/backend-apis.md) |
+| Security implementation | [Security Overview](operations/security/README.md) |
+
+## 🆘 Getting Help
+
+### Documentation Issues
+
+- 📖 Check the [FAQ](FAQ.md) for common questions
+- 🔍 Use the search functionality in our documentation website
+- 🐛 Report documentation issues on GitHub
+- 💬 Ask questions in our development discussions
+
+### Technical Support
+
+- 🔧 Check [Troubleshooting Guide](developer/setup/troubleshooting.md)
+- 📧 Contact the development team
+- 🚨 For urgent issues, follow our incident response procedures
+
+## 🤝 Contributing to Documentation
+
+We welcome contributions to improve our documentation! See our [Documentation Guidelines](developer/guides/documentation-contribution.md) for:
+
+- Writing standards and style guide
+- How to contribute and submit changes
+- Documentation structure and organization
+- Review and approval process
+
+## 📋 Quick Reference Links
+
+### Most Used Documents
+- [Installation Guide](developer/setup/installation.md)
+- [Development Workflow](developer/guides/development.md)
+- [Production Deployment](developer/deployment/production.md)
+- [API Reference](developer/apis/backend-apis.md)
+- [Troubleshooting](developer/setup/troubleshooting.md)
+
+### Management & Process
+- [Task Management](TASK_MANAGEMENT.md)
+- [Contributing Guidelines](developer/guides/contributing.md)
+- [Style Guide](STYLE_GUIDE.md)
+- [Workflow](WORKFLOW.md)
+
+---
+
+## 📂 Documentation Archive
+
+For historical reference, see [legacy.md](legacy.md) for information about moved and reorganized documentation.
+
+---
+
+<div align="center">
+
+**📚 Comprehensive | 🔄 Always Updated | 🤝 Community Driven**
+
+*Need something specific? Use Ctrl+F or the search function to find it quickly!*
+
+</div>
 
 | Document                                                 | Purpose                                | Audience                    |
 | -------------------------------------------------------- | -------------------------------------- | --------------------------- |

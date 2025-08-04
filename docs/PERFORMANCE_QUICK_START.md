@@ -194,7 +194,7 @@ DEBUG=lighthouse* npm run perf:test
 ## Getting Help
 
 ### Documentation
-- Full documentation: `docs/PERFORMANCE_TESTING.md`
+- Full documentation: [Performance Testing Guide](operations/performance/testing.md)
 - Configuration reference: `config/performance/default.json`
 - API documentation: See individual script files
 
