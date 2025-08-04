@@ -143,7 +143,7 @@
         nav { flex-direction: column; gap: 1rem; }
       }
     </style>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-1ee014ab97b8ff3fed65a3f58a5eedcb' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-0896226318d2b578cbba0637a6dec09f' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com ; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-dee3e47edd6ee0a5d630be01a37bc189' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-2426edb00eefc037496e34e550784e40' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com ; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com;">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -164,7 +164,7 @@
     <!-- Security Headers (frame-ancestors and X-Frame-Options moved to HTTP headers) -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.thinkred.tech https://script.google.com https://script.googleusercontent.com; object-src 'none'; media-src 'self'; child-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' https://script.google.com https://script.googleusercontent.com; upgrade-insecure-requests; block-all-mixed-content;"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
@@ -219,7 +219,7 @@
     <meta name="twitter:image" content="/assets/logos/thinkRED-np.svg" />
 
     <!-- Structured Data -->
-    <script nonce="1ee014ab97b8ff3fed65a3f58a5eedcb" type="application/ld+json">
+    <script nonce="dee3e47edd6ee0a5d630be01a37bc189" type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -251,16 +251,27 @@
     />
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- Preload critical fonts -->
+    <!-- Performance optimization: Preconnect and DNS prefetch -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Critical CSS for fonts (non-blocking) -->
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
+    
     <!-- Preload critical images -->
-    <link rel="preload" href="/assets/logos/thinkRED-np.svg" as="image" />
-    <link rel="preload" href="/assets/avatars/assistant-red.webp" as="image" />
+    <link rel="preload" href="/assets/logos/thinkRED-np.svg" as="image" importance="high" />
     
     <!-- DNS prefetch for API endpoints -->
     <link rel="dns-prefetch" href="https://api.thinkred.tech" />
@@ -276,7 +287,7 @@
     <noscript><link rel="stylesheet" crossorigin href="/noscript.css"></noscript>
     
     <!-- Critical above-the-fold CSS -->
-    <style nonce="0896226318d2b578cbba0637a6dec09f">
+    <style nonce="2426edb00eefc037496e34e550784e40">
       /* Critical CSS for above-the-fold content */
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { line-height: 1.15; }
@@ -415,7 +426,7 @@
     /></noscript>
 
     <!-- GitHub Pages SPA redirect handling -->
-    <script nonce="1ee014ab97b8ff3fed65a3f58a5eedcb" type="text/javascript">
+    <script nonce="dee3e47edd6ee0a5d630be01a37bc189" type="text/javascript">
       // Handle GitHub Pages SPA routing
       (function (l) {
         if (l.search[1] === "/") {
@@ -447,12 +458,12 @@
         });
       }
     </script>
-        <link rel="preload" href="/assets/index-Dc68A7DP.js" as="script" crossorigin>
-    <script nonce="1ee014ab97b8ff3fed65a3f58a5eedcb" type="module" crossorigin src="/assets/index-Dc68A7DP.js"></script>
-        <link rel="preload" href="/assets/vendors-975d4WgJ.js" as="script" crossorigin>
-    <link rel="modulepreload" crossorigin href="/assets/vendors-975d4WgJ.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-core-B7X0rtmB.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-router-QZu9Qi68.js">
+        <link rel="preload" href="/assets/index-DXk3qKyH.js" as="script" crossorigin>
+    <script nonce="dee3e47edd6ee0a5d630be01a37bc189" type="module" crossorigin src="/assets/index-DXk3qKyH.js"></script>
+        <link rel="preload" href="/assets/vendors-D-wJNcMA.js" as="script" crossorigin>
+    <link rel="modulepreload" crossorigin href="/assets/vendors-D-wJNcMA.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-core-o94geZCv.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-router-DopXd9eu.js">
     <link rel="stylesheet" crossorigin href="/assets/index-Chy_jdRx.css">
   </head>
   <body>
