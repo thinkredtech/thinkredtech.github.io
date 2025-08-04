@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Search</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .search-container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .search-box { 
+            width: 100%; 
+            padding: 15px; 
+            font-size: 16px; 
+            border: 2px solid #ddd; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+        }
+        .search-box:focus { 
+            outline: none; 
+            border-color: #007acc; 
+        }
+        .result { 
+            padding: 15px; 
+            border-bottom: 1px solid #eee; 
+            margin-bottom: 10px;
+        }
+        .result:last-child { 
+            border-bottom: none; 
+        }
+        .result-title { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #007acc; 
+            margin-bottom: 5px;
+        }
+        .result-path { 
+            font-size: 12px; 
+            color: #666; 
+            margin-bottom: 8px;
+        }
+        .result-description { 
+            color: #333; 
+            line-height: 1.4;
+        }
+        .no-results { 
+            text-align: center; 
+            color: #666; 
+            font-style: italic; 
+            margin-top: 40px;
+        }
+        .stats { 
+            font-size: 12px; 
+            color: #666; 
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>📚 Documentation Search</h1>
+        <input type="text" class="search-box" placeholder="Search documentation..." id="searchInput">
+        <div class="stats" id="stats"></div>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let searchIndex = [];
+        let searchContent = [];
+
+        // Load search data
+        Promise.all([
+            fetch('./index.json').then(r => r.json()),
+            fetch('./content.json').then(r => r.json())
+        ]).then(([index, content]) => {
+            searchIndex = index;
+            searchContent = content;
+            document.getElementById('stats').textContent = `${index.length} documents indexed`;
+        });
+
+        // Simple search function
+        function search(query) {
+            if (!query.trim()) return [];
+            
+            const terms = query.toLowerCase().split(' ');
+            const results = [];
+
+            searchIndex.forEach((item, index) => {
+                let score = 0;
+                const content = searchContent[index]?.content?.toLowerCase() || '';
+                const title = item.title.toLowerCase();
+                const description = item.description.toLowerCase();
+
+                terms.forEach(term => {
+                    if (title.includes(term)) score += 3;
+                    if (description.includes(term)) score += 2;
+                    if (content.includes(term)) score += 1;
+                });
+
+                if (score > 0) {
+                    results.push({ ...item, score });
+                }
+            });
+
+            return results.sort((a, b) => b.score - a.score);
+        }
+
+        // Display results
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-results">No results found</div>';
+                return;
+            }
+
+            resultsDiv.innerHTML = results.map(result => `
+                <div class="result">
+                    <div class="result-title">${result.title}</div>
+                    <div class="result-path">${result.path}</div>
+                    <div class="result-description">${result.description}</div>
+                </div>
+            `).join('');
+        }
+
+        // Search on input
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const results = search(e.target.value);
+            displayResults(results);
+        });
+    </script>
+</body>
+</html>

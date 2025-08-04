@@ -23,15 +23,21 @@ Welcome to the ThinkRED developer documentation hub! This section contains compr
 
 - **[System Overview](architecture/system-overview.md)** - High-level system architecture
 - **[Frontend Architecture](architecture/frontend-architecture.md)** - React app structure and patterns
+
 - **[Backend Architecture](architecture/backend-architecture.md)** - Google Apps Script backend design
 
 ### 🚀 [Deployment](deployment/)
 
 - **[Production Deployment](deployment/production.md)** - Complete deployment guide
 
+- **[CI/CD Pipeline](deployment/cicd.md)** - Automated deployment workflows
+- **[Environment Management](deployment/environments.md)** - Managing different environments
+
 ### 🔌 [APIs](apis/)
 
 - **[Backend APIs](apis/backend-apis.md)** - Complete API reference
+- **[Frontend Integration](apis/frontend-integration.md)** - How to use APIs in the frontend
+- **[Authentication](apis/authentication.md)** - API authentication patterns
 
 ## 🎯 Quick Links
 
@@ -52,12 +58,17 @@ Welcome to the ThinkRED developer documentation hub! This section contains compr
 
 ## 📝 Contributing to Documentation
 
-Found an issue or want to improve the docs? 
-See our [Documentation Guidelines](guides/documentation-contribution.md) for how to contribute.
+Found an issue or want to improve the docs? See our [Documentation Guidelines](guides/documentation-contribution.md) for how to contribute.
 
 ---
 
-### 🚀 Ready to build something amazing? Let's get started
+<div align="center">
+
+### 🚀
+
+ Ready to build something amazing? Let's get started
 
 [![Installation Guide](https://img.shields.io/badge/📦%20Installation-Get%20Started-blue?style=for-the-badge)](setup/installation.md)
 [![Development Guide](https://img.shields.io/badge/💻%20Development-Learn%20More-green?style=for-the-badge)](guides/development.md)
+
+</div>
