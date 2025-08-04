@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'thinkred-v1754304823144';
+const CACHE_NAME = 'thinkred-v1754306299631';
 const STATIC_CACHE_URLS = [
   '/',
   '/assets/logos/thinkRED-np.svg',
