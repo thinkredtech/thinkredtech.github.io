@@ -279,9 +279,14 @@ function addReducedMotionSupport(html) {
 }
 
 function enhanceColorContrast(html) {
+  // Extract existing nonce from any style tag if present
+  const nonceMatch = html.match(/nonce="([^"]+)"/);
+  const nonce = nonceMatch ? nonceMatch[1] : '';
+  const nonceAttr = nonce ? ` nonce="${nonce}"` : '';
+  
   // Enhanced contrast styles
   const contrastCSS = `
-    <style>
+    <style${nonceAttr}>
       /* Enhanced contrast for accessibility */
       .text-gray-600 { color: #374151 !important; } /* 7.02:1 contrast ratio */
       .text-gray-700 { color: #1f2937 !important; } /* 12.63:1 contrast ratio */
@@ -350,8 +355,13 @@ function addSemanticImprovements(html) {
 }
 
 function addKeyboardNavigation(html) {
+  // Extract existing nonce from any script tag if present
+  const nonceMatch = html.match(/nonce="([^"]+)"/);
+  const nonce = nonceMatch ? nonceMatch[1] : '';
+  const nonceAttr = nonce ? ` nonce="${nonce}"` : '';
+  
   const keyboardScript = `
-    <script>
+    <script${nonceAttr}>
       // Enhanced keyboard navigation
       (function() {
         // Add keyboard support for custom interactive elements

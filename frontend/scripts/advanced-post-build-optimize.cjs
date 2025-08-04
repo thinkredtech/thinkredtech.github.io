@@ -245,9 +245,11 @@ try {
     <link rel="preload" href="/assets/logos/thinkRED-np.svg" as="image" fetchpriority="high">
     <link rel="preload" href="/assets/avatars/assistant-red.webp" as="image">`;
 
-  // 4. ENHANCED CSP WITH NONCE
-  const cspMeta = `
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-${nonce}' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self' https://script.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">`;
+  // 4. ENHANCED CSP WITH NONCE - Replace existing CSP if present
+  const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-${nonce}' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self' https://script.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">`;
+
+  // Remove any existing CSP headers to prevent conflicts
+  html = html.replace(/<meta[^>]*Content-Security-Policy[^>]*>/gi, '');
 
   // 5. ADDITIONAL SECURITY AND PERFORMANCE HEADERS
   const securityMeta = `
@@ -255,7 +257,8 @@ try {
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">`;
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+  `;
 
   // 6. SERVICE WORKER REGISTRATION
   const serviceWorkerScript = `
@@ -291,9 +294,17 @@ try {
     '<script$1 fetchpriority="high">'
   );
   
-  // Add nonce to inline scripts and styles
-  html = html.replace(/<script(?![^>]*src)([^>]*)>/g, `<script$1 nonce="${nonce}">`);
-  html = html.replace(/<style([^>]*)>/g, `<style$1 nonce="${nonce}">`);
+  // Add nonce to inline scripts and styles that don't already have one
+  // More robust regex to prevent duplicate nonces
+  html = html.replace(/<script(?![^>]*nonce=)(?![^>]*src)([^>]*)>/g, `<script$1 nonce="${nonce}">`);
+  html = html.replace(/<style(?![^>]*nonce=)([^>]*)>/g, `<style$1 nonce="${nonce}">`);
+  
+  // Add nonce to stylesheet links that don't already have one
+  html = html.replace(/<link([^>]*rel="stylesheet"[^>]*?)(?![^>]*nonce=)>/g, `<link$1 nonce="${nonce}">`);
+  
+  // Remove any duplicate nonce attributes that might have been created
+  html = html.replace(/nonce="[^"]*"\s+nonce="[^"]*"/g, `nonce="${nonce}"`);
+  html = html.replace(/nonce="[^"]*"\s+([^>]*)\s+nonce="[^"]*"/g, `nonce="${nonce}" $1`);
   
   // 9. LAZY LOADING OPTIMIZATION
   // Add loading="lazy" to images that are not critical

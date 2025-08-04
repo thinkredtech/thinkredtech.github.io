@@ -228,10 +228,13 @@ img{max-width:100%;height:auto}
     let html = fs.readFileSync(indexPath, 'utf8');
     
     // Find and replace or insert critical CSS
-    const criticalCSSRegex = /<!-- Critical above-the-fold CSS[^>]*-->\s*<style[^>]*>[\s\S]*?<\/style>/;
+    const criticalCSSRegex = /<!-- Critical above-the-fold CSS[^>]*-->\s*<style([^>]*)>[\s\S]*?<\/style>/;
     
     if (criticalCSSRegex.test(html)) {
-      html = html.replace(criticalCSSRegex, `<!-- Critical above-the-fold CSS --><style>${criticalCSS}</style>`);
+      // Preserve the style tag attributes (including nonce)
+      html = html.replace(criticalCSSRegex, (match, styleAttrs) => {
+        return `<!-- Critical above-the-fold CSS --><style${styleAttrs}>${criticalCSS}</style>`;
+      });
     } else {
       // Insert before closing head tag
       html = html.replace('</head>', `<style>${criticalCSS}</style>\n</head>`);
