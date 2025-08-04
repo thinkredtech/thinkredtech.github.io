@@ -168,6 +168,9 @@ npm run build:all        # Build everything
 npm run lint             # Lint all workspaces
 npm run format           # Format all code
 npm run type-check       # TypeScript checking
+npm run lint:md          # Check markdown formatting
+npm run docs:quality     # Full documentation quality check
+npm run docs:dashboard   # Generate documentation health dashboard
 
 ## 🚢 Deployment
 npm run deploy           # Deploy to production
@@ -248,26 +251,14 @@ npm run backend:logs     # View backend logs
 
 | Documentation            | Description                   | Link                                  |
 | ------------------------ | ----------------------------- | ------------------------------------- |
-| 🔧 **Development Setup** | Local development environment | [DEVELOPMENT.md](docs/DEVELOPMENT.md) |
-
-| 🏗️ **Architecture Overview** | System design and technical details |
-[ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-
-| 📡 **API Documentation** | Backend API reference | [API.md](docs/API.md) |
-
-| 🚀 **Deployment Guide** | CI/CD and deployment procedures | [DEPLOYMENT.md](docs/DEPLOYMENT.md) |
-
-| 🔄 **Zero-Downtime Deploy** | Professional maintenance & zero-downtime |
-[ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
-
-| � **Health Reports** | Monitoring and status dashboard management |
-[HEALTH_REPORTS.md](docs/HEALTH_REPORTS.md) |
-
-| 🎛️ **Task Management** | Unified task runner and development workflows |
-[TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
-
-| �🔍 **Troubleshooting** | Common issues and solutions |
-[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+| 🔧 **Development Setup** | Local development environment | [Development Guide](docs/developer/guides/development.md) |
+| 🏗️ **Architecture Overview** | System design and technical details | [System Overview](docs/developer/architecture/system-overview.md) |
+| 📡 **API Documentation** | Backend API reference | [Backend APIs](docs/developer/apis/backend-apis.md) |
+| 🚀 **Deployment Guide** | CI/CD and deployment procedures | [Production Deployment](docs/developer/deployment/production.md) |
+| 🔄 **Zero-Downtime Deploy** | Professional maintenance & zero-downtime | [ZERO_DOWNTIME_DEPLOYMENT.md](docs/ZERO_DOWNTIME_DEPLOYMENT.md) |
+| 📊 **Health Reports** | Monitoring and status dashboard management | [Health Checks](docs/operations/monitoring/health-checks.md) |
+| 🎛️ **Task Management** | Unified task runner and development workflows | [TASK_MANAGEMENT.md](docs/TASK_MANAGEMENT.md) |
+| 🔍 **Troubleshooting** | Common issues and solutions | [Troubleshooting Guide](docs/developer/setup/troubleshooting.md) |
 
 </div>
 
@@ -277,7 +268,7 @@ npm run backend:logs     # View backend logs
 
 We welcome contributions! Please read our guidelines:
 
-- 📋 **Contributing Guidelines**: [CONTRIBUTING.md](docs/CONTRIBUTING.md) - Code standards,
+- 📋 **Contributing Guidelines**: [Contributing Guide](docs/developer/guides/contributing.md) - Code standards,
   workflow, and PR process
 - 🤝 **Code of Conduct**: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Community standards and
   expectations
@@ -287,41 +278,26 @@ We welcome contributions! Please read our guidelines:
 
 ## 🛠️ Project Scripts
 
-<div align="center">
-
-<table>
-<tr>
-<td width="50%" align="center">
-
 ### 🎨 **Frontend Scripts**
 
-```bash
-npm run dev          # 🚀 Start development server
-npm run build        # 🏗️ Build for production
-npm run preview      # 👀 Preview production build
-npm run deploy       # 🌐 Deploy to GitHub Pages
-npm run deploy:github # 🚀 Deploy to GitHub Pages
-npm run deploy:ssh   # 🔒 Deploy to Hostinger via SSH
-npm run lint         # 🔍 Run ESLint
-npm run type-check   # ✅ TypeScript compiler check
-```
-
-</td>
-<td width="50%" align="center">
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | 🚀 Start development server |
+| `npm run build` | 🏗️ Build for production |
+| `npm run preview` | 👀 Preview production build |
+| `npm run deploy` | 🌐 Deploy to GitHub Pages |
+| `npm run deploy:github` | 🚀 Deploy to GitHub Pages |
+| `npm run deploy:ssh` | 🔒 Deploy to Hostinger via SSH |
+| `npm run lint` | 🔍 Run ESLint |
+| `npm run type-check` | ✅ TypeScript compiler check |
 
 ### 🧠 **Backend Scripts**
 
-```bash
-npm run push         # 📤 Push to Google Apps Script
-npm run deploy       # 🚀 Deploy to Google Apps Script
-npm run logs         # 📊 View execution logs
-```
-
-</td>
-</tr>
-</table>
-
-</div>
+| Command | Description |
+|---------|-------------|
+| `npm run push` | 📤 Push to Google Apps Script |
+| `npm run deploy` | 🚀 Deploy to Google Apps Script |
+| `npm run logs` | 📊 View execution logs |
 
 ---
 
@@ -346,7 +322,7 @@ Configuration is managed through Google Apps Script Properties Service.
 For technical issues or questions:
 
 1. 📖 **Check Documentation**: Review the relevant docs first
-2. 🔍 **Troubleshooting Guide**: Check our [troubleshooting guide](docs/TROUBLESHOOTING.md)
+2. 🔍 **Troubleshooting Guide**: Check our [troubleshooting guide](docs/developer/setup/troubleshooting.md)
 3. 🐛 **Create Issue**: Open a detailed GitHub issue if problems persist
 
 ---
