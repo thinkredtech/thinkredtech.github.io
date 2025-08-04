@@ -259,24 +259,11 @@ function implementNonCriticalCSSLoading() {
     // Find CSS files and make them load asynchronously
     const cssFiles = fs.readdirSync(assetsDir).filter(file => file.endsWith('.css'));
     
-    cssFiles.forEach(cssFile => {
-      // Replace regular CSS links with non-blocking loading
-      const cssPath = `/assets/${cssFile}`;
-      const linkRegex = new RegExp(`<link[^>]*href="${cssPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>`, 'g');
-      
-      html = html.replace(linkRegex, (match) => {
-        if (match.includes('preload')) {
-          return match; // Keep preload links as-is
-        }
-        
-        // Convert to non-blocking loading
-        return `<link rel="preload" href="${cssPath}" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
-    <noscript><link rel="stylesheet" href="${cssPath}" crossorigin></noscript>`;
-      });
-    });
+    // Skip CSS link modification to prevent loading issues
+    console.log('✅ Updated critical CSS in index.html');
+    console.log('✅ Skipped CSS link modification to ensure compatibility');
     
     fs.writeFileSync(indexPath, html, 'utf8');
-    console.log('✅ Implemented non-critical CSS loading');
     
   } catch (error) {
     console.error('❌ Failed to implement non-critical CSS loading:', error.message);

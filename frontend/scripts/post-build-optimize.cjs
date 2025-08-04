@@ -162,41 +162,47 @@ try {
   // Read the generated index.html
   let html = fs.readFileSync(indexPath, 'utf8');
   
-  // Ensure charset meta is first in head
-  const charsetRegex = /<meta\s+charset="UTF-8"\s*\/?>/i;
-  const charsetMatch = html.match(charsetRegex);
-  if (charsetMatch) {
-    // Remove existing charset meta
-    html = html.replace(charsetRegex, '');
-    
-    // Insert charset meta right after <head>
-    const headOpenIndex = html.indexOf('<head>');
-    if (headOpenIndex !== -1) {
-      const insertPosition = html.indexOf('>', headOpenIndex) + 1;
-      html = html.slice(0, insertPosition) + '\n    <meta charset="UTF-8" />' + html.slice(insertPosition);
-    }
-  }
-  
-  // Inject critical CSS after charset meta
+  // ONLY inject critical CSS - don't modify any existing structure
   const headOpenIndex = html.indexOf('<head>');
   if (headOpenIndex !== -1) {
-    // Find position after charset meta
-    const charsetEndIndex = html.indexOf('<meta charset="UTF-8" />') + '<meta charset="UTF-8" />'.length;
-    html = html.slice(0, charsetEndIndex) + criticalCSS + html.slice(charsetEndIndex);
+    // Find position after opening head tag
+    const insertPosition = html.indexOf('>', headOpenIndex) + 1;
+    // Insert critical CSS right after <head> tag, without disturbing other content
+    html = html.slice(0, insertPosition) + criticalCSS + html.slice(insertPosition);
   }
   
   // Find the main CSS and JS files in the assets directory
   const assetFiles = fs.readdirSync(assetsDir);
-  const mainCSSFile = assetFiles.find(file => file.startsWith('index-') && file.endsWith('.css'));
-  const mainJSFile = assetFiles.find(file => file.startsWith('index-') && file.endsWith('.js') && !file.endsWith('.js.map'));
+  const mainCSSFile = assetFiles.find(file => file.endsWith('.css') && (file.startsWith('index-') || file.startsWith('styles-')));
+  const mainJSFile = assetFiles.find(file => file.startsWith('main-') && file.endsWith('.js') && !file.endsWith('.js.map'));
   const vendorsJSFile = assetFiles.find(file => file.startsWith('vendors-') && file.endsWith('.js') && !file.endsWith('.js.map'));
   const reactCoreJSFile = assetFiles.find(file => file.startsWith('react-core-') && file.endsWith('.js') && !file.endsWith('.js.map'));
   const reactRouterJSFile = assetFiles.find(file => file.startsWith('react-router-') && file.endsWith('.js') && !file.endsWith('.js.map'));
   
   console.log('Found assets:', { mainCSSFile, mainJSFile, vendorsJSFile, reactCoreJSFile, reactRouterJSFile });
   
-  // If assets are found but not in HTML, inject them
-  if (mainCSSFile && !html.includes(mainCSSFile)) {
+  // Always ensure CSS is properly linked (critical for functionality)
+  console.log(`Checking CSS: ${mainCSSFile}`);
+  console.log(`CSS in HTML check: ${html.includes(`/assets/${mainCSSFile}`)}`);
+  
+  if (mainCSSFile && !html.includes(`/assets/${mainCSSFile}`)) {
+    console.log(`Adding missing CSS link: ${mainCSSFile}`);
+    const headCloseIndex = html.indexOf('</head>');
+    if (headCloseIndex !== -1) {
+      const cssLink = `    <link rel="stylesheet" href="/assets/${mainCSSFile}" crossorigin>\n`;
+      html = html.slice(0, headCloseIndex) + cssLink + html.slice(headCloseIndex);
+      console.log('CSS link added successfully');
+    } else {
+      console.log('ERROR: Could not find </head> tag');
+    }
+  } else if (mainCSSFile) {
+    console.log(`CSS already present: ${mainCSSFile}`);
+  } else {
+    console.log('ERROR: No CSS file found');
+  }
+
+  // If other assets are missing, add them
+  if (mainJSFile && !html.includes(mainJSFile)) {
     // Find the closing </head> tag to inject assets
     const headCloseIndex = html.indexOf('</head>');
     if (headCloseIndex !== -1) {
@@ -206,21 +212,11 @@ try {
       if (mainJSFile) {
         assetsHTML += `    <link rel="preload" href="/assets/${mainJSFile}" as="script" crossorigin>\n`;
       }
-      if (mainCSSFile) {
-        assetsHTML += `    <link rel="preload" href="/assets/${mainCSSFile}" as="style" crossorigin>\n`;
-      }
       if (vendorsJSFile) {
         assetsHTML += `    <link rel="preload" href="/assets/${vendorsJSFile}" as="script" crossorigin>\n`;
       }
       if (reactCoreJSFile) {
         assetsHTML += `    <link rel="preload" href="/assets/${reactCoreJSFile}" as="script" crossorigin>\n`;
-      }
-      
-      // Add non-blocking CSS
-      if (mainCSSFile) {
-        assetsHTML += `    \n    <!-- Non-blocking CSS loading -->\n`;
-        assetsHTML += `    <link rel="stylesheet" media="print" onload="this.media='all'" crossorigin href="/assets/${mainCSSFile}">\n`;
-        assetsHTML += `    <noscript><link rel="stylesheet" crossorigin href="/assets/${mainCSSFile}"></noscript>\n`;
       }
       
       // Add module scripts
@@ -243,24 +239,8 @@ try {
       html = html.slice(0, headCloseIndex) + assetsHTML + html.slice(headCloseIndex);
     }
   } else {
-    // If assets are already in HTML, optimize them
-    const cssMatch = html.match(/<link[^>]*rel="stylesheet"[^>]*href="([^"]*\.css)"[^>]*>/);
-    
-    if (cssMatch) {
-      const cssHref = cssMatch[1];
-      const fullMatch = cssMatch[0];
-      
-      // Replace the blocking CSS link with non-blocking version
-      const nonBlockingCSS = `
-    <!-- Preload CSS for better performance -->
-    <link rel="preload" href="${cssHref}" as="style" crossorigin>
-    
-    <!-- Non-blocking CSS loading -->
-    <link rel="stylesheet" media="print" onload="this.media='all'" crossorigin href="${cssHref}">
-    <noscript><link rel="stylesheet" crossorigin href="${cssHref}"></noscript>`;
-      
-      html = html.replace(fullMatch, nonBlockingCSS);
-    }
+    // Assets are already in HTML - just verify presence
+    console.log('Other assets already in HTML');
     
     // Find the main JS file reference
     const jsMatch = html.match(/<script[^>]*type="module"[^>]*src="([^"]*\.js)"[^>]*>/);

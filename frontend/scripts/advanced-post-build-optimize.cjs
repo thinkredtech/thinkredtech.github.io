@@ -307,22 +307,9 @@ try {
     /href="https:\/\/fonts\.googleapis\.com\/css2[^"]*"/g,
     (match) => `${match} media="print" onload="this.media='all'"`
   );
-  
-  // 11. ADD NON-CRITICAL CSS LOADING
-  const mainCSSFile = criticalAssets.find(file => file.endsWith('.css'));
-  if (mainCSSFile) {
-    const cssLoadScript = `
-    <script nonce="${nonce}">
-      const link=document.createElement('link');
-      link.rel='stylesheet';
-      link.href='/assets/${mainCSSFile}';
-      link.media='print';
-      link.onload=function(){this.media='all'};
-      document.head.appendChild(link);
-    </script>`;
-    
-    html = html.replace('</body>', cssLoadScript + '</body>');
-  }
+
+  // 11. SKIP NON-CRITICAL CSS LOADING - Let Vite handle CSS naturally
+  // Removed problematic dynamic CSS loading that conflicts with Vite
 
   // 12. WRITE OPTIMIZED HTML
   fs.writeFileSync(indexPath, html, 'utf8');
