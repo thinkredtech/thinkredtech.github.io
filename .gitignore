@@ -18,6 +18,12 @@ build/
 frontend/dist/
 **/frontend/dist/
 frontend/hostinger-deploy/
+
+# Generated documentation reports and artifacts
+reports/documentation/*.log
+reports/documentation/*.html
+reports/documentation/link-health-report-*.md
+reports/documentation/health-dashboard-*.html
 **/hostinger-deploy/
 thinkred-website.zip
 **/thinkred-website.zip
