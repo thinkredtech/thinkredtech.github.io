@@ -79,19 +79,40 @@ export default defineConfig({
             return "vendors";
           }
         },
+        // Optimize chunk naming for better caching
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       },
     },
-    chunkSizeWarningLimit: 600,
-    // Additional optimizations
+    chunkSizeWarningLimit: 500, // Reduce chunk size warning
+    // Enhanced optimizations for PageSpeed
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
+        passes: 2,
+        dead_code: true,
+        unused: true,
+        side_effects: false,
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
       },
     },
     cssCodeSplit: true,
     assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+    // Enable additional optimizations
+    target: ['es2020', 'chrome80', 'firefox78', 'safari14', 'edge88'],
+    cssMinify: true,
+    // Rollup-specific optimizations
+    reportCompressedSize: false, // Faster builds
+    emptyOutDir: true,
   },
   // Security: CSP nonce generation for production builds
   define: {
