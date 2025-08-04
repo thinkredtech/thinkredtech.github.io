@@ -1,0 +1,19 @@
+{
+    "indexVersion": "1.0",
+    "generatedAt": "2025-08-04T09:13:08Z",
+    "totalDocuments": 73,
+    "searchFields": [
+        "title",
+        "description",
+        "content"
+    ],
+    "facets": [
+        "type",
+        "directory"
+    ],
+    "boosts": {
+        "title": 3,
+        "description": 2,
+        "content": 1
+    }
+}
