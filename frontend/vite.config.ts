@@ -40,6 +40,11 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: true,
     rollupOptions: {
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+        tryCatchDeoptimization: false
+      },
       output: {
         manualChunks: (id) => {
           if (id.includes("node_modules")) {
@@ -130,7 +135,7 @@ export default defineConfig({
       "react-icons/fa",
       "react-icons/si",
     ],
-    exclude: [],
+    exclude: ["@vite/client", "@vite/env"],
   },
   publicDir: "public",
 });

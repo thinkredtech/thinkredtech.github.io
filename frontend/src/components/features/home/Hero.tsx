@@ -182,6 +182,8 @@ const Hero = () => {
                         className="w-72 h-auto filter drop-shadow-lg"
                         width="288"
                         height="120"
+                        fetchPriority="high"
+                        loading="eager"
                       />
                       <div className="absolute -inset-6 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500"></div>
                     </div>
