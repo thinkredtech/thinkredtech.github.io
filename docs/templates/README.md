@@ -13,22 +13,15 @@ Templates ensure:
 ## 📋 Available Templates
 
 ### 📖 Basic Templates
-- [`document-template.md`](document-template.md) - Generic documentation template
-- [`readme-template.md`](readme-template.md) - README file template
-- [`api-template.md`](api-template.md) - API documentation template
-- [`guide-template.md`](guide-template.md) - How-to guide template
+- [`document-template.md`](document-template.md) - General purpose documentation template
+- [`blog-post-template.md`](blog-post-template.md) - Blog post and article template with SEO optimization
 
 ### 🔧 Technical Templates
-- [`architecture-template.md`](architecture-template.md) - Architecture documentation
-- [`deployment-template.md`](deployment-template.md) - Deployment guide template
-- [`troubleshooting-template.md`](troubleshooting-template.md) - Troubleshooting guide
-- [`security-template.md`](security-template.md) - Security documentation
+- [`architecture-template.md`](architecture-template.md) - System architecture documentation
+- [`api-template.md`](api-template.md) - Comprehensive API documentation template with examples and testing
 
 ### 📊 Operational Templates
-- [`runbook-template.md`](runbook-template.md) - Operational runbook template
-- [`incident-template.md`](incident-template.md) - Incident report template
-- [`performance-template.md`](performance-template.md) - Performance report template
-- [`monitoring-template.md`](monitoring-template.md) - Monitoring setup guide
+- [`runbook-template.md`](runbook-template.md) - Incident response and operational procedures
 
 ### 📝 Content Templates
 - [`blog-post-template.md`](blog-post-template.md) - Blog post template
