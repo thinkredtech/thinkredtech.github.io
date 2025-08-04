@@ -24,7 +24,9 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/post-build-optimize.cjs",
+    "build": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/advanced-post-build-optimize.cjs && node scripts/optimize-images.cjs && node scripts/optimize-css.cjs && node scripts/optimize-accessibility.cjs",
+    "build:fast": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/post-build-optimize.cjs",
+    "build:analyze": "ANALYZE=true vite build",
     "clean": "rm -rf dist .vite",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -59,7 +61,11 @@
     "format:all": "npm run format && npm run format:md && npm run lint:md:fix",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css}\"",
     "type-check": "tsc --noEmit",
-    "test": "echo \"No tests specified. Please add tests to improve code coverage.\" && exit 0"
+    "test": "echo \"No tests specified. Please add tests to improve code coverage.\" && exit 0",
+    "perf:optimize": "node scripts/optimize-images.cjs && node scripts/optimize-css.cjs",
+    "perf:test": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js",
+    "perf:analyze": "npm run build:analyze && node ../scripts/performance/performance-analyzer.js",
+    "perf:validate": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js --scenario=pre-deployment"
   },
   "browserslist": {
     "production": [
@@ -82,6 +88,7 @@
     "@typescript-eslint/parser": "^8.33.1",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.1",
