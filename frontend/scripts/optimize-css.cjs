@@ -71,7 +71,14 @@ function isCriticalSelector(selector) {
     if (critical.endsWith('-')) {
       return selector.includes(critical);
     }
-    return selector.includes(critical) || selector.match(new RegExp(critical.replace(/\\/g, '')));
+    try {
+      // Escape special regex characters to prevent invalid regex errors
+      const escapedCritical = critical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return selector.includes(critical) || selector.match(new RegExp(escapedCritical));
+    } catch {
+      // Fallback to simple string match if regex fails
+      return selector.includes(critical);
+    }
   });
 }
 

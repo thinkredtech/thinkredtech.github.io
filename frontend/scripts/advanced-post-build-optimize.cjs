@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const { getOrCreateNonce } = require('./nonce-generator.cjs');
 
 const distDir = path.join(__dirname, '..', 'dist');
 const indexPath = path.join(distDir, 'index.html');
@@ -18,8 +18,8 @@ const assetsDir = path.join(distDir, 'assets');
 console.log('🚀 Starting Advanced Performance Optimization...');
 
 try {
-  // Generate unique nonce for CSP
-  const nonce = crypto.randomBytes(16).toString('base64');
+  // Use shared nonce generator
+  const nonce = getOrCreateNonce();
   
   // Read the index.html file
   let html = fs.readFileSync(indexPath, 'utf8');
@@ -248,16 +248,16 @@ try {
   // 4. ENHANCED CSP WITH NONCE - Replace existing CSP if present
   const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-${nonce}' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self' https://script.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">`;
 
-  // Remove any existing CSP headers to prevent conflicts
-  html = html.replace(/<meta[^>]*Content-Security-Policy[^>]*>/gi, '');
+  // Remove any existing CSP headers to prevent conflicts - more comprehensive patterns
+  html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, '');
+  html = html.replace(/<meta[^>]*content=["'][^"']*Content-Security-Policy[^"']*["'][^>]*>/gi, '');
 
   // 5. ADDITIONAL SECURITY AND PERFORMANCE HEADERS
   const securityMeta = `
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)">
   `;
 
   // 6. SERVICE WORKER REGISTRATION
@@ -277,6 +277,9 @@ try {
   // 7. REPLACE AND OPTIMIZE HTML
   // Remove existing critical CSS and replace with optimized version
   html = html.replace(/<style[^>]*>[\s\S]*?<\/style>/g, '');
+  
+  // Replace nonce placeholders with actual nonce
+  html = html.replace(/__CSP_NONCE__/g, nonce);
   
   // Find the head tag and insert optimized content
   const headEndIndex = html.indexOf('</head>');

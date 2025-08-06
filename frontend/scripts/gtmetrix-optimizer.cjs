@@ -20,6 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { getOrCreateNonce } = require('./nonce-generator.cjs');
 
 const distDir = path.join(process.cwd(), 'dist');
 const assetsDir = path.join(distDir, 'assets');
@@ -220,9 +221,12 @@ function deferOffscreenImages() {
   
   let html = fs.readFileSync(indexPath, 'utf8');
   
+  // Get shared nonce for script tag
+  const nonce = getOrCreateNonce();
+  
   // Add intersection observer for images
   const lazyLoadScript = `
-<script>
+<script nonce="${nonce}">
 (function() {
   'use strict';
   
@@ -392,10 +396,18 @@ function additionalOptimizations() {
     @media(max-width:768px){.text-4xl{font-size:1.875rem}.text-xl{font-size:1.125rem}}
   </style>`;
   
-  // Insert critical CSS in head
-  const firstLinkIndex = html.indexOf('<link');
-  if (firstLinkIndex !== -1) {
-    html = html.slice(0, firstLinkIndex) + criticalCSS + '\n  ' + html.slice(firstLinkIndex);
+  // Insert critical CSS after the last meta tag but before the first link/style/script
+  const lastMetaIndex = html.lastIndexOf('</meta>') !== -1 ? html.lastIndexOf('</meta>') : html.lastIndexOf('<meta');
+  if (lastMetaIndex !== -1) {
+    // Find the end of the last meta tag
+    const insertIndex = html.indexOf('>', lastMetaIndex) + 1;
+    html = html.slice(0, insertIndex) + criticalCSS + '\n  ' + html.slice(insertIndex);
+  } else {
+    // Fallback: insert before first link
+    const firstLinkIndex = html.indexOf('<link');
+    if (firstLinkIndex !== -1) {
+      html = html.slice(0, firstLinkIndex) + criticalCSS + '\n  ' + html.slice(firstLinkIndex);
+    }
   }
   
   fs.writeFileSync(indexPath, html);

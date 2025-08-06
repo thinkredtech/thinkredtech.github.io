@@ -20,8 +20,9 @@ export default defineConfig({
       }
     }),
     // CSP Plugin for secure Content Security Policy - Addresses GitHub Issue #45
+    // Note: Disabled during build - post-build optimizers handle CSP nonces
     createCSPPlugin({
-      enabled: true,
+      enabled: process.env.NODE_ENV !== "production",
       development: process.env.NODE_ENV !== "production",
     }),
   ],
