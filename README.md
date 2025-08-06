@@ -10,8 +10,8 @@
 
 [![Repository Health](https://img.shields.io/badge/Repository%20Health-100%25-brightgreen)](https://github.com/thinkredtech/thinkred-monorepo/actions)
 [![Build Status](https://img.shields.io/badge/Build-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-92.6%25-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
-[![GTMetrix Score](https://img.shields.io/badge/GTMetrix-83%25-brightgreen)](https://gtmetrix.com)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
+[![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![Security](https://img.shields.io/badge/Security-passed-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 [![QA Pipeline](https://img.shields.io/badge/QA%20Pipeline-EXCELLENT-brightgreen)](https://github.com/thinkredtech/thinkredtech.github.io/actions)
 
