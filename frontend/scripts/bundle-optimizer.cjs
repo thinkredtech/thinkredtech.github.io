@@ -139,16 +139,15 @@ function optimizeCSS() {
     // Apply only safe removals that don't break the layout
     const safePatterns = [
       // Remove duplicate semicolons
-      /;;+/g,
-      // Remove empty rules
-      /[^{}]*\{\s*\}/g,
+      { pattern: /;;+/g, replacement: ';' },
+      // Remove empty rules  
+      { pattern: /[^{}]*\{\s*\}/g, replacement: '' },
       // Remove trailing semicolons before closing braces
-      /;\s*}/g,
+      { pattern: /;\s*}/g, replacement: '}' },
     ];
     
-    safePatterns.forEach(pattern => {
-      css = css.replace(pattern, pattern === /;;+/g ? ';' : 
-                                 pattern === /;\s*}/g ? '}' : '');
+    safePatterns.forEach(({ pattern, replacement }) => {
+      css = css.replace(pattern, replacement);
     });
     
     // Minify CSS further
