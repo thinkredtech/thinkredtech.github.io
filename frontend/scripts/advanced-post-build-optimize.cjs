@@ -252,6 +252,10 @@ try {
   html = html.replace(/<meta[^>]*http-equiv=["']?Content-Security-Policy["']?[^>]*>/gi, '');
   html = html.replace(/<meta[^>]*content=["'][^"']*Content-Security-Policy[^"']*["'][^>]*>/gi, '');
 
+  // Remove any existing Permissions-Policy headers to prevent conflicts
+  html = html.replace(/<meta[^>]*http-equiv=["']?Permissions-Policy["']?[^>]*>/gi, '');
+  html = html.replace(/<meta[^>]*content=["'][^"']*Permissions-Policy[^"']*["'][^>]*>/gi, '');
+
   // 5. ADDITIONAL SECURITY AND PERFORMANCE HEADERS
   const securityMeta = `
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -301,6 +305,9 @@ try {
   // More robust regex to prevent duplicate nonces
   html = html.replace(/<script(?![^>]*nonce=)(?![^>]*src)([^>]*)>/g, `<script$1 nonce="${nonce}">`);
   html = html.replace(/<style(?![^>]*nonce=)([^>]*)>/g, `<style$1 nonce="${nonce}">`);
+  
+  // Add nonce to external script tags that don't already have one
+  html = html.replace(/<script(?![^>]*nonce=)([^>]*src[^>]*)>/g, `<script$1 nonce="${nonce}">`);
   
   // Add nonce to stylesheet links that don't already have one
   html = html.replace(/<link([^>]*rel="stylesheet"[^>]*?)(?![^>]*nonce=)>/g, `<link$1 nonce="${nonce}">`);
