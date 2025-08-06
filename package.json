@@ -44,6 +44,8 @@
     "perf:fix": "node scripts/performance/performance-auto-fixer.js",
     "perf:config": "node scripts/performance/performance-config.js",
     "perf:smart": "node scripts/performance/smart-lighthouse-tester.js",
+    "perf:gtmetrix": "cd frontend && node scripts/gtmetrix-optimizer.cjs && node scripts/bundle-optimizer.cjs && node scripts/gtmetrix-validator.cjs",
+    "perf:optimize": "cd frontend && npm run perf:gtmetrix",
     "install:all": "npm run install:frontend && npm run install:backend",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",

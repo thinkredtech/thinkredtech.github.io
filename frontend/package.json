@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/advanced-post-build-optimize.cjs && node scripts/optimize-images.cjs && node scripts/optimize-css.cjs && node scripts/optimize-accessibility.cjs",
+    "build": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/advanced-post-build-optimize.cjs && node scripts/optimize-images.cjs && node scripts/optimize-css.cjs && node scripts/optimize-accessibility.cjs && node scripts/gtmetrix-optimizer.cjs && node scripts/bundle-optimizer.cjs",
     "build:fast": "vite build && cp -r ../docs dist/docs && cp public/maintenance.html dist/maintenance.html && node scripts/post-build-optimize.cjs",
     "build:analyze": "ANALYZE=true vite build",
     "clean": "rm -rf dist .vite",
@@ -63,6 +63,7 @@
     "type-check": "tsc --noEmit",
     "test": "echo \"No tests specified. Please add tests to improve code coverage.\" && exit 0",
     "perf:optimize": "node scripts/optimize-images.cjs && node scripts/optimize-css.cjs",
+    "perf:gtmetrix": "node scripts/gtmetrix-optimizer.cjs && node scripts/bundle-optimizer.cjs && node scripts/gtmetrix-validator.cjs",
     "perf:test": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js",
     "perf:analyze": "npm run build:analyze && node ../scripts/performance/performance-analyzer.js",
     "perf:validate": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js --scenario=pre-deployment"
