@@ -242,6 +242,42 @@ open http://localhost:3000/docs
 - **Content Documentation**: @content-team  
 - **Operations Documentation**: @devops-team
 
+## 🛠️ Documentation Quality Tools
+
+### Quality Validation Scripts
+```bash
+# Quick markdown check
+npm run lint:md
+
+# Auto-fix markdown formatting  
+npm run lint:md:fix
+
+# Full documentation quality check
+npm run docs:quality
+
+# Link validation
+npm run lint:links:readme    # Check main README links
+npm run lint:links           # Check docs directory links  
+npm run lint:links:src       # Check source documentation links
+npm run lint:links:all       # Check all links everywhere
+
+# Documentation dashboard
+npm run docs:dashboard
+```
+
+### Quality Metrics
+The documentation system maintains these quality standards:
+- **Markdown Linting**: Zero formatting errors across all files
+- **Link Validation**: Automated checking of internal and external links
+- **Template Compliance**: Structured documentation using standardized templates
+- **CI/CD Integration**: Automatic quality checks on all documentation changes
+
+### Before Submitting
+1. Run `npm run docs:quality` to validate your changes
+2. Fix any markdown formatting issues with `npm run lint:md:fix`
+3. Ensure all links are working with `npm run lint:links`
+4. Verify template compliance for new documents
+
 ### Resources
 - **GitHub Issues**: Report bugs or request features
 - **Discussion Forums**: Ask questions and share ideas
@@ -257,4 +293,5 @@ open http://localhost:3000/docs
 
 ---
 
-*Thank you for contributing to ThinkRED documentation! Your efforts help make the platform more accessible and successful for everyone.*
+*Thank you for contributing to ThinkRED documentation! Your efforts help make the platform more accessible and 
+successful for everyone.*
