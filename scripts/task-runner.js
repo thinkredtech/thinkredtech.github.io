@@ -56,11 +56,13 @@ const TASKS = {
     workspaces: ["frontend"],
     parallel: false,
     script: "dev",
+    preTask: "copyDocs",
   },
   "dev:all": {
     description: "Start all development servers",
     workspaces: ["frontend", "backend"],
     parallel: true,
+    preTask: "copyDocs",
     scripts: {
       frontend: "dev",
       backend: "logs --follow",
@@ -138,10 +140,15 @@ const TASKS = {
 
   // Installation and setup
   install: {
-    description: "Install dependencies",
+    description: "Install dependencies across all workspaces",
     workspaces: ["root"],
     parallel: false,
-    script: "install:all",
+    customCommand: async () => {
+      await runCommand(
+        "Installing dependencies across all workspaces...",
+        "npm install",
+      );
+    },
   },
   "install:clean": {
     description: "Clean install all dependencies",
@@ -150,7 +157,7 @@ const TASKS = {
     customCommand: async () => {
       await runCommand(
         "Clean installing dependencies...",
-        "npm run clean && npm run install:all",
+        "npm run clean && npm install",
       );
     },
   },
@@ -457,6 +464,35 @@ function showWorkspaceStatus() {
   });
 }
 
+// Pre-task utilities
+async function executePreTask(preTaskName) {
+  switch (preTaskName) {
+    case 'copyDocs':
+      await copyDocsForDev();
+      break;
+    default:
+      logWarning(`Unknown pre-task: ${preTaskName}`);
+  }
+}
+
+function copyDocsForDev() {
+  return new Promise((resolve, reject) => {
+    const { exec } = require('child_process');
+    const command = 'cp -r docs/* frontend/public/docs/ 2>/dev/null || mkdir -p frontend/public/docs && cp -r docs/* frontend/public/docs/';
+    
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        logWarning('Could not copy docs for development server');
+        // Don't fail the entire task for docs copying
+        resolve();
+      } else {
+        console.log(chalk.gray('📄 Docs copied to development server'));
+        resolve();
+      }
+    });
+  });
+}
+
 // Main execution logic
 async function executeTask(taskName, targetWorkspace = null, options = {}) {
   const task = TASKS[taskName];
@@ -488,6 +524,11 @@ async function executeTask(taskName, targetWorkspace = null, options = {}) {
   logHeader(`Running ${taskName}`);
 
   try {
+    // Run pre-task if defined
+    if (task.preTask) {
+      await executePreTask(task.preTask);
+    }
+
     // Determine workspaces to run on
     let workspaces = targetWorkspace ? [targetWorkspace] : task.workspaces;
 

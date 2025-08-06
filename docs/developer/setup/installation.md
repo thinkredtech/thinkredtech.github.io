@@ -22,11 +22,19 @@ Before you begin, ensure you have the following installed:
    cd thinkredtech.github.io
    ```
 
-2. **Install Dependencies**
+2. **Install All Dependencies (Monorepo)**
 
    ```bash
+   # Single command installs ALL workspace dependencies
    npm install
    ```
+
+   This automatically:
+   - Installs root dependencies
+   - Installs frontend dependencies
+   - Installs backend dependencies
+   - Sets up workspace linking
+   - Copies documentation for development
 
 3. **Environment Configuration**
 
@@ -51,15 +59,105 @@ Before you begin, ensure you have the following installed:
 
    The website will be available at `http://localhost:5173`
 
+## Monorepo Workspace Configuration
+
+### ✅ **Automatic Dependency Installation**
+
+This project uses **npm workspaces** for automatic dependency management across all packages. Here's how it works:
+
+#### 🎯 **Single Command Installation**
+
+```bash
+# At the root - installs ALL workspace dependencies automatically
+npm install
+```
+
+This single command:
+- ✅ Installs root dependencies
+- ✅ Installs frontend workspace dependencies  
+- ✅ Installs backend workspace dependencies
+- ✅ Creates proper workspace links
+- ✅ Automatically copies documentation for development
+- ✅ Maintains dependency version consistency
+
+#### 🏗️ **Workspace Structure**
+
+```json
+{
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
+```
+
+#### 🚀 **Available Installation Commands**
+
+| Command | Description |
+|---------|-------------|
+| `npm install` | Install all workspace dependencies (recommended) |
+| `npm run task install` | Task runner version with detailed output |
+| `npm run install:clean` | Clean install (removes node_modules first) |
+
+#### 🔄 **Automatic Hooks**
+
+- **postinstall**: Automatically copies documentation files for development
+- **workspace linking**: npm automatically links shared dependencies
+- **version consistency**: Overrides ensure consistent package versions
+
+#### 📁 **Installation Result**
+
+After `npm install` at root:
+```
+thinkred-monorepo/
+├── node_modules/           # Root dependencies + workspace symlinks
+├── frontend/
+│   └── node_modules/       # Frontend-specific dependencies
+└── backend/
+    └── node_modules/       # Backend-specific dependencies (minimal)
+```
+
+#### 🎁 **Benefits**
+
+1. **Developer Experience**: Single command installs everything
+2. **CI/CD Simplification**: One installation step for all environments
+3. **Dependency Consistency**: Shared packages use same versions
+4. **Performance**: npm optimizes shared dependencies
+5. **Maintainability**: No manual workspace management needed
+
+#### ✅ **Verification**
+
+To verify the workspace setup is working:
+
+```bash
+# Check workspace structure
+npm ls --workspaces
+
+# Verify all dependencies are installed
+ls frontend/node_modules backend/node_modules
+
+# Test development server (should work immediately)
+npm run dev
+```
+
+#### 🔧 **Technical Details**
+
+- **npm workspaces** handle dependency resolution automatically
+- **Hoisting**: Shared dependencies are installed at root level when possible
+- **Isolation**: Workspace-specific dependencies remain in their respective directories
+- **Linking**: npm creates symlinks for cross-workspace dependencies
+
 ## Frontend Setup
 
 ### Development Environment
 
-1. **Install Frontend Dependencies**
+The frontend dependencies are automatically installed when you run `npm install` at the root level (see Monorepo Workspace Configuration above).
+
+1. **Verify Frontend Setup**
 
    ```bash
-   cd frontend
-   npm install
+   # Check that frontend dependencies were installed
+   ls frontend/node_modules
    ```
 
 2. **Available Scripts**
@@ -76,10 +174,13 @@ Before you begin, ensure you have the following installed:
    - Tailwind CSS with live reload
    - ESLint and Prettier integration
    - Automated testing setup
+   - Automatic documentation sync for `/docs` route
 
 ## Backend Setup
 
 ### Google Apps Script Configuration
+
+The backend dependencies are automatically installed when you run `npm install` at the root level (see Monorepo Workspace Configuration above).
 
 1. **Install Google Apps Script CLI**
 

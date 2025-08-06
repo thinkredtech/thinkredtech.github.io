@@ -14,6 +14,7 @@
     "quality": "npm run qa",
     "check": "npm run qa",
     "validate": "npm run qa",
+    "postinstall": "cp -r docs/* frontend/public/docs/ 2>/dev/null || mkdir -p frontend/public/docs && cp -r docs/* frontend/public/docs/",
     "task": "node scripts/task-runner.js",
     "help": "npm run task help",
     "status": "npm run task status",
@@ -54,9 +55,6 @@
     "perf:gtmetrix:enhanced": "cd frontend && node scripts/enhanced-gtmetrix-optimizer.cjs && node scripts/gtmetrix-validator.cjs",
     "perf:gtmetrix:max": "npm run perf:gtmetrix:enhanced",
     "perf:optimize": "cd frontend && npm run perf:gtmetrix",
-    "install:all": "npm run install:frontend && npm run install:backend",
-    "install:frontend": "cd frontend && npm install",
-    "install:backend": "cd backend && npm install",
     "clean:frontend": "cd frontend && npm run clean",
     "clean:backend": "rm -rf backend/node_modules backend/.clasp.json.bak",
     "lint:frontend": "cd frontend && npm run lint",
@@ -64,7 +62,7 @@
   },
   "devDependencies": {
     "@google/clasp": "^2.5.0",
-    "@testing-library/react": "^15.0.7",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "chalk": "^4.1.2",
@@ -78,7 +76,10 @@
     "shelljs": "^0.8.5"
   },
   "overrides": {
-    "on-headers": "^1.1.0"
+    "on-headers": "^1.1.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7"
   },
   "engines": {
     "node": ">=16.0.0",

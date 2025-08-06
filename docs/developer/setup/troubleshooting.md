@@ -1067,7 +1067,7 @@ git reset --hard origin/main
 
 # 3. Fresh installation
 rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json
-npm run install:all
+npm install
 
 # 4. Reset environment
 rm .env .deployment-config.json
@@ -1108,7 +1108,7 @@ Before asking for help, check these:
 - [ ] Did you read the error message carefully?
 - [ ] Did you try turning it off and on again?
 - [ ] Are you on the latest version of Node.js?
-- [ ] Did you run `npm run install:all`?
+- [ ] Did you run `npm install` at the root to install all workspace dependencies?
 - [ ] Are your environment variables configured?
 - [ ] Did you check the browser console for errors?
 - [ ] Did you try the common fixes above?
@@ -1166,7 +1166,7 @@ When reporting issues, include:
 ```bash
 # Daily routine
 git pull origin main          # Stay updated
-npm run install:all          # Keep dependencies fresh
+npm install                  # Keep dependencies fresh (workspace-aware)
 npm run lint                # Check code quality
 npm test                   # Run tests
 npm run type-check         # Check TypeScript

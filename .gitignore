@@ -19,6 +19,11 @@ frontend/dist/
 **/frontend/dist/
 frontend/hostinger-deploy/
 
+# Generated documentation copies for development
+frontend/public/docs/
+!frontend/public/docs/developer/
+!frontend/public/docs/operations/
+
 # Generated documentation reports and artifacts
 reports/documentation/*.log
 reports/documentation/*.html
