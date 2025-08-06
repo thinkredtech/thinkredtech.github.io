@@ -370,8 +370,10 @@ Content-Type: application/json
   "password": "your_admin_password",
   "operation": "get-submissions",
   "filters": {
+
     "type": "contact|job-application|all",
     "status": "new|reviewed|responded|all",
+
     "limit": 50,
     "offset": 0
   }
@@ -422,8 +424,10 @@ Content-Type: application/json
   "action": "admin",
   "password": "your_admin_password",
   "operation": "export-data",
+
   "format": "csv|json",
   "type": "contact|job-application|all",
+
   "date_range": {
     "start": "2024-01-01",
     "end": "2024-01-31"
@@ -600,7 +604,9 @@ The repository includes helpful test scripts:
 ./test-file-sizes.sh
 
 # Test specific endpoints
+
 curl -s "$(grep 'API_URL=' test-cors-api.sh | cut -d'=' -f2)?action=health" | jq '.'
+
 ```
 
 ---

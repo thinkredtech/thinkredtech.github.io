@@ -76,7 +76,9 @@ interface User {
 
 // Create a new user with validation
 const createUser = (userData: Partial<User>): User => {
+
   if (!userData.name || !userData.email) {
+
     throw new Error('Name and email are required');
   }
   return {

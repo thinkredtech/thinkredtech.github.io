@@ -114,6 +114,7 @@ git commit -m "Remove build artifacts from tracking"
 ### Build files still appearing in Git?
 
 1. Check if files were already tracked: `git ls-files | grep build`
+
 2. Run cleanup script: `npm run clean:git`
 3. Verify .gitignore patterns: `git check-ignore path/to/file`
 

@@ -25,7 +25,9 @@ This document outlines the comprehensive SEO improvements implemented for the Th
 Pre-configured SEO settings for all important pages:
 
 1. **Homepage**
+
    - Title: "ThinkRED Technologies | Expert Web & Mobile App Development, DevOps, Platform Engineering Services"
+
    - Keywords: 70+ targeted keywords including web development, mobile app development, DevOps automation, enterprise solutions
    - Comprehensive service descriptions
 

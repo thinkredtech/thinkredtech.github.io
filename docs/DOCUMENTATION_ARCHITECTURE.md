@@ -114,7 +114,9 @@ docs/
 
 ```typescript
 interface DocsPageProps {
+
   category?: 'developer' | 'content' | 'operations';
+
   subcategory?: string;
   document?: string;
 }

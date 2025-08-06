@@ -12,8 +12,10 @@ Brief 2-3 sentence summary of what this post covers and who should read it.
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Main Section 1](#main-section-1)
-- [Main Section 2](#main-section-2)
+- [Main Content](#main-content)
+  - [Section 1: Descriptive Section Title](#section-1-descriptive-section-title)
+  - [Section 2: Another Descriptive Title](#section-2-another-descriptive-title)
+  - [Advanced Techniques (Optional)](#advanced-techniques-optional)
 - [Conclusion](#conclusion)
 - [Resources](#resources)
 

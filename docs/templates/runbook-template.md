@@ -17,6 +17,7 @@
 - **Impact**: [Business/user impact description]
 
 ### Escalation Matrix
+
 | Level | Contact | Response Time | Conditions |
 |-------|---------|---------------|------------|
 | L1 | On-call Engineer | 15 minutes | Initial response |
@@ -86,7 +87,9 @@ tail -f /var/log/[service]/error.log
 tail -f /var/log/[service]/access.log
 
 # Search for specific errors
+
 grep "ERROR" /var/log/[service]/*.log | tail -20
+
 ```
 
 ## Common Issues and Solutions
@@ -254,6 +257,7 @@ Time: [Timestamp]
 - [System 2]: [Required permissions/credentials]
 
 ### Emergency Contacts
+
 | Role | Name | Phone | Email | Backup |
 |------|------|-------|-------|--------|
 | On-Call Engineer | [Name] | [Phone] | [Email] | [Backup] |

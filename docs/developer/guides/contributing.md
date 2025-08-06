@@ -174,7 +174,9 @@ const UserCard: React.FC<UserProps> = ({ name, email, isActive }) => {
 function processFormSubmission(formData) {
   try {
     // Validate input data
+
     if (!formData || !formData.email) {
+
       throw new Error("Invalid form data");
     }
 

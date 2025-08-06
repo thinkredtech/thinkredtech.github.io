@@ -64,6 +64,8 @@
     "test": "echo \"No tests specified. Please add tests to improve code coverage.\" && exit 0",
     "perf:optimize": "node scripts/optimize-images.cjs && node scripts/optimize-css.cjs",
     "perf:gtmetrix": "node scripts/gtmetrix-optimizer.cjs && node scripts/bundle-optimizer.cjs && node scripts/gtmetrix-validator.cjs",
+    "perf:gtmetrix:enhanced": "node scripts/enhanced-gtmetrix-optimizer.cjs && node scripts/gtmetrix-validator.cjs",
+    "perf:gtmetrix:max": "npm run perf:gtmetrix:enhanced",
     "perf:test": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js",
     "perf:analyze": "npm run build:analyze && node ../scripts/performance/performance-analyzer.js",
     "perf:validate": "npm run build && node ../scripts/performance/smart-lighthouse-tester.js --scenario=pre-deployment"

@@ -112,6 +112,7 @@ ANOTHER_CONFIG_VAR=value
 ## Troubleshooting
 
 ### Common Issues
+
 | Issue | Symptoms | Solution |
 |-------|----------|----------|
 | [Issue 1] | [Symptoms] | [Solution] |

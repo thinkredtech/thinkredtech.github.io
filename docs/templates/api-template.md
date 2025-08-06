@@ -42,6 +42,7 @@ curl -X POST https://api.example.com/oauth/token \
 Retrieve a list of [resource] items.
 
 **Parameters**:
+
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `limit` | integer | No | Number of items to return (default: 20, max: 100) |
@@ -79,6 +80,7 @@ Retrieve a list of [resource] items.
 Retrieve a specific [resource] item.
 
 **Parameters**:
+
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `id` | string | Yes | Unique identifier for the resource |
@@ -196,6 +198,7 @@ All errors follow a consistent format:
 ```
 
 ### Common Error Codes
+
 | Code | Description |
 |------|-------------|
 | `INVALID_REQUEST` | Request format is invalid |

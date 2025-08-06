@@ -22,6 +22,7 @@ This guide provides solutions to common issues encountered during development an
 
    ```bash
    # Kill process using port 5173
+
    lsof -ti:5173 | xargs kill -9
 
    # Or use a different port
@@ -493,6 +494,7 @@ Include the following information:
    - Relevant code snippets
    - Configuration files
    - Recent changes made
+
      |-------|----------|-----------|
      | [CLASP deployment fails](#clasp-issues) | Authentication errors | [Fix CLASP auth](#clasp-troubleshooting) |
      | [Google Apps Script errors](#gas-issues) | Script execution fails | [Fix GAS problems](#gas-troubleshooting) |
@@ -525,6 +527,7 @@ Error: EADDRINUSE: address already in use :::5173
 
 ```bash
 # Method 1: Kill the process using the port
+
 lsof -ti:5173 | xargs kill -9
 
 # Method 2: Use a different port
@@ -538,7 +541,9 @@ pkill -f node
 
 ```bash
 # Add to ~/.zshrc or ~/.bashrc
+
 alias killport='function _killport(){ lsof -ti:$1 | xargs kill -9; }; _killport'
+
 # Usage: killport 5173
 ```
 
@@ -559,6 +564,7 @@ rm -rf node_modules package-lock.json
 npm install
 
 # 2. Check path mapping in tsconfig.json
+
 cat frontend/tsconfig.json | grep -A 5 "paths"
 
 # 3. Restart TypeScript server in VS Code
@@ -930,7 +936,9 @@ npm run deploy
 
 # Fix: Permission issues
 - name: Deploy
+
   run: |
+
     chmod +x ./scripts/deploy.sh
     ./scripts/deploy.sh
 ```

@@ -295,6 +295,7 @@ Our backend leverages **Google Apps Script** as a serverless platform:
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
+
     const action = data.action || e.parameter.action;
 
     // Route to appropriate handler
@@ -438,6 +439,7 @@ class SecurityManager {
   static checkRateLimit(userIdentifier) {
     const cache = CacheService.getScriptCache();
     const key = `rate_limit_${userIdentifier}`;
+
     const count = cache.get(key) || 0;
 
     if (count > 10) {
@@ -479,14 +481,18 @@ interface ApiEndpoints {
 
   // Health check
   GET: '/health' => {
+
     status: 'healthy' | 'degraded' | 'down';
+
     timestamp: string;
     version: string;
   }
 
   // Admin operations
   POST: '/admin' => {
+
     action: 'get-submissions' | 'update-status' | 'export-data';
+
     password: string;
     data?: any;
   }
@@ -805,24 +811,30 @@ Phase 4: Advanced Features (18 months)
 // Potential future tech stack
 interface FutureTechStack {
   frontend: {
+
     framework: "React 20+" | "Next.js" | "Remix";
     state: "Zustand" | "Jotai" | "Valtio";
     styling: "Tailwind CSS" | "CSS-in-JS" | "Vanilla Extract";
     bundler: "Vite" | "Turbopack" | "esbuild";
+
   };
 
   backend: {
+
     runtime: "Node.js" | "Deno" | "Bun";
     framework: "Express" | "Fastify" | "Hono";
     database: "PostgreSQL" | "MongoDB" | "Supabase";
     hosting: "Vercel" | "Railway" | "Fly.io";
+
   };
 
   infrastructure: {
+
     containerization: "Docker" | "Podman";
     orchestration: "Kubernetes" | "Docker Swarm";
     monitoring: "Grafana" | "Datadog" | "New Relic";
     cicd: "GitHub Actions" | "GitLab CI" | "Jenkins";
+
   };
 }
 ```

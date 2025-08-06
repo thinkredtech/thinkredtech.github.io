@@ -310,7 +310,9 @@ interface EnvironmentConfig {
   adminPassword: string;
   apiBaseUrl: string;
   debugMode: boolean;
+
   environment: "development" | "staging" | "production";
+
 }
 
 class Environment {
@@ -319,9 +321,11 @@ class Environment {
 
   private constructor() {
     this.config = {
+
       googleAppsScriptId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_ID || "",
       deploymentId: import.meta.env.VITE_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID || "",
       adminPassword: import.meta.env.VITE_REACT_APP_ADMIN_PASSWORD || "",
+
       apiBaseUrl: this.buildApiUrl(),
       debugMode: import.meta.env.VITE_DEBUG_MODE === "true",
       environment: this.detectEnvironment(),
@@ -347,9 +351,11 @@ class Environment {
   }
 
   private detectEnvironment(): "development" | "staging" | "production" {
+
     const hostname = window.location.hostname;
 
     if (hostname === "localhost" || hostname === "127.0.0.1") {
+
       return "development";
     } else if (hostname.includes("staging")) {
       return "staging";
@@ -409,7 +415,9 @@ export default defineConfig(({ mode }) => {
         env.REACT_APP_ADMIN_PASSWORD,
       ),
       "import.meta.env.VITE_DEBUG_MODE": JSON.stringify(
+
         env.DEBUG_MODE || "false",
+
       ),
     },
     build: {
@@ -468,7 +476,9 @@ class ConfigManager {
   static getProperty(key, defaultValue = null) {
     try {
       return (
+
         PropertiesService.getScriptProperties().getProperty(key) || defaultValue
+
       );
     } catch (error) {
       console.error(`Failed to get property ${key}:`, error);
@@ -634,6 +644,7 @@ chmod 644 .env
 npm start
 
 # 4. Check Vite configuration
+
 cd frontend && cat vite.config.ts | grep -A 10 "define:"
 
 # 5. Verify variables in browser console
@@ -727,13 +738,16 @@ ADMIN_PASSWORD=password123
 
 ```bash
 # Check for exposed secrets
+
 grep -r "password\|secret\|key" . --exclude-dir=node_modules --exclude=".env*"
 
 # Validate file permissions
 ls -la .env*
 
 # Check git ignore
+
 cat .gitignore | grep -E "\.env|secret|key"
+
 ```
 
 ---
@@ -830,6 +844,7 @@ _"The environment you create is the foundation of your success!"_
 [![Setup Guide](https://img.shields.io/badge/Setup%20Guide-→-green?style=for-the-badge)](./SETUP.md)
 
 </div>
+
 |----------|-------------|----------|---------|
 | `GOOGLE_APPS_SCRIPT_ID` | Project ID from script.google.com | Yes | `1lxhn-Siz6ThM7rWHveiEVE1...` |
 | `GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID` | Current deployment ID (changes with each deploy) | Yes | `AKfycbzjcTdSJp9sQYs3...` |
@@ -1000,7 +1015,9 @@ Frontend deployment is automatic via GitHub Actions when you push to the main br
 ./scripts/env-manager.sh show
 
 # Test API endpoint
+
 curl -X GET "$(grep GOOGLE_APPS_SCRIPT_BASE_URL .env | cut -d'=' -f2)/$(grep GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID .env | cut -d'=' -f2)/exec"
+
 ```
 
 ### Debug Mode

@@ -273,25 +273,31 @@ const tableStandards = {
 ### Service Status Table
 
 ```markdown
+
 | 🎯 Service | Status | Health            | Metric | Details     |
 | ---------- | :----: | ----------------- | :----: | ----------- |
 | 🌐 Website |   🟢   | `██████████████▒` | 850ms  | OPERATIONAL |
+
 ```
 
 ### Metrics Dashboard Table
 
 ```markdown
+
 | 📊 Metric  | Progress               | Value | Status  |
 | ---------- | ---------------------- | :---: | ------- |
 | Load Speed | `█████████████████▒▒▒` | 850ms | 🟢 FAST |
+
 ```
 
 ### Trend Analysis Table
 
 ```markdown
+
 | 📅 Period | Trend                  | Value | Status |
 | --------- | ---------------------- | :---: | :----: |
 | Week 1    | `████████████████████` | 99.8% |   🟢   |
+
 ```
 
 ---

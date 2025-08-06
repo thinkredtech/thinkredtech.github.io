@@ -358,7 +358,9 @@ jobs:
         with:
           node-version: "18"
       - name: Install and Build
+
         run: |
+
           cd frontend
           npm ci
           npm run build
@@ -530,22 +532,32 @@ jobs:
           CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
 
       - name: Deploy to Google Apps Script
+
         run: |
+
           cd backend
           clasp push -f
+
           deployment_id=$(clasp deploy --description "Auto-deploy from GitHub Actions" | grep -oP 'AK[a-zA-Z0-9_-]+')
+
           echo "DEPLOYMENT_ID=$deployment_id" >> $GITHUB_ENV
 
       - name: Update frontend configuration
+
         run: |
+
           ./scripts/update-deployment-id.sh $DEPLOYMENT_ID
 
       - name: Commit configuration updates
+
         run: |
+
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
+
           git commit -m "ci: update deployment ID to $DEPLOYMENT_ID" || exit 0
+
           git push
 ```
 
@@ -574,12 +586,16 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
+
         run: |
+
           cd frontend
           npm ci
 
       - name: Build frontend
+
         run: |
+
           cd frontend
           npm run build
 
@@ -590,9 +606,13 @@ jobs:
           publish_dir: ./frontend/build
 
       - name: Health check
+
         run: |
+
           sleep 30
+
           curl -f https://thinkredtech.github.io || exit 1
+
 ```
 
 ---
