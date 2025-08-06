@@ -472,7 +472,7 @@ const ContactPage = () => {
                   <h3 className="body-1-medium mb-4">Connect With Us</h3>
                   <div className="flex space-x-4">
                     <a
-                      href="https://github.com/thinkred-tech"
+                      href="https://github.com/thinkredtech"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-dark hover:bg-primary text-white p-3 rounded-full transition-colors"
@@ -488,7 +488,7 @@ const ContactPage = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://linkedin.com/company/thinkred-tech"
+                      href="https://linkedin.com//company/thinkred-technologies-llp"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-dark hover:bg-primary text-white p-3 rounded-full transition-colors"
@@ -504,7 +504,7 @@ const ContactPage = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://twitter.com/thinkred_tech"
+                      href="https://twitter.com/thinkredtech"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-dark hover:bg-primary text-white p-3 rounded-full transition-colors"
