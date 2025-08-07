@@ -1,42 +1,57 @@
-# ThinkRED Setup Guide
+# 🚀 ThinkRED Development Setup Guide
 
-## Quick Start
+_Ready to join the ThinkRED development adventure? Let's get your environment sparkling! ✨_
 
-This guide will help you set up the ThinkRED Technologies website for local development.
+## ⚡ Quick Start
 
-### Prerequisites
+This guide will help you set up the ThinkRED Technologies monorepo for local development. 
+We've made it as smooth as possible - because great developers deserve great tools! 🛠️
 
-Before you begin, ensure you have the following installed:
+### 📋 Prerequisites
 
-- **Node.js** (version 16.0.0 or higher)
-- **npm** (version 8.0.0 or higher)
-- **Git** (for version control)
-- **Code Editor** (VS Code recommended)
+Before diving into the ThinkRED universe, make sure you have these essentials:
 
-### Installation
+- **Node.js** (version 18.0.0 or higher) - LTS recommended 🟢
+- **npm** (version 8.0.0 or higher) - for package management 📦
+- **Git** (for version control) 🔄
+- **Code Editor** (VS Code recommended with extensions) 💻
 
-1. **Clone the Repository**
+_Pro Tip: Need help installing these? Check our [troubleshooting guide](troubleshooting.md)!_ 💡
+
+### 🎯 Installation
+
+#### 1. **Clone the Repository**
+
+_Get the ThinkRED magic on your machine!_
 
    ```bash
    git clone https://github.com/thinkredtech/thinkredtech.github.io.git
    cd thinkredtech.github.io
    ```
 
-2. **Install All Dependencies (Monorepo)**
+#### 2. **Install All Dependencies (Monorepo Style!)**
+
+_One command to rule them all - that's the ThinkRED way!_ 🎪
 
    ```bash
    # Single command installs ALL workspace dependencies
    npm install
    ```
 
-   This automatically:
-   - Installs root dependencies
-   - Installs frontend dependencies
-   - Installs backend dependencies
-   - Sets up workspace linking
-   - Copies documentation for development
+   This automatically does the heavy lifting:
+   
+- ✅ Installs root dependencies and tooling
+- ✅ Installs frontend dependencies (React, Vite, etc.)
+- ✅ Installs backend dependencies (CLASP, Apps Script tools)
+- ✅ Sets up workspace linking between packages
+- ✅ Copies documentation to frontend public directory
+- ✅ Validates environment setup
 
-3. **Environment Configuration**
+   _Magic happening behind the scenes? That's our monorepo superpowers at work!_ ⚡
+
+#### 3. **Environment Configuration**
+
+_Let's personalize your development experience!_
 
    Copy the environment example file:
 
@@ -47,25 +62,39 @@ Before you begin, ensure you have the following installed:
    Edit the `.env` file with your configuration:
 
    ```env
-   VITE_API_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
-   VITE_ENVIRONMENT=development
+   # Google Apps Script Configuration
+   GOOGLE_APPS_SCRIPT_ID=your-script-id
+   GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID=your-deployment-id
+   GOOGLE_APPS_SCRIPT_BASE_URL=https://script.google.com/macros/s
+
+   # Frontend Configuration
+   NODE_ENV=development
+   FRONTEND_BASE_URL=http://localhost:3000
+   
+   # Development Settings
+   ENABLE_DEV_LOGGING=true
+   ENABLE_API_DEBUG=true
    ```
 
-4. **Start Development Server**
+#### 4. **Start Development Server**
+
+_Time to see the magic come alive!_ 🎭
 
    ```bash
    npm run dev
    ```
 
-   The website will be available at `http://localhost:5173`
+   The website will be available at `http://localhost:3000` - your new development playground! 🎮
+
+_Congratulations! You're now part of the ThinkRED development family!_ 🎉
 
 ## Monorepo Workspace Configuration
 
-### ✅ **Automatic Dependency Installation**
+### Automatic Dependency Management
 
-This project uses **npm workspaces** for automatic dependency management across all packages. Here's how it works:
+This project uses **npm workspaces** for automatic dependency management across all packages:
 
-#### 🎯 **Single Command Installation**
+#### Single Command Installation
 
 ```bash
 # At the root - installs ALL workspace dependencies automatically
@@ -73,14 +102,14 @@ npm install
 ```
 
 This single command:
-- ✅ Installs root dependencies
-- ✅ Installs frontend workspace dependencies  
-- ✅ Installs backend workspace dependencies
-- ✅ Creates proper workspace links
-- ✅ Automatically copies documentation for development
-- ✅ Maintains dependency version consistency
+- Installs root dependencies and development tools
+- Installs frontend workspace dependencies
+- Installs backend workspace dependencies  
+- Creates proper workspace links
+- Automatically copies documentation for development
+- Maintains dependency version consistency
 
-#### 🏗️ **Workspace Structure**
+#### Workspace Structure
 
 ```json
 {
@@ -91,7 +120,7 @@ This single command:
 }
 ```
 
-#### 🚀 **Available Installation Commands**
+#### Available Installation Commands
 
 | Command | Description |
 |---------|-------------|
@@ -151,7 +180,8 @@ npm run dev
 
 ### Development Environment
 
-The frontend dependencies are automatically installed when you run `npm install` at the root level (see Monorepo Workspace Configuration above).
+The frontend dependencies are automatically installed when you run `npm install` at the root level 
+(see Monorepo Workspace Configuration above).
 
 1. **Verify Frontend Setup**
 
@@ -180,7 +210,8 @@ The frontend dependencies are automatically installed when you run `npm install`
 
 ### Google Apps Script Configuration
 
-The backend dependencies are automatically installed when you run `npm install` at the root level (see Monorepo Workspace Configuration above).
+The backend dependencies are automatically installed when you run `npm install` at the root level 
+(see Monorepo Workspace Configuration above).
 
 1. **Install Google Apps Script CLI**
 

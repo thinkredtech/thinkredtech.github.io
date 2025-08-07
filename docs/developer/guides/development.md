@@ -1,22 +1,26 @@
-# ThinkRED Development Setup
+# 🛠️ ThinkRED Development Workflow
 
-## Prerequisites
+_Welcome to the ThinkRED development methodology - where creativity meets technical excellence!_ ✨
 
-Before setting up the development environment, ensure you have the following installed:
+## 📋 Prerequisites
 
-### Required Software
+Before diving into the ThinkRED development adventure, let's make sure you're equipped with the right tools! 🎯
 
-- **Node.js** 18+ (LTS recommended)
-- **npm** 8+ or **yarn** 1.22+
-- **Git** for version control
-- **Code Editor** (VS Code recommended)
+### ✅ Required Software
 
-### Optional (For Backend Development)
+- **Node.js** 18+ (LTS recommended) - The foundation of our stack 🟢
+- **npm** 8+ for package management - Our dependency wizard 📦
+- **Git** for version control - Time travel for code! ⏰
+- **Code Editor** (VS Code recommended with our suggested extensions) 💻
 
-- **Google Account** (for Google Apps Script development)
-- **Google CLASP** (for backend deployment)
+### 🎭 Optional (For Backend Development)
 
-### Version Check
+- **Google Account** (for Google Apps Script development) - Your backstage pass 🎫
+- **Google CLASP** (for backend deployment) - The deployment magic wand ✨
+
+### 🔍 Version Check
+
+_Let's make sure everything is in perfect harmony!_
 
 ```bash
 node --version    # Should be v18.0.0 or higher
@@ -24,37 +28,103 @@ npm --version     # Should be 8.0.0 or higher
 git --version     # Any recent version
 ```
 
-## Frontend Setup
+## 🏗️ Monorepo Setup
 
-### 1. Clone Repository
+_The ThinkRED monorepo is designed for developer happiness - one command to rule them all!_ 🎪
+
+### 1️⃣ Clone Repository
+
+_Get the ThinkRED universe on your machine!_
 
 ```bash
-git clone https://github.com/thinkredtech/thinkred-monorepo.git
-cd thinkred-monorepo
+git clone https://github.com/thinkredtech/thinkredtech.github.io.git
+cd thinkredtech.github.io
 ```
 
-### 2. Install Dependencies
+### 2️⃣ Install All Dependencies
+
+_One command, all the magic!_ ⚡
 
 ```bash
-cd frontend
+# Installs dependencies for all workspaces
 npm install
 ```
 
-### 3. Start Development Server
+### 3️⃣ Start Development
+
+_Time to bring your ideas to life!_ 🚀
 
 ```bash
+# Start frontend development server
 npm run dev
+
+# Or start all development services
+npm run dev:all
 ```
 
-The application will be available at `http://localhost:5173`
+The application will be available at `http://localhost:3000`
 
-### 4. Available Scripts
+### 4. Available Development Commands
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+- `npm run dev` - Start frontend development server
+- `npm run dev:all` - Start all development servers in parallel
+- `npm run build` - Build frontend for production
+- `npm run build:all` - Build all components
+- `npm run lint` - Run ESLint across all workspaces
+- `npm run lint:fix` - Fix linting issues automatically
+- `npm run test` - Run test suites
 - `npm run type-check` - Run TypeScript compiler check
+
+## Task Management System
+
+The monorepo uses a unified task management system. All tasks can be run from the root directory:
+
+```bash
+# Show all available tasks
+npm run task --help
+
+# Show workspace status
+npm run status
+
+# Run specific tasks
+npm run task dev frontend     # Start frontend dev server
+npm run task build:all        # Build all components
+npm run task lint backend     # Lint backend only
+```
+
+## Frontend Development
+
+### Technology Stack
+
+- **React 19** with TypeScript
+- **Vite** for build tooling and development server
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **React Markdown** for documentation
+
+### Development Workflow
+
+1. **Start the dev server**: `npm run dev`
+2. **Make changes** to files in `frontend/src/`
+3. **View changes** at `http://localhost:3000` (auto-reload)
+4. **Run tests**: `npm run test`
+5. **Lint code**: `npm run lint`
+
+### Directory Structure
+
+```
+frontend/
+├── src/                   # Source code
+│   ├── components/        # React components
+│   ├── pages/            # Page components
+│   ├── hooks/            # Custom React hooks
+│   ├── utils/            # Utility functions
+│   ├── styles/           # Global styles
+│   └── types/            # TypeScript types
+├── public/               # Static assets
+├── docs/                 # Public documentation
+└── scripts/              # Build and optimization scripts
+```
 
 ## Backend Setup (Optional)
 
