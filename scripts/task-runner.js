@@ -167,7 +167,7 @@ const TASKS = {
     description: "Clean build artifacts and dependencies",
     workspaces: ["root"],
     parallel: false,
-    script: "clean",
+    command: "rm -rf build frontend/dist frontend/.vite node_modules/.cache",
   },
   "clean:git": {
     description: "Clean git build artifacts",

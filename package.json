@@ -33,7 +33,7 @@
     "format": "npm run task format",
     "format:check": "npm run task format:check",
     "type-check": "npm run task type-check",
-    "clean": "npm run task clean",
+    "clean": "rm -rf build frontend/dist frontend/.vite node_modules/.cache",
     "clean:git": "npm run task clean:git",
     "install:clean": "npm run task install:clean",
     "deploy": "npm run task deploy",

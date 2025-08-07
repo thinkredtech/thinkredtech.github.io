@@ -287,8 +287,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Install performance testing dependencies
-          npm install lighthouse chrome-launcher puppeteer sharp serve
+          # Install monorepo dependencies (includes performance testing dependencies)
+          npm install
 
       - name: Run Smart Lighthouse Testing
         id: lighthouse
@@ -309,25 +309,8 @@ jobs:
             exit 1
           fi
 
-          # Run performance testing using project scripts
-          npm run perf:test || echo "⚠️ Performance test completed with warnings"
-
-          # Kill the server
-          kill $server_pid 2>/dev/null || true
-
-          # Set default outputs for now
-          echo "score=90" >> $GITHUB_OUTPUT
-          echo "status=passed" >> $GITHUB_OUTPUT
-          echo "accessibility=95" >> $GITHUB_OUTPUT
-          echo "seo=90" >> $GITHUB_OUTPUT
-          echo "deployment-ready=true" >> $GITHUB_OUTPUT
-          echo "✅ Performance testing completed"
-            exit 1
-          fi
-
           # Run comprehensive performance testing
-          node scripts/performance/performance-orchestrator.js \
-            --scenario pre-deployment \
+          node scripts/performance/performance-orchestrator.js test pre-deployment \
             --url http://localhost:3000 \
             --devices desktop,mobile \
             --format json,html \

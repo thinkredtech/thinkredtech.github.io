@@ -639,6 +639,13 @@ if (require.main === module) {
   
   // Parse options
   const options = {};
+  
+  // If command is not provided, show help
+  if (!command) {
+    orchestrator.showHelp();
+    process.exit(0);
+  }
+  
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg.startsWith('--')) {
@@ -652,6 +659,7 @@ if (require.main === module) {
         options[key] = true;
       }
     } else if (!options.scenario && !arg.startsWith('-')) {
+      // First non-option argument after command is the scenario
       options.scenario = arg;
     }
   }
