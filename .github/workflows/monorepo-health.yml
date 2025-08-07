@@ -1,0 +1,282 @@
+name: 🌳 Monorepo Health Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run weekly on Sundays at 3 AM UTC
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  # Monorepo Structure Validation
+  structure-validation:
+    name: 🏗️ Structure Validation
+    runs-on: ubuntu-latest
+    outputs:
+      structure-status: ${{ steps.validate.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate monorepo structure
+        id: validate
+        run: |
+          echo "🔍 Validating monorepo structure..."
+
+          # Check required directories
+          required_dirs=("frontend" "backend" "docs" "scripts" ".github/workflows")
+          missing_dirs=()
+
+          for dir in "${required_dirs[@]}"; do
+            if [[ ! -d "$dir" ]]; then
+              missing_dirs+=("$dir")
+            fi
+          done
+
+          if [[ ${#missing_dirs[@]} -gt 0 ]]; then
+            echo "❌ Missing required directories:"
+            printf '%s\n' "${missing_dirs[@]}"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Check required files
+          required_files=("package.json" "README.md" "scripts/task-runner.js")
+          missing_files=()
+
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              missing_files+=("$file")
+            fi
+          done
+
+          if [[ ${#missing_files[@]} -gt 0 ]]; then
+            echo "❌ Missing required files:"
+            printf '%s\n' "${missing_files[@]}"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          echo "✅ Monorepo structure validation passed"
+          echo "status=passed" >> $GITHUB_OUTPUT
+
+  # Task Runner Health Check
+  task-runner-health:
+    name: 🔧 Task Runner Health
+    runs-on: ubuntu-latest
+    outputs:
+      task-runner-status: ${{ steps.health.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          # Clean install to prevent dependency conflicts
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: Test task runner functionality
+        id: health
+        run: |
+          echo "🔍 Testing task runner functionality..."
+
+          # Test help command
+          if npm run task help; then
+            echo "✅ Task runner help command works"
+          else
+            echo "❌ Task runner help command failed"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Test status command
+          if npm run task status; then
+            echo "✅ Task runner status command works"
+          else
+            echo "❌ Task runner status command failed"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Test clean command
+          if npm run task clean; then
+            echo "✅ Task runner clean command works"
+          else
+            echo "❌ Task runner clean command failed"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          echo "✅ Task runner health check passed"
+          echo "status=passed" >> $GITHUB_OUTPUT
+
+  # Workspace Dependencies Check
+  dependencies-health:
+    name: 📦 Dependencies Health
+    runs-on: ubuntu-latest
+    outputs:
+      deps-status: ${{ steps.deps.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Check workspace dependencies
+        id: deps
+        run: |
+          echo "🔍 Checking workspace dependencies..."
+
+          # Install dependencies
+          npm install
+
+          # Check for duplicate dependencies
+          echo "Checking for duplicate dependencies..."
+          npm ls --depth=0 --parseable | sort | uniq -d > duplicates.txt
+
+          if [[ -s duplicates.txt ]]; then
+            echo "⚠️ Found duplicate dependencies:"
+            cat duplicates.txt
+            echo "status=warning" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No duplicate dependencies found"
+          fi
+
+          # Check for outdated dependencies
+          echo "Checking for outdated dependencies..."
+          npm outdated --long > outdated.txt || true
+
+          if [[ -s outdated.txt ]]; then
+            echo "ℹ️ Outdated dependencies found:"
+            head -20 outdated.txt
+            echo "status=info" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All dependencies are up to date"
+            echo "status=passed" >> $GITHUB_OUTPUT
+          fi
+
+  # Scripts Validation
+  scripts-validation:
+    name: 📜 Scripts Validation
+    runs-on: ubuntu-latest
+    outputs:
+      scripts-status: ${{ steps.scripts.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate scripts
+        id: scripts
+        run: |
+          echo "🔍 Validating scripts..."
+
+          # Check if scripts are executable
+          scripts_dir="scripts"
+          if [[ -d "$scripts_dir" ]]; then
+            find "$scripts_dir" -name "*.sh" -type f | while read -r script; do
+              if [[ ! -x "$script" ]]; then
+                echo "⚠️ Script $script is not executable"
+                chmod +x "$script"
+                echo "✅ Made $script executable"
+              fi
+            done
+          fi
+
+          # Check for required scripts
+          required_scripts=(
+            "scripts/pre-build.sh"
+            "scripts/post-build.sh"
+            "scripts/task-runner.js"
+            "scripts/qa-pipeline.js"
+          )
+
+          missing_scripts=()
+          for script in "${required_scripts[@]}"; do
+            if [[ ! -f "$script" ]]; then
+              missing_scripts+=("$script")
+            fi
+          done
+
+          if [[ ${#missing_scripts[@]} -gt 0 ]]; then
+            echo "❌ Missing required scripts:"
+            printf '%s\n' "${missing_scripts[@]}"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          echo "✅ Scripts validation passed"
+          echo "status=passed" >> $GITHUB_OUTPUT
+
+  # Generate Health Report
+  health-report:
+    name: 📊 Generate Health Report
+    runs-on: ubuntu-latest
+    needs:
+      [
+        structure-validation,
+        task-runner-health,
+        dependencies-health,
+        scripts-validation,
+      ]
+    if: always()
+    steps:
+      - name: Generate report
+        run: |
+          echo "## 🌳 Monorepo Health Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📋 Health Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Structure Validation | ${{ needs.structure-validation.result }} | Status: ${{ needs.structure-validation.outputs.structure-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Task Runner Health | ${{ needs.task-runner-health.result }} | Status: ${{ needs.task-runner-health.outputs.task-runner-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencies Health | ${{ needs.dependencies-health.result }} | Status: ${{ needs.dependencies-health.outputs.deps-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Scripts Validation | ${{ needs.scripts-validation.result }} | Status: ${{ needs.scripts-validation.outputs.scripts-status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📈 Recommendations" >> $GITHUB_STEP_SUMMARY
+
+          # Generate recommendations based on results
+          overall_health="✅ Healthy"
+
+          if [[ "${{ needs.structure-validation.result }}" == "failure" ]]; then
+            overall_health="❌ Needs Attention"
+            echo "- Fix monorepo structure issues" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.task-runner-health.result }}" == "failure" ]]; then
+            overall_health="❌ Needs Attention"
+            echo "- Repair task runner functionality" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.dependencies-health.outputs.deps-status }}" == "warning" ]]; then
+            echo "- Review and update duplicate dependencies" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "${{ needs.scripts-validation.result }}" == "failure" ]]; then
+            overall_health="❌ Needs Attention"
+            echo "- Add missing required scripts" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [[ "$overall_health" == "✅ Healthy" ]]; then
+            echo "- No immediate action required" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Overall Health**: $overall_health" >> $GITHUB_STEP_SUMMARY
+          echo "**Report Generated**: $(date -u)" >> $GITHUB_STEP_SUMMARY

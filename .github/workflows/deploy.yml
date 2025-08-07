@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: 🚀 Deploy to GitHub Pages
 
 on:
   push:
@@ -17,6 +17,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  NODE_VERSION: "20"
+
 jobs:
   # Build job
   build:
@@ -24,23 +27,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
       - name: Install dependencies
         run: |
-          # Clean install to prevent rollup optional dependency issues
+          # Clean install to prevent dependency conflicts
           rm -rf node_modules package-lock.json
           npm install
+
+      - name: Run pre-build script
+        run: |
+          chmod +x scripts/pre-build.sh
+          npm run prebuild
 
       - name: Type check
         run: npm run task type-check
 
       - name: Lint
         run: npm run task lint
+
+      - name: Format check
+        run: npm run task format:check
 
       - name: Build
         env:
@@ -63,6 +77,30 @@ jobs:
           VITE_ENABLE_CSS_MINIFICATION: true
           VITE_ENABLE_JS_MINIFICATION: true
         run: npm run build
+
+      - name: Run post-build script
+        run: |
+          chmod +x scripts/post-build.sh
+          npm run postbuild
+
+      - name: Verify build output
+        run: |
+          echo "📦 Verifying build output..."
+          if [[ ! -f "build/index.html" ]]; then
+            echo "❌ build/index.html not found"
+            exit 1
+          fi
+
+          # Check for JavaScript files
+          if ! compgen -G "build/assets/*.js" > /dev/null; then
+            echo "❌ No JavaScript files found in build/assets/"
+            exit 1
+          fi
+
+          # Show build size
+          size=$(du -sh build/ | cut -f1)
+          echo "📊 Build size: $size"
+          echo "✅ Build verification successful"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

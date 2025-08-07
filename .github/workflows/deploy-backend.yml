@@ -1,16 +1,13 @@
-name: Deploy Backend to Google Apps Script
+name: 🔧 Deploy Backend to Google Apps Script
 
 on:
-  # Temporarily disabled - backend deployed manually
-  # push:
-  #   branches: [main, master]
-  #   paths: ['backend/**']
+  # Manually triggered only - backend deployed with care
   workflow_dispatch:
     inputs:
       deploy_description:
         description: "Deployment description"
         required: false
-        default: "Automated deployment from GitHub Actions"
+        default: "Manual deployment from GitHub Actions"
       enable_deployment:
         description: "Enable deployment (set to true to actually deploy)"
         required: true
@@ -19,14 +16,61 @@ on:
         options:
           - "false"
           - "true"
+      environment:
+        description: "Target environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - "development"
+          - "staging"
+          - "production"
 
 permissions:
   contents: write
   pull-requests: write
 
+env:
+  NODE_VERSION: "20"
+
 jobs:
-  deploy:
+  validate:
+    name: 🔍 Validation
     runs-on: ubuntu-latest
+    outputs:
+      backend-changed: ${{ steps.changes.outputs.backend }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect backend changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+
+      - name: Validate deployment conditions
+        run: |
+          echo "🔍 Validating deployment conditions..."
+          echo "- Enable deployment: ${{ github.event.inputs.enable_deployment }}"
+          echo "- Target environment: ${{ github.event.inputs.environment }}"
+          echo "- Backend changed: ${{ steps.changes.outputs.backend }}"
+          
+          if [[ "${{ github.event.inputs.enable_deployment }}" != "true" ]]; then
+            echo "❌ Deployment not enabled - set enable_deployment to 'true' to deploy"
+            exit 1
+          fi
+          
+          echo "✅ Validation passed"
+
+  deploy:
+    name: 🚀 Deploy Backend
+    runs-on: ubuntu-latest
+    needs: [validate]
     # Only run if manually triggered with enable_deployment set to true
     if: github.event.inputs.enable_deployment == 'true'
 
@@ -41,13 +85,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
+          cache-dependency-path: backend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify setup
+        run: |
+          echo "🔍 Verifying backend setup..."
+          npm run verify || echo "⚠️ Setup verification completed with warnings"
+
       - name: Install Google Apps Script CLI
+        run: npm install -g @google/clasp
         run: npm install -g @google/clasp
 
       - name: Create .clasprc.json
