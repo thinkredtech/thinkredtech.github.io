@@ -157,7 +157,7 @@ const TASKS = {
     customCommand: async () => {
       await runCommand(
         "Clean installing dependencies...",
-        "npm run clean && npm install",
+        "rm -rf build frontend/dist frontend/.vite node_modules/.cache && npm install",
       );
     },
   },
@@ -513,6 +513,19 @@ async function executeTask(taskName, targetWorkspace = null, options = {}) {
     logHeader(`Running ${taskName}`);
     try {
       await task.customCommand();
+      logSuccess(`Task ${taskName} completed successfully`);
+    } catch (error) {
+      logError(`Task ${taskName} failed: ${error.message}`);
+      process.exit(1);
+    }
+    return;
+  }
+
+  // Handle direct commands
+  if (task.command) {
+    logHeader(`Running ${taskName}`);
+    try {
+      await runCommand(`Running command: ${task.command}`, task.command);
       logSuccess(`Task ${taskName} completed successfully`);
     } catch (error) {
       logError(`Task ${taskName} failed: ${error.message}`);
