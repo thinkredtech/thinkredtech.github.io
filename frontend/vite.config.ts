@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { randomBytes } from "crypto";
 import { createCSPPlugin } from "./src/plugins/vite-csp-plugin";
+import { reactRegexFixPlugin } from "./vite-plugins/react-regex-fix.js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,6 +26,8 @@ export default defineConfig({
       enabled: process.env.NODE_ENV !== "production",
       development: process.env.NODE_ENV !== "production",
     }),
+    // React 19.1.1 Regex Fix Plugin - Automatically fixes malformed regex pattern
+    reactRegexFixPlugin(),
   ],
   base: "/", // For thinkredtech.github.io (user/org site)
   resolve: {

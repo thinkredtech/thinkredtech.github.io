@@ -49,12 +49,17 @@ if ! test_ssh_connection; then
     exit 1
 fi
 
-# Step 2: Check if build directory exists
+# Step 2: Build the project (always create fresh build)
+echo -e "${YELLOW}🔨 Building project (creating fresh build)...${NC}"
+npm run build
+
 if [ ! -d "$BUILD_DIR" ]; then
-    echo -e "${RED}❌ Build directory '$BUILD_DIR' not found${NC}"
-    echo -e "${YELLOW}💡 Please run 'npm run build' first${NC}"
+    echo -e "${RED}❌ Build failed - '$BUILD_DIR' directory not created${NC}"
+    echo -e "${YELLOW}💡 Please check the build logs for errors${NC}"
     exit 1
 fi
+
+echo -e "${GREEN}✅ Build completed successfully${NC}"
 
 echo -e "${YELLOW}📦 Preparing deployment package...${NC}"
 

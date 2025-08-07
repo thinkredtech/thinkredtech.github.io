@@ -316,9 +316,7 @@ function removeUnusedJavaScript() {
       if (namedImports) {
         const importNames = namedImports[1].split(',').map(name => name.trim());
         const usedImports = importNames.filter(name => {
-          // Escape special regex characters to prevent invalid regex patterns
-          const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(`\\b${escapedName}\\b`, 'g');
+          const regex = new RegExp(`\\b${name}\\b`, 'g');
           const matches = js.match(regex) || [];
           return matches.length > 1; // More than just the import statement
         });
