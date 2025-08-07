@@ -170,31 +170,12 @@ function removeUnusedCSS() {
     let css = fs.readFileSync(cssPath, 'utf8');
     const originalSize = css.length;
     
-    // Remove unused Tailwind utilities (common ones not needed)
-    const unusedPatterns = [
-      // Remove unused spacing utilities
-      /\.(p|m)[tlbr]?-\d+[0-9]*\{[^}]*\}/g,
-      // Remove unused color variations
-      /\.(text|bg|border)-\w+-[1-9]00(?:\/\d+)?\{[^}]*\}/g,
-      // Remove unused responsive variants for uncommon breakpoints
-      /\.(?:xs|2xl)\\:[^{]*\{[^}]*\}/g,
-      // Remove unused hover/focus states for decorative elements
-      /\.(hover|focus):(?:scale|rotate|skew)[^{]*\{[^}]*\}/g,
-      // Remove unused animation classes
-      /\.(animate-(?!pulse|spin|bounce))[^{]*\{[^}]*\}/g,
-    ];
+    console.log('⚠️  Skipping aggressive CSS pattern removal to preserve React dynamic classes');
+    console.log('   GTMetrix regex patterns can break essential Tailwind utilities');
     
-    unusedPatterns.forEach(pattern => {
-      css = css.replace(pattern, '');
-    });
-    
-    // Remove duplicate rules
-    const rules = css.split('}').filter(rule => rule.trim());
-    const uniqueRules = [...new Set(rules)];
-    css = uniqueRules.join('}') + (uniqueRules.length > 0 ? '}' : '');
-    
-    // Minify further
+    // Only apply safe minification (whitespace and comments)
     css = css
+      .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
       .replace(/\s*{\s*/g, '{')
       .replace(/;\s*}/g, '}')
       .replace(/;\s*/g, ';')
@@ -304,8 +285,9 @@ function removeUnusedJavaScript() {
     // Remove debugger statements
     js = js.replace(/debugger;?/g, '');
     
-    // Remove development-only code blocks
+    // Remove development-only code blocks (more specific pattern)
     js = js.replace(/if\s*\(\s*process\.env\.NODE_ENV\s*[!=]==?\s*['"]development['"]\s*\)\s*\{[^}]*\}/g, '');
+    js = js.replace(/if\s*\(\s*['"]development['"]\s*[!=]==?\s*process\.env\.NODE_ENV\s*\)\s*\{[^}]*\}/g, '');
     
     // Remove unused imports (basic detection)
     const importRegex = /import\s+\{[^}]*\}\s+from\s+['"][^'"]*['"];?/g;

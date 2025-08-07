@@ -15,100 +15,6 @@ const assetsDir = path.join(distDir, 'assets');
 
 console.log('🎨 Starting CSS Optimization...');
 
-// Critical CSS selectors that should always be kept
-const criticalSelectors = [
-  '*', '::before', '::after', 'html', 'body',
-  '.font-comfortaa', '.font-montserrat',
-  '.text-gray-600', '.text-gray-700', '.text-gray-800', '.text-gray-900',
-  'header', 'nav', '.logo', '.nav-link', '.mobile-menu',
-  '.btn', '.btn-primary', '.sr-only',
-  '.skeleton', '@keyframes',
-  // Tailwind base classes that are commonly used
-  '.flex', '.items-center', '.justify-center', '.justify-between',
-  '.w-full', '.h-full', '.max-w-', '.mx-auto', '.px-', '.py-',
-  '.bg-white', '.bg-red-', '.text-white', '.text-red-',
-  '.border', '.rounded', '.shadow',
-  '.transition', '.duration-', '.ease-',
-  '.hover\\:', '.focus\\:', '.active\\:',
-  '.md\\:', '.lg\\:', '.xl\\:',
-  // Component-specific classes
-  '.hero', '.container', '.card', '.section'
-];
-
-// Function to analyze CSS usage
-function analyzeCSSUsage(cssContent, htmlContent) {
-  const usedSelectors = new Set();
-  const unusedSelectors = new Set();
-  
-  // Extract all CSS rules
-  const cssRules = cssContent.match(/[^{}]+\{[^{}]*\}/g) || [];
-  
-  cssRules.forEach(rule => {
-    const selectorPart = rule.split('{')[0].trim();
-    const selectors = selectorPart.split(',').map(s => s.trim());
-    
-    selectors.forEach(selector => {
-      // Clean selector for matching
-      const cleanSelector = selector
-        .replace(/::?[a-z-]+/g, '') // Remove pseudo-elements
-        .replace(/\[[^\]]*\]/g, '') // Remove attribute selectors
-        .replace(/:[^:][^,\s{]*/g, '') // Remove pseudo-classes
-        .trim();
-      
-      if (isCriticalSelector(selector) || isUsedInHTML(cleanSelector, htmlContent)) {
-        usedSelectors.add(rule);
-      } else {
-        unusedSelectors.add(rule);
-      }
-    });
-  });
-  
-  return { usedSelectors: Array.from(usedSelectors), unusedSelectors: Array.from(unusedSelectors) };
-}
-
-function isCriticalSelector(selector) {
-  return criticalSelectors.some(critical => {
-    if (critical.endsWith('-')) {
-      return selector.includes(critical);
-    }
-    try {
-      // Escape special regex characters to prevent invalid regex errors
-      const escapedCritical = critical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return selector.includes(critical) || selector.match(new RegExp(escapedCritical));
-    } catch {
-      // Fallback to simple string match if regex fails
-      return selector.includes(critical);
-    }
-  });
-}
-
-function isUsedInHTML(selector, htmlContent) {
-  if (!selector || selector.length === 0) return false;
-  
-  // Handle class selectors
-  if (selector.startsWith('.')) {
-    const className = selector.substring(1).split(/[\s>+~]/).filter(Boolean)[0];
-    if (className) {
-      return htmlContent.includes(`class="${className}"`) || 
-             htmlContent.includes(`class="`) && htmlContent.includes(className) ||
-             htmlContent.includes(`className=`) && htmlContent.includes(className);
-    }
-  }
-  
-  // Handle ID selectors
-  if (selector.startsWith('#')) {
-    const idName = selector.substring(1).split(/[\s>+~]/).filter(Boolean)[0];
-    return htmlContent.includes(`id="${idName}"`);
-  }
-  
-  // Handle element selectors
-  if (/^[a-z][a-z0-9]*$/i.test(selector)) {
-    return htmlContent.includes(`<${selector}`) || htmlContent.includes(`<${selector.toLowerCase()}`);
-  }
-  
-  return false;
-}
-
 // Function to optimize CSS file
 async function optimizeCSS() {
   try {
@@ -120,9 +26,9 @@ async function optimizeCSS() {
       return;
     }
     
-    // Read HTML content for analysis
-    const indexPath = path.join(distDir, 'index.html');
-    const htmlContent = fs.existsSync(indexPath) ? fs.readFileSync(indexPath, 'utf8') : '';
+    console.log('⚠️  Skipping aggressive CSS rule removal to preserve React dynamic classes');
+    console.log('   React applications generate CSS classes dynamically via JavaScript');
+    console.log('   Static HTML analysis cannot detect runtime-generated classes');
     
     for (const cssFile of cssFiles) {
       const cssPath = path.join(assetsDir, cssFile);
@@ -131,14 +37,9 @@ async function optimizeCSS() {
       
       console.log(`🔄 Optimizing ${cssFile} (${Math.round(originalSize / 1024)}KB)...`);
       
-      // Analyze CSS usage
-      const { usedSelectors, unusedSelectors } = analyzeCSSUsage(originalCSS, htmlContent);
-      
-      // Create optimized CSS
-      let optimizedCSS = usedSelectors.join('\n');
-      
-      // Additional optimizations
-      optimizedCSS = await performAdvancedCSSOptimizations(optimizedCSS);
+      // Only perform safe optimizations (whitespace, comments, etc.)
+      // Skip rule removal to preserve React dynamic classes
+      let optimizedCSS = await performAdvancedCSSOptimizations(originalCSS);
       
       // Write optimized CSS
       fs.writeFileSync(cssPath, optimizedCSS, 'utf8');
@@ -147,7 +48,7 @@ async function optimizeCSS() {
       const savings = ((originalSize - newSize) / originalSize * 100).toFixed(1);
       
       console.log(`✅ ${cssFile}: ${Math.round(originalSize / 1024)}KB → ${Math.round(newSize / 1024)}KB (${savings}% reduction)`);
-      console.log(`   📊 Removed ${unusedSelectors.length} unused rules, kept ${usedSelectors.length} used rules`);
+      console.log(`   📊 Applied safe optimizations only (whitespace, comments, color values)`);
     }
     
   } catch (error) {
@@ -264,16 +165,8 @@ function implementNonCriticalCSSLoading() {
       return;
     }
     
-    let html = fs.readFileSync(indexPath, 'utf8');
-    
-    // Find CSS files and make them load asynchronously
-    const cssFiles = fs.readdirSync(assetsDir).filter(file => file.endsWith('.css'));
-    
     // Skip CSS link modification to prevent loading issues
-    console.log('✅ Updated critical CSS in index.html');
-    console.log('✅ Skipped CSS link modification to ensure compatibility');
-    
-    fs.writeFileSync(indexPath, html, 'utf8');
+    console.log('✅ Skipped CSS link modification to preserve React compatibility');
     
   } catch (error) {
     console.error('❌ Failed to implement non-critical CSS loading:', error.message);

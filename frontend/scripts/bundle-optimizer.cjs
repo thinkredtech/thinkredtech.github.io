@@ -63,7 +63,9 @@ function removeUnusedFeatures(bundles) {
     
     // Remove React DevTools in production
     content = content.replace(/React\.Component\.displayName\s*=\s*['"[^"']+['"]/, '');
-    content = content.replace(/__REACT_DEVTOOLS_GLOBAL_HOOK__[\s\S]*?;/g, '');
+    // Temporarily disable DevTools removal to avoid corruption
+    // content = content.replace(/if\s*\(\s*["']undefined["']\s*!=\s*typeof\s+__REACT_DEVTOOLS_GLOBAL_HOOK__[^}]*}\s*catch[^}]*}\s*/g, '');
+    // content = content.replace(/if\s*\(\s*typeof\s+__REACT_DEVTOOLS_GLOBAL_HOOK__\s*!=\s*["']undefined["'][^}]*}\s*catch[^}]*}\s*/g, '');
     
     // Remove source map references
     content = content.replace(/\/\/# sourceMappingURL=.*$/gm, '');
@@ -72,8 +74,9 @@ function removeUnusedFeatures(bundles) {
     // Remove console.* calls in production
     content = content.replace(/console\.(?:log|info|debug|warn|error)\([^)]*\);?/g, '');
     
-    // Remove development-only code blocks
-    content = content.replace(/if\s*\(\s*(?:process\.env\.NODE_ENV|"development")\s*[!=]==?\s*['"]\w+['"]\s*\)\s*\{[^}]*\}/g, '');
+    // Remove development-only code blocks (more specific pattern)
+    content = content.replace(/if\s*\(\s*process\.env\.NODE_ENV\s*[!=]==?\s*['"]development['"]\s*\)\s*\{[^}]*\}/g, '');
+    content = content.replace(/if\s*\(\s*['"]development['"]\s*[!=]==?\s*process\.env\.NODE_ENV\s*\)\s*\{[^}]*\}/g, '');
     
     // Remove unused React imports
     if (bundle.type === 'vendor' || bundle.type === 'react') {
