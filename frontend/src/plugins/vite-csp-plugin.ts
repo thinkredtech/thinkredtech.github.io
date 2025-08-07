@@ -3,7 +3,6 @@
  */
 
 import type { Plugin } from "vite";
-import { getCSPWithNonces } from "../config/csp";
 import { generateCSPNonce } from "../utils/security";
 
 export interface CSPPluginOptions {
@@ -34,69 +33,26 @@ export function createCSPPlugin(options: CSPPluginOptions = {}): Plugin {
     transformIndexHtml: {
       order: "post",
       handler(html: string) {
-        // In development, use a more permissive CSP or disable entirely
-        if (isDev) {
-          // For development, use a basic CSP that allows most operations
-          const devCSP = `
-default-src 'self' 'unsafe-inline' 'unsafe-eval';
-script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.google.com https://script.googleusercontent.com;
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src 'self' https://fonts.gstatic.com;
-img-src 'self' data: https:;
-connect-src 'self' https://api.thinkred.tech https://thinkredtech.github.io https://script.google.com https://script.googleusercontent.com https: ws: wss: ws://localhost:* wss://localhost:*;
-object-src 'none';
-media-src 'self';
-child-src 'none';
-frame-src 'none';
-worker-src 'self';
-manifest-src 'self';
-base-uri 'self';
-form-action 'self' https://script.google.com https://script.googleusercontent.com;
-`
-            .replace(/\s+/g, " ")
-            .trim();
-
-          // Replace existing CSP meta tag or add new one
-          const cspRegex =
-            /<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*>/i;
-          if (html.match(cspRegex)) {
-            html = html.replace(
-              cspRegex,
-              `<meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
-            );
-          } else {
-            html = html.replace(
-              "<head>",
-              `<head>
-    <meta http-equiv="Content-Security-Policy" content="${devCSP}">`,
-            );
-          }
-        } else {
-          // Production: Use strict CSP with nonces
+        // For production builds, ensure clean CSP without conflicts
+        if (!isDev) {
+          // Generate fresh nonce for this build
           const scriptNonce = generateCSPNonce();
-          const styleNonce = generateCSPNonce();
 
-          // Get CSP header with nonces
-          const cspHeader = getCSPWithNonces(scriptNonce, styleNonce, false);
+          // Replace placeholder nonces with actual values
+          html = html.replace(/__CSP_NONCE__/g, scriptNonce);
 
-          // Add CSP meta tag
-          html = html.replace(
-            "<head>",
-            `<head>
-    <meta http-equiv="Content-Security-Policy" content="${cspHeader}">`,
-          );
+          // Ensure only one CSP meta tag exists
+          const cspRegex =
+            /<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*>/gi;
+          const cspMatches = html.match(cspRegex);
 
-          // Add nonces to script tags
-          html = html.replace(
-            /<script(\s[^>]*)?>/g,
-            `<script nonce="${scriptNonce}"$1>`,
-          );
-
-          // Add nonces to style tags
-          html = html.replace(
-            /<style(\s[^>]*)?>/g,
-            `<style nonce="${styleNonce}"$1>`,
-          );
+          if (cspMatches && cspMatches.length > 1) {
+            // Remove duplicate CSP headers, keep only the first one
+            html = html.replace(cspRegex, (match, offset) => {
+              const firstMatch = html.indexOf(match);
+              return offset === firstMatch ? match : "";
+            });
+          }
         }
 
         return html;

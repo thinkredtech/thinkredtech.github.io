@@ -23,7 +23,7 @@ export default defineConfig({
     // CSP Plugin for secure Content Security Policy - Addresses GitHub Issue #45
     // Note: Disabled during build - post-build optimizers handle CSP nonces
     createCSPPlugin({
-      enabled: process.env.NODE_ENV !== "production",
+      enabled: false, // Disabled to preserve manual CSP in HTML template
       development: process.env.NODE_ENV !== "production",
     }),
     // React 19.1.1 Regex Fix Plugin - Automatically fixes malformed regex pattern
@@ -136,64 +136,24 @@ export default defineConfig({
         }
       },
     },
-    chunkSizeWarningLimit: 300, // Reduce chunk size warning for better performance
-    // Enhanced optimizations for PageSpeed
+    chunkSizeWarningLimit: 500, // Reasonable chunk size warning
+    // Simple, safe minification
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        passes: 3, // Increased compression passes
+        // Keep only essential, safe optimizations
         dead_code: true,
         unused: true,
-        side_effects: false,
-        // Additional aggressive optimizations
-        arrows: true,
-        arguments: true,
-        booleans: true,
-        collapse_vars: true,
-        comparisons: true,
-        computed_props: true,
-        conditionals: true,
-        directives: true,
-        evaluate: true,
-        hoist_funs: true,
-        hoist_props: true,
-        hoist_vars: false,
-        if_return: true,
-        inline: true,
-        join_vars: true,
-        loops: true,
-        negate_iife: true,
-        properties: true,
-        reduce_funcs: true,
-        reduce_vars: true,
-        sequences: true,
-        switches: true,
-        typeofs: true,
-        unsafe: true,
-        unsafe_arrows: true,
-        unsafe_comps: true,
-        unsafe_Function: true,
-        unsafe_math: true,
-        unsafe_symbols: true,
-        unsafe_methods: true,
-        unsafe_proto: true,
-        unsafe_regexp: true,
-        unsafe_undefined: true,
       },
       mangle: {
         safari10: true,
-        toplevel: true,
-        eval: true,
-        keep_fnames: false,
-        reserved: ['__CSP_NONCE__'], // Preserve CSP nonce
+        // Keep function names for debugging
+        keep_fnames: true,
       },
       format: {
         comments: false,
-        ascii_only: true, // Better compression
-        ecma: 2020,
       },
     },
     cssCodeSplit: true,

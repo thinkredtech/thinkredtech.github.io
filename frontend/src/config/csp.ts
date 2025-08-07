@@ -21,8 +21,6 @@ manifest-src 'self';
 frame-ancestors 'none';
 base-uri 'self';
 form-action 'self' https://script.google.com https://script.googleusercontent.com;
-upgrade-insecure-requests;
-block-all-mixed-content;
 `
   .replace(/\s+/g, " ")
   .trim();

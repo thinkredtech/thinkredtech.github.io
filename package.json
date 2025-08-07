@@ -22,6 +22,7 @@
     "dev": "npm run task dev",
     "dev:all": "npm run task dev:all",
     "build": "npm run task build",
+    "build:clean": "npm run task build",
     "build:all": "npm run task build:all",
     "prebuild": "./scripts/pre-build.sh",
     "postbuild": "./scripts/post-build.sh",

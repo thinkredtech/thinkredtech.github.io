@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/features/layout/Layout";
 import AvatarAssistant from "./components/ui/AvatarAssistant";
 import ScrollToTop from "./components/ui/ScrollToTop";
-import ScrollToTopOnRouteChange from "./components/ui/ScrollToTopOnRouteChange";
+// import ScrollToTopOnRouteChange from "./components/ui/ScrollToTopOnRouteChange";
+import HomePage from "./pages/HomePage"; // Direct import instead of lazy
 import "./styles/components/LoadingScreen.css";
 
 const DocsPage = lazy(() => import("./pages/DocsPage"));
-const HomePage = lazy(() => import("./pages/HomePage"));
+// const HomePage = lazy(() => import("./pages/HomePage")); // Temporarily disabled lazy loading
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
@@ -27,8 +28,9 @@ const BrandGuidelinesPage = lazy(() => import("./pages/BrandGuidelinesPage"));
 function App() {
   return (
     <Router>
-      <ScrollToTopOnRouteChange />
       <Layout>
+        {/* <ScrollToTopOnRouteChange /> */}
+        {/* Temporarily disabled due to React 19 hook timing issues */}
         <Suspense
           fallback={
             <div className="loading-screen">
