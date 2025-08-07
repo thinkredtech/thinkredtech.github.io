@@ -47,34 +47,40 @@ jobs:
           echo "📊 Collecting repository metrics..."
 
           # Code metrics
-          total_files=$(find frontend/src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" 2>/dev/null | wc -l || echo 0)
+          echo "🔍 Collecting code metrics..."
+          total_files=$(find frontend/src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" 2>/dev/null | wc -l | tr -d '[:space:]' || echo 0)
           if command -v wc >/dev/null; then
             # Use find with wc to count lines across all files
-            total_lines=$(find frontend/src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec cat {} + 2>/dev/null | wc -l || echo 0)
+            total_lines=$(find frontend/src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec cat {} + 2>/dev/null | wc -l | tr -d '[:space:]' || echo 0)
           else
             # Fallback method
-            total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo 0)
+            total_lines=$(find src/ -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}' | tr -d '[:space:]' || echo 0)
           fi
 
           # Git metrics
-          commits_last_week=$(git log --since="1 week ago" --oneline | wc -l)
-          contributors=$(git log --format='%an' | sort -u | wc -l)
+          echo "📊 Collecting git metrics..."
+          commits_last_week=$(git log --since="1 week ago" --oneline | wc -l | tr -d '[:space:]')
+          contributors=$(git log --format='%an' | sort -u | wc -l | tr -d '[:space:]')
 
           # Build metrics
+          echo "🏗️ Collecting build metrics..."
           npm run build > /dev/null 2>&1
-          build_size=$(du -sh build/ | cut -f1)
+          build_size=$(du -sh build/ 2>/dev/null | cut -f1 | tr -d '[:space:]' || echo "0K")
 
           # Test metrics
+          echo "🧪 Collecting test metrics..."
           test_output=$(npm test --silent 2>&1 || echo "Tests failed")
 
           # Package metrics
-          total_deps=$(cat package.json | jq '.dependencies | length')
-          total_dev_deps=$(cat package.json | jq '.devDependencies | length')
+          echo "📦 Collecting package metrics..."
+          total_deps=$(cat package.json | jq -r '.dependencies | length // 0' | tr -d '[:space:]')
+          total_dev_deps=$(cat package.json | jq -r '.devDependencies | length // 0' | tr -d '[:space:]')
 
           # Security metrics
+          echo "🔒 Collecting security metrics..."
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
           # Check if audit shows actual vulnerabilities by counting those with severity
-          vulnerabilities=$(echo "$audit_output" | jq '[.metadata.vulnerabilities | to_entries[] | select(.value > 0)] | length' 2>/dev/null || echo 0)
+          vulnerabilities=$(echo "$audit_output" | jq -r '[.metadata.vulnerabilities | to_entries[] | select(.value > 0)] | length' 2>/dev/null | tr -d '[:space:]' || echo 0)
 
           # Ensure all variables have safe defaults
           total_files=${total_files:-0}
@@ -86,7 +92,27 @@ jobs:
           total_dev_deps=${total_dev_deps:-0}
           vulnerabilities=${vulnerabilities:-0}
 
+          # Additional validation to ensure numeric values
+          [[ "$total_files" =~ ^[0-9]+$ ]] || total_files=0
+          [[ "$total_lines" =~ ^[0-9]+$ ]] || total_lines=0
+          [[ "$commits_last_week" =~ ^[0-9]+$ ]] || commits_last_week=0
+          [[ "$contributors" =~ ^[0-9]+$ ]] || contributors=0
+          [[ "$total_deps" =~ ^[0-9]+$ ]] || total_deps=0
+          [[ "$total_dev_deps" =~ ^[0-9]+$ ]] || total_dev_deps=0
+          [[ "$vulnerabilities" =~ ^[0-9]+$ ]] || vulnerabilities=0
+
+          echo "🔍 Debug values:"
+          echo "  total_files='$total_files'"
+          echo "  total_lines='$total_lines'"
+          echo "  commits_last_week='$commits_last_week'"
+          echo "  contributors='$contributors'"
+          echo "  build_size='$build_size'"
+          echo "  total_deps='$total_deps'"
+          echo "  total_dev_deps='$total_dev_deps'"
+          echo "  vulnerabilities='$vulnerabilities'"
+
           # Create metrics JSON using jq for robust single-line output
+          echo "📝 Creating metrics JSON..."
           metrics_json=$(jq -n -c \
             --arg total_files "$total_files" \
             --arg total_lines "$total_lines" \
@@ -98,26 +124,28 @@ jobs:
             --arg vulnerabilities "$vulnerabilities" \
             '{
               code: {
-                total_files: ($total_files | tonumber),
-                total_lines: ($total_lines | tonumber)
+                total_files: ($total_files | tonumber // 0),
+                total_lines: ($total_lines | tonumber // 0)
               },
               git: {
-                commits_last_week: ($commits_last_week | tonumber),
-                contributors: ($contributors | tonumber)
+                commits_last_week: ($commits_last_week | tonumber // 0),
+                contributors: ($contributors | tonumber // 0)
               },
               build: {
                 size: $build_size,
                 status: "success"
               },
               dependencies: {
-                total: ($total_deps | tonumber),
-                dev: ($total_dev_deps | tonumber)
+                total: ($total_deps | tonumber // 0),
+                dev: ($total_dev_deps | tonumber // 0)
               },
               security: {
-                vulnerabilities: ($vulnerabilities | tonumber)
+                vulnerabilities: ($vulnerabilities | tonumber // 0)
               }
             }'
           )
+
+          echo "✅ Generated JSON: $metrics_json"
 
           # Use GitHub Actions multiline output format
           {
@@ -141,7 +169,7 @@ jobs:
           score=100
 
           # Deduct points for security issues
-          vulnerabilities=$(echo '${{ steps.metrics.outputs.data }}' | jq '.security.vulnerabilities // 0')
+          vulnerabilities=$(echo '${{ steps.metrics.outputs.data }}' | jq -r '.security.vulnerabilities // 0' | tr -d '[:space:]')
           if [[ $vulnerabilities =~ ^[0-9]+$ ]] && [[ $vulnerabilities -gt 0 ]]; then
             score=$((score - (vulnerabilities * 10)))
             echo "⚠️ Deducted points for $vulnerabilities vulnerabilities"
@@ -160,8 +188,8 @@ jobs:
           fi
 
           # Check for recent activity
-          commits_last_week=$(echo '${{ steps.metrics.outputs.data }}' | jq '.git.commits_last_week')
-          if [[ $commits_last_week -eq 0 ]]; then
+          commits_last_week=$(echo '${{ steps.metrics.outputs.data }}' | jq -r '.git.commits_last_week // 0' | tr -d '[:space:]')
+          if [[ $commits_last_week =~ ^[0-9]+$ ]] && [[ $commits_last_week -eq 0 ]]; then
             score=$((score - 5))
             echo "⚠️ Deducted points for no recent activity"
           fi
@@ -218,7 +246,7 @@ jobs:
               total_js_size=$(find build/assets -name "*.js" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
               total_css_size=$(find build/assets -name "*.css" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
             fi
-            js_files=$(find build/assets -name "*.js" | wc -l)
+            js_files=$(find build/assets -name "*.js" | wc -l | tr -d '[:space:]')
           elif [[ -d "build/static" ]]; then
             echo "📁 Using build/static directory structure"
             if command -v stat >/dev/null && stat --version 2>&1 | grep -q GNU; then
@@ -230,7 +258,7 @@ jobs:
               total_js_size=$(find build/static/js -name "*.js" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
               total_css_size=$(find build/static/css -name "*.css" -exec du -b {} + 2>/dev/null | awk '{sum += $1} END {print sum}' || echo 0)
             fi
-            js_files=$(find build/static/js -name "*.js" | wc -l)
+            js_files=$(find build/static/js -name "*.js" | wc -l | tr -d '[:space:]')
           else
             echo "⚠️ No build directory found"
             total_js_size=0
@@ -242,6 +270,11 @@ jobs:
           total_js_size=${total_js_size:-0}
           total_css_size=${total_css_size:-0}
           js_files=${js_files:-0}
+
+          # Additional validation to ensure numeric values
+          [[ "$total_js_size" =~ ^[0-9]+$ ]] || total_js_size=0
+          [[ "$total_css_size" =~ ^[0-9]+$ ]] || total_css_size=0
+          [[ "$js_files" =~ ^[0-9]+$ ]] || js_files=0
 
           # Convert to KB (handle case where size is 0)
           if [[ $total_js_size -gt 0 ]]; then
@@ -327,7 +360,7 @@ jobs:
 
           # Check for outdated packages
           outdated_output=$(npm outdated --json 2>/dev/null || echo "{}")
-          outdated_count=$(echo "$outdated_output" | jq 'length // 0')
+          outdated_count=$(echo "$outdated_output" | jq -r 'length // 0' | tr -d '[:space:]')
 
           # Validate counts are numbers
           if ! [[ $outdated_count =~ ^[0-9]+$ ]]; then
@@ -336,8 +369,8 @@ jobs:
 
           # Check for security vulnerabilities
           audit_output=$(npm audit --json 2>/dev/null || echo '{"metadata":{"vulnerabilities":{}}}')
-          high_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.high // 0')
-          critical_vulns=$(echo "$audit_output" | jq '.metadata.vulnerabilities.critical // 0')
+          high_vulns=$(echo "$audit_output" | jq -r '.metadata.vulnerabilities.high // 0' | tr -d '[:space:]')
+          critical_vulns=$(echo "$audit_output" | jq -r '.metadata.vulnerabilities.critical // 0' | tr -d '[:space:]')
 
           # Validate vulnerability counts are numbers
           if ! [[ $high_vulns =~ ^[0-9]+$ ]]; then
