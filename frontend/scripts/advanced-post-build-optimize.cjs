@@ -323,11 +323,12 @@ try {
     '<img$1 loading="lazy">'
   );
   
-  // 10. OPTIMIZE FONT LOADING
-  html = html.replace(
-    /href="https:\/\/fonts\.googleapis\.com\/css2[^"]*"/g,
-    (match) => `${match} media="print" onload="this.media='all'"`
-  );
+  // 10. OPTIMIZE FONT LOADING - DISABLED: Already handled by gtmetrix-optimizer.cjs
+  // Removed duplicate font loading optimization to prevent attribute duplication
+  // html = html.replace(
+  //   /href="https:\/\/fonts\.googleapis\.com\/css2[^"]*"/g,
+  //   (match) => `${match} media="print" onload="this.media='all'"`
+  // );
 
   // 11. SKIP NON-CRITICAL CSS LOADING - Let Vite handle CSS naturally
   // Removed problematic dynamic CSS loading that conflicts with Vite
